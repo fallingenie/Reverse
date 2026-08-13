@@ -1,0 +1,21 @@
+{
+  "name": "reverse-grounded-learning-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "초3~고2 근거 기반 시나리오 수업 Skill 프로토타입",
+  "type": "module",
+  "scripts": {
+    "format": "node scripts/format.mjs",
+    "validate": "node scripts/validate.mjs",
+    "test": "node --test",
+    "check": "pnpm run validate && pnpm test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1"
+  },
+  "license": "Apache-2.0"
+}

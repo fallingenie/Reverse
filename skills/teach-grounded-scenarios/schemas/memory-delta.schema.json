@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/memory-delta.schema.json",
+  "title": "턴별 기억 델타",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["base_revision", "next_revision", "add", "correct", "resolve"],
+  "properties": {
+    "base_revision": { "type": "integer", "minimum": 0 },
+    "next_revision": { "type": "integer", "minimum": 1 },
+    "add": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "value", "reason"],
+        "properties": {
+          "path": { "type": "string", "pattern": "^/" },
+          "value": {},
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "correct": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target_id", "replacement", "reason"],
+        "properties": {
+          "target_id": { "type": "string", "minLength": 1 },
+          "replacement": { "type": "string", "minLength": 1 },
+          "reason": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "resolve": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

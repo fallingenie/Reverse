@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "replace-with-session-id",
+  "revision": 0,
+  "profile": {
+    "grade": "초6",
+    "subject": "사회",
+    "unit": "",
+    "interests": ["평범한 사람의 생활"]
+  },
+  "gate": {
+    "state": "COLLECT_PROFILE",
+    "start_token": "[시작]",
+    "start_confirmed": false
+  },
+  "lesson": {
+    "scenario_id": "not-selected",
+    "title": "선택 전",
+    "divergence": "해당 없음",
+    "historical_cutoff": "1945-01-01",
+    "objectives": ["사실과 가정을 구분한다"],
+    "sensitivity": "LOW"
+  },
+  "sources": [],
+  "evidence": [],
+  "memory": {
+    "canon": [],
+    "current_state": {
+      "time": "시작 전",
+      "place": "미정",
+      "role": "미정",
+      "constraints": []
+    },
+    "negative_facts": [],
+    "corrections": [],
+    "open_threads": [],
+    "episode_archive": [],
+    "conflicts": [],
+    "discarded_detail_summary": [],
+    "compaction": {
+      "sequence": 0,
+      "source_revision": 0,
+      "source_sha256": ""
+    }
+  }
+}

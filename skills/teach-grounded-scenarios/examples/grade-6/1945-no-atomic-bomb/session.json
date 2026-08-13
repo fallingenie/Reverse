@@ -1,0 +1,234 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "grade6-1945-no-atomic-bomb",
+  "revision": 1,
+  "profile": {
+    "grade": "초6",
+    "subject": "사회",
+    "unit": "광복과 대한민국의 수립",
+    "interests": ["평범한 사람의 생활", "정보 확인", "선택의 결과"]
+  },
+  "gate": {
+    "state": "RUN_LESSON",
+    "start_token": "[시작]",
+    "start_confirmed": true
+  },
+  "lesson": {
+    "scenario_id": "1945-no-atomic-bomb",
+    "title": "원자폭탄이 없었던 1945년 8월의 경성",
+    "divergence": "미국의 핵무기 개발이 실패하여 히로시마와 나가사키에 원자폭탄이 투하되지 않는다.",
+    "historical_cutoff": "1945-07-15",
+    "objectives": [
+      "실제 사실과 반사실 가정을 구분한다.",
+      "광복과 일본의 항복을 설명하는 여러 요인을 구분한다.",
+      "당시 사람이 알 수 있었던 정보의 한계를 설명한다."
+    ],
+    "sensitivity": "MEDIUM"
+  },
+  "sources": [
+    {
+      "id": "SRC-01",
+      "title": "The Manhattan Project: EM's Origin Story",
+      "institution": "U.S. Department of Energy",
+      "url": "https://www.energy.gov/em/articles/manhattan-project-ems-origin-story",
+      "accessed_at": "2026-08-13"
+    },
+    {
+      "id": "SRC-02",
+      "title": "The Potsdam Conference, 1945",
+      "institution": "Office of the Historian, U.S. Department of State",
+      "url": "https://history.state.gov/milestones/1937-1945/potsdam-conf",
+      "accessed_at": "2026-08-13"
+    },
+    {
+      "id": "SRC-03",
+      "title": "The President's News Conference, August 8, 1945",
+      "institution": "Harry S. Truman Library and Museum",
+      "url": "https://www.trumanlibrary.gov/library/public-papers/94/presidents-news-conference",
+      "accessed_at": "2026-08-13"
+    },
+    {
+      "id": "SRC-04",
+      "title": "주한미군사 1, III. 간주곡: 1945년 8월",
+      "institution": "국사편찬위원회 한국사데이터베이스",
+      "url": "https://db.history.go.kr/contemp/level.do?levelId=husa_001r_0030_0010",
+      "accessed_at": "2026-08-13"
+    },
+    {
+      "id": "SRC-05",
+      "title": "광복 직후의 국내 정세",
+      "institution": "국사편찬위원회 우리역사넷",
+      "url": "https://contents.history.go.kr/front/ta/view.do?levelId=ta_h71_0040_0050_0040_0010",
+      "accessed_at": "2026-08-13"
+    },
+    {
+      "id": "SRC-06",
+      "title": "Surrender of Japan (1945)",
+      "institution": "U.S. National Archives and Records Administration",
+      "url": "https://www.archives.gov/milestone-documents/surrender-of-japan",
+      "accessed_at": "2026-08-13"
+    },
+    {
+      "id": "SRC-07",
+      "title": "광복의 순간, 태극기 휘날리며",
+      "institution": "독립기념관",
+      "url": "https://www.i815.or.kr/upload/kr/magazine/magazine/19/post-193.html",
+      "accessed_at": "2026-08-13"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-001",
+      "status": "VERIFIED",
+      "claim": "실제 역사에서 최초 핵 장치 실험은 1945년 7월 16일 성공했다.",
+      "source_ids": ["SRC-01"],
+      "reason": "미국 에너지부의 맨해튼 계획 역사 자료가 날짜와 사건을 직접 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-002",
+      "status": "VERIFIED",
+      "claim": "포츠담 선언은 1945년 7월 26일 일본에 항복을 요구했다.",
+      "source_ids": ["SRC-02"],
+      "reason": "미국 국무부 역사국 자료가 선언의 발표 주체, 날짜, 목적을 직접 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-003",
+      "status": "VERIFIED",
+      "claim": "실제 역사에서 소련의 대일전 참전은 1945년 8월 8일 발표되었다.",
+      "source_ids": ["SRC-03"],
+      "reason": "당일 트루먼 대통령의 기자회견 기록이 남아 있다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-004",
+      "status": "VERIFIED",
+      "claim": "실제 역사에서 일본은 1945년 8월 15일 항복을 방송하고 9월 2일 공식 항복 문서에 서명했다.",
+      "source_ids": ["SRC-04", "SRC-06"],
+      "reason": "조선에서의 발표 정황과 공식 항복 문서가 각각 날짜와 절차를 뒷받침한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-005",
+      "status": "VERIFIED",
+      "claim": "한국인의 국내외 독립운동은 광복을 설명할 때 함께 다루어야 하는 역사 요소다.",
+      "source_ids": ["SRC-05"],
+      "reason": "국사편찬위원회 교과 자료가 연합군의 승리와 독립운동을 함께 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "SCN-001",
+      "status": "SCENARIO",
+      "claim": "미국의 핵무기 개발이 실패하여 1945년 8월 10일까지 원자폭탄 투하가 없다.",
+      "source_ids": [],
+      "reason": "사용자가 지정한 단일 반사실 분기점이다.",
+      "must_keep": true
+    },
+    {
+      "id": "SCN-002",
+      "status": "SCENARIO",
+      "claim": "이 수업 시간선에서도 소련의 대일전 참전은 발생한다.",
+      "source_ids": ["SRC-03"],
+      "reason": "분기점을 핵무기 개발 실패 하나로 제한하기 위한 최소 변경 가정이다.",
+      "must_keep": true
+    },
+    {
+      "id": "DER-001",
+      "status": "DERIVED",
+      "claim": "원자폭탄의 부재만으로 일본의 항복 날짜를 확정할 수는 없다.",
+      "source_ids": ["SRC-02", "SRC-03", "SRC-05"],
+      "derived_from": ["VER-002", "VER-003", "VER-005", "SCN-001"],
+      "reason": "실제 역사에는 선언, 소련 참전, 독립운동 등 서로 구분되는 요인이 있으며 반사실 결과 자료는 존재하지 않는다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-001",
+      "status": "UNKNOWN",
+      "claim": "반사실 시간선에서 일본이 언제 어떤 조건으로 항복하는지는 알 수 없다.",
+      "source_ids": [],
+      "reason": "분기 이후의 결과이며 공식 자료가 답할 수 없다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-002",
+      "status": "UNKNOWN",
+      "claim": "반사실 시간선에서 조선의 해방, 연합군 진주, 분단의 시점과 방식은 알 수 없다.",
+      "source_ids": [],
+      "reason": "여러 군사·외교 결정이 연쇄적으로 달라질 수 있다.",
+      "must_keep": true
+    }
+  ],
+  "memory": {
+    "canon": [
+      {
+        "id": "CAN-001",
+        "text": "수업 날짜는 1945년 8월 10일이다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-002",
+        "text": "장소는 일제 강점기의 경성이며 학생 역할은 가족과 사는 평범한 조선인 A다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-003",
+        "text": "A에게 특별한 능력이나 미래 지식은 없다.",
+        "must_keep": true
+      }
+    ],
+    "current_state": {
+      "time": "1945-08-10 오전",
+      "place": "일제 강점기 조선 경성",
+      "role": "가족과 사는 평범한 조선인 A",
+      "constraints": [
+        "공개 정보가 제한적이다.",
+        "서로 다른 소문이 동시에 돈다.",
+        "위험한 행동 대신 관찰과 확인을 우선한다."
+      ]
+    },
+    "negative_facts": [
+      {
+        "id": "NEG-001",
+        "text": "이 시간선에서는 1945년 8월 10일까지 히로시마와 나가사키에 원자폭탄이 투하되지 않았다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-002",
+        "text": "A는 일본의 최종 항복 날짜와 조선의 이후 정치적 경로를 알지 못한다.",
+        "must_keep": true
+      }
+    ],
+    "corrections": [],
+    "open_threads": [
+      {
+        "id": "OPEN-001",
+        "text": "일본 지도부가 포츠담 선언과 소련 참전에 어떻게 반응할지 확인할 수 없다.",
+        "must_keep": true
+      },
+      {
+        "id": "OPEN-002",
+        "text": "A가 접할 수 있는 정보 중 무엇이 직접 확인되고 무엇이 소문인지 구분해야 한다.",
+        "must_keep": true
+      }
+    ],
+    "episode_archive": [
+      {
+        "id": "EP-001",
+        "turn": 1,
+        "student_choice": "[시작] 토큰으로 수업 시작",
+        "result": "1945년 8월 10일 경성의 첫 장면과 세 가지 안전한 선택지가 제시되었다.",
+        "detail": "시장에서 전쟁이 곧 끝난다는 말과 아직 멀었다는 말이 함께 들린다.",
+        "evidence_ids": ["VER-002", "SCN-001", "SCN-002", "UNK-001"],
+        "must_keep": true
+      }
+    ],
+    "conflicts": [],
+    "discarded_detail_summary": [],
+    "compaction": {
+      "sequence": 0,
+      "source_revision": 1,
+      "source_sha256": ""
+    }
+  }
+}

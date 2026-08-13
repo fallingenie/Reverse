@@ -1,0 +1,4 @@
+interface:
+  display_name: "근거 기반 시나리오 수업"
+  short_description: "초3~고2 맞춤형 근거 기반 시나리오 수업을 진행합니다"
+  default_prompt: "Use $teach-grounded-scenarios to 시작 전에 학년, 과목, 관심사를 묻고 근거 기반 시나리오 수업을 진행해 주세요."

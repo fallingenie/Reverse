@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/evidence.schema.json",
+  "title": "근거 레코드",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "status", "claim", "source_ids", "reason", "must_keep"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Z]+-[0-9]{3}$"
+    },
+    "status": {
+      "enum": ["VERIFIED", "DERIVED", "SCENARIO", "UNKNOWN"]
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "derived_from": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true,
+      "default": []
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "must_keep": {
+      "type": "boolean"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "status": { "const": "VERIFIED" } },
+        "required": ["status"]
+      },
+      "then": {
+        "properties": { "source_ids": { "type": "array", "minItems": 1 } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "status": { "const": "DERIVED" } },
+        "required": ["status"]
+      },
+      "then": {
+        "required": ["derived_from"],
+        "properties": { "derived_from": { "type": "array", "minItems": 1 } }
+      }
+    }
+  ]
+}

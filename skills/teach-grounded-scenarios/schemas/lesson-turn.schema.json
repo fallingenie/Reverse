@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/lesson-turn.schema.json",
+  "title": "수업 턴 출력",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["turn", "student_view", "evidence_ids", "memory_delta"],
+  "properties": {
+    "turn": { "type": "integer", "minimum": 1 },
+    "student_view": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scene", "clues", "thinking_question", "choices", "custom_input_allowed"],
+      "properties": {
+        "scene": { "type": "string", "minLength": 1 },
+        "clues": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "thinking_question": { "type": "string", "minLength": 1 },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "custom_input_allowed": { "const": true }
+      }
+    },
+    "teacher_view": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "evidence_rationale": { "type": "string" },
+        "misconception_watch": { "type": "string" },
+        "assessment_note": { "type": "string" }
+      }
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "memory_delta": {
+      "$ref": "https://example.org/reverse/memory-delta.schema.json"
+    }
+  }
+}
