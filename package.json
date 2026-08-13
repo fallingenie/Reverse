@@ -1,17 +1,21 @@
 {
   "name": "reverse-grounded-learning-prototype",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "초3~고2 근거 기반 시나리오 수업 Skill 프로토타입",
   "type": "module",
   "scripts": {
     "format": "node scripts/format.mjs",
+    "export": "node scripts/export-platforms.mjs",
+    "verify:exports": "node scripts/export-platforms.mjs --verify",
+    "verify:copilot": "node scripts/verify-copilot-schema.mjs",
     "teacher": "node skills/teacher-grounded-testbed/scripts/teacher-store.mjs",
     "fork:verify": "node skills/teacher-grounded-testbed/scripts/verify-class-fork.mjs",
     "test:e2e": "node scripts/e2e-class-fork.mjs",
+    "test:python": "node scripts/run-python-tests.mjs",
     "validate": "node scripts/validate.mjs",
     "test": "node --test",
-    "check": "pnpm run validate && pnpm test"
+    "check": "pnpm run validate && pnpm test && pnpm run test:python && pnpm run verify:exports"
   },
   "engines": {
     "node": ">=20"

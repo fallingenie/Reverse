@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reverse-grounded-windows"
+version = "0.3.0"
+description = "Reverse 근거 기반 수업의 Windows 무결성 호스트"
+requires-python = ">=3.12,<3.14"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "pdfplumber>=0.11,<0.12",
+  "pypdf>=6,<7"
+]
+
+[project.optional-dependencies]
+build = ["pyinstaller>=6,<7"]
+test = ["PyYAML>=6,<7", "reportlab>=4,<5"]
+
+[project.scripts]
+reverse = "reverse_app.cli:main"
+
+[tool.setuptools]
+packages = ["reverse_app"]
+
+[tool.setuptools.package-data]
+reverse_app = ["py.typed"]

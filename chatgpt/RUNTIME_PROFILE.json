@@ -1,0 +1,36 @@
+{
+  "schema_version": "2.0.0",
+  "id": "CHATGPT_FREE",
+  "platform": "ChatGPT Free conversation",
+  "assurance": "PROMPT_GUARDED",
+  "model": {
+    "preferred_response_mode": null,
+    "fallback_response_mode": null,
+    "identity_attested": false,
+    "observed_label_trusted": false
+  },
+  "permissions": {
+    "read_canon": true,
+    "propose_t0_t1": true,
+    "commit_t0_t1": false,
+    "write_t2_t3": true,
+    "persist_local_state": false,
+    "execute_validators": false
+  },
+  "pdf": {
+    "accepted_input": "TEXT_BASED_PDF_ONLY",
+    "ocr": "NOT_SUPPORTED",
+    "local_preprocessing": false,
+    "remote_upload_required": true
+  },
+  "deployment": {
+    "kind": "PASTE_INSTRUCTION_PACK",
+    "limitations": [
+      "특정 모델이나 추론 예산을 강제하거나 검증할 수 없다.",
+      "대화 압축 뒤 Canon 원인과 출처가 보존된다고 보장할 수 없다.",
+      "T0/T1 변경은 후보로만 출력하고 외부 호스트의 승인을 기다려야 한다."
+    ]
+  },
+  "capability_documentation_status": "NO_PUBLIC_GUARANTEE_FOUND",
+  "public_sources": []
+}

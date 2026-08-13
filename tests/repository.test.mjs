@@ -4,7 +4,10 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { validateRepository } from "../scripts/validate.mjs";
-import { compactSession } from "../skills/teach-grounded-scenarios/scripts/compact-session.mjs";
+import {
+  assertProtectedInvariants,
+  compactSession
+} from "../skills/teach-grounded-scenarios/scripts/compact-session.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const examplePath = join(
@@ -69,4 +72,15 @@ test("Story Track 재시작 권고와 사용자 결정 대기는 압축 후에�
   const compacted = compactSession(session, JSON.stringify(session));
   assert.deepEqual(compacted.memory.corrections, [correction]);
   assert.equal(compacted.memory.corrections[0].decision, "USER_DECISION_PENDING");
+});
+
+test("같은 ID를 유지한 절대 보존 내용 변조도 압축 무결성 실패다", async () => {
+  const sourceText = await readFile(examplePath, "utf8");
+  const original = JSON.parse(sourceText);
+  const mutated = structuredClone(original);
+  mutated.memory.canon[0].text = "ID만 유지한 조용한 Canon 변경";
+  assert.throws(
+    () => assertProtectedInvariants(original, mutated),
+    /ID 또는 내용이 변경/u
+  );
 });

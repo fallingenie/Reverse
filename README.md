@@ -15,6 +15,15 @@
 7. 기본 추론 오류는 숨기지 않고 영향도에 따라 부분 Canon 교정, Track 재기반, 사용자 동의가 필요한 재시작 권고로 처리합니다.
 8. 기억 압축 후에도 핵심 사실, 부정 사실, 선택 결과, 교정, 미해결 질문과 출처를 보존합니다.
 9. 학생용 장면과 교사용 근거·평가 메모를 분리합니다.
+10. 실행 환경별 권한을 `PROMPT_GUARDED`, `PLATFORM_CONFIGURED`, `HOST_ENFORCED`로 분리하며, 확인할 수 없는 모델 별칭은 권한 근거로 사용하지 않습니다.
+
+## 실행 환경별 배포물
+
+- `chatgpt/`: ChatGPT Free 새 대화 첫 메시지용 지침 팩입니다. 설치형 Add-on, 특정 모델 강제, 영구 Canon 저장을 보장하지 않습니다.
+- `copilot/`: Microsoft 365 Copilot 선언형 에이전트 v1.8 초안입니다. `Think deeper`를 기본 응답 모드로 요청하지만 사용자가 바꿀 수 있고 내부 모델 버전을 증명하지 않습니다.
+- `windows/`: Python 기반 Windows 로컬 호스트입니다. 추가 전용 원장, T0/T1 권한, 인과 폐쇄, 텍스트 PDF, Context Pack을 코드로 검증합니다. LLM과 OCR은 포함하지 않습니다.
+
+상세 근거와 확인일은 `docs/PLATFORM_PROFILES.md`에 있습니다.
 
 ## 구성
 
@@ -28,6 +37,9 @@
 - `skills/teacher-grounded-testbed/`: 설치별 교사 암호, 학급 로컬 학습, 학생용 포크 생성
 - `scripts/validate.mjs`, `tests/`: 저장소 계약 검증
 - `docs/DESIGN.md`: 행동 수준 재설계와 압축 불변식
+- `docs/ENCODING.md`: Windows UTF-8-SIG 기본값과 기계 프로토콜 예외
+- `contracts/`: 실행 프로파일, Canon, 원장, PDF 참조 JSON Schema
+- `chatgpt/`, `copilot/`, `windows/`: 플랫폼별 독립 배포물
 
 ## 개발 검증
 
@@ -35,11 +47,20 @@ Node.js 20 이상과 pnpm이 필요합니다.
 
 ```text
 pnpm install --frozen-lockfile
+pnpm run test:python
 pnpm run check
 pnpm run test:e2e -- --require-distribution-ready
 ```
 
 마지막 E2E는 clean Git 커밋 또는 내용 주소 기반 설치 패키지에서 실행해야 합니다. Skill 구조만 확인하려면 시스템의 skill validator로 `skills/teach-grounded-scenarios`와 `skills/teacher-grounded-testbed`를 검사합니다.
+
+Python 테스트 전에는 `windows/README.md`에 따라 `windows/.venv`를 만들고 정확 버전 `requirements.lock`을 설치합니다. 최상위 `pnpm run check`가 Node와 Python 검증을 함께 실행합니다.
+
+## PDF 참조
+
+교사는 Windows 호스트에 텍스트 기반 교과서 PDF를 추가할 수 있습니다. 원본 PDF의 SHA-256, 물리 쪽, 인쇄면 라벨, 청크와 텍스트 해시를 기록하며 추출 직후에는 `NEEDS_REVIEW`입니다. 권리 근거와 추출 내용을 교사가 확인해야 `ACTIVE`가 됩니다.
+
+스캔 PDF는 `OCR_REQUIRED`, 암호화 PDF는 거부 상태로 처리합니다. 원본 PDF를 Git, 학생 포크, ChatGPT, Copilot에 자동 업로드하지 않습니다. 교과서는 교육과정상 참고 권위를 가질 수 있지만 각 문장을 자동으로 `VERIFIED`로 만들지는 않습니다.
 
 ## 교사 로컬 학습과 학급 포크
 

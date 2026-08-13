@@ -16,7 +16,7 @@ async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
-    if ([".git", "node_modules", "coverage"].includes(entry.name)) {
+    if ([".git", ".reverse-local", ".venv", "__pycache__", "node_modules", "coverage", "build", "dist"].includes(entry.name)) {
       continue;
     }
     const path = join(directory, entry.name);
@@ -59,6 +59,22 @@ export async function validateRepository() {
     "LICENSE",
     "NOTICE",
     "package.json",
+    "docs/PLATFORM_PROFILES.md",
+    "contracts/runtime-profile.schema.json",
+    "contracts/canon-fact.schema.json",
+    "contracts/ledger-event.schema.json",
+    "contracts/pdf-reference.schema.json",
+    "contracts/reference-chunk.schema.json",
+    "chatgpt/RUNTIME_PROFILE.json",
+    "chatgpt/BOOTSTRAP.md",
+    "copilot/RUNTIME_PROFILE.json",
+    "copilot/declarativeAgent.json",
+    "windows/RUNTIME_PROFILE.json",
+    "windows/reverse_app/ledger.py",
+    "windows/reverse_app/canon.py",
+    "windows/reverse_app/pdf_refs.py",
+    "windows/Reverse.spec",
+    "windows/build.ps1",
     "skills/teach-grounded-scenarios/SKILL.md",
     "skills/teach-grounded-scenarios/agents/openai.yaml",
     "skills/teach-grounded-scenarios/instructions/system.md",
@@ -67,6 +83,9 @@ export async function validateRepository() {
     "skills/teach-grounded-scenarios/examples/cross-domain-catalog.json",
     "skills/teach-grounded-scenarios/references/source-quality.md",
     "skills/teach-grounded-scenarios/references/canon-repair.md",
+    "skills/teach-grounded-scenarios/references/runtime-profiles.md",
+    "skills/teach-grounded-scenarios/references/canon-integrity-v2.md",
+    "skills/teach-grounded-scenarios/references/pdf-reference-policy.md",
     "skills/teach-grounded-scenarios/prompts/08-canon-repair.prompt.md",
     "skills/teacher-grounded-testbed/SKILL.md",
     "skills/teacher-grounded-testbed/references/teacher-protocol.md",
@@ -162,16 +181,37 @@ export async function validateRepository() {
   const memoryDeltaSchema = JSON.parse(await text(join(schemaDirectory, "memory-delta.schema.json")));
   const lessonTurnSchema = JSON.parse(await text(join(schemaDirectory, "lesson-turn.schema.json")));
   const sessionSchema = JSON.parse(await text(join(schemaDirectory, "session.schema.json")));
+  const contractDirectory = join(root, "contracts");
+  const referenceChunkSchema = JSON.parse(await text(join(contractDirectory, "reference-chunk.schema.json")));
+  const pdfReferenceSchema = JSON.parse(await text(join(contractDirectory, "pdf-reference.schema.json")));
+  const canonFactSchema = JSON.parse(await text(join(contractDirectory, "canon-fact.schema.json")));
+  const ledgerEventSchema = JSON.parse(await text(join(contractDirectory, "ledger-event.schema.json")));
+  const runtimeProfileSchema = JSON.parse(await text(join(contractDirectory, "runtime-profile.schema.json")));
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
-  for (const schema of [evidenceSchema, sourceRecordSchema, researchPlanSchema, memoryDeltaSchema, lessonTurnSchema, sessionSchema]) {
+  for (const schema of [
+    evidenceSchema,
+    sourceRecordSchema,
+    researchPlanSchema,
+    memoryDeltaSchema,
+    lessonTurnSchema,
+    sessionSchema,
+    referenceChunkSchema,
+    pdfReferenceSchema,
+    canonFactSchema,
+    ledgerEventSchema,
+    runtimeProfileSchema
+  ]) {
     ajv.addSchema(schema);
   }
 
   const validations = [
     ["https://example.org/reverse/session.schema.json", join(skill, "assets", "session.template.json")],
     ["https://example.org/reverse/session.schema.json", join(example, "session.json")],
-    ["https://example.org/reverse/lesson-turn.schema.json", join(example, "lesson-turn.json")]
+    ["https://example.org/reverse/lesson-turn.schema.json", join(example, "lesson-turn.json")],
+    ["https://example.org/reverse/runtime-profile.schema.json", join(root, "chatgpt", "RUNTIME_PROFILE.json")],
+    ["https://example.org/reverse/runtime-profile.schema.json", join(root, "copilot", "RUNTIME_PROFILE.json")],
+    ["https://example.org/reverse/runtime-profile.schema.json", join(root, "windows", "RUNTIME_PROFILE.json")]
   ];
   for (const [schemaId, path] of validations) {
     const data = JSON.parse(await text(path));

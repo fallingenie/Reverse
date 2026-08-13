@@ -1,0 +1,55 @@
+{
+  "schema_version": "2.0.0",
+  "id": "WINDOWS_STANDALONE",
+  "platform": "Windows 10/11 x64 local host",
+  "assurance": "HOST_ENFORCED",
+  "model": {
+    "preferred_response_mode": null,
+    "fallback_response_mode": null,
+    "identity_attested": false,
+    "observed_label_trusted": false
+  },
+  "permissions": {
+    "read_canon": true,
+    "propose_t0_t1": true,
+    "commit_t0_t1": true,
+    "write_t2_t3": true,
+    "persist_local_state": true,
+    "execute_validators": true
+  },
+  "pdf": {
+    "accepted_input": "TEXT_BASED_PDF_ONLY",
+    "ocr": "NOT_SUPPORTED",
+    "local_preprocessing": true,
+    "remote_upload_required": false
+  },
+  "deployment": {
+    "kind": "PYINSTALLER_ONEDIR",
+    "limitations": [
+      "이 프로그램은 LLM이 아니며 생성형 답변은 외부 모델 또는 수동 브리지가 필요하다.",
+      "스캔 PDF OCR과 DRM 우회는 지원하지 않는다.",
+      "PDF 내용의 사실성 및 저작권 상태를 자동으로 확정하지 않는다."
+    ]
+  },
+  "capability_documentation_status": "LOCAL_IMPLEMENTATION_VERIFIED",
+  "public_sources": [
+    {
+      "title": "Python versions",
+      "url": "https://devguide.python.org/versions/",
+      "checked_at": "2026-08-13",
+      "supports": "지원 중인 Python 버전을 확인하는 기준이다."
+    },
+    {
+      "title": "PyInstaller usage",
+      "url": "https://pyinstaller.org/en/stable/usage.html",
+      "checked_at": "2026-08-13",
+      "supports": "Windows onedir 패키징 방식의 기준이다."
+    },
+    {
+      "title": "pypdf text extraction",
+      "url": "https://pypdf.readthedocs.io/en/stable/user/extract-text.html",
+      "checked_at": "2026-08-13",
+      "supports": "텍스트 추출과 OCR 비지원 경계의 기준이다."
+    }
+  ]
+}

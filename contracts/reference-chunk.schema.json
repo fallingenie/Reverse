@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/reference-chunk.schema.json",
+  "title": "Reverse PDF 텍스트 청크",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["chunk_id", "document_sha256", "physical_page", "printed_page_label", "text", "text_sha256", "extraction_status", "teacher_review"],
+  "properties": {
+    "chunk_id": { "type": "string", "pattern": "^CH-[A-F0-9]{12}-P[0-9]{4}-[0-9]{3}$" },
+    "document_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "physical_page": { "type": "integer", "minimum": 1 },
+    "printed_page_label": { "type": ["string", "null"] },
+    "text": { "type": "string", "minLength": 1 },
+    "text_sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "extraction_status": { "enum": ["EXTRACTED", "EMPTY", "LAYOUT_WARNING"] },
+    "teacher_review": { "enum": ["PENDING", "ACCEPTED", "REJECTED"] }
+  }
+}

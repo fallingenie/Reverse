@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "reverse-chatgpt",
+  "license": "Apache-2.0",
+  "file_count": 6,
+  "file_digests": {
+    "BOOTSTRAP.md": "631051f3b550ead6c81299dd017006addf7d54405034e661ee56f4f21996daf0",
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "NOTICE": "1e1a6b46d75f68a5a5e3534e00b0538915e3fdc7667603095bf5f361bbd9201f",
+    "POLICY.md": "17c475459ef4795ccc1eafd60362d7d9903c6ec7972bfccdd9b5d051400d4d93",
+    "RUNTIME_PROFILE.json": "954e0afc9eeb147576c91ca766ef2c7e914727f7033f0668bff8de5a5377ae00",
+    "START-HERE.md": "af63eec3e2e0a9a159809dde21d8e16f0179562b71e349ab652d053d660fca2f"
+  },
+  "seal_sha256": "1e1753aaec5c981079ceaead82efe41fb6bbae919b1e48e5eb20c74882462ef9"
+}

@@ -12,7 +12,7 @@ async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
-    if ([".git", "node_modules", "coverage"].includes(entry.name)) {
+    if ([".git", ".reverse-local", ".venv", "__pycache__", "node_modules", "coverage", "build", "dist"].includes(entry.name) || entry.name.endsWith(".egg-info")) {
       continue;
     }
     const path = join(directory, entry.name);

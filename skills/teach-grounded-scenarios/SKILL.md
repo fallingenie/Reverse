@@ -19,6 +19,9 @@ description: 초등학교 3학년부터 고등학교 2학년까지의 학생에�
 - `references/evidence-policy.md`: 근거 등급과 스토리 설정 규칙
 - `references/memory-policy.md`: 압축 내성 세션 기억
 - `references/canon-repair.md`: 오류 영향 평가와 Story Track 교정
+- `references/runtime-profiles.md`: ChatGPT, Copilot, Windows의 실제 권한 차이
+- `references/canon-integrity-v2.md`: 장기 Canon, 인과 앵커, UNKNOWN lock
+- `references/pdf-reference-policy.md`: 교과서 PDF의 추출·검토·인용 경계
 - `references/safety-policy.md`: 연령 적합성과 민감한 역사
 
 교사용 자료를 요청받으면 `references/teacher-mode.md`도 읽는다. 예시를 재현하거나 수정할 때만 해당 `examples/` 하위 폴더를 읽는다. 교사가 학생처럼 품질을 시험하고 로컬 규칙을 남기려면 별도 `$teacher-grounded-testbed` Skill을 사용한다.
@@ -69,7 +72,9 @@ description: 초등학교 3학년부터 고등학교 2학년까지의 학생에�
 
 ### 6. 기억을 보존하기
 
-세션의 유일한 현재 상태는 `schemas/session.schema.json`을 따르는 JSON이다. 원본 턴 기록을 덮어쓰지 않는다. 압축이 필요하면 `scripts/compact-session.mjs`를 실행해 새 요약을 만들고 다음 항목을 반드시 보존한다.
+Windows 호스트를 사용할 때 유일한 권위 상태는 추가 전용 v2 원장이다. v1 `schemas/session.schema.json` JSON은 기존 수업과 교환하기 위한 호환 투영이며 원장을 덮어쓰지 못한다. ChatGPT Free와 일반 Copilot에서는 Context Pack을 읽기 전용 Canon으로 취급하고 T0/T1 변경을 확정하지 않는다.
+
+원본 턴 기록을 덮어쓰지 않는다. 압축이 필요하면 `scripts/compact-session.mjs`를 실행해 새 요약을 만들고 다음 항목을 반드시 보존한다.
 
 - 검증된 사실과 출처
 - 발생하지 않은 사실
@@ -79,6 +84,8 @@ description: 초등학교 3학년부터 고등학교 2학년까지의 학생에�
 - 현재 제약과 시간 순서
 
 요약과 원본이 충돌하면 원본과 최신 교정을 우선하고 충돌을 `UNKNOWN`으로 노출한다.
+
+현재 상태는 남았지만 그 상태를 만든 원인이나 provenance가 Context에 없으면 새 원인을 만들지 않는다. `NOT_LOADED`와 `UNKNOWN_LOCKED`를 구분하고 필요한 Canon 원문을 복원할 때까지 수업 진행을 멈춘다.
 
 ### 7. 진행 중 질문과 오류에 대응하기
 

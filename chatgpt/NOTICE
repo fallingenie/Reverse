@@ -1,0 +1,17 @@
+Reverse
+Copyright 2026 fallingenie
+
+This product is an educational reimplementation informed by the publicly
+available modular prompt architecture of:
+
+  Singulari-Tea Codex: A Modular Architecture for Dynamic Narrative Simulation
+  Copyright 2025 fewweekslater (lemos999)
+  https://github.com/lemos999/Singulari-Tea-Codex-Prompt-for-Gemini
+  Licensed under the Apache License, Version 2.0.
+
+Reverse substantially changes the purpose, terminology, state model, evidence
+policy, memory model, safety policy, prompts, and examples for classroom use.
+The original project's trade names and distinctive runtime terms are used only
+where necessary to describe attribution and origin.
+
+This NOTICE is informational and does not modify the Apache License, Version 2.0.

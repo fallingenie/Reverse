@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0.0",
+  "package_id": "reverse-copilot",
+  "license": "Apache-2.0",
+  "file_count": 6,
+  "file_digests": {
+    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+    "NOTICE": "1e1a6b46d75f68a5a5e3534e00b0538915e3fdc7667603095bf5f361bbd9201f",
+    "README.md": "c61ddfbe90fe327b2616e0e9aa3e7285f94781874ae84abfc47a2d45fed4ffb9",
+    "RUNTIME_PROFILE.json": "a93d20cd71a7ab0da1bb9b46fa1470126511cd7e3bc5ec9dd3e2b1f4f4051db3",
+    "declarativeAgent.json": "8e25fb806fe7eea3681b873c24fb40c3275ca825048d5529ede8f6a4ccd9fa1a",
+    "knowledge/reverse-policy.txt": "7ee52350eda5763a66ba28c7079069fa8b8c0855a5bc321e77732f8ad003bb04"
+  },
+  "seal_sha256": "7bce58c61cc26fc3acbbda35315ca164a6854f0080a947c8ea33b504a423fd6e"
+}
