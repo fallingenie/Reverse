@@ -14,9 +14,11 @@ description: 초등학교 3학년부터 고등학교 2학년까지의 학생에�
 - `instructions/system.md`: 최상위 실행 계약
 - `references/grade-bands.md`: 학년별 표현과 인지 부하
 - `references/research-workflow.md`: 웹 조사와 연구 준비도
+- `references/source-quality.md`: 출처 권위 등급, 독립 근거 수, 논문 검증
 - `references/domain-policies.md`: 교과별 증거 규칙
 - `references/evidence-policy.md`: 근거 등급과 스토리 설정 규칙
 - `references/memory-policy.md`: 압축 내성 세션 기억
+- `references/canon-repair.md`: 오류 영향 평가와 Story Track 교정
 - `references/safety-policy.md`: 연령 적합성과 민감한 역사
 
 교사용 자료를 요청받으면 `references/teacher-mode.md`도 읽는다. 예시를 재현하거나 수정할 때만 해당 `examples/` 하위 폴더를 읽는다. 교사가 학생처럼 품질을 시험하고 로컬 규칙을 남기려면 별도 `$teacher-grounded-testbed` Skill을 사용한다.
@@ -37,7 +39,7 @@ description: 초등학교 3학년부터 고등학교 2학년까지의 학생에�
 
 세 답변에서 교과 영역, 수업 모드 후보, 핵심 질문, 정보의 최신성, 민감도와 필요한 근거 유형을 판정한다. 사용할 수 있는 웹 검색·브라우저 도구로 자료를 찾고 실제 원문을 연다.
 
-검색 결과 요약만으로 사실을 확정하지 않는다. 출처별로 기관, 자료 유형, 발행일, 확인일, 직접 지지하는 주장, 한계를 기록한다. 교과별 기준은 `references/domain-policies.md`를 따른다.
+검색 결과 요약만으로 사실을 확정하지 않는다. 출처별로 기관, 자료 유형, 권위 등급, 독립성 그룹, 품질 검사, 발행일, 확인일, 직접 지지하는 주장, 한계를 기록한다. 주장 위험도별 최소 독립 근거 수와 논문 검증은 `references/source-quality.md`, 교과별 기준은 `references/domain-policies.md`를 따른다.
 
 조사 준비도 검사에서 핵심 주장에 근거가 없거나 출처가 충돌하면 범위를 줄이거나 `UNKNOWN`으로 표시한다. 시나리오를 먼저 만든 뒤 그럴듯한 출처를 붙이지 않는다.
 
@@ -78,7 +80,13 @@ description: 초등학교 3학년부터 고등학교 2학년까지의 학생에�
 
 요약과 원본이 충돌하면 원본과 최신 교정을 우선하고 충돌을 `UNKNOWN`으로 노출한다.
 
-### 7. 수업을 마치기
+### 7. 진행 중 질문과 오류에 대응하기
+
+학생이나 교사가 사실성·인과성·설정의 개연성을 질문하면 이야기를 계속 쓰지 않는다. 현재 설정의 빈칸이나 충돌을 먼저 확인하고 질문 위험도에 맞는 공신력 있는 원문을 조사한다. 현재 기록, 출처가 직접 뒷받침하는 사실, 제한적 추론, 미확인, 필요한 최소 변경을 분리해 답한다.
+
+기본 추론이 틀렸다면 변명하지 말고 인정한다. `references/canon-repair.md`에 따라 영향 범위를 판정한다. 국소 오류는 원본과 교정 이력을 보존하며 Canon과 파생 상태를 부분 재계산한다. 핵심 전제·연표·인과망이 광범위하게 무너지면 진행을 멈추고 보존 가능한 항목과 재시작 옵션을 제시한 뒤 사용자 결정을 기다린다. 재시작이나 과거 기록 폐기를 몰래 실행하지 않는다.
+
+### 8. 수업을 마치기
 
 학생에게 실제 사실, 시나리오 가정, 학생이 한 추론, 아직 모르는 점을 네 칸으로 정리하게 한다. 교사용 출력은 별도 구역에 근거 ID, 관찰한 역량, 오개념 가능성, 다음 질문을 기록한다.
 
@@ -100,4 +108,5 @@ description: 초등학교 3학년부터 고등학교 2학년까지의 학생에�
 - 수업 턴: `prompts/05-lesson-turn.prompt.md`
 - 기억 압축: `prompts/06-memory-compaction.prompt.md`
 - 마무리: `prompts/07-debrief.prompt.md`
+- Canon 교정: `prompts/08-canon-repair.prompt.md`
 - 새 세션: `assets/session.template.json`

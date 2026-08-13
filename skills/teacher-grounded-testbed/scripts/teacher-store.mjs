@@ -33,6 +33,13 @@ const allowedSourceClasses = new Set(["PRIMARY_SOURCE", "OFFICIAL_RECORD", "PEER
 const allowedSubjectDomains = new Set(["HISTORY", "SCIENCE", "SOCIAL_STUDIES", "GEOGRAPHY", "MATHEMATICS", "LANGUAGE_LITERATURE", "INTERDISCIPLINARY"]);
 const allowedConsensus = new Set(["ESTABLISHED", "STRONG", "EMERGING", "CONTESTED", "NOT_APPLICABLE", "UNKNOWN"]);
 const allowedFreshness = new Set(["STABLE", "CHECKED_THIS_SESSION", "TIME_SENSITIVE", "UNKNOWN"]);
+const allowedAuthorityTiers = new Set(["A_PRIMARY", "A_SYNTHESIS", "B_SCHOLARLY", "B_INSTITUTIONAL"]);
+const allowedQualityChecks = new Set(["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "METHODS_AND_SCOPE_CHECKED", "CORRECTION_RETRACTION_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"]);
+const sourceRequirements = {
+  LOW: { sources: 1, tierA: 0 },
+  MEDIUM: { sources: 2, tierA: 0 },
+  HIGH: { sources: 3, tierA: 2 }
+};
 
 function parseArguments(argv) {
   const [command, ...rest] = argv;
@@ -204,7 +211,10 @@ function immutableRuleConflict(text) {
     /(출처|근거|웹\s*조사).{0,8}(없이|생략|무시)/u,
     /\[시작\].{0,8}(없이|생략|무시)/u,
     /(암호|학생\s*개인정보).{0,8}(공개|출력|수집)/u,
-    /(LICENSE|NOTICE|라이선스|저작권).{0,8}(삭제|제거|생략)/iu
+    /(LICENSE|NOTICE|라이선스|저작권).{0,8}(삭제|제거|생략)/iu,
+    /(오류|실패|충돌).{0,8}(숨기|감추|말하지)/u,
+    /(사실|진실|투명성).{0,8}(무시|생략|감추)/u,
+    /(Canon|Story\s*Track|교정).{0,8}(덮어쓰|삭제|기록하지)/iu
   ];
   return patterns.some((pattern) => pattern.test(text));
 }
@@ -427,7 +437,7 @@ async function addLearning(options) {
     throw new Error(`로컬 학습 항목에 개인정보를 저장할 수 없습니다: ${findings.join(", ")}`);
   }
   if (["RULE", "INSTRUCTION", "EXAMPLE"].includes(kind) && immutableRuleConflict(text)) {
-    throw new Error("이 항목은 안전·근거·시작 게이트·개인정보·라이선스 불변 규칙과 충돌합니다.");
+    throw new Error("이 항목은 진실성·안전·근거·교정·시작 게이트·개인정보·라이선스 불변 규칙과 충돌합니다.");
   }
   const loaded = await loadProfile(root, profileId);
   const sourceUrls = typeof options["source-url"] === "string"
@@ -479,6 +489,9 @@ async function verifyFact(options) {
   if (!allowedConsensus.has(bundle.consensus)) {
     throw new Error("검증 묶음에는 유효한 합의 상태가 필요합니다.");
   }
+  if (!Object.hasOwn(sourceRequirements, bundle.risk)) {
+    throw new Error("검증 묶음에는 LOW, MEDIUM, HIGH 중 하나의 주장 위험도가 필요합니다.");
+  }
   if (!Array.isArray(bundle.sources) || bundle.sources.length === 0) {
     throw new Error("검증 묶음에는 하나 이상의 원문 출처가 필요합니다.");
   }
@@ -499,17 +512,46 @@ async function verifyFact(options) {
       || typeof source.institution !== "string"
       || source.institution.trim() === ""
       || !allowedSourceClasses.has(source.source_class)
+      || !allowedAuthorityTiers.has(source.authority_tier)
+      || typeof source.independence_key !== "string"
+      || source.independence_key.trim() === ""
       || !Array.isArray(source.subject_domains)
       || source.subject_domains.length === 0
       || source.subject_domains.some((domain) => !allowedSubjectDomains.has(domain))
       || typeof source.accessed_at !== "string"
       || !/^\d{4}-\d{2}-\d{2}$/u.test(source.accessed_at)
       || !allowedFreshness.has(source.freshness)
+      || !Array.isArray(source.quality_checks)
+      || source.quality_checks.length < 2
+      || source.quality_checks.some((check) => !allowedQualityChecks.has(check))
+      || !source.quality_checks.includes("ORIGINAL_OPENED")
+      || !source.quality_checks.includes("RESPONSIBLE_ENTITY_CONFIRMED")
       || !Array.isArray(source.direct_support)
       || !source.direct_support.some((id) => bundle.evidence_ids.includes(id))
     ) {
       throw new Error("검증 출처의 식별·기관·유형·교과·확인일·직접 지지 정보가 불완전합니다.");
     }
+    if (source.citation_metric !== null) {
+      const metric = source.citation_metric;
+      if (
+        !metric
+        || !Number.isInteger(metric.count)
+        || metric.count < 0
+        || typeof metric.provider !== "string"
+        || metric.provider.trim() === ""
+        || typeof metric.checked_at !== "string"
+        || !/^\d{4}-\d{2}-\d{2}$/u.test(metric.checked_at)
+        || metric.interpretation !== "SUPPORTING_SIGNAL_ONLY"
+      ) {
+        throw new Error("논문 피인용 지표는 제공자·확인일과 함께 보조 신호 형식으로만 기록해야 합니다.");
+      }
+    }
+  }
+  const requirement = sourceRequirements[bundle.risk];
+  const independentSources = new Set(bundle.sources.map((source) => source.independence_key)).size;
+  const tierASources = bundle.sources.filter((source) => source.authority_tier.startsWith("A_")).length;
+  if (independentSources < requirement.sources || tierASources < requirement.tierA) {
+    throw new Error(`${bundle.risk} 위험도에 필요한 독립 출처 수 또는 A 등급 출처 수를 충족하지 못했습니다.`);
   }
   if (typeof bundle.verification_note !== "string" || bundle.verification_note.trim() === "") {
     throw new Error("검증 묶음에는 검증 메모가 필요합니다.");
@@ -649,7 +691,7 @@ async function buildFork(options) {
     throw new Error(`학급 포크 생성 차단: 개인정보 가능 항목 ${findings.join(", ")}`);
   }
   if (included.some((item) => ["RULE", "INSTRUCTION", "EXAMPLE"].includes(item.kind) && immutableRuleConflict(item.text))) {
-    throw new Error("학급 포크 생성 차단: 불변 규칙과 충돌하는 로컬 항목이 있습니다.");
+    throw new Error("학급 포크 생성 차단: 진실성·안전·근거·교정 불변 규칙과 충돌하는 로컬 항목이 있습니다.");
   }
   if (included.some((item) => item.kind === "FACT_CORRECTION" && (!item.verification || item.status !== "VERIFIED"))) {
     throw new Error("학급 포크 생성 차단: 검증 묶음이 없는 사실 정정이 있습니다.");
@@ -689,6 +731,7 @@ async function buildFork(options) {
         claim: item.verification.claim,
         evidence_ids: item.verification.evidence_ids,
         consensus: item.verification.consensus,
+        risk: item.verification.risk,
         sources: item.verification.sources,
         verification_note: item.verification.verification_note,
         verified_at: item.verification.verified_at
@@ -702,10 +745,10 @@ async function buildFork(options) {
   await writeJsonAtomic(join(forkReferenceDirectory, "class-overlay.json"), overlay, 0o644);
   const forkSkillPath = join(output, "skills", "teach-grounded-scenarios", "SKILL.md");
   const forkSkill = await readFile(forkSkillPath, "utf8");
-  const forkEntrypoint = `\n## 학급 포크 오버레이\n\n수업을 시작할 때 \`references/class-profile.json\`과 \`references/class-overlay.json\`을 읽는다. 학년·과목·관심사를 학생에게 다시 확인하되 학급 프로필을 기본값으로 사용한다. 오버레이의 검증된 규칙·지침·예시·사실 정정을 해당 학급에만 적용한다. 공통 안전·근거·[시작] 규칙과 충돌하는 항목은 적용하지 않는다.\n`;
+  const forkEntrypoint = `\n## 학급 포크 오버레이\n\n수업을 시작할 때 \`references/class-profile.json\`과 \`references/class-overlay.json\`을 읽는다. 학년·과목·관심사를 학생에게 다시 확인하되 학급 프로필을 기본값으로 사용한다. 오버레이의 검증된 규칙·지침·예시·사실 정정을 해당 학급에만 적용한다. 공통 진실성·투명성·안전·근거·Canon 교정·[시작] 규칙과 충돌하는 항목은 적용하지 않는다.\n`;
   await writeFile(forkSkillPath, `${forkSkill.trimEnd()}${forkEntrypoint}`, "utf8");
 
-  const studentAgents = `# 학생용 학급 포크 규칙\n\n- 이 포크는 교사 모드가 없는 학생 전용 배포본이다.\n- CLASS_PROFILE.json과 CLASS_OVERLAY.json을 수업 시작 전에 읽는다.\n- 공통 Skill의 안전, 근거 조사, 상태 표시, [시작] 게이트를 우선한다.\n- 로컬 오버레이는 해당 학급에만 적용한다.\n- 학생 개인정보를 수집하거나 저장하지 않는다.\n- 교사 암호, 관리 명령, 로컬 교사 저장소를 요청하거나 추측하지 않는다.\n- LICENSE, NOTICE, FORK_MANIFEST.json을 유지한다.\n`;
+  const studentAgents = `# 학생용 학급 포크 규칙\n\n- 이 포크는 교사 모드가 없는 학생 전용 배포본이다.\n- Transparency and Truth를 몰입과 연속성보다 우선한다.\n- CLASS_PROFILE.json과 CLASS_OVERLAY.json을 수업 시작 전에 읽는다.\n- 공통 Skill의 안전, 근거 조사, 상태 표시, Canon 교정, [시작] 게이트를 우선한다.\n- 기본 추론 오류를 숨기지 않는다. 국소 오류만 이력을 남겨 부분 교정하고, 핵심 인과망이 무너지면 사용자에게 재시작 옵션을 제시한다.\n- 로컬 오버레이는 해당 학급에만 적용한다.\n- 학생 개인정보를 수집하거나 저장하지 않는다.\n- 교사 암호, 관리 명령, 로컬 교사 저장소를 요청하거나 추측하지 않는다.\n- LICENSE, NOTICE, FORK_MANIFEST.json을 유지한다.\n`;
   await writeFile(join(output, "AGENTS.md"), studentAgents, "utf8");
   const readme = `# ${loaded.profile.alias} 근거 기반 수업 포크\n\n이 포크는 ${loaded.profile.grade} ${loaded.profile.subject} 수업을 위해 교사가 검토한 로컬 규칙과 예시를 반영한 학생 전용 배포본입니다.\n\n교사 암호, 테스트 대화, 관찰 로그, 검증 대기 중인 사실 정정은 포함하지 않습니다. 수업은 학년·과목·관심사를 확인한 뒤 웹 조사와 원문 검증을 수행하고 시나리오 다섯 개를 제시합니다.\n\n프로젝트는 Apache License 2.0에 따라 배포됩니다. LICENSE와 NOTICE를 확인하세요.\n`;
   await writeFile(join(output, "README.md"), readme, "utf8");

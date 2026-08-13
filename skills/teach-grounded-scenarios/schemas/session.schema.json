@@ -163,12 +163,42 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["id", "replaces", "text", "reason", "must_keep"],
+            "required": ["id", "severity", "replaces", "text", "reason", "evidence_ids", "affected_ids", "last_valid_checkpoint", "decision", "user_options", "must_keep"],
             "properties": {
               "id": { "type": "string", "minLength": 1 },
-              "replaces": { "type": "string", "minLength": 1 },
+              "severity": { "enum": ["LOCAL_PATCH", "TRACK_REBASE", "RESTART_RECOMMENDED"] },
+              "replaces": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 },
+                "uniqueItems": true
+              },
               "text": { "type": "string", "minLength": 1 },
               "reason": { "type": "string", "minLength": 1 },
+              "evidence_ids": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 },
+                "uniqueItems": true
+              },
+              "affected_ids": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "type": "string", "minLength": 1 },
+                "uniqueItems": true
+              },
+              "last_valid_checkpoint": {
+                "anyOf": [
+                  { "type": "string", "minLength": 1 },
+                  { "type": "null" }
+                ]
+              },
+              "decision": { "enum": ["APPLIED", "USER_DECISION_PENDING", "RESTART_ACCEPTED", "RESTART_DECLINED", "ALTERNATE_FICTION"] },
+              "user_options": {
+                "type": "array",
+                "items": { "type": "string", "minLength": 1 },
+                "uniqueItems": true
+              },
               "must_keep": { "const": true }
             }
           }

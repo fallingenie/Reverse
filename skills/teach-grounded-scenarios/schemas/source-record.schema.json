@@ -10,6 +10,8 @@
     "creator",
     "institution",
     "source_class",
+    "authority_tier",
+    "independence_key",
     "subject_domains",
     "url",
     "published_at",
@@ -17,7 +19,9 @@
     "opened",
     "direct_support",
     "limitations",
-    "freshness"
+    "freshness",
+    "quality_checks",
+    "citation_metric"
   ],
   "properties": {
     "id": { "type": "string", "pattern": "^SRC-[0-9]{2,4}$" },
@@ -27,6 +31,10 @@
     "source_class": {
       "enum": ["PRIMARY_SOURCE", "OFFICIAL_RECORD", "PEER_REVIEWED", "SYSTEMATIC_REVIEW", "DATASET", "LEGAL_TEXT", "LITERARY_TEXT", "REFERENCE_WORK", "CURRICULUM_RESOURCE"]
     },
+    "authority_tier": {
+      "enum": ["A_PRIMARY", "A_SYNTHESIS", "B_SCHOLARLY", "B_INSTITUTIONAL", "C_CONTEXT_ONLY", "D_EXCLUDED"]
+    },
+    "independence_key": { "type": "string", "minLength": 1 },
     "subject_domains": {
       "type": "array",
       "minItems": 1,
@@ -56,6 +64,30 @@
     },
     "freshness": {
       "enum": ["STABLE", "CHECKED_THIS_SESSION", "TIME_SENSITIVE", "UNKNOWN"]
+    },
+    "quality_checks": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "enum": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "METHODS_AND_SCOPE_CHECKED", "CORRECTION_RETRACTION_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"]
+      },
+      "uniqueItems": true
+    },
+    "citation_metric": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["count", "provider", "checked_at", "interpretation"],
+          "properties": {
+            "count": { "type": "integer", "minimum": 0 },
+            "provider": { "type": "string", "minLength": 1 },
+            "checked_at": { "type": "string", "format": "date" },
+            "interpretation": { "const": "SUPPORTING_SIGNAL_ONLY" }
+          }
+        }
+      ]
     }
   }
 }

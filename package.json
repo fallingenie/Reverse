@@ -8,6 +8,7 @@
     "format": "node scripts/format.mjs",
     "teacher": "node skills/teacher-grounded-testbed/scripts/teacher-store.mjs",
     "fork:verify": "node skills/teacher-grounded-testbed/scripts/verify-class-fork.mjs",
+    "test:e2e": "node scripts/e2e-class-fork.mjs",
     "validate": "node scripts/validate.mjs",
     "test": "node --test",
     "check": "pnpm run validate && pnpm test"

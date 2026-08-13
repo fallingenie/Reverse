@@ -48,8 +48,11 @@
 3. 기존 주장과 왜 충돌하는지 기록한다.
 4. 직접 지지하는 출처 ID와 URL을 연결한다.
 5. 합의 상태와 한계를 기록한다.
-6. 주장, 근거 ID, 실제로 연 HTTPS 원문, 출처 한계, 검증 메모를 담은 evidence JSON을 만든다.
-7. 이 evidence JSON을 `verify-fact --evidence-file`로 제출한 항목만 `VERIFIED`로 바꾼다.
+6. 주장 위험도와 출처별 권위 등급·독립성 그룹·품질 검사를 기록한다.
+7. LOW는 A/B 출처 1개, MEDIUM은 독립 A/B 출처 2개, HIGH는 독립 출처 3개와 A 등급 2개를 충족한다.
+8. 논문은 DOI, 동료평가, 방법·범위, 정정·철회, 후속 연구를 확인하고 피인용 수는 보조 신호로만 기록한다.
+9. 주장, 위험도, 근거 ID, 실제로 연 HTTPS 원문, 출처 한계, 검증 메모를 담은 evidence JSON을 만든다.
+10. 이 evidence JSON을 `verify-fact --evidence-file`로 제출한 항목만 `VERIFIED`로 바꾼다.
 
 ## 파생 포크 포함표
 

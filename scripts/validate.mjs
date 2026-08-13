@@ -65,6 +65,9 @@ export async function validateRepository() {
     "skills/teach-grounded-scenarios/assets/session.template.json",
     "skills/teach-grounded-scenarios/examples/grade-6/1945-no-atomic-bomb/session.json",
     "skills/teach-grounded-scenarios/examples/cross-domain-catalog.json",
+    "skills/teach-grounded-scenarios/references/source-quality.md",
+    "skills/teach-grounded-scenarios/references/canon-repair.md",
+    "skills/teach-grounded-scenarios/prompts/08-canon-repair.prompt.md",
     "skills/teacher-grounded-testbed/SKILL.md",
     "skills/teacher-grounded-testbed/references/teacher-protocol.md",
     "skills/teacher-grounded-testbed/scripts/teacher-store.mjs",
@@ -101,6 +104,9 @@ export async function validateRepository() {
   ]) {
     assert(agents.includes(phrase), `AGENTS 재발 방지 문구 누락: ${phrase}`, errors);
   }
+  for (const phrase of ["Transparency and Truth", "Story Track", "재시작 옵션"]) {
+    assert(agents.includes(phrase), `최상위 진실성·교정 계약 누락: ${phrase}`, errors);
+  }
 
   const skillFiles = [
     join(skill, "SKILL.md"),
@@ -124,6 +130,7 @@ export async function validateRepository() {
   const researchPrompt = await text(join(skill, "prompts", "02-research-plan.prompt.md"));
   const auditPrompt = await text(join(skill, "prompts", "03-source-audit.prompt.md"));
   const cardsPrompt = await text(join(skill, "prompts", "04-scenario-cards.prompt.md"));
+  const canonRepairPrompt = await text(join(skill, "prompts", "08-canon-repair.prompt.md"));
   for (const phrase of ["웹 검색", "검색 결과 요약", "실제 원문", "아직 연구 준비도를 통과하지 않았으므로"]) {
     assert(researchPrompt.includes(phrase), `조사 계획 계약 누락: ${phrase}`, errors);
   }
@@ -131,6 +138,9 @@ export async function validateRepository() {
     assert(auditPrompt.includes(phrase), `출처 감사 계약 누락: ${phrase}`, errors);
   }
   assert(cardsPrompt.includes("정확히 다섯 개"), "범용 시나리오 프롬프트에 다섯 카드 계약이 없습니다.", errors);
+  for (const phrase of ["LOCAL_PATCH", "TRACK_REBASE", "RESTART_RECOMMENDED", "사용자 선택을 기다린다"]) {
+    assert(canonRepairPrompt.includes(phrase), `Canon 교정 프롬프트 계약 누락: ${phrase}`, errors);
+  }
 
   const transcript = await text(join(example, "onboarding-transcript.md"));
   const scenarioSection = transcript.split("## 진행자 2")[1]?.split("번호를 고르거나")[0] ?? "";
@@ -171,7 +181,28 @@ export async function validateRepository() {
     }
   }
 
+  const correctionProbe = JSON.parse(await text(join(example, "session.json")));
+  correctionProbe.memory.corrections.push({
+    id: "COR-TEST-001",
+    severity: "RESTART_RECOMMENDED",
+    replaces: ["CAN-001"],
+    text: "핵심 전제가 잘못된 경우의 재시작 권고 검증 레코드다.",
+    reason: "세션 스키마가 영향 범위와 사용자 결정을 보존하는지 검사한다.",
+    evidence_ids: ["VER-001"],
+    affected_ids: ["CAN-001", "EP-001"],
+    last_valid_checkpoint: "EP-001 이전",
+    decision: "USER_DECISION_PENDING",
+    user_options: ["마지막 유효 체크포인트에서 재시작", "수업 중단 후 사실 정리"],
+    must_keep: true
+  });
+  const validateCorrectionProbe = ajv.getSchema("https://example.org/reverse/session.schema.json");
+  if (!validateCorrectionProbe(correctionProbe)) {
+    errors.push(`Canon 교정 probe 스키마 오류: ${ajv.errorsText(validateCorrectionProbe.errors, { separator: "; " })}`);
+  }
+
   const session = JSON.parse(await text(join(example, "session.json")));
+  const sourcesById = new Map(session.sources.map((source) => [source.id, source]));
+  const evidenceById = new Map(session.evidence.map((record) => [record.id, record]));
   const sourceIds = new Set(session.sources.map((source) => source.id));
   const evidenceIds = new Set(session.evidence.map((record) => record.id));
   for (const record of session.evidence) {
@@ -185,6 +216,8 @@ export async function validateRepository() {
   for (const source of session.sources) {
     assert(source.url.startsWith("https://"), `HTTPS가 아닌 출처: ${source.id}`, errors);
     assert(source.opened === true, `원문을 열지 않은 출처: ${source.id}`, errors);
+    assert(source.authority_tier !== "D_EXCLUDED", `제외 등급 출처가 예시 근거에 포함됨: ${source.id}`, errors);
+    assert(source.quality_checks.includes("ORIGINAL_OPENED"), `원문 확인 품질 검사가 없음: ${source.id}`, errors);
     for (const evidenceId of source.direct_support) {
       assert(evidenceIds.has(evidenceId), `출처의 존재하지 않는 주장 참조: ${source.id} -> ${evidenceId}`, errors);
     }
@@ -192,6 +225,36 @@ export async function validateRepository() {
 
   assert(session.research.plan.readiness === "READY", "초6 예시 연구 팩이 READY가 아닙니다.", errors);
   assert(session.research.readiness_checked === true, "초6 예시 연구 준비도 검사가 완료되지 않았습니다.", errors);
+  const claimCandidates = new Set(session.research.plan.claim_candidates);
+  const qualityGateClaims = new Set(session.research.plan.claim_quality_gates.map((gate) => gate.claim));
+  assert(
+    claimCandidates.size === qualityGateClaims.size && [...claimCandidates].every((claim) => qualityGateClaims.has(claim)),
+    "조사 계획의 주장 후보와 출처 품질 게이트가 일치하지 않습니다.",
+    errors
+  );
+  const minimums = {
+    LOW: { independent: 1, tierA: 0 },
+    MEDIUM: { independent: 2, tierA: 0 },
+    HIGH: { independent: 3, tierA: 2 }
+  };
+  for (const gate of session.research.plan.claim_quality_gates) {
+    const expected = minimums[gate.risk];
+    const thresholdMet = gate.minimum_independent_sources >= expected.independent
+      && gate.minimum_tier_a_sources >= expected.tierA
+      && gate.minimum_tier_a_sources <= gate.minimum_independent_sources;
+    assert(thresholdMet || gate.exception_reason !== null, `주장 품질 게이트가 최소 기준 미달: ${gate.claim}`, errors);
+    const gateEvidence = gate.evidence_ids.map((id) => evidenceById.get(id)).filter(Boolean);
+    assert(gateEvidence.length === gate.evidence_ids.length, `품질 게이트의 존재하지 않는 근거 ID: ${gate.claim}`, errors);
+    assert(gateEvidence.every((record) => record.status === "VERIFIED"), `품질 게이트에 VERIFIED가 아닌 근거가 연결됨: ${gate.claim}`, errors);
+    const gateSources = [...new Set(gateEvidence.flatMap((record) => record.source_ids))]
+      .map((id) => sourcesById.get(id))
+      .filter(Boolean);
+    const independentCount = new Set(gateSources.map((source) => source.independence_key)).size;
+    const tierACount = gateSources.filter((source) => source.authority_tier.startsWith("A_")).length;
+    const actualThresholdMet = independentCount >= gate.minimum_independent_sources
+      && tierACount >= gate.minimum_tier_a_sources;
+    assert(actualThresholdMet || gate.exception_reason !== null, `실제 출처가 품질 게이트 미달: ${gate.claim}`, errors);
+  }
 
   const catalog = JSON.parse(await text(join(skill, "examples", "cross-domain-catalog.json")));
   const domains = new Set(catalog.examples.flatMap((entry) => entry.subject_domains));

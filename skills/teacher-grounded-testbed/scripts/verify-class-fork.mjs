@@ -39,6 +39,15 @@ function containsPrivateKey(value) {
   return Object.entries(value).some(([key, child]) => blocked.has(key) || containsPrivateKey(child));
 }
 
+function validHttpsUrl(value) {
+  try {
+    const url = new URL(value);
+    return url.protocol === "https:" && url.hostname !== "";
+  } catch {
+    return false;
+  }
+}
+
 export async function verifyFork(root, options = {}) {
   root = resolve(root);
   const manifestPath = join(root, "FORK_MANIFEST.json");
@@ -104,6 +113,28 @@ export async function verifyFork(root, options = {}) {
     if (overlay.items.some((item) => item.kind === "FACT_CORRECTION" ? item.status !== "VERIFIED" : item.status !== "ACTIVE")) {
       errors.push("학생 포크 학습 항목의 종류와 상태가 일치하지 않음");
     }
+    for (const item of overlay.items.filter((candidate) => candidate.kind === "FACT_CORRECTION")) {
+      const verification = item.verification;
+      const requirement = {
+        LOW: { sources: 1, tierA: 0 },
+        MEDIUM: { sources: 2, tierA: 0 },
+        HIGH: { sources: 3, tierA: 2 }
+      }[verification?.risk];
+      const sources = Array.isArray(verification?.sources) ? verification.sources : [];
+      const independentCount = new Set(sources.map((source) => source.independence_key)).size;
+      const tierACount = sources.filter((source) => typeof source.authority_tier === "string" && source.authority_tier.startsWith("A_")).length;
+      const sourcesValid = sources.every((source) =>
+        source.opened === true
+        && validHttpsUrl(source.url)
+        && ["A_PRIMARY", "A_SYNTHESIS", "B_SCHOLARLY", "B_INSTITUTIONAL"].includes(source.authority_tier)
+        && Array.isArray(source.quality_checks)
+        && source.quality_checks.includes("ORIGINAL_OPENED")
+        && source.quality_checks.includes("RESPONSIBLE_ENTITY_CONFIRMED")
+      );
+      if (!requirement || !sourcesValid || independentCount < requirement.sources || tierACount < requirement.tierA) {
+        errors.push(`사실 정정 출처 품질 게이트 불일치: ${item.id}`);
+      }
+    }
     const includedItems = Array.isArray(manifest.included_items) ? manifest.included_items : [];
     const expectedItems = overlay.items.map((item) => ({
       id: item.id,
@@ -145,6 +176,10 @@ export async function verifyFork(root, options = {}) {
   const forkSkill = await readFile(join(root, "skills", "teach-grounded-scenarios", "SKILL.md"), "utf8");
   if (!forkSkill.includes("## 학급 포크 오버레이")) {
     errors.push("학생 Skill에 학급 포크 진입 규칙이 없음");
+  }
+  const studentAgents = await readFile(join(root, "AGENTS.md"), "utf8");
+  if (!studentAgents.includes("Transparency and Truth") || !studentAgents.includes("재시작 옵션")) {
+    errors.push("학생 포크에 진실성 또는 Canon 재시작 경계가 없음");
   }
   if (actualFiles.some((path) => relative(root, path).replaceAll("\\", "/").includes("teacher-grounded-testbed"))) {
     errors.push("학생 포크에 교사 테스트베드 파일이 포함됨");

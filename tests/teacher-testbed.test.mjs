@@ -123,6 +123,10 @@ test("개인정보와 불변 규칙을 약화하는 학습은 차단된다", asy
       run(["add", "--state-dir", state, "--token", session.token, "--profile", "grade6-1", "--kind", "instruction", "--text", "결과는 teacher@example.com 으로 보낸다."]),
       /개인정보/u
     );
+    await assert.rejects(
+      run(["add", "--state-dir", state, "--token", session.token, "--profile", "grade6-1", "--kind", "example", "--text", "오류는 학생에게 말하지 않고 숨긴다."]),
+      /불변 규칙/u
+    );
   } finally {
     await rm(state, { recursive: true, force: true });
   }
@@ -143,10 +147,11 @@ test("학급 포크는 검증된 학습만 포함하고 교사 비밀을 제외�
     const pending = await run(["add", "--state-dir", state, "--token", session.token, "--profile", "grade6-2", "--kind", "fact-correction", "--text", "검증 전인 사실 정정 후보", "--source-url", "https://example.org/source"]);
     const verified = await run(["add", "--state-dir", state, "--token", session.token, "--profile", "grade6-2", "--kind", "fact-correction", "--text", "원문 검증을 마친 사실 정정", "--source-url", "https://example.org/verified"]);
     const evidenceFile = join(state, "verified-correction.json");
-    await writeFile(evidenceFile, JSON.stringify({
+    const evidenceBundle = {
       claim: "원문 검증을 마친 사실 정정",
       evidence_ids: ["VER-101", "VER-102"],
       consensus: "ESTABLISHED",
+      risk: "HIGH",
       sources: [
         {
           id: "SRC-101",
@@ -154,17 +159,28 @@ test("학급 포크는 검증된 학습만 포함하고 교사 비밀을 제외�
           creator: "Test fixture author",
           institution: "Reverse test fixture",
           source_class: "OFFICIAL_RECORD",
+          authority_tier: "A_PRIMARY",
+          independence_key: "US-NARA-TEST",
           subject_domains: ["HISTORY"],
           url: "https://www.archives.gov/milestone-documents/surrender-of-japan",
           accessed_at: "2026-08-13",
           freshness: "STABLE",
+          quality_checks: ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+          citation_metric: null,
           opened: true,
           direct_support: ["VER-101", "VER-102"],
           limitations: ["프로토타입 회귀 테스트용 출처다."]
         }
       ],
       verification_note: "원문이 정정 문장을 직접 지지하는 형식인지 검사했다."
-    }), "utf8");
+    };
+    await writeFile(evidenceFile, JSON.stringify(evidenceBundle), "utf8");
+    await assert.rejects(
+      run(["verify-fact", "--state-dir", state, "--token", session.token, "--profile", "grade6-2", "--item", verified.item.id, "--evidence-file", evidenceFile]),
+      /HIGH 위험도/u
+    );
+    evidenceBundle.risk = "LOW";
+    await writeFile(evidenceFile, JSON.stringify(evidenceBundle), "utf8");
     await run(["verify-fact", "--state-dir", state, "--token", session.token, "--profile", "grade6-2", "--item", verified.item.id, "--evidence-file", evidenceFile]);
 
     const built = await run(["build-fork", "--state-dir", state, "--token", session.token, "--profile", "grade6-2", "--output", output]);

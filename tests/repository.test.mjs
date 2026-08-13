@@ -48,3 +48,25 @@ test("예시 세션은 부정 사실과 열린 질문을 분리해 보존한다"
   assert.ok(session.evidence.some((item) => item.status === "UNKNOWN" && item.must_keep));
   assert.ok(session.evidence.some((item) => item.status === "SCENARIO" && item.must_keep));
 });
+
+test("Story Track 재시작 권고와 사용자 결정 대기는 압축 후에도 보존된다", async () => {
+  const sourceText = await readFile(examplePath, "utf8");
+  const session = JSON.parse(sourceText);
+  const correction = {
+    id: "COR-TEST-001",
+    severity: "RESTART_RECOMMENDED",
+    replaces: ["CAN-001"],
+    text: "핵심 전제 오류 때문에 재시작을 권고한다.",
+    reason: "부분 교정으로는 인과망을 복구할 수 없다.",
+    evidence_ids: ["VER-001"],
+    affected_ids: ["CAN-001", "EP-001"],
+    last_valid_checkpoint: "EP-001 이전",
+    decision: "USER_DECISION_PENDING",
+    user_options: ["재시작", "수업 중단"],
+    must_keep: true
+  };
+  session.memory.corrections.push(correction);
+  const compacted = compactSession(session, JSON.stringify(session));
+  assert.deepEqual(compacted.memory.corrections, [correction]);
+  assert.equal(compacted.memory.corrections[0].decision, "USER_DECISION_PENDING");
+});

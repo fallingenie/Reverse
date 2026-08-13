@@ -40,7 +40,7 @@ description: 배포된 근거 기반 수업 Add-on에서 교사가 설치별 암
 - `[사실정정]`: 잘못된 역사·과학·통계 주장과 출처 후보. `PENDING_RESEARCH`.
 - `[항목비활성화]`: 잘못 저장했거나 더 이상 적용하지 않을 항목을 `DISABLED`로 전환한다. 원기록은 지우지 않는다.
 
-사실 정정은 웹 조사와 원문 검증을 완료하고 주장·근거 ID·실제로 연 HTTPS 원문·출처 한계·검증 메모를 담은 evidence JSON을 만든 뒤에만 `verify-fact --evidence-file`로 `VERIFIED` 처리한다. 교사의 권한은 사실 검증을 대체하지 않는다.
+사실 정정은 웹 조사와 원문 검증을 완료하고 주장·위험도·근거 ID·실제로 연 HTTPS 원문·권위 등급·독립성 그룹·품질 검사·출처 한계·검증 메모를 담은 evidence JSON을 만든 뒤에만 `verify-fact --evidence-file`로 `VERIFIED` 처리한다. LOW는 A/B 출처 1개, MEDIUM은 독립 A/B 출처 2개, HIGH는 독립 출처 3개와 A 등급 2개를 요구한다. 교사의 권한과 논문 피인용 수는 사실 검증을 대체하지 않는다.
 
 ## 불변 규칙
 

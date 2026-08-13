@@ -11,8 +11,10 @@
 3. 검증된 연구 팩으로 시나리오 다섯 개와 직접 입력 선택지를 제시합니다.
 4. 학생이 시나리오를 선택한 뒤 `[시작]`을 입력해야 수업이 시작됩니다.
 5. 각 주장은 `VERIFIED`, `DERIVED`, `SCENARIO`, `UNKNOWN`과 합의 상태로 구분됩니다.
-6. 기억 압축 후에도 핵심 사실, 부정 사실, 선택 결과, 교정, 미해결 질문과 출처를 보존합니다.
-7. 학생용 장면과 교사용 근거·평가 메모를 분리합니다.
+6. 출처는 권위 등급·독립성·품질 검사를 기록하며 위험도가 높은 주장일수록 더 많은 독립 A/B 근거를 요구합니다.
+7. 기본 추론 오류는 숨기지 않고 영향도에 따라 부분 Canon 교정, Track 재기반, 사용자 동의가 필요한 재시작 권고로 처리합니다.
+8. 기억 압축 후에도 핵심 사실, 부정 사실, 선택 결과, 교정, 미해결 질문과 출처를 보존합니다.
+9. 학생용 장면과 교사용 근거·평가 메모를 분리합니다.
 
 ## 구성
 
@@ -34,9 +36,10 @@ Node.js 20 이상과 pnpm이 필요합니다.
 ```text
 pnpm install --frozen-lockfile
 pnpm run check
+pnpm run test:e2e -- --require-distribution-ready
 ```
 
-Skill 구조만 확인하려면 시스템의 skill validator로 `skills/teach-grounded-scenarios`를 검사합니다.
+마지막 E2E는 clean Git 커밋 또는 내용 주소 기반 설치 패키지에서 실행해야 합니다. Skill 구조만 확인하려면 시스템의 skill validator로 `skills/teach-grounded-scenarios`와 `skills/teacher-grounded-testbed`를 검사합니다.
 
 ## 교사 로컬 학습과 학급 포크
 

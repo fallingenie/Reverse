@@ -27,6 +27,40 @@
         "일본의 실제 항복 절차",
         "한국인의 독립운동이 광복에 미친 역할"
       ],
+      "claim_quality_gates": [
+        {
+          "claim": "포츠담 선언의 날짜와 내용",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-002"],
+          "exception_reason": null
+        },
+        {
+          "claim": "소련의 대일전 참전 시점",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-003"],
+          "exception_reason": null
+        },
+        {
+          "claim": "일본의 실제 항복 절차",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": ["VER-004"],
+          "exception_reason": null
+        },
+        {
+          "claim": "한국인의 독립운동이 광복에 미친 역할",
+          "risk": "MEDIUM",
+          "minimum_independent_sources": 2,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-005"],
+          "exception_reason": null
+        }
+      ],
       "required_source_classes": ["PRIMARY_SOURCE", "OFFICIAL_RECORD", "CURRICULUM_RESOURCE"],
       "search_queries": [
         "1945 Potsdam Declaration official record",
@@ -63,6 +97,8 @@
       "creator": "Office of Environmental Management",
       "institution": "U.S. Department of Energy",
       "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "US-DOE-EM",
       "subject_domains": ["HISTORY", "SCIENCE"],
       "url": "https://www.energy.gov/em/articles/manhattan-project-ems-origin-story",
       "published_at": null,
@@ -70,7 +106,9 @@
       "opened": true,
       "direct_support": ["VER-001"],
       "limitations": ["반사실 시간선의 전쟁 종결 시점은 설명하지 않는다."],
-      "freshness": "STABLE"
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
     },
     {
       "id": "SRC-02",
@@ -78,6 +116,8 @@
       "creator": "Office of the Historian",
       "institution": "Office of the Historian, U.S. Department of State",
       "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "US-STATE-OFFICE-HISTORIAN",
       "subject_domains": ["HISTORY"],
       "url": "https://history.state.gov/milestones/1937-1945/potsdam-conf",
       "published_at": null,
@@ -88,7 +128,9 @@
         "포츠담 선언만으로 특정 항복 날짜를 확정할 수 없다.",
         "미국 국무부 역사국은 이 Milestones 페이지가 더 이상 유지보수되지 않는다고 표시한다."
       ],
-      "freshness": "STABLE"
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
     },
     {
       "id": "SRC-03",
@@ -96,6 +138,8 @@
       "creator": "Harry S. Truman",
       "institution": "Harry S. Truman Library and Museum",
       "source_class": "PRIMARY_SOURCE",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "US-TRUMAN-LIBRARY",
       "subject_domains": ["HISTORY"],
       "url": "https://www.trumanlibrary.gov/library/public-papers/94/presidents-news-conference",
       "published_at": "1945-08-08",
@@ -103,7 +147,9 @@
       "opened": true,
       "direct_support": ["VER-003"],
       "limitations": ["반사실 시간선에서 소련의 모든 행동이 같았는지는 증명하지 않는다."],
-      "freshness": "STABLE"
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
     },
     {
       "id": "SRC-04",
@@ -111,6 +157,8 @@
       "creator": "주한미군사 편찬진",
       "institution": "국사편찬위원회 한국사데이터베이스",
       "source_class": "PRIMARY_SOURCE",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "NIKH-US-ARMY-HISTORY",
       "subject_domains": ["HISTORY"],
       "url": "https://db.history.go.kr/contemp/level.do?levelId=husa_001r_0030_0010",
       "published_at": null,
@@ -118,7 +166,9 @@
       "opened": true,
       "direct_support": ["VER-004"],
       "limitations": ["미군이 작성한 기록이며 모든 조선인의 경험을 대표하지 않는다."],
-      "freshness": "STABLE"
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "STABLE_IDENTIFIER_CHECKED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
     },
     {
       "id": "SRC-05",
@@ -126,6 +176,8 @@
       "creator": "국사편찬위원회",
       "institution": "국사편찬위원회 우리역사넷",
       "source_class": "CURRICULUM_RESOURCE",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "NIKH-CURRICULUM",
       "subject_domains": ["HISTORY", "SOCIAL_STUDIES"],
       "url": "https://contents.history.go.kr/front/ta/view.do?levelId=ta_h71_0040_0050_0040_0010",
       "published_at": null,
@@ -133,7 +185,9 @@
       "opened": true,
       "direct_support": ["VER-005"],
       "limitations": ["반사실 시간선의 해방 날짜와 방식을 설명하지 않는다."],
-      "freshness": "STABLE"
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
     },
     {
       "id": "SRC-06",
@@ -141,6 +195,8 @@
       "creator": "U.S. National Archives and Records Administration",
       "institution": "U.S. National Archives and Records Administration",
       "source_class": "PRIMARY_SOURCE",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "US-NARA-SURRENDER",
       "subject_domains": ["HISTORY"],
       "url": "https://www.archives.gov/milestone-documents/surrender-of-japan",
       "published_at": "1945-09-02",
@@ -148,7 +204,9 @@
       "opened": true,
       "direct_support": ["VER-004"],
       "limitations": ["실제 역사 문서이며 반사실 항복 날짜를 제시하지 않는다."],
-      "freshness": "STABLE"
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
     },
     {
       "id": "SRC-07",
@@ -156,6 +214,8 @@
       "creator": "신현배",
       "institution": "독립기념관",
       "source_class": "CURRICULUM_RESOURCE",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "I815-EDUCATION",
       "subject_domains": ["HISTORY"],
       "url": "https://www.i815.or.kr/upload/kr/magazine/magazine/19/post-193.html",
       "published_at": null,
@@ -163,7 +223,31 @@
       "opened": true,
       "direct_support": [],
       "limitations": ["대중 교육 해설이므로 세부 사실은 1차 사료와 교차 확인한다."],
-      "freshness": "STABLE"
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-08",
+      "title": "8·15광복",
+      "creator": "황성모",
+      "institution": "한국학중앙연구원 한국민족문화대백과사전",
+      "source_class": "REFERENCE_WORK",
+      "authority_tier": "B_SCHOLARLY",
+      "independence_key": "AKS-ENCYKOREA-E0059769",
+      "subject_domains": ["HISTORY", "SOCIAL_STUDIES"],
+      "url": "https://encykorea.aks.ac.kr/Article/E0059769",
+      "published_at": "2023-02-07",
+      "accessed_at": "2026-08-13",
+      "opened": true,
+      "direct_support": ["VER-005"],
+      "limitations": [
+        "전문가가 집필한 학술적 견해이며 한국학중앙연구원의 공식 입장과 다를 수 있다.",
+        "연합국 승리와 한국인의 광복운동이 각각 기여한 정도를 수치로 제시하지 않는다."
+      ],
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"],
+      "citation_metric": null
     }
   ],
   "evidence": [
@@ -218,8 +302,8 @@
       "basis": "MULTI_DOMAIN",
       "consensus": "ESTABLISHED",
       "claim": "한국인의 국내외 독립운동은 광복을 설명할 때 함께 다루어야 하는 역사 요소다.",
-      "source_ids": ["SRC-05"],
-      "reason": "국사편찬위원회 교과 자료가 연합군의 승리와 독립운동을 함께 설명한다.",
+      "source_ids": ["SRC-05", "SRC-08"],
+      "reason": "국사편찬위원회 교과 자료와 한국학중앙연구원 전문가 해설이 연합군의 승리와 한국인의 독립·광복운동을 함께 살펴야 함을 독립적으로 설명한다.",
       "must_keep": true
     },
     {
