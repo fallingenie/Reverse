@@ -10,6 +10,7 @@
     "revision",
     "profile",
     "gate",
+    "research",
     "lesson",
     "sources",
     "evidence",
@@ -48,6 +49,8 @@
         "state": {
           "enum": [
             "COLLECT_PROFILE",
+            "PLAN_RESEARCH",
+            "RESEARCH",
             "OFFER_SCENARIOS",
             "CONFIRM_SCENARIO",
             "WAIT_FOR_START",
@@ -59,15 +62,48 @@
         "start_confirmed": { "type": "boolean" }
       }
     },
+    "research": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plan", "readiness_checked", "gaps"],
+      "properties": {
+        "plan": { "$ref": "https://example.org/reverse/research-plan.schema.json" },
+        "readiness_checked": { "type": "boolean" },
+        "gaps": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
     "lesson": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["scenario_id", "title", "divergence", "historical_cutoff", "objectives", "sensitivity"],
+      "required": ["scenario_id", "title", "subject_domains", "lesson_mode", "premise", "objectives", "sensitivity", "research_id"],
       "properties": {
         "scenario_id": { "type": "string", "minLength": 1 },
         "title": { "type": "string", "minLength": 1 },
-        "divergence": { "type": "string", "minLength": 1 },
-        "historical_cutoff": { "type": "string", "format": "date" },
+        "subject_domains": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": ["HISTORY", "SCIENCE", "SOCIAL_STUDIES", "GEOGRAPHY", "MATHEMATICS", "LANGUAGE_LITERATURE", "INTERDISCIPLINARY"]
+          },
+          "uniqueItems": true
+        },
+        "lesson_mode": {
+          "enum": ["HISTORICAL_ROLE", "COUNTERFACTUAL", "SCIENCE_INQUIRY", "EXPERIMENT_DESIGN", "SOCIAL_DECISION", "GEOGRAPHIC_FIELDWORK", "MATHEMATICAL_PROBLEM", "LITERARY_PERSPECTIVE", "INTERDISCIPLINARY_PROJECT"]
+        },
+        "premise": { "type": "string", "minLength": 1 },
+        "research_id": { "type": "string", "pattern": "^RES-[A-Z0-9-]+$" },
+        "historical_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["cutoff", "divergence"],
+          "properties": {
+            "cutoff": { "type": "string", "format": "date" },
+            "divergence": { "type": "string", "minLength": 1 }
+          }
+        },
         "objectives": {
           "type": "array",
           "minItems": 1,
@@ -78,18 +114,7 @@
     },
     "sources": {
       "type": "array",
-      "items": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": ["id", "title", "institution", "url", "accessed_at"],
-        "properties": {
-          "id": { "type": "string", "pattern": "^SRC-[0-9]{2}$" },
-          "title": { "type": "string", "minLength": 1 },
-          "institution": { "type": "string", "minLength": 1 },
-          "url": { "type": "string", "format": "uri" },
-          "accessed_at": { "type": "string", "format": "date" }
-        }
-      },
+      "items": { "$ref": "https://example.org/reverse/source-record.schema.json" },
       "uniqueItems": true
     },
     "evidence": {

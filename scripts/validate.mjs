@@ -63,7 +63,12 @@ export async function validateRepository() {
     "skills/teach-grounded-scenarios/agents/openai.yaml",
     "skills/teach-grounded-scenarios/instructions/system.md",
     "skills/teach-grounded-scenarios/assets/session.template.json",
-    "skills/teach-grounded-scenarios/examples/grade-6/1945-no-atomic-bomb/session.json"
+    "skills/teach-grounded-scenarios/examples/grade-6/1945-no-atomic-bomb/session.json",
+    "skills/teach-grounded-scenarios/examples/cross-domain-catalog.json",
+    "skills/teacher-grounded-testbed/SKILL.md",
+    "skills/teacher-grounded-testbed/references/teacher-protocol.md",
+    "skills/teacher-grounded-testbed/scripts/teacher-store.mjs",
+    "skills/teacher-grounded-testbed/scripts/verify-class-fork.mjs"
   ];
   const fileSet = new Set(files.map((file) => relative(root, file).replaceAll("\\", "/")));
   for (const path of required) {
@@ -116,6 +121,17 @@ export async function validateRepository() {
     assert(onboardingPrompt.includes(phrase), `온보딩 질문 누락: ${phrase}`, errors);
   }
 
+  const researchPrompt = await text(join(skill, "prompts", "02-research-plan.prompt.md"));
+  const auditPrompt = await text(join(skill, "prompts", "03-source-audit.prompt.md"));
+  const cardsPrompt = await text(join(skill, "prompts", "04-scenario-cards.prompt.md"));
+  for (const phrase of ["웹 검색", "검색 결과 요약", "실제 원문", "아직 연구 준비도를 통과하지 않았으므로"]) {
+    assert(researchPrompt.includes(phrase), `조사 계획 계약 누락: ${phrase}`, errors);
+  }
+  for (const phrase of ["직접 지지", "한계", "READY", "시나리오 카드로 이동하지 않는다"]) {
+    assert(auditPrompt.includes(phrase), `출처 감사 계약 누락: ${phrase}`, errors);
+  }
+  assert(cardsPrompt.includes("정확히 다섯 개"), "범용 시나리오 프롬프트에 다섯 카드 계약이 없습니다.", errors);
+
   const transcript = await text(join(example, "onboarding-transcript.md"));
   const scenarioSection = transcript.split("## 진행자 2")[1]?.split("번호를 고르거나")[0] ?? "";
   const cards = scenarioSection.match(/^[1-5]\. /gmu) ?? [];
@@ -131,12 +147,14 @@ export async function validateRepository() {
 
   const schemaDirectory = join(skill, "schemas");
   const evidenceSchema = JSON.parse(await text(join(schemaDirectory, "evidence.schema.json")));
+  const sourceRecordSchema = JSON.parse(await text(join(schemaDirectory, "source-record.schema.json")));
+  const researchPlanSchema = JSON.parse(await text(join(schemaDirectory, "research-plan.schema.json")));
   const memoryDeltaSchema = JSON.parse(await text(join(schemaDirectory, "memory-delta.schema.json")));
   const lessonTurnSchema = JSON.parse(await text(join(schemaDirectory, "lesson-turn.schema.json")));
   const sessionSchema = JSON.parse(await text(join(schemaDirectory, "session.schema.json")));
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
-  for (const schema of [evidenceSchema, memoryDeltaSchema, lessonTurnSchema, sessionSchema]) {
+  for (const schema of [evidenceSchema, sourceRecordSchema, researchPlanSchema, memoryDeltaSchema, lessonTurnSchema, sessionSchema]) {
     ajv.addSchema(schema);
   }
 
@@ -166,6 +184,27 @@ export async function validateRepository() {
   }
   for (const source of session.sources) {
     assert(source.url.startsWith("https://"), `HTTPS가 아닌 출처: ${source.id}`, errors);
+    assert(source.opened === true, `원문을 열지 않은 출처: ${source.id}`, errors);
+    for (const evidenceId of source.direct_support) {
+      assert(evidenceIds.has(evidenceId), `출처의 존재하지 않는 주장 참조: ${source.id} -> ${evidenceId}`, errors);
+    }
+  }
+
+  assert(session.research.plan.readiness === "READY", "초6 예시 연구 팩이 READY가 아닙니다.", errors);
+  assert(session.research.readiness_checked === true, "초6 예시 연구 준비도 검사가 완료되지 않았습니다.", errors);
+
+  const catalog = JSON.parse(await text(join(skill, "examples", "cross-domain-catalog.json")));
+  const domains = new Set(catalog.examples.flatMap((entry) => entry.subject_domains));
+  const modes = new Set(catalog.examples.map((entry) => entry.lesson_mode));
+  const historyExamples = catalog.examples.filter((entry) => entry.subject_domains.includes("HISTORY"));
+  assert(domains.size >= 7, `다교과 카탈로그 영역 부족: ${domains.size}`, errors);
+  assert(modes.size >= 7, `다교과 카탈로그 수업 모드 부족: ${modes.size}`, errors);
+  assert(historyExamples.length / catalog.examples.length <= 1 / 3, "다교과 카탈로그가 역사에 과적합되었습니다.", errors);
+
+  const teacherSkill = join(root, "skills", "teacher-grounded-testbed");
+  const teacherProtocol = await text(join(teacherSkill, "references", "teacher-protocol.md"));
+  for (const phrase of ["PENDING_RESEARCH", "학생 포크", "교사 암호", "학생 개인정보", "저장·포함 모두 금지"]) {
+    assert(teacherProtocol.includes(phrase), `교사 로컬 학습 경계 누락: ${phrase}`, errors);
   }
 
   return errors;

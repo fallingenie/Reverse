@@ -1,11 +1,13 @@
 {
   "name": "reverse-grounded-learning-prototype",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "description": "초3~고2 근거 기반 시나리오 수업 Skill 프로토타입",
   "type": "module",
   "scripts": {
     "format": "node scripts/format.mjs",
+    "teacher": "node skills/teacher-grounded-testbed/scripts/teacher-store.mjs",
+    "fork:verify": "node skills/teacher-grounded-testbed/scripts/verify-class-fork.mjs",
     "validate": "node scripts/validate.mjs",
     "test": "node --test",
     "check": "pnpm run validate && pnpm test"

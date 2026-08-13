@@ -1,0 +1,67 @@
+{
+  "examples": [
+    {
+      "grade": "초3",
+      "subject_domains": ["SCIENCE"],
+      "lesson_mode": "SCIENCE_INQUIRY",
+      "topic": "학교 화단에서 보이는 곤충의 종류가 날마다 다른 이유 조사",
+      "research_focus": ["지역 생물종 자료", "날씨와 관찰 시간", "곤충 관찰 안전 수칙"]
+    },
+    {
+      "grade": "초5",
+      "subject_domains": ["MATHEMATICS"],
+      "lesson_mode": "MATHEMATICAL_PROBLEM",
+      "topic": "학급 축제 재료를 공평하게 나누는 여러 방법 비교",
+      "research_focus": ["분수와 비의 정의", "조건별 계산", "반례 확인"]
+    },
+    {
+      "grade": "초6",
+      "subject_domains": ["HISTORY", "SOCIAL_STUDIES"],
+      "lesson_mode": "COUNTERFACTUAL",
+      "topic": "원자폭탄이 없었던 1945년 8월의 평범한 조선인 A",
+      "research_focus": ["1차 사료", "기록기관 해설", "독립운동 자료", "논쟁과 미확인 결과"]
+    },
+    {
+      "grade": "중1",
+      "subject_domains": ["GEOGRAPHY"],
+      "lesson_mode": "GEOGRAPHIC_FIELDWORK",
+      "topic": "우리 동네 여름 그늘 지도를 만들어 보행 경로 비교",
+      "research_focus": ["공간 범위", "지도 기준 시점", "현장 측정 조건"]
+    },
+    {
+      "grade": "중2",
+      "subject_domains": ["SCIENCE"],
+      "lesson_mode": "EXPERIMENT_DESIGN",
+      "topic": "해안의 미세플라스틱을 조사하는 안전한 표본 설계",
+      "research_focus": ["표본 채취 방법", "오염 방지", "측정 한계", "동료평가 연구"]
+    },
+    {
+      "grade": "중3",
+      "subject_domains": ["SOCIAL_STUDIES", "GEOGRAPHY"],
+      "lesson_mode": "SOCIAL_DECISION",
+      "topic": "지역 대중교통 노선 개편에서 여러 이용자의 요구 비교",
+      "research_focus": ["현재 노선과 법령", "이용 통계", "이해관계자", "기준 시점"]
+    },
+    {
+      "grade": "고1",
+      "subject_domains": ["SCIENCE", "GEOGRAPHY", "MATHEMATICS", "INTERDISCIPLINARY"],
+      "lesson_mode": "INTERDISCIPLINARY_PROJECT",
+      "topic": "공공 기후 자료로 지역 폭염의 추세와 원인 구분",
+      "research_focus": ["공식 관측 데이터", "추세 계산", "귀인 연구", "불확실성"]
+    },
+    {
+      "grade": "고1",
+      "subject_domains": ["LANGUAGE_LITERATURE", "HISTORY"],
+      "lesson_mode": "LITERARY_PERSPECTIVE",
+      "topic": "같은 시대를 다룬 작품과 당대 기록의 관점 비교",
+      "research_focus": ["작품 원문", "판본", "당대 사료", "비평적 해석"]
+    },
+    {
+      "grade": "고2",
+      "subject_domains": ["MATHEMATICS", "SCIENCE"],
+      "lesson_mode": "MATHEMATICAL_PROBLEM",
+      "topic": "감염 확산 모형에서 가정이 함수 그래프에 미치는 영향",
+      "research_focus": ["모형의 정의", "매개변수", "실제 자료와 모형의 차이", "계산과 반례"]
+    }
+  ]
+}

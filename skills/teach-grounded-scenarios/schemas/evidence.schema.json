@@ -4,7 +4,7 @@
   "title": "근거 레코드",
   "type": "object",
   "additionalProperties": false,
-  "required": ["id", "status", "claim", "source_ids", "reason", "must_keep"],
+  "required": ["id", "status", "subject_domains", "basis", "consensus", "claim", "source_ids", "reason", "must_keep"],
   "properties": {
     "id": {
       "type": "string",
@@ -12,6 +12,20 @@
     },
     "status": {
       "enum": ["VERIFIED", "DERIVED", "SCENARIO", "UNKNOWN"]
+    },
+    "subject_domains": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": ["HISTORY", "SCIENCE", "SOCIAL_STUDIES", "GEOGRAPHY", "MATHEMATICS", "LANGUAGE_LITERATURE", "INTERDISCIPLINARY"]
+      },
+      "uniqueItems": true
+    },
+    "basis": {
+      "enum": ["DOCUMENTED_EVENT", "PRIMARY_SOURCE", "SCIENTIFIC_EVIDENCE", "MATHEMATICAL_PROOF", "LEGAL_TEXT", "STATISTICAL_DATA", "LITERARY_TEXT", "SCENARIO_CONSTRAINT", "MULTI_DOMAIN", "UNRESOLVED"]
+    },
+    "consensus": {
+      "enum": ["ESTABLISHED", "STRONG", "EMERGING", "CONTESTED", "NOT_APPLICABLE", "UNKNOWN"]
     },
     "claim": {
       "type": "string",

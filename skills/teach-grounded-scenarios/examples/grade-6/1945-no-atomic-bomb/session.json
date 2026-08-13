@@ -13,11 +13,42 @@
     "start_token": "[시작]",
     "start_confirmed": true
   },
+  "research": {
+    "plan": {
+      "id": "RES-1945-NO-ATOMIC-BOMB",
+      "subject_domains": ["HISTORY", "SOCIAL_STUDIES"],
+      "candidate_modes": ["COUNTERFACTUAL", "HISTORICAL_ROLE"],
+      "essential_question": "원자폭탄이 없다는 변화만으로 일본의 항복과 조선의 해방 시점을 확정할 수 있는가?",
+      "freshness": "STABLE",
+      "risk": "HIGH",
+      "claim_candidates": [
+        "포츠담 선언의 날짜와 내용",
+        "소련의 대일전 참전 시점",
+        "일본의 실제 항복 절차",
+        "한국인의 독립운동이 광복에 미친 역할"
+      ],
+      "required_source_classes": ["PRIMARY_SOURCE", "OFFICIAL_RECORD", "CURRICULUM_RESOURCE"],
+      "search_queries": [
+        "1945 Potsdam Declaration official record",
+        "Soviet declaration war Japan August 1945 primary source",
+        "1945 광복 독립운동 국사편찬위원회"
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": ["분기 이후의 항복 날짜와 한반도 정치 경로는 사료로 확인할 수 없다."]
+  },
   "lesson": {
     "scenario_id": "1945-no-atomic-bomb",
     "title": "원자폭탄이 없었던 1945년 8월의 경성",
-    "divergence": "미국의 핵무기 개발이 실패하여 히로시마와 나가사키에 원자폭탄이 투하되지 않는다.",
-    "historical_cutoff": "1945-07-15",
+    "subject_domains": ["HISTORY", "SOCIAL_STUDIES"],
+    "lesson_mode": "COUNTERFACTUAL",
+    "premise": "1945년 일제 강점기 경성의 평범한 조선인 A가 제한된 정보로 전쟁과 생활의 변화를 판단한다.",
+    "research_id": "RES-1945-NO-ATOMIC-BOMB",
+    "historical_context": {
+      "cutoff": "1945-07-15",
+      "divergence": "미국의 핵무기 개발이 실패하여 히로시마와 나가사키에 원자폭탄이 투하되지 않는다."
+    },
     "objectives": [
       "실제 사실과 반사실 가정을 구분한다.",
       "광복과 일본의 항복을 설명하는 여러 요인을 구분한다.",
@@ -29,57 +60,119 @@
     {
       "id": "SRC-01",
       "title": "The Manhattan Project: EM's Origin Story",
+      "creator": "Office of Environmental Management",
       "institution": "U.S. Department of Energy",
+      "source_class": "OFFICIAL_RECORD",
+      "subject_domains": ["HISTORY", "SCIENCE"],
       "url": "https://www.energy.gov/em/articles/manhattan-project-ems-origin-story",
-      "accessed_at": "2026-08-13"
+      "published_at": null,
+      "accessed_at": "2026-08-13",
+      "opened": true,
+      "direct_support": ["VER-001"],
+      "limitations": ["반사실 시간선의 전쟁 종결 시점은 설명하지 않는다."],
+      "freshness": "STABLE"
     },
     {
       "id": "SRC-02",
       "title": "The Potsdam Conference, 1945",
+      "creator": "Office of the Historian",
       "institution": "Office of the Historian, U.S. Department of State",
+      "source_class": "OFFICIAL_RECORD",
+      "subject_domains": ["HISTORY"],
       "url": "https://history.state.gov/milestones/1937-1945/potsdam-conf",
-      "accessed_at": "2026-08-13"
+      "published_at": null,
+      "accessed_at": "2026-08-13",
+      "opened": true,
+      "direct_support": ["VER-002"],
+      "limitations": [
+        "포츠담 선언만으로 특정 항복 날짜를 확정할 수 없다.",
+        "미국 국무부 역사국은 이 Milestones 페이지가 더 이상 유지보수되지 않는다고 표시한다."
+      ],
+      "freshness": "STABLE"
     },
     {
       "id": "SRC-03",
       "title": "The President's News Conference, August 8, 1945",
+      "creator": "Harry S. Truman",
       "institution": "Harry S. Truman Library and Museum",
+      "source_class": "PRIMARY_SOURCE",
+      "subject_domains": ["HISTORY"],
       "url": "https://www.trumanlibrary.gov/library/public-papers/94/presidents-news-conference",
-      "accessed_at": "2026-08-13"
+      "published_at": "1945-08-08",
+      "accessed_at": "2026-08-13",
+      "opened": true,
+      "direct_support": ["VER-003"],
+      "limitations": ["반사실 시간선에서 소련의 모든 행동이 같았는지는 증명하지 않는다."],
+      "freshness": "STABLE"
     },
     {
       "id": "SRC-04",
       "title": "주한미군사 1, III. 간주곡: 1945년 8월",
+      "creator": "주한미군사 편찬진",
       "institution": "국사편찬위원회 한국사데이터베이스",
+      "source_class": "PRIMARY_SOURCE",
+      "subject_domains": ["HISTORY"],
       "url": "https://db.history.go.kr/contemp/level.do?levelId=husa_001r_0030_0010",
-      "accessed_at": "2026-08-13"
+      "published_at": null,
+      "accessed_at": "2026-08-13",
+      "opened": true,
+      "direct_support": ["VER-004"],
+      "limitations": ["미군이 작성한 기록이며 모든 조선인의 경험을 대표하지 않는다."],
+      "freshness": "STABLE"
     },
     {
       "id": "SRC-05",
       "title": "광복 직후의 국내 정세",
+      "creator": "국사편찬위원회",
       "institution": "국사편찬위원회 우리역사넷",
+      "source_class": "CURRICULUM_RESOURCE",
+      "subject_domains": ["HISTORY", "SOCIAL_STUDIES"],
       "url": "https://contents.history.go.kr/front/ta/view.do?levelId=ta_h71_0040_0050_0040_0010",
-      "accessed_at": "2026-08-13"
+      "published_at": null,
+      "accessed_at": "2026-08-13",
+      "opened": true,
+      "direct_support": ["VER-005"],
+      "limitations": ["반사실 시간선의 해방 날짜와 방식을 설명하지 않는다."],
+      "freshness": "STABLE"
     },
     {
       "id": "SRC-06",
       "title": "Surrender of Japan (1945)",
+      "creator": "U.S. National Archives and Records Administration",
       "institution": "U.S. National Archives and Records Administration",
+      "source_class": "PRIMARY_SOURCE",
+      "subject_domains": ["HISTORY"],
       "url": "https://www.archives.gov/milestone-documents/surrender-of-japan",
-      "accessed_at": "2026-08-13"
+      "published_at": "1945-09-02",
+      "accessed_at": "2026-08-13",
+      "opened": true,
+      "direct_support": ["VER-004"],
+      "limitations": ["실제 역사 문서이며 반사실 항복 날짜를 제시하지 않는다."],
+      "freshness": "STABLE"
     },
     {
       "id": "SRC-07",
       "title": "광복의 순간, 태극기 휘날리며",
+      "creator": "신현배",
       "institution": "독립기념관",
+      "source_class": "CURRICULUM_RESOURCE",
+      "subject_domains": ["HISTORY"],
       "url": "https://www.i815.or.kr/upload/kr/magazine/magazine/19/post-193.html",
-      "accessed_at": "2026-08-13"
+      "published_at": null,
+      "accessed_at": "2026-08-13",
+      "opened": true,
+      "direct_support": [],
+      "limitations": ["대중 교육 해설이므로 세부 사실은 1차 사료와 교차 확인한다."],
+      "freshness": "STABLE"
     }
   ],
   "evidence": [
     {
       "id": "VER-001",
       "status": "VERIFIED",
+      "subject_domains": ["HISTORY", "SCIENCE"],
+      "basis": "DOCUMENTED_EVENT",
+      "consensus": "ESTABLISHED",
       "claim": "실제 역사에서 최초 핵 장치 실험은 1945년 7월 16일 성공했다.",
       "source_ids": ["SRC-01"],
       "reason": "미국 에너지부의 맨해튼 계획 역사 자료가 날짜와 사건을 직접 설명한다.",
@@ -88,6 +181,9 @@
     {
       "id": "VER-002",
       "status": "VERIFIED",
+      "subject_domains": ["HISTORY"],
+      "basis": "DOCUMENTED_EVENT",
+      "consensus": "ESTABLISHED",
       "claim": "포츠담 선언은 1945년 7월 26일 일본에 항복을 요구했다.",
       "source_ids": ["SRC-02"],
       "reason": "미국 국무부 역사국 자료가 선언의 발표 주체, 날짜, 목적을 직접 설명한다.",
@@ -96,6 +192,9 @@
     {
       "id": "VER-003",
       "status": "VERIFIED",
+      "subject_domains": ["HISTORY"],
+      "basis": "PRIMARY_SOURCE",
+      "consensus": "ESTABLISHED",
       "claim": "실제 역사에서 소련의 대일전 참전은 1945년 8월 8일 발표되었다.",
       "source_ids": ["SRC-03"],
       "reason": "당일 트루먼 대통령의 기자회견 기록이 남아 있다.",
@@ -104,6 +203,9 @@
     {
       "id": "VER-004",
       "status": "VERIFIED",
+      "subject_domains": ["HISTORY"],
+      "basis": "PRIMARY_SOURCE",
+      "consensus": "ESTABLISHED",
       "claim": "실제 역사에서 일본은 1945년 8월 15일 항복을 방송하고 9월 2일 공식 항복 문서에 서명했다.",
       "source_ids": ["SRC-04", "SRC-06"],
       "reason": "조선에서의 발표 정황과 공식 항복 문서가 각각 날짜와 절차를 뒷받침한다.",
@@ -112,6 +214,9 @@
     {
       "id": "VER-005",
       "status": "VERIFIED",
+      "subject_domains": ["HISTORY", "SOCIAL_STUDIES"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "ESTABLISHED",
       "claim": "한국인의 국내외 독립운동은 광복을 설명할 때 함께 다루어야 하는 역사 요소다.",
       "source_ids": ["SRC-05"],
       "reason": "국사편찬위원회 교과 자료가 연합군의 승리와 독립운동을 함께 설명한다.",
@@ -120,6 +225,9 @@
     {
       "id": "SCN-001",
       "status": "SCENARIO",
+      "subject_domains": ["HISTORY"],
+      "basis": "SCENARIO_CONSTRAINT",
+      "consensus": "NOT_APPLICABLE",
       "claim": "미국의 핵무기 개발이 실패하여 1945년 8월 10일까지 원자폭탄 투하가 없다.",
       "source_ids": [],
       "reason": "사용자가 지정한 단일 반사실 분기점이다.",
@@ -128,6 +236,9 @@
     {
       "id": "SCN-002",
       "status": "SCENARIO",
+      "subject_domains": ["HISTORY"],
+      "basis": "SCENARIO_CONSTRAINT",
+      "consensus": "NOT_APPLICABLE",
       "claim": "이 수업 시간선에서도 소련의 대일전 참전은 발생한다.",
       "source_ids": ["SRC-03"],
       "reason": "분기점을 핵무기 개발 실패 하나로 제한하기 위한 최소 변경 가정이다.",
@@ -136,6 +247,9 @@
     {
       "id": "DER-001",
       "status": "DERIVED",
+      "subject_domains": ["HISTORY", "SOCIAL_STUDIES"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "NOT_APPLICABLE",
       "claim": "원자폭탄의 부재만으로 일본의 항복 날짜를 확정할 수는 없다.",
       "source_ids": ["SRC-02", "SRC-03", "SRC-05"],
       "derived_from": ["VER-002", "VER-003", "VER-005", "SCN-001"],
@@ -145,6 +259,9 @@
     {
       "id": "UNK-001",
       "status": "UNKNOWN",
+      "subject_domains": ["HISTORY"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
       "claim": "반사실 시간선에서 일본이 언제 어떤 조건으로 항복하는지는 알 수 없다.",
       "source_ids": [],
       "reason": "분기 이후의 결과이며 공식 자료가 답할 수 없다.",
@@ -153,6 +270,9 @@
     {
       "id": "UNK-002",
       "status": "UNKNOWN",
+      "subject_domains": ["HISTORY", "SOCIAL_STUDIES", "GEOGRAPHY"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
       "claim": "반사실 시간선에서 조선의 해방, 연합군 진주, 분단의 시점과 방식은 알 수 없다.",
       "source_ids": [],
       "reason": "여러 군사·외교 결정이 연쇄적으로 달라질 수 있다.",
