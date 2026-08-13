@@ -48,6 +48,23 @@ test("ChatGPT Free 배포물은 설치형 또는 특정 모델 보장을 주장�
   assert.deepEqual(profile.public_sources, []);
 });
 
+test("비공개 Custom GPT 구성은 핵심 게이트와 보장 경계를 명시한다", async () => {
+  const config = await readFile(join(root, "chatgpt", "custom-gpt", "BUILDER_CONFIG.md"), "utf8");
+  const instructions = await readFile(join(root, "chatgpt", "custom-gpt", "INSTRUCTIONS.md"), "utf8");
+  const knowledge = await readFile(join(root, "chatgpt", "custom-gpt", "KNOWLEDGE_REFERENCE.md"), "utf8");
+  assert.match(config, /나만 보기/u);
+  assert.match(config, /권장일 뿐 강제가 아니/u);
+  assert.match(instructions, /정확히 5개/u);
+  assert.match(instructions, /정확히 `\[시작\]`/u);
+  assert.match(instructions, /CANON_PROPOSAL/u);
+  assert.match(instructions, /NOT_LOADED/u);
+  assert.match(instructions, /RESTART_RECOMMENDED/u);
+  assert.match(instructions, /암호를 받아 권한이 생겼다고 주장하지 않는다/u);
+  assert.match(instructions, /이미지 생성 도구를 자발적으로 호출하지 않는다/u);
+  assert.match(config, /제품 전체 UI를 제거하는 권한으로 취급하지 않는다/u);
+  assert.match(knowledge, /영구 원장/u);
+});
+
 test("Copilot manifest는 공개 v1.8 경계와 Think deeper 기본 요청을 따른다", async () => {
   const manifest = await json("copilot/declarativeAgent.json");
   const profile = await json("copilot/RUNTIME_PROFILE.json");
@@ -71,5 +88,16 @@ test("Windows PowerShell은 UTF-8-SIG이고 기계 JSON은 무BOM이다", async 
   ]) {
     const contents = await readFile(join(root, relativePath));
     assert.notDeepEqual([...contents.subarray(0, 3)], [0xEF, 0xBB, 0xBF], `${relativePath} should be BOM-free JSON`);
+  }
+});
+
+test("Custom GPT 사람용 입력 파일은 UTF-8-SIG이다", async () => {
+  for (const relativePath of [
+    "chatgpt/custom-gpt/BUILDER_CONFIG.md",
+    "chatgpt/custom-gpt/INSTRUCTIONS.md",
+    "chatgpt/custom-gpt/KNOWLEDGE_REFERENCE.md"
+  ]) {
+    const contents = await readFile(join(root, relativePath));
+    assert.deepEqual([...contents.subarray(0, 3)], [0xEF, 0xBB, 0xBF], `${relativePath} should be UTF-8-SIG`);
   }
 });
