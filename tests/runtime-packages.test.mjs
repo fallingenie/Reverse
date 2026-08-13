@@ -56,13 +56,20 @@ test("비공개 Custom GPT 구성은 핵심 게이트와 보장 경계를 명시
   assert.match(config, /권장일 뿐 강제가 아니/u);
   assert.match(instructions, /정확히 5개/u);
   assert.match(instructions, /정확히 `\[시작\]`/u);
-  assert.match(instructions, /CANON_PROPOSAL/u);
-  assert.match(instructions, /NOT_LOADED/u);
-  assert.match(instructions, /RESTART_RECOMMENDED/u);
+  assert.match(instructions, /학교급이 확인되지 않았으면/u);
+  assert.match(instructions, /학교급 없이 `3`, `2학년`, `3학년`/u);
+  assert.match(instructions, /새 세션의 첫 사용자 입력이 `1`, `2`, `3` 같은 숫자 하나뿐이면 학교급 선택 번호로도 해석하지 않는다/u);
+  assert.match(instructions, /바로 직전 응답에서 GPT가 학교급 선택지를 명시적으로 제시한 경우에만 유효하다/u);
+  assert.match(instructions, /핵심 설정 수정 제안/u);
+  assert.match(instructions, /처음부터 다시 시작 권고/u);
   assert.match(instructions, /암호를 받아 권한이 생겼다고 주장하지 않는다/u);
   assert.match(instructions, /이미지 생성 도구를 자발적으로 호출하지 않는다/u);
   assert.match(config, /제품 전체 UI를 제거하는 권한으로 취급하지 않는다/u);
   assert.match(knowledge, /영구 원장/u);
+  assert.match(knowledge, /선생님이나 교과서, 참고서를 확인하여 주세요/u);
+  assert.match(instructions, /기술 정보는 학생에게 먼저 보여주지 않는다/u);
+  assert.doesNotMatch(instructions, /`실행 프로필:|PROMPT_GUARDED/u);
+  assert.doesNotMatch(`${instructions}${knowledge}`, /VERIFIED|DERIVED|SCENARIO|UNKNOWN|NOT_LOADED|CONFLICTED|참고표/u);
 });
 
 test("Copilot manifest는 공개 v1.8 경계와 Think deeper 기본 요청을 따른다", async () => {
