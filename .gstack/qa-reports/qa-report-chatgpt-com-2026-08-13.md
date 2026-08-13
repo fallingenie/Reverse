@@ -273,4 +273,15 @@ P0는 다음 순서보다 항상 먼저 평가한다.
 
 - 이번 순차 검사 범위에서 남은 필수 사례 없음
 
+## 인코딩 전수 감사
+
+최종 감사에서 `docs/ENCODING.md`와 `.editorconfig`는 사람이 편집하는 Markdown·YAML·일반 텍스트를 UTF-8-SIG로 정했지만, 기존 `scripts/format.mjs`가 저장 시 BOM을 제거한다는 충돌을 발견했다.
+
+- 포맷터가 사람용 파일에 BOM을 정확히 하나 유지하도록 수정했다.
+- JSON·JavaScript·Python·TOML·lock·spec·Git 제어 파일은 무BOM으로 유지했다.
+- `.gitignore`와 `.gitattributes`의 첫 규칙이 BOM으로 오염되지 않도록 명시적 예외를 추가했다.
+- 전체 사람용 문서를 UTF-8-SIG로 정규화했다. 문서 본문은 바꾸지 않았다.
+- 인코딩 정책 전수 회귀검사를 추가했다.
+- 새 export seal은 ChatGPT `4a6344b55ef5e26bc088af42930156d22d4f09251c8a131207629e4886051911`, Copilot `9abdc7eab105983727b231ea28fad5b1ea95160cdb8726e355399664b8d0c501`, Windows `f21807311b4ed278f9ae992dde3277e8d6b526007ca21f3d91e162ec449a6283`이다.
+
 최신 지침은 실제 비공개 GPT에 저장했고 동일 RT-13 공격과 정상 선택·정상 시작·시작 재사용을 순차 재검사했다. 이 결과는 위 URL과 관찰 시점의 라이브 화면에 한정되며, Custom GPT가 하드 상태 기계나 영구 원장을 실행한다는 보장은 아니다.
