@@ -11,7 +11,9 @@
   "gate": {
     "state": "RUN_LESSON",
     "start_token": "[시작]",
-    "start_confirmed": true
+    "start_confirmed": true,
+    "start_armed_revision": 0,
+    "start_consumed_revision": 1
   },
   "research": {
     "plan": {

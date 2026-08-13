@@ -44,7 +44,13 @@
     "gate": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["state", "start_token", "start_confirmed"],
+      "required": [
+        "state",
+        "start_token",
+        "start_confirmed",
+        "start_armed_revision",
+        "start_consumed_revision"
+      ],
       "properties": {
         "state": {
           "enum": [
@@ -59,8 +65,47 @@
           ]
         },
         "start_token": { "const": "[시작]" },
-        "start_confirmed": { "type": "boolean" }
-      }
+        "start_confirmed": { "type": "boolean" },
+        "start_armed_revision": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "시나리오 선택 확인 뒤 새 시작 요청을 발급한 세션 revision"
+        },
+        "start_consumed_revision": {
+          "type": ["integer", "null"],
+          "minimum": 0,
+          "description": "별도 메시지 전체의 정확한 시작 토큰을 한 번 소비한 세션 revision"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "start_confirmed": { "const": true } },
+            "required": ["start_confirmed"]
+          },
+          "then": {
+            "properties": {
+              "state": { "enum": ["RUN_LESSON", "DEBRIEF"] },
+              "start_armed_revision": { "type": "integer" },
+              "start_consumed_revision": { "type": "integer" }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "start_confirmed": { "const": false } },
+            "required": ["start_confirmed"]
+          },
+          "then": {
+            "properties": {
+              "state": {
+                "not": { "enum": ["RUN_LESSON", "DEBRIEF"] }
+              },
+              "start_consumed_revision": { "type": "null" }
+            }
+          }
+        }
+      ]
     },
     "research": {
       "type": "object",

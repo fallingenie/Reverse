@@ -11,7 +11,9 @@
   "gate": {
     "state": "COLLECT_PROFILE",
     "start_token": "[시작]",
-    "start_confirmed": false
+    "start_confirmed": false,
+    "start_armed_revision": null,
+    "start_consumed_revision": null
   },
   "research": {
     "plan": {
