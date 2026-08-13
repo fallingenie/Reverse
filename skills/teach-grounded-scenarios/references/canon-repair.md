@@ -1,4 +1,4 @@
-# Story Track과 Canon 교정
+﻿# Story Track과 Canon 교정
 
 ## 원칙
 

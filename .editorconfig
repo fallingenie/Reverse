@@ -11,3 +11,12 @@ charset = utf-8
 [*.ps1]
 end_of_line = lf
 charset = utf-8-bom
+
+[pnpm-lock.yaml]
+charset = utf-8
+
+[.gitattributes]
+charset = utf-8
+
+[.gitignore]
+charset = utf-8

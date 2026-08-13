@@ -1,4 +1,4 @@
-interface:
+﻿interface:
   display_name: "교사 로컬 학습 테스트베드"
   short_description: "학급별 로컬 규칙을 학습하고 학생용 포크를 만듭니다"
   default_prompt: "Use $teacher-grounded-testbed to preserve the P0 safety and scientific-integrity gate, configure a class, test the lesson as a student, and build a verified student-only fork."

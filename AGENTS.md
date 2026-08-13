@@ -1,4 +1,4 @@
-# Reverse 프로젝트 작업 규칙
+﻿# Reverse 프로젝트 작업 규칙
 
 ## 최상위 원칙: Transparency and Truth
 

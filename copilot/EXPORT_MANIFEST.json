@@ -4,12 +4,12 @@
   "license": "Apache-2.0",
   "file_count": 6,
   "file_digests": {
-    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
-    "NOTICE": "1e1a6b46d75f68a5a5e3534e00b0538915e3fdc7667603095bf5f361bbd9201f",
+    "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
+    "NOTICE": "f522b196e59c55a85a475371a1b481708d6e5ecc3bdf48fe5dbe7965b34df82f",
     "README.md": "c61ddfbe90fe327b2616e0e9aa3e7285f94781874ae84abfc47a2d45fed4ffb9",
     "RUNTIME_PROFILE.json": "a93d20cd71a7ab0da1bb9b46fa1470126511cd7e3bc5ec9dd3e2b1f4f4051db3",
     "declarativeAgent.json": "f15c77ca31aac507664918e8835916eb5c32decf6da7718afc42fb2d111e1e58",
     "knowledge/reverse-policy.txt": "7ee52350eda5763a66ba28c7079069fa8b8c0855a5bc321e77732f8ad003bb04"
   },
-  "seal_sha256": "8ed80b920bf88acc4de04cb47b0c4cf266831ba4ecb2aff0bd7eb5405ef2e82a"
+  "seal_sha256": "9abdc7eab105983727b231ea28fad5b1ea95160cdb8726e355399664b8d0c501"
 }

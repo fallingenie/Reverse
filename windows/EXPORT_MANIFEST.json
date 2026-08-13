@@ -4,8 +4,8 @@
   "license": "Apache-2.0",
   "file_count": 35,
   "file_digests": {
-    "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
-    "NOTICE": "1e1a6b46d75f68a5a5e3534e00b0538915e3fdc7667603095bf5f361bbd9201f",
+    "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
+    "NOTICE": "f522b196e59c55a85a475371a1b481708d6e5ecc3bdf48fe5dbe7965b34df82f",
     "README.md": "a68656cd2899a9212b948b139f6a00b306c312f3977250e9171be0f66b56d2ed",
     "RUNTIME_PROFILE.json": "cb2d37b51dbd9f2c5c257aa834e8f024a30c33b4755b41bf6d8c6703529ea558",
     "Reverse.spec": "1cb201ee6acf416e569d37f88bb377c86cd0e2bd9bd522eabcc1a075e14b36c3",
@@ -40,5 +40,5 @@
     "tests/test_migration.py": "997a1a622a20f845a1219d0736ef70eaab7aed93f106e5647d63e9f6d77868a5",
     "tests/test_pdf_refs.py": "788f7023b363f3228eab9e14e2f05676aa8eb801b0d9dc264faa3db2bb4354b7"
   },
-  "seal_sha256": "105e70bf64e3556bd7c5f60e6b9e367100397b7b902fccc7721b1fdd54daa135"
+  "seal_sha256": "f21807311b4ed278f9ae992dde3277e8d6b526007ca21f3d91e162ec449a6283"
 }

@@ -1,4 +1,4 @@
-# Prompt 08: Story Track 교정
+﻿# Prompt 08: Story Track 교정
 
 ## 입력
 
