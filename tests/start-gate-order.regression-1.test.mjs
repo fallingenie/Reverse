@@ -37,6 +37,8 @@ test("시작 토큰은 선택 확인 뒤 별도 메시지로 한 번만 소비�
   assert.match(instructions, /같은 메시지에 섞인 `\[시작\]`/u);
   assert.match(instructions, /가장 이른 미완료 단계에서 멈춘다/u);
   assert.match(instructions, /먼저 조사와 다섯 개 제안을 완료/u);
+  assert.match(instructions, /예고만 하지 않는다/u);
+  assert.match(instructions, /정확히 5개의 시나리오 카드/u);
 });
 
 test("세션 스키마는 무장되지 않은 시작과 미소비 시작을 실행 상태로 허용하지 않는다", async () => {
