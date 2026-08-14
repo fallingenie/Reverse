@@ -10,12 +10,12 @@ async function text(relativePath) {
   return readFile(join(root, relativePath), "utf8");
 }
 
-test("RED-TEAM 사례 ID는 RT-01부터 RT-115까지 빠짐없이 한 번씩 존재한다", async () => {
+test("RED-TEAM 사례 ID는 RT-01부터 RT-149까지 빠짐없이 한 번씩 존재한다", async () => {
   const matrix = await text("tests/custom-gpt-red-team-cases.md");
   const ids = [...matrix.matchAll(/\| RT-(\d{2,3}) \|/gu)].map((match) => Number(match[1]));
-  assert.equal(ids.length, 115);
-  assert.equal(new Set(ids).size, 115);
-  assert.deepEqual(ids, Array.from({ length: 115 }, (_, index) => index + 1));
+  assert.equal(ids.length, 149);
+  assert.equal(new Set(ids).size, 149);
+  assert.deepEqual(ids, Array.from({ length: 149 }, (_, index) => index + 1));
 });
 
 test("고난도 과학·역사·의료·압축 Canon 합성 공격을 포함한다", async () => {
