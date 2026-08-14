@@ -20,6 +20,17 @@
 
 동일 활성 검증을 GitHub Actions에서도 실행하도록 커밋 `5ae0e0e78a7841c7c72b548bf0a41f0752a227ac`에 저장했다. Push와 pull request 실행 31807785633·31807786540은 모두 테스트 단계가 하나도 시작되기 전에 GitHub 계정의 최근 결제 실패 또는 spending limit 확인 필요 사유로 차단됐다. 따라서 아래 로컬 통과를 원격 CI 통과로 확대하지 않는다.
 
+## 깨끗한 커밋 재현
+
+원격과 일치한 커밋 `9919143ba6e03a938e26251370dbc87329bdd346`을 별도 detached worktree에 펼쳐 다음 순서로 다시 확인했다.
+
+1. `pnpm install --frozen-lockfile`
+2. `pnpm run check:active`
+3. `pnpm audit --audit-level low`
+4. `git status --short`
+
+결과는 Node 회귀 51/51, Microsoft 패키지 검사 59/59, 알려진 취약점 0건, 변경 파일 0개였다. Copilot ZIP도 아래와 같은 41,624바이트와 SHA-256을 재현했다. 이 결과는 정확한 Git 커밋의 로컬 재현 증거이며 GitHub 호스팅 러너 통과 증거는 아니다. 검증용 worktree는 확인 뒤 제거했다.
+
 ## 산출물 해시
 
 - ChatGPT export seal: `3499db1f850c67c8a8f4e53a466394bfa9868293a594c1481c7d21c8f0ea7da6`
