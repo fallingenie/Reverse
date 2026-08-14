@@ -75,7 +75,11 @@ export function sanitizeAbsoluteUserPaths(text, roots = []) {
     .sort((left, right) => right.length - left.length);
 
   for (const root of candidates) {
-    const variants = [root, root.replaceAll("\\", "/")];
+    const variants = [
+      root,
+      root.replaceAll("\\", "/"),
+      root.replaceAll("\\", "\\\\")
+    ];
     for (const variant of variants) {
       const pattern = new RegExp(escapeRegExp(variant), process.platform === "win32" ? "giu" : "gu");
       sanitized = sanitized.replace(pattern, () => {
@@ -86,6 +90,7 @@ export function sanitizeAbsoluteUserPaths(text, roots = []) {
   }
 
   const genericPatterns = [
+    /\b[A-Za-z]:\\\\Users\\\\[^\\/\s"']+/gu,
     /\b[A-Za-z]:[\\/]Users[\\/][^\\/\s"']+/gu,
     /\/(?:home|Users)\/[^/\s"']+/gu
   ];
@@ -100,7 +105,7 @@ export function sanitizeAbsoluteUserPaths(text, roots = []) {
 }
 
 export function containsAbsoluteUserPath(text) {
-  return /\b[A-Za-z]:[\\/]Users[\\/][^\\/\s"']+|\/(?:home|Users)\/[^/\s"']+/u.test(text);
+  return /\b[A-Za-z]:\\\\Users\\\\[^\\/\s"']+|\b[A-Za-z]:[\\/]Users[\\/][^\\/\s"']+|\/(?:home|Users)\/[^/\s"']+/u.test(text);
 }
 
 export function isSafeTemporaryRoot(path) {

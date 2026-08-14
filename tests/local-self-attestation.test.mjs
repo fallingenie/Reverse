@@ -26,11 +26,20 @@ test("비밀값 패턴은 원문을 증거에 넣기 전에 차단한다", () =>
 });
 
 test("사용자 홈과 지정한 로컬 경로를 공개 로그에서 치환한다", () => {
-  const source = "C:\\Users\\teacher\\project\\file.txt\nC:\\Temp\\reverse\\a.txt";
+  const source = [
+    "C:\\Users\\teacher\\project\\file.txt",
+    "C:\\Temp\\reverse\\a.txt",
+    JSON.stringify("C:\\Users\\teacher\\project\\file.txt"),
+    JSON.stringify("C:\\Temp\\reverse\\a.txt")
+  ].join("\n");
   const result = sanitizeAbsoluteUserPaths(source, ["C:\\Temp\\reverse"]);
-  assert.ok(result.replacements >= 2);
+  assert.ok(result.replacements >= 4);
   assert.equal(containsAbsoluteUserPath(result.text), false);
   assert.match(result.text, /<USER_HOME>|<LOCAL_PATH>/u);
+});
+
+test("JSON 이스케이프된 Windows 사용자 경로도 탐지한다", () => {
+  assert.equal(containsAbsoluteUserPath(JSON.stringify("C:\\Users\\teacher\\private.txt")), true);
 });
 
 test("NUL 구분 Git 상태의 첫 공백과 미추적 경로를 보존한다", () => {
