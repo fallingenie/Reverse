@@ -29,20 +29,46 @@ function protectedProjection(group, item) {
   return item;
 }
 
+function shouldProtect(group, item) {
+  if (["session_contract", "sources", "current_state", "canon", "negative_facts", "corrections", "open_threads", "conflicts"].includes(group)) {
+    return true;
+  }
+  if (group === "evidence") {
+    return item?.must_keep === true || ["VERIFIED", "UNKNOWN"].includes(item?.status);
+  }
+  if (group === "episode_archive") {
+    return item?.must_keep === true || (typeof item?.student_choice === "string" && item.student_choice !== "");
+  }
+  return item?.must_keep === true;
+}
+
 export function protectedFingerprints(session) {
   const memory = session.memory ?? {};
   const groups = {
+    session_contract: [{
+      id: "SESSION-CONTRACT",
+      schema_version: session.schema_version,
+      session_id: session.session_id,
+      revision: session.revision,
+      profile: session.profile,
+      gate: session.gate,
+      research: session.research,
+      lesson: session.lesson
+    }],
+    sources: session.sources ?? [],
     evidence: session.evidence ?? [],
+    current_state: [{ id: "CURRENT-STATE", ...(memory.current_state ?? {}) }],
     canon: memory.canon ?? [],
     negative_facts: memory.negative_facts ?? [],
     corrections: memory.corrections ?? [],
     open_threads: memory.open_threads ?? [],
-    episode_archive: memory.episode_archive ?? []
+    episode_archive: memory.episode_archive ?? [],
+    conflicts: (memory.conflicts ?? []).map((text, index) => ({ id: `CONFLICT-${index + 1}`, text }))
   };
 
   return Object.entries(groups)
     .flatMap(([group, items]) => items
-      .filter((item) => item?.must_keep === true)
+      .filter((item) => shouldProtect(group, item))
       .map((item) => {
         const projection = protectedProjection(group, item);
         return {

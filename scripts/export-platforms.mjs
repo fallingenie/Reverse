@@ -7,7 +7,15 @@ import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const verifyOnly = process.argv.includes("--verify");
-const platformIds = ["chatgpt", "copilot", "windows"];
+const supportedPlatformIds = ["chatgpt", "copilot", "windows"];
+const platformArgument = process.argv.find((argument) => argument.startsWith("--platforms="));
+const platformIds = platformArgument
+  ? [...new Set(platformArgument.slice("--platforms=".length).split(",").map((item) => item.trim()).filter(Boolean))]
+  : supportedPlatformIds;
+const unsupportedPlatformIds = platformIds.filter((platformId) => !supportedPlatformIds.includes(platformId));
+if (platformIds.length === 0 || unsupportedPlatformIds.length > 0) {
+  throw new Error(`지원 플랫폼은 ${supportedPlatformIds.join(", ")}입니다.`);
+}
 const excludedDirectoryNames = new Set([".venv", "__pycache__", "build", "dist"]);
 const excludedFileNames = new Set(["EXPORT_MANIFEST.json"]);
 

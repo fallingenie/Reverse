@@ -4,11 +4,19 @@
   "private": true,
   "description": "초3~고2 근거 기반 시나리오 수업 Skill 프로토타입",
   "type": "module",
+  "packageManager": "pnpm@11.19.0",
   "scripts": {
     "format": "node scripts/format.mjs",
     "export": "node scripts/export-platforms.mjs",
+    "export:active": "node scripts/export-platforms.mjs --platforms=chatgpt,copilot",
     "verify:exports": "node scripts/export-platforms.mjs --verify",
+    "verify:exports:active": "node scripts/export-platforms.mjs --verify --platforms=chatgpt,copilot",
     "verify:copilot": "node scripts/verify-copilot-schema.mjs",
+    "copilot:doctor": "node scripts/copilot-doctor.mjs",
+    "copilot:tenant-doctor": "node scripts/copilot-tenant-doctor.mjs",
+    "copilot:package": "node scripts/build-copilot-package.mjs",
+    "copilot:validate-package": "atk validate --package-file copilot/appPackage/build/reverse-m365-copilot.zip",
+    "redteam:plan": "node scripts/red-team-plan.mjs",
     "teacher": "node skills/teacher-grounded-testbed/scripts/teacher-store.mjs",
     "fork:verify": "node skills/teacher-grounded-testbed/scripts/verify-class-fork.mjs",
     "test:e2e": "node scripts/e2e-class-fork.mjs",
@@ -21,7 +29,8 @@
     "node": ">=20"
   },
   "devDependencies": {
-    "ajv": "8.17.1",
+    "@microsoft/m365agentstoolkit-cli": "1.1.15",
+    "ajv": "8.18.0",
     "ajv-formats": "3.0.1"
   },
   "license": "Apache-2.0"

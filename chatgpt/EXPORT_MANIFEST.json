@@ -2,17 +2,19 @@
   "schema_version": "1.0.0",
   "package_id": "reverse-chatgpt",
   "license": "Apache-2.0",
-  "file_count": 9,
+  "file_count": 11,
   "file_digests": {
-    "BOOTSTRAP.md": "03da2f83fccd6f2f91007123123ae1c6f074ccdc6048fc21a82d28ad32a74805",
+    "BOOTSTRAP.md": "ce8c642abdc0d87cea7f993a20db1030a5078b48aeb022067b2730e4915d667c",
+    "CLASSROOM_SETTINGS.example.md": "6477acec45f80653ef68000b693604da09554079e035d783b24019de85831600",
     "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
     "NOTICE": "f522b196e59c55a85a475371a1b481708d6e5ecc3bdf48fe5dbe7965b34df82f",
-    "POLICY.md": "582ee2a91defe5305d8447854bf2521cdaa779187adaa6efdbf34a1ee52fcf79",
-    "RUNTIME_PROFILE.json": "954e0afc9eeb147576c91ca766ef2c7e914727f7033f0668bff8de5a5377ae00",
-    "START-HERE.md": "af63eec3e2e0a9a159809dde21d8e16f0179562b71e349ab652d053d660fca2f",
-    "custom-gpt/BUILDER_CONFIG.md": "ca27ea61b0771bbacd59eb8775208ad49a3c8b7d68256b0c125359ff78260ccc",
-    "custom-gpt/INSTRUCTIONS.md": "65a0f5a7c5b00667c22801468c039ce04bfed352c45bd279a1c7137bfab1b637",
+    "POLICY.md": "3de8b1c4d2b23304b25f39c774489ce18434f7072d0508cb8b3435006c30ccfd",
+    "RUNTIME_PROFILE.json": "13065e25876046eaeb6cbf0df2b646735dd271a50d37cac43e429f8b98f2e982",
+    "START-HERE.md": "da6b85721edeaa5313fdd7ab4c8e4761f44c06f7dd3c00b016f8487de9a6c508",
+    "TEACHER-QUICK-START.md": "1a317f1333db957d483e19e108a52a4f9b1a1858e058b7b7a75ebc3632a75c94",
+    "custom-gpt/BUILDER_CONFIG.md": "3e8e557369bef5fd3867e20d3b0f5a6a9afeeac601aafbccaf1017818dc7d75f",
+    "custom-gpt/INSTRUCTIONS.md": "c35ae756957dd60fe617cafeedddcefa1633b8db6394afc13693a32e7ed4ea58",
     "custom-gpt/KNOWLEDGE_REFERENCE.md": "e03803093d92f95b3fc1a4922fad3211bf98503df6e8f01117838a63d121bb39"
   },
-  "seal_sha256": "4a6344b55ef5e26bc088af42930156d22d4f09251c8a131207629e4886051911"
+  "seal_sha256": "3499db1f850c67c8a8f4e53a466394bfa9868293a594c1481c7d21c8f0ea7da6"
 }

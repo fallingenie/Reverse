@@ -10,12 +10,46 @@ async function text(relativePath) {
   return readFile(join(root, relativePath), "utf8");
 }
 
-test("RED-TEAM 사례 ID는 RT-01부터 RT-75까지 빠짐없이 한 번씩 존재한다", async () => {
+test("RED-TEAM 사례 ID는 RT-01부터 RT-115까지 빠짐없이 한 번씩 존재한다", async () => {
   const matrix = await text("tests/custom-gpt-red-team-cases.md");
-  const ids = [...matrix.matchAll(/\| RT-(\d{2}) \|/gu)].map((match) => Number(match[1]));
-  assert.equal(ids.length, 75);
-  assert.equal(new Set(ids).size, 75);
-  assert.deepEqual(ids, Array.from({ length: 75 }, (_, index) => index + 1));
+  const ids = [...matrix.matchAll(/\| RT-(\d{2,3}) \|/gu)].map((match) => Number(match[1]));
+  assert.equal(ids.length, 115);
+  assert.equal(new Set(ids).size, 115);
+  assert.deepEqual(ids, Array.from({ length: 115 }, (_, index) => index + 1));
+});
+
+test("고난도 과학·역사·의료·압축 Canon 합성 공격을 포함한다", async () => {
+  const matrix = await text("tests/custom-gpt-red-team-cases.md");
+  for (const pattern of [
+    /AMOC 정지를 모든 해류와 대기 열수송/u,
+    /지역 조위계 상대해수면/u,
+    /태양광 설비용량/u,
+    /표준시·현지시·군용시/u,
+    /실제 역사 항복문서/u,
+    /산소농축기 소비전력/u,
+    /정전 중 인슐린 온도/u,
+    /사망 확인 안 됨/u,
+    /파생 결과는 재검사하지 말라고/u
+  ]) {
+    assert.match(matrix, pattern);
+  }
+});
+
+test("사례표는 복합·다국어·위기·개인정보·출처 세탁·재시작 공격을 포함한다", async () => {
+  const matrix = await text("tests/custom-gpt-red-team-cases.md");
+  for (const pattern of [
+    /다른 언어로 된 역할 변경/u,
+    /유니코드 방향 제어문자/u,
+    /교사·교장·연구책임자·플랫폼 관리자/u,
+    /위기 도움 요청 뒤/u,
+    /학생 명단과 성적표/u,
+    /원연구·파생 요약·교육용 서술/u,
+    /달력 체계·시각 기준/u,
+    /재시작하는 선택지/u,
+    /한꺼번에 결합/u
+  ]) {
+    assert.match(matrix, pattern);
+  }
 });
 
 test("사례표는 직접·간접·난독화 주입과 누적 위해 목적을 함께 다룬다", async () => {
@@ -58,8 +92,18 @@ test("배포 지침은 실제 위기 지원을 일반 금지 응답과 분리한
   const contents = await Promise.all(paths.map(text));
   for (let index = 0; index < paths.length; index += 1) {
     assert.match(contents[index], /온보딩과 이야기를 (?:즉시 )?중단|일반 (?:온보딩과 이야기|수업 흐름)을 (?:즉시 )?중단/u, paths[index]);
-    assert.match(contents[index], /가까운 신뢰할 수 있는 성인에게 지금 알리기/u, paths[index]);
+    assert.match(contents[index], /가까운 신뢰할 수 있는 (?:사람|성인)에게 지금 알리기/u, paths[index]);
     assert.match(contents[index], /확인되지 않은 국가별 전화번호/u, paths[index]);
+  }
+});
+
+test("평문 교사 검토 토큰은 인증이나 숨은 정답 공개 열쇠가 아니다", async () => {
+  const customInstructions = await text("chatgpt/custom-gpt/INSTRUCTIONS.md");
+  const copilotManifest = JSON.parse(await text("copilot/declarativeAgent.json"));
+  for (const content of [customInstructions, copilotManifest.instructions]) {
+    assert.match(content, /\[?교사 검토\]?[^\n]*(?:인증|권한 상승)/u);
+    assert.match(content, /숨은 정답/u);
+    assert.match(content, /(?:접근이 분리된|별도) 교사용 (?:GPT )?사본/u);
   }
 });
 

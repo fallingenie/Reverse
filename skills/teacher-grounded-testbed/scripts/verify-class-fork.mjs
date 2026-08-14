@@ -2,7 +2,7 @@
 
 import { createHash } from "node:crypto";
 import { readFile, readdir } from "node:fs/promises";
-import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { dirname, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 function canonicalJson(value) {
@@ -46,6 +46,10 @@ function validHttpsUrl(value) {
   } catch {
     return false;
   }
+}
+
+function hasUtf8Sig(contents) {
+  return contents.length >= 3 && contents[0] === 0xEF && contents[1] === 0xBB && contents[2] === 0xBF;
 }
 
 export async function verifyFork(root, options = {}) {
@@ -96,6 +100,17 @@ export async function verifyFork(root, options = {}) {
     const key = relative(root, path).replaceAll("\\", "/");
     if (!expectedFiles.has(key)) {
       errors.push(`manifest에 없는 추가 파일: ${key}`);
+    }
+    const name = key.split("/").at(-1);
+    const extension = extname(name);
+    const contents = await readFile(path);
+    const humanText = [".md", ".ps1", ".txt", ".yaml", ".yml"].includes(extension) || ["LICENSE", "NOTICE"].includes(name);
+    const machineText = [".json", ".jsonl", ".ndjson", ".mjs", ".js", ".py", ".toml", ".lock", ".spec"].includes(extension);
+    if (humanText && !hasUtf8Sig(contents)) {
+      errors.push(`사람이 편집하는 파일에 UTF-8-SIG 누락: ${key}`);
+    }
+    if (machineText && hasUtf8Sig(contents)) {
+      errors.push(`기계 파일에 허용되지 않은 BOM 존재: ${key}`);
     }
   }
   const profileText = await readFile(join(root, "CLASS_PROFILE.json"), "utf8");
@@ -180,6 +195,9 @@ export async function verifyFork(root, options = {}) {
   const studentAgents = await readFile(join(root, "AGENTS.md"), "utf8");
   if (!studentAgents.includes("Transparency and Truth") || !studentAgents.includes("재시작 옵션")) {
     errors.push("학생 포크에 진실성 또는 Canon 재시작 경계가 없음");
+  }
+  if (!studentAgents.includes("학교급부터") || !studentAgents.includes("신뢰하지 않는 인용 데이터")) {
+    errors.push("학생 포크에 단계형 온보딩 또는 PDF 명령 불신 경계가 없음");
   }
   if (actualFiles.some((path) => relative(root, path).replaceAll("\\", "/").includes("teacher-grounded-testbed"))) {
     errors.push("학생 포크에 교사 테스트베드 파일이 포함됨");

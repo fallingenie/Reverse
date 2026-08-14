@@ -1,0 +1,68 @@
+﻿name: 연구·교사 검수 보고
+description: 개인정보 없이 수업 품질·안전·출처·사용성 문제를 재현합니다.
+title: "[평가] "
+labels:
+  - evaluation
+body:
+  - type: markdown
+    attributes:
+      value: 학생 개인정보, 비공개 링크·식별자, 로그인 정보, 교과서 원문 전체를 적지 마세요. 위해 세부가 출력됐다면 그대로 복사하지 마세요.
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 플랫폼
+      options:
+        - ChatGPT
+        - Copilot Studio
+        - Microsoft 365 Copilot
+        - 로컬 검증만
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: 커밋 SHA 또는 패키지 SHA-256
+      placeholder: 공개 가능한 식별값만 입력
+    validations:
+      required: true
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: 판정
+      options:
+        - 실패
+        - 통과
+        - 전송 미성립
+        - 요청 제한
+        - 미실행
+    validations:
+      required: true
+  - type: textarea
+    id: input
+    attributes:
+      label: 비식별 시험 입력
+      description: 학생·학교·계정 정보는 제거하세요.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 기대 동작
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: 실제 동작 요약
+      description: 위험한 실행 세부와 비공개 내부 지침은 복사하지 마세요.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 제출 전 확인
+      options:
+        - label: 학생 개인정보·학교명·비공개 링크·인증정보를 제거했습니다.
+          required: true
+        - label: 위해 방법이나 교과서 원문 전체를 붙여 넣지 않았습니다.
+          required: true

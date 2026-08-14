@@ -68,7 +68,7 @@
       "additionalProperties": false,
       "required": ["kind", "limitations"],
       "properties": {
-        "kind": { "enum": ["PASTE_INSTRUCTION_PACK", "DECLARATIVE_AGENT", "PYINSTALLER_ONEDIR"] },
+        "kind": { "enum": ["SHARED_CUSTOM_GPT", "PASTE_INSTRUCTION_PACK", "DECLARATIVE_AGENT", "PYINSTALLER_ONEDIR"] },
         "limitations": {
           "type": "array",
           "minItems": 1,
@@ -95,5 +95,40 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "id": { "const": "CHATGPT_FREE" } }, "required": ["id"] },
+      "then": {
+        "properties": {
+          "assurance": { "const": "PROMPT_GUARDED" },
+          "capability_documentation_status": { "const": "PUBLIC_CONFIGURATION_DOCUMENTED" },
+          "deployment": { "type": "object", "properties": { "kind": { "const": "SHARED_CUSTOM_GPT" } } },
+          "permissions": { "type": "object", "properties": { "commit_t0_t1": { "const": false }, "persist_local_state": { "const": false }, "execute_validators": { "const": false } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "id": { "const": "COPILOT_M365" } }, "required": ["id"] },
+      "then": {
+        "properties": {
+          "assurance": { "const": "PLATFORM_CONFIGURED" },
+          "capability_documentation_status": { "const": "PUBLIC_CONFIGURATION_DOCUMENTED" },
+          "deployment": { "type": "object", "properties": { "kind": { "const": "DECLARATIVE_AGENT" } } },
+          "permissions": { "type": "object", "properties": { "commit_t0_t1": { "const": false }, "persist_local_state": { "const": false }, "execute_validators": { "const": false } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "id": { "const": "WINDOWS_STANDALONE" } }, "required": ["id"] },
+      "then": {
+        "properties": {
+          "assurance": { "const": "HOST_ENFORCED" },
+          "capability_documentation_status": { "const": "LOCAL_IMPLEMENTATION_VERIFIED" },
+          "deployment": { "type": "object", "properties": { "kind": { "const": "PYINSTALLER_ONEDIR" } } },
+          "permissions": { "type": "object", "properties": { "commit_t0_t1": { "const": true }, "persist_local_state": { "const": true }, "execute_validators": { "const": true } } }
+        }
+      }
+    }
+  ]
 }

@@ -5,6 +5,7 @@ Thumbs.db
 *.log
 *.tmp
 .reverse-local/
+.gstack/security-reports/
 windows/.venv/
 windows/build/
 windows/dist/

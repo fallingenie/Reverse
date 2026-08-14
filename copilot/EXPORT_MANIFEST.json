@@ -2,14 +2,20 @@
   "schema_version": "1.0.0",
   "package_id": "reverse-copilot",
   "license": "Apache-2.0",
-  "file_count": 6,
+  "file_count": 12,
   "file_digests": {
+    "IT-ADMIN-QUICK-START.md": "db90ed449fb4ec8334b1bdb78e4cbcb2d33b8f83196f87106ec9e8e6eacfd9cd",
     "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
     "NOTICE": "f522b196e59c55a85a475371a1b481708d6e5ecc3bdf48fe5dbe7965b34df82f",
-    "README.md": "c61ddfbe90fe327b2616e0e9aa3e7285f94781874ae84abfc47a2d45fed4ffb9",
+    "README.md": "da2ff6fbcac1ccac355e9b4c294f874550a90aad8cf351c5146cabc118fbf717",
     "RUNTIME_PROFILE.json": "a93d20cd71a7ab0da1bb9b46fa1470126511cd7e3bc5ec9dd3e2b1f4f4051db3",
-    "declarativeAgent.json": "f15c77ca31aac507664918e8835916eb5c32decf6da7718afc42fb2d111e1e58",
-    "knowledge/reverse-policy.txt": "7ee52350eda5763a66ba28c7079069fa8b8c0855a5bc321e77732f8ad003bb04"
+    "appPackage/assets/color.png": "5a4a4faef8c63794e1a720c6bafb8a38ed51f31df42e998b815e34ed68b67131",
+    "appPackage/assets/outline.png": "0b164f11e209be6c0d65ca3733ac8ad30a3d18351bbc1eedf326e1e0e719b685",
+    "appPackage/declarativeAgent.json": "6aa322b53b649fe1380e9f309f4996bcd05e3785d08a3f71bc54b230603bf4fa",
+    "appPackage/knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
+    "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
+    "declarativeAgent.json": "6aa322b53b649fe1380e9f309f4996bcd05e3785d08a3f71bc54b230603bf4fa",
+    "knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076"
   },
-  "seal_sha256": "9abdc7eab105983727b231ea28fad5b1ea95160cdb8726e355399664b8d0c501"
+  "seal_sha256": "6c57fb2ad2913b6610ae93f72a9d88154a615f893c8b4a2b5a9da954922610b6"
 }

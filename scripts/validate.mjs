@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { readFile, readdir } from "node:fs/promises";
-import { dirname, join, relative } from "node:path";
+import { dirname, extname, join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { TextDecoder } from "node:util";
 import Ajv2020 from "ajv/dist/2020.js";
@@ -11,6 +11,7 @@ const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const skill = join(root, "skills", "teach-grounded-scenarios");
 const example = join(skill, "examples", "grade-6", "1945-no-atomic-bomb");
 const decoder = new TextDecoder("utf-8", { fatal: true });
+const binaryExtensions = new Set([".gif", ".ico", ".jpeg", ".jpg", ".pdf", ".png", ".webp", ".zip"]);
 
 async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -45,8 +46,16 @@ export async function validateRepository() {
   const files = await walk(root);
 
   for (const file of files) {
+    if (binaryExtensions.has(extname(file).toLowerCase())) {
+      continue;
+    }
     try {
-      await text(file);
+      const content = await text(file);
+      assert(
+        !/https:\/\/chatgpt\.com\/(?:g\/g-|gpts\/editor\/g-)/u.test(content),
+        `비공개 GPT 또는 대화 링크가 저장소에 남음: ${relative(root, file)}`,
+        errors
+      );
     } catch {
       errors.push(`UTF-8이 아닌 파일: ${relative(root, file)}`);
     }
@@ -142,7 +151,7 @@ export async function validateRepository() {
   }
 
   const onboardingPrompt = await text(join(skill, "prompts", "01-onboarding.prompt.md"));
-  for (const phrase of ["몇 학년", "과목이나 단원", "관심", "이야기나 예시 장면을 시작하지 않는다"]) {
+  for (const phrase of ["학교급", "학년", "과목과 단원", "관심사", "이야기나 예시 장면을 시작하지 않는다"]) {
     assert(onboardingPrompt.includes(phrase), `온보딩 질문 누락: ${phrase}`, errors);
   }
 

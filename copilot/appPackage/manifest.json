@@ -1,0 +1,33 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.28/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.28",
+  "version": "1.0.0",
+  "id": "0f6f3d5b-f1ee-4880-b731-292f5a9c0e20",
+  "developer": {
+    "name": "Reverse Project",
+    "websiteUrl": "https://github.com/fallingenie/Reverse",
+    "privacyUrl": "https://github.com/fallingenie/Reverse/blob/main/docs/PRIVACY.md",
+    "termsOfUseUrl": "https://github.com/fallingenie/Reverse/blob/main/docs/TERMS.md"
+  },
+  "name": {
+    "short": "Reverse 근거 수업",
+    "full": "Reverse 근거 기반 수업 시뮬레이터"
+  },
+  "description": {
+    "short": "사실·추론·수업 가정·미확인을 분리하는 초3~고2 수업 에이전트",
+    "full": "초등학교 3학년부터 고등학교 2학년까지 사실, 근거로부터의 추론, 수업을 위한 가정, 확인이 필요한 내용을 분리해 진행하는 선택형 수업 에이전트입니다. 학생 안전, 출처의 직접 지지 범위, 반사실 분기와 실제 역사의 구분, 장기 수업 기록의 인과 보존을 우선합니다."
+  },
+  "icons": {
+    "color": "assets/color.png",
+    "outline": "assets/outline.png"
+  },
+  "accentColor": "#012554",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "reverse-grounded-learning",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  }
+}
