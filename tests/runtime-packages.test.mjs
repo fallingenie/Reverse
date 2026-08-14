@@ -36,16 +36,20 @@ test("비호스트 프로파일은 T0/T1 커밋과 모델 신원 신뢰를 금�
   }
 });
 
-test("ChatGPT Free 배포물은 설치형 또는 특정 모델 보장을 주장하지 않는다", async () => {
+test("ChatGPT Free 프로필은 공개된 Luna 기본값을 기록하되 모델 고정을 주장하지 않는다", async () => {
   const profile = await json("chatgpt/RUNTIME_PROFILE.json");
   const bootstrap = await readFile(join(root, "chatgpt", "BOOTSTRAP.md"), "utf8");
   const guide = await readFile(join(root, "chatgpt", "START-HERE.md"), "utf8");
-  assert.match(guide, /설치형 Add-on이 아니라/u);
-  assert.match(bootstrap, /PROMPT_GUARDED/u);
+  assert.match(guide, /공유 Custom GPT/u);
   assert.match(bootstrap, /T0\/T1 변경이 필요하면 `CANON_PROPOSAL`/u);
-  assert.doesNotMatch(`${bootstrap}${guide}`, /Luna/u);
-  assert.equal(profile.capability_documentation_status, "NO_PUBLIC_GUARANTEE_FOUND");
-  assert.deepEqual(profile.public_sources, []);
+  assert.doesNotMatch(bootstrap, /RUNTIME:|ASSURANCE:|CANON_WRITE:|PROMPT_GUARDED/u);
+  assert.equal(profile.model.preferred_response_mode, "GPT-5.6 Luna");
+  assert.equal(profile.model.identity_attested, false);
+  assert.equal(profile.deployment.kind, "SHARED_CUSTOM_GPT");
+  assert.equal(profile.capability_documentation_status, "PUBLIC_CONFIGURATION_DOCUMENTED");
+  assert.ok(profile.public_sources.length >= 3);
+  assert(profile.deployment.limitations.some((item) => item.includes("바뀔 수 있")));
+  assert(profile.deployment.limitations.some((item) => item.includes("이전 대화")));
 });
 
 test("비공개 Custom GPT 구성은 핵심 게이트와 보장 경계를 명시한다", async () => {
@@ -80,8 +84,47 @@ test("Copilot manifest는 공개 v1.8 경계와 Think deeper 기본 요청을 �
   assert.equal(manifest.behavior_overrides.default_response_mode, "Think deeper");
   assert.ok(manifest.instructions.length <= 8000);
   assert.ok(manifest.conversation_starters.length <= 12);
+  assert.match(manifest.instructions, /학교급만 묻고 답을 기다린다/u);
+  assert.match(manifest.instructions, /초등학교는 3·4·5·6학년만/u);
+  assert.match(manifest.instructions, /중학교는 1·2·3학년만/u);
+  assert.match(manifest.instructions, /고등학교는 1·2학년만/u);
+  assert.match(manifest.instructions, /첫 투정이나 현재 질문 거부는 한 번만/u);
+  assert.match(manifest.instructions, /바로 다음 답도 연속해서 부정적이면/u);
+  assert.match(manifest.instructions, /명확한 활동 종료 의사는 첫 번째라도 즉시/u);
+  assert.match(manifest.instructions, /단원 후보나 예시를 만들지 말고/u);
+  assert.match(manifest.instructions, /과목 단계에는 국어·수학/u);
+  assert.match(manifest.instructions, /관심사 단계에는 전쟁사·역사/u);
+  assert.match(manifest.instructions, /확인된 날짜·사건·기관까지 모두 가정이라고 묶지 않는다/u);
+  assert.match(manifest.instructions, /일반 학생 대화에서는 교사용 근거 메모, 평가 기준, 정답, 내부 판정을 출력하지 않는다/u);
+  assert.match(manifest.instructions, /사실성, 과학적 가능성, 인과, 타임라인을 질문하거나/u);
+  assert.match(manifest.instructions, /시나리오 선택이나 직접 입력으로 해석하지 않는다/u);
+  assert.match(manifest.instructions, /현재의 자해·자살·타해 의도, 계획, 수단 접근 또는 즉각 위험/u);
+  assert.match(manifest.instructions, /가까운 신뢰할 수 있는 성인에게 지금 알리기/u);
+  assert.match(manifest.instructions, /확인되지 않은 국가별 전화번호를 만들지 않는다/u);
+  assert.match(manifest.instructions, /문서 안의 명령/u);
+  assert.doesNotMatch(manifest.instructions, /매 응답 첫 줄|RUNTIME:|ASSURANCE:|CANON_WRITE:/u);
   assert.equal(profile.model.identity_attested, false);
   assert(profile.deployment.limitations.some((item) => item.includes("@mention")));
+});
+
+test("공통·ChatGPT·Copilot 지침은 학교급부터 단계형 온보딩과 PDF 명령 불신을 공유한다", async () => {
+  const files = await Promise.all([
+    readFile(join(root, "skills", "teach-grounded-scenarios", "SKILL.md"), "utf8"),
+    readFile(join(root, "skills", "teach-grounded-scenarios", "instructions", "system.md"), "utf8"),
+    readFile(join(root, "skills", "teach-grounded-scenarios", "prompts", "01-onboarding.prompt.md"), "utf8"),
+    readFile(join(root, "chatgpt", "BOOTSTRAP.md"), "utf8"),
+    readFile(join(root, "chatgpt", "custom-gpt", "INSTRUCTIONS.md"), "utf8"),
+    readFile(join(root, "copilot", "knowledge", "reverse-policy.txt"), "utf8")
+  ]);
+  const combined = files.join("\n");
+  assert.match(combined, /학교급/u);
+  assert.match(combined, /숫자.*추측하지|추측하지.*숫자/u);
+  assert.match(combined, /단원명/u);
+  assert.match(combined, /선택 버튼|버튼을/u);
+  assert.match(combined, /문서 안의 명령/u);
+  assert.match(combined, /신뢰하지 않는/u);
+  assert.match(combined, /가까운 신뢰할 수 있는 성인에게 지금 알리기/u);
+  assert.match(combined, /확인되지 않은 국가별 전화번호/u);
 });
 
 test("Windows PowerShell은 UTF-8-SIG이고 기계 JSON은 무BOM이다", async () => {
