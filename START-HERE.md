@@ -1,6 +1,14 @@
-﻿# Reverse 5분 시작 안내
+﻿# Reverse 빠른 시작 안내
 
 이 문서는 코드를 모르는 교사와 학교 담당자를 위한 첫 화면입니다. 먼저 자신의 역할만 고르세요.
+
+저장소를 내려받고 pnpm 설치까지 끝난 검수자는 다음 한 명령으로 역할별 상태를 확인할 수 있습니다.
+
+```text
+pnpm start
+```
+
+이 명령은 ChatGPT 수업 자료와 Microsoft 365 Copilot 패키지를 구분해 안내합니다. 앱을 자동 설치하거나 비공개 GPT를 만들거나 조직 정책을 변경하지 않습니다. Node.js와 pnpm이 없는 교사는 설치를 시도하지 말고 공유받은 비공개 GPT 링크를 사용하거나 학교 IT 관리자에게 요청하세요.
 
 ## 지금 가능한 범위
 
@@ -40,9 +48,10 @@
 현재 `copilot/declarativeAgent.json`과 시험용 Microsoft 365 앱 패키지가 준비되어 있습니다. 패키지 형식 검증은 실제 학교 테넌트의 동작·개인정보 정책·학생 배포 승인을 대신하지 않습니다.
 
 1. `pnpm copilot:doctor`로 로컬 패키지를 확인하고 `pnpm copilot:tenant-doctor`로 시험 계정과 조직 정책을 확인합니다.
-2. `copilot/IT-ADMIN-QUICK-START.md`에서 필요한 권한과 남은 패키지 항목을 확인합니다.
-3. `pnpm copilot:package`로 ZIP을 다시 만들고 `copilot/appPackage/build/reverse-m365-copilot.zip`을 시험 테넌트에만 업로드합니다.
-4. 실제 Enterprise/Education 테넌트에서 직접 실행, 호출 방식, 응답 모드 변경, 웹 출처 표시를 시험합니다.
+2. 지원 대상 환경이 `한국과학창의재단`이고 URL의 환경 ID가 `9324e73a-cd4e-e049-b7ba-177af6165e9c`인지 직접 확인합니다. 다른 환경이면 업로드하지 않습니다.
+3. `copilot/IT-ADMIN-QUICK-START.md`에서 필요한 권한과 남은 패키지 항목을 확인합니다.
+4. `pnpm copilot:package`로 ZIP을 다시 만들고 `copilot/appPackage/build/reverse-m365-copilot.zip`을 시험 테넌트에만 업로드합니다.
+5. 실제 Enterprise/Education 테넌트에서 직접 실행, 호출 방식, 응답 모드 변경, 웹 출처 표시를 시험합니다.
 
 관리자 정책 허용 뒤 실제 응답 검증 전에는 “Copilot 배포 가능” 또는 “Think deeper 강제”라고 표시하지 않습니다.
 

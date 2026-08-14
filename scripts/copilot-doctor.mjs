@@ -3,6 +3,7 @@
 import { access, readFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createCopilotPackageArchive } from "./build-copilot-package.mjs";
 
 const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -35,6 +36,18 @@ async function pngMatches(path, width, height, requireAlpha = false) {
     return buffer.readUInt32BE(16) === width
       && buffer.readUInt32BE(20) === height
       && (!requireAlpha || [4, 6].includes(colorType));
+  } catch {
+    return false;
+  }
+}
+
+async function zipMatchesCurrentSources(root, path) {
+  try {
+    const [actual, expected] = await Promise.all([
+      readFile(path),
+      createCopilotPackageArchive(root)
+    ]);
+    return actual.equals(expected);
   } catch {
     return false;
   }
@@ -81,8 +94,8 @@ export async function inspectCopilotReadiness(root = repositoryRoot) {
     },
     {
       id: "package_zip",
-      label: "시험 테넌트용 ZIP 패키지가 생성됨",
-      ok: await exists(join(packageRoot, "build", "reverse-m365-copilot.zip"))
+      label: "시험 ZIP이 현재 소스와 바이트 단위로 일치함",
+      ok: await zipMatchesCurrentSources(root, join(packageRoot, "build", "reverse-m365-copilot.zip"))
     }
   ];
   const packageFilesReady = checks.filter((check) => !["declarative_agent", "knowledge_file"].includes(check.id)).every((check) => check.ok);

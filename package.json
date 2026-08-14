@@ -6,6 +6,7 @@
   "type": "module",
   "packageManager": "pnpm@11.19.0",
   "scripts": {
+    "start": "node scripts/get-started.mjs",
     "format": "node scripts/format.mjs",
     "export": "node scripts/export-platforms.mjs",
     "export:active": "node scripts/export-platforms.mjs --platforms=chatgpt,copilot",

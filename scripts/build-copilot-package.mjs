@@ -10,7 +10,7 @@ const packageRoot = join(repositoryRoot, "copilot", "appPackage");
 const buildRoot = join(packageRoot, "build");
 const outputPath = join(buildRoot, "reverse-m365-copilot.zip");
 
-const inputFiles = [
+export const copilotPackageInputFiles = [
   "manifest.json",
   "assets/color.png",
   "assets/outline.png",
@@ -71,6 +71,18 @@ function zipStore(entries) {
   return Buffer.concat([...locals, centralDirectory, end]);
 }
 
+export async function createCopilotPackageArchive(root = repositoryRoot) {
+  const sourceCopilotRoot = join(root, "copilot");
+  const sourcePackageRoot = join(sourceCopilotRoot, "appPackage");
+  const entries = await Promise.all(copilotPackageInputFiles.map(async (name) => {
+    const sourcePath = name === "declarativeAgent.json" || name === "knowledge/reverse-policy.txt"
+      ? join(sourceCopilotRoot, name)
+      : join(sourcePackageRoot, name);
+    return { name, data: await readFile(sourcePath) };
+  }));
+  return zipStore(entries);
+}
+
 export function pngInfo(buffer) {
   const signature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
   if (buffer.length < 26 || !buffer.subarray(0, 8).equals(signature) || buffer.toString("ascii", 12, 16) !== "IHDR") {
@@ -100,12 +112,11 @@ export async function buildCopilotPackage() {
     throw new Error(`외곽선 아이콘 규격 또는 투명도 오류: ${outline.width}×${outline.height}, colorType=${outline.colorType}`);
   }
 
-  const entries = await Promise.all(inputFiles.map(async (name) => ({ name, data: await readFile(join(packageRoot, name)) })));
-  const archive = zipStore(entries);
+  const archive = await createCopilotPackageArchive(repositoryRoot);
   await writeFile(outputPath, archive);
   return {
     outputPath,
-    files: inputFiles,
+    files: copilotPackageInputFiles,
     bytes: archive.length,
     sha256: createHash("sha256").update(archive).digest("hex")
   };
