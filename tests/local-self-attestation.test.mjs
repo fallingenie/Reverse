@@ -9,6 +9,7 @@ import {
   containsAbsoluteUserPath,
   directoryDigest,
   isSafeTemporaryRoot,
+  parsePorcelainZ,
   parseNodeTestCounts,
   parseToolkitValidationCount,
   recordCommandEvidence,
@@ -30,6 +31,14 @@ test("사용자 홈과 지정한 로컬 경로를 공개 로그에서 치환한�
   assert.ok(result.replacements >= 2);
   assert.equal(containsAbsoluteUserPath(result.text), false);
   assert.match(result.text, /<USER_HOME>|<LOCAL_PATH>/u);
+});
+
+test("NUL 구분 Git 상태의 첫 공백과 미추적 경로를 보존한다", () => {
+  const status = parsePorcelainZ(" M windows/README.md\0?? windows/tests/test_profiles.py\0");
+  assert.deepEqual(status, [
+    { status: " M", path: "windows/README.md" },
+    { status: "??", path: "windows/tests/test_profiles.py" }
+  ]);
 });
 
 test("임시 checkout 삭제는 OS 임시 폴더의 전용 접두사만 허용한다", async () => {

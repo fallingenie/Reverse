@@ -198,7 +198,21 @@ async function runText(command, args, cwd, timeoutMs = 60_000) {
   return stdout;
 }
 
-function parsePorcelainZ(value) {
+async function runRawText(command, args, cwd, timeoutMs = 60_000) {
+  const result = await captureCommand({ command, args, cwd, timeoutMs });
+  if (result.exit_code !== 0 || result.signal || result.spawn_error) {
+    throw new Error(`${[command, ...args].join(" ")} 실행 실패: ${result.exit_code ?? result.signal ?? result.spawn_error}`);
+  }
+  const stdout = textDecoder.decode(result.stdout);
+  const stderr = textDecoder.decode(result.stderr);
+  const findings = scanForSecrets(`${stdout}\n${stderr}`);
+  if (findings.length > 0) {
+    throw new Error(`도구 출력에서 비밀값 패턴 감지: ${findings.join(", ")}`);
+  }
+  return stdout;
+}
+
+export function parsePorcelainZ(value) {
   return value.split("\0").filter(Boolean).map((entry) => ({
     status: entry.slice(0, 2),
     path: entry.slice(3).replaceAll("\\", "/")
@@ -498,8 +512,8 @@ export async function createLocalSelfAttestation(options) {
     subjectSha,
     repositoryRoot
   });
-  const statusRaw = await runText("git", ["status", "--porcelain=v1", "-z", "--untracked-files=all"], repositoryRoot);
-  const sourceStatus = parsePorcelainZ(`${statusRaw}\0`);
+  const statusRaw = await runRawText("git", ["status", "--porcelain=v1", "-z", "--untracked-files=all"], repositoryRoot);
+  const sourceStatus = parsePorcelainZ(statusRaw);
   const windowsPath = join(repositoryRoot, "windows");
   const windowsBefore = await directoryDigest(windowsPath);
   const timestamp = new Date().toISOString().replace(/[-:.]/gu, "");
