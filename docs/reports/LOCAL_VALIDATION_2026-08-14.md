@@ -18,6 +18,8 @@
 | `pnpm audit --audit-level low` | 알려진 취약점 0 |
 | `git diff --check` | 통과 |
 
+동일 활성 검증을 GitHub Actions에서도 실행하도록 커밋 `5ae0e0e78a7841c7c72b548bf0a41f0752a227ac`에 저장했다. Push와 pull request 실행 31807785633·31807786540은 모두 테스트 단계가 하나도 시작되기 전에 GitHub 계정의 최근 결제 실패 또는 spending limit 확인 필요 사유로 차단됐다. 따라서 아래 로컬 통과를 원격 CI 통과로 확대하지 않는다.
+
 ## 산출물 해시
 
 - ChatGPT export seal: `3499db1f850c67c8a8f4e53a466394bfa9868293a594c1481c7d21c8f0ea7da6`
