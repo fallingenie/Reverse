@@ -2,8 +2,9 @@
 
 on:
   pull_request:
+  workflow_dispatch:
   push:
-    branches: [main, agent/runtime-profiles]
+    branches: [main]
 
 permissions:
   contents: read
