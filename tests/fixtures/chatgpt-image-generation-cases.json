@@ -1,0 +1,138 @@
+{
+  "cases": [
+    {
+      "id": "IMG-ALLOW-01",
+      "grade": 3,
+      "subject": "국어",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "SCENE_IMAGINATION",
+      "callsInScene": 0,
+      "riskFlags": [],
+      "expectedStyle": "PASTEL_ILLUSTRATION",
+      "expected": "ALLOW"
+    },
+    {
+      "id": "IMG-ALLOW-02",
+      "grade": 5,
+      "subject": "과학",
+      "trigger": "OFFER_ACCEPTED",
+      "purpose": "CONCEPT_DIAGRAM",
+      "callsInScene": 0,
+      "riskFlags": [],
+      "expectedStyle": "PHOTOREALISTIC_EDUCATIONAL",
+      "expected": "ALLOW"
+    },
+    {
+      "id": "IMG-ALLOW-03",
+      "grade": 11,
+      "subject": "역사",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "SCENE_ILLUSTRATION",
+      "callsInScene": 0,
+      "riskFlags": [],
+      "expectedStyle": "PHOTOREALISTIC_EDUCATIONAL",
+      "expected": "ALLOW"
+    },
+    {
+      "id": "IMG-ALLOW-04",
+      "grade": 7,
+      "subject": "수학",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "LEARNING_VISUALIZATION",
+      "callsInScene": 0,
+      "riskFlags": [],
+      "expectedStyle": "PHOTOREALISTIC_EDUCATIONAL",
+      "expected": "ALLOW"
+    },
+    {
+      "id": "IMG-DENY-01",
+      "grade": 2,
+      "subject": "국어",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "SCENE_IMAGINATION",
+      "callsInScene": 0,
+      "riskFlags": [],
+      "expected": "DENY"
+    },
+    {
+      "id": "IMG-DENY-02",
+      "grade": 12,
+      "subject": "과학",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "CONCEPT_DIAGRAM",
+      "callsInScene": 0,
+      "riskFlags": [],
+      "expected": "DENY"
+    },
+    {
+      "id": "IMG-DENY-03",
+      "grade": 5,
+      "subject": "수학",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "ANSWER_DIAGRAM",
+      "callsInScene": 0,
+      "riskFlags": ["ANSWER_REVEAL"],
+      "expected": "DENY"
+    },
+    {
+      "id": "IMG-DENY-04",
+      "grade": 5,
+      "subject": "과학",
+      "trigger": "AGENT_SPONTANEOUS",
+      "purpose": "CONCEPT_DIAGRAM",
+      "callsInScene": 0,
+      "riskFlags": [],
+      "expected": "DENY"
+    },
+    {
+      "id": "IMG-DENY-05",
+      "grade": 4,
+      "subject": "과학",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "FAKE_EXPERIMENT_RESULT",
+      "callsInScene": 0,
+      "riskFlags": ["EVIDENCE_SUBSTITUTION"],
+      "expected": "DENY"
+    },
+    {
+      "id": "IMG-DENY-06",
+      "grade": 6,
+      "subject": "역사",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "FAKE_ARCHIVAL_PHOTO",
+      "callsInScene": 0,
+      "riskFlags": ["EVIDENCE_SUBSTITUTION"],
+      "expected": "DENY"
+    },
+    {
+      "id": "IMG-DENY-07",
+      "grade": 3,
+      "subject": "국어",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "SCENE_IMAGINATION",
+      "callsInScene": 0,
+      "riskFlags": ["STUDENT_LIKENESS"],
+      "expected": "DENY"
+    },
+    {
+      "id": "IMG-DENY-08",
+      "grade": 6,
+      "subject": "역사",
+      "trigger": "OFFER_ACCEPTED",
+      "purpose": "SCENE_ILLUSTRATION",
+      "callsInScene": 0,
+      "riskFlags": ["HARMFUL_DETAIL"],
+      "expected": "DENY"
+    },
+    {
+      "id": "IMG-DENY-09",
+      "grade": 5,
+      "subject": "과학",
+      "trigger": "STUDENT_REQUESTED",
+      "purpose": "CONCEPT_DIAGRAM",
+      "callsInScene": 1,
+      "riskFlags": [],
+      "expected": "DENY"
+    }
+  ]
+}

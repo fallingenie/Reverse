@@ -12,10 +12,10 @@
     "RUNTIME_PROFILE.json": "13065e25876046eaeb6cbf0df2b646735dd271a50d37cac43e429f8b98f2e982",
     "START-HERE.md": "da6b85721edeaa5313fdd7ab4c8e4761f44c06f7dd3c00b016f8487de9a6c508",
     "TEACHER-QUICK-START.md": "1a317f1333db957d483e19e108a52a4f9b1a1858e058b7b7a75ebc3632a75c94",
-    "custom-gpt/BUILDER_CONFIG.md": "6c4267756c3d37056ba10f7e562092eec70a1eaa8eb3923376e30ce96259e492",
+    "custom-gpt/BUILDER_CONFIG.md": "ca1c77c19a110c4ce36589c448e1a9f3828cad7dac7fd7c365d3c888385b392d",
     "custom-gpt/DEPLOYMENT_EXPECTED.json": "62d245002df7bbe5df964a411a93e2f082959743a95744542d41a3c93a826e5b",
     "custom-gpt/EXTERNAL_PDF_KNOWLEDGE.json": "317f3e045689b1a95f89ed6679aa47f9b2583a9aab94f5f2cd6cc132a294799a",
-    "custom-gpt/INSTRUCTIONS.md": "045647907c4abe33b2647a85a66bff3fa4d2a6675c84a726ea429ace01dceb34",
+    "custom-gpt/INSTRUCTIONS.md": "133f400025a0500415008cfb964e6d6064003266bd2a70d57520a3acb175846c",
     "custom-gpt/KNOWLEDGE_REFERENCE.md": "e03803093d92f95b3fc1a4922fad3211bf98503df6e8f01117838a63d121bb39",
     "custom-gpt/knowledge/KNOWLEDGE_MANIFEST.json": "23ee5c81e49f2805e227066e34931126c9229e84e84a4da36fb640b7c108e3c1",
     "custom-gpt/knowledge/PUBLIC_LESSON_PRINCIPLES.md": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6",
@@ -26,5 +26,5 @@
     "custom-gpt/knowledge/student-lesson-turn.schema.json": "d7256bbf9a0fe86cd36a26c0c87d8cfe51b1a991129552a6495cccc91458d005",
     "custom-gpt/public-knowledge/PUBLIC_LESSON_PRINCIPLES.md": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6"
   },
-  "seal_sha256": "eef531a6190b8dfdf1b3b58e62f0999bd99d02ae7da4c2ba941c37a11cdd6bf0"
+  "seal_sha256": "b31fca42f8115c5cb888d7954038ca6d7e9beb4859507201658d5055d6bfab0e"
 }

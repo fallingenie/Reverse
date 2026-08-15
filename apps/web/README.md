@@ -1,28 +1,36 @@
 ﻿# Reverse Web
 
-`apps/web`은 Reverse의 학생용 온보딩과 교사용 검수 흐름을 보여 주는 독립 Next.js 데모입니다. Astryx 컴포넌트와 디자인 토큰만으로 화면을 구성하며, Vercel에서 이 디렉터리를 프로젝트 루트로 지정해 빌드할 수 있습니다.
+`apps/web`은 Microsoft Copilot Studio의 Reverse 에이전트를 보여 주는 Next.js 웹 화면입니다. 첫 화면은 Copilot 대화창을 삽입하고, `/guide/`는 컴퓨터 사용이 익숙하지 않은 교사를 위한 안내를 제공합니다. 화면은 Astryx 구성요소와 디자인 토큰으로 만들었습니다.
 
-## 현재 제공 범위
+## 교사로서 바로 사용하기
 
-- 학교급 → 학년 → 과목 → 단원 순서의 한국어 온보딩
-- 구체적인 단원을 기본 관심사로 기록하고 범용 관심사 질문 생략
-- 번호가 붙은 시나리오 다섯 개
-- `시작`, `start`, `[시작]`, `시이작` 같은 분명한 시작 의사의 로컬 판정
-- 학생 화면과 분리된 교사 검수 탭
-- `/copilot`에서 제공하는 Microsoft Copilot Studio WebChat 체험과 새 창 대체 링크
-- 교사 키로 잠금을 해제한 뒤 학생 프로필을 검토하고 대화를 Markdown으로 내보내는 Vercel 전용 기능
-- 근거 있음, 수업 가정, 확인 필요의 구분
-- UTF-8-SIG 문서와 UTF-8 무BOM 실행 소스의 문자 무결성 검사
+수업을 체험하기 위해 GitHub 저장소를 내려받거나 Node.js·pnpm을 설치할 필요는 없습니다.
 
-## 현재 제공하지 않는 범위
+- [Vercel 수업 화면](https://reverse-education-beta.vercel.app/)
+- [GitHub Pages 화면](https://fallingenie.github.io/Reverse/)
+- [Reverse 교사용 가이드](../../docs/TEACHER_GUIDE.md)
 
-이 앱 자체에는 LLM, 웹 검색, 교육과정 PDF 검색, 사용자 계정 체계, 서버 데이터베이스가 없습니다. `/copilot`의 iframe은 별도 Microsoft 서비스이며 조직 정책, 지원 환경, 로그인, 계정 권한에 따라 열리지 않을 수 있습니다. 화면의 다섯 시나리오는 사실 검색 결과가 아니라 수업 흐름을 확인하는 로컬 템플릿입니다. 따라서 연구·학급 배포 전에는 별도의 근거 검색 서비스와 개인정보 보호 검토가 필요합니다.
+Vercel에 접속할 수 없으면 GitHub Pages를 사용할 수 있습니다. 두 화면의 Copilot 대화는 Microsoft가 제공하는 외부 서비스이므로, 조직 정책·지원 환경·로그인·계정 권한에 따라 열리지 않을 수 있습니다. Reverse가 Microsoft 계정 권한이나 Copilot Studio 설정을 바꾸지는 못합니다.
 
-교사 기능은 Vercel Functions에서만 키를 검증합니다. 서버 환경 변수가 없거나 GitHub Pages로 실행하면 잠긴 상태를 유지합니다. 학생 프로필은 가명 식별자와 교사가 확인한 관찰만 허용하며, 브라우저에 저장할 때도 교사 키로 암호화합니다. 현재 로그인 실패 제한은 서버리스 인스턴스 단위이므로 정식 운영 전에는 Vercel Firewall 또는 영속형 제한 장치를 추가해야 합니다.
+## 현재 공개 화면
 
-## 로컬 검증
+- `/`: 게시된 Copilot Studio WebChat과 새 창으로 여는 대체 링크
+- `/guide/`: 설치 없는 시작 방법, 로그인 문제 해결, 개인정보와 교사 기록 안내
+- `/LICENSE`, `/NOTICE`: Apache License 2.0과 원 저작자 고지
 
-Node.js 20 이상과 pnpm 11이 필요합니다.
+이전의 로컬 시나리오 생성 예제는 공개 제품 화면에서 제거했습니다. 수업 내용과 대화는 삽입된 Copilot 에이전트가 제공합니다.
+
+## 현재 제공하지 않는 기능
+
+이 앱 자체에는 생성형 AI, 웹 검색, 교육과정 PDF 검색, 사용자 계정 체계, 서버 데이터베이스가 없습니다. Copilot 대화 내용의 처리와 보존은 Microsoft 서비스와 기관 정책을 따릅니다.
+
+현재 공개 화면에는 교사 프로필 편집이나 Markdown 내보내기 버튼이 없습니다. 관련 서버 모듈은 공개 기능으로 연결하고 회귀 검증하기 전까지 배포 기능으로 간주하지 않습니다. GitHub Pages는 정적 배포이므로 서버 기반 교사 키 확인과 내보내기를 지원할 수 없습니다.
+
+향후 교사 내보내기를 연결할 때의 키 관리, 개인정보와 운영 경계는 [교사용 내보내기 보안 안내](../../docs/TEACHER_EXPORT_SECURITY.md)를 따릅니다.
+
+## 개발자가 로컬에서 확인하기
+
+Node.js 20 이상과 pnpm 11이 필요합니다. 저장소의 `apps/web` 폴더에서 실행하세요.
 
 ```powershell
 pnpm install --frozen-lockfile
@@ -30,37 +38,25 @@ pnpm run check
 pnpm run dev
 ```
 
-교사 기능까지 로컬에서 시험하려면 아래 블록을 PowerShell에 그대로 붙여 넣습니다. 입력한 교사 키 원문은 파일에 저장하지 않습니다.
+`pnpm run check`는 문자 인코딩, TypeScript, 자동 테스트, 프로덕션 빌드를 차례로 확인합니다.
 
-```powershell
-$teacherKey = Read-Host '시험용 교사 키'
-$env:REVERSE_TEACHER_KEY_SHA256 = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($teacherKey))).ToLowerInvariant()
-$env:REVERSE_TEACHER_SESSION_SECRET = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(48))
-pnpm run dev
-```
+## Vercel에 연결하기
 
-## Vercel
+GitHub 저장소를 Vercel 프로젝트에 연결하고 Root Directory를 `apps/web`으로 지정합니다.
 
-GitHub 저장소를 Vercel에 연결하고 Root Directory를 `apps/web`으로 지정합니다. 기본 데모에는 환경 변수가 필요하지 않습니다. 교사용 내보내기를 열려면 `REVERSE_TEACHER_KEY_SHA256`과 32자 이상의 `REVERSE_TEACHER_SESSION_SECRET`을 Vercel 서버 환경 변수로 설정해야 합니다. 빌드 명령은 `pnpm run build`, 설치 명령은 `pnpm install --frozen-lockfile`입니다.
+- 설치 명령: `pnpm install --frozen-lockfile`
+- 빌드 명령: `pnpm run build`
+- 현재 공개 웹 셸에 필요한 환경 변수: 없음
 
-Vercel CLI로 키를 설정하고 바로 Production에 배포하려면 `apps/web`에서 아래 블록을 붙여 넣습니다. 실행 중 교사 키를 한 번 입력합니다.
+실제 배포 주소를 열어 Copilot 삽입 화면, 새 창 대체 링크, `/guide/`, `/LICENSE`, `/NOTICE`를 확인하기 전에는 배포 완료라고 표시하지 않습니다.
 
-```powershell
-$teacherKey = Read-Host '배포용 교사 키'
-$teacherKeyHash = [Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($teacherKey))).ToLowerInvariant()
-$sessionSecret = [Convert]::ToBase64String([Security.Cryptography.RandomNumberGenerator]::GetBytes(48))
-$teacherKeyHash | npx vercel env add REVERSE_TEACHER_KEY_SHA256 production
-$sessionSecret | npx vercel env add REVERSE_TEACHER_SESSION_SECRET production
-npx vercel --prod
-```
+## GitHub Pages에 연결하기
 
-실제 배포가 끝나기 전에는 “배포 완료”라고 표시하지 않습니다. 이 디렉터리는 현재 로컬 빌드 가능한 배포 후보입니다.
+저장소의 Pages 작업 흐름은 `GITHUB_PAGES=true`로 정적 파일을 만듭니다. 이때 Next.js의 `basePath`, `assetPrefix`, 정적 내보내기, 폴더형 URL을 함께 사용합니다. Pages에서는 서버 기능을 사용할 수 없다는 제한을 교사에게 숨기지 않습니다.
 
 ## 라이선스와 고지
 
 Reverse는 Apache License 2.0으로 배포됩니다. 전체 조건은 `LICENSE`, 원 프로젝트의 저작자와 수정 고지는 `NOTICE`를 확인하세요.
-
-웹 배포에서는 `/LICENSE`와 `/NOTICE`가 같은 원문을 바이트 변경 없이 제공합니다.
 
 교육용 재설계의 참고 원본:
 

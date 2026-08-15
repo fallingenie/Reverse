@@ -1,4 +1,7 @@
 minimumReleaseAgeExclude:
   - '@astryxdesign/core@0.4.1'
+  - '@astryxdesign/theme-neutral@0.4.1'
+  - '@astryxdesign/cli@0.4.1'
 allowBuilds:
+  '@astryxdesign/cli': true
   '@astryxdesign/core': true

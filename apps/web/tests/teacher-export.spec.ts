@@ -19,8 +19,6 @@ const baseSession = {
   grade: '6',
   subject: '수학',
   unit: '분수의 덧셈과 뺄셈',
-  selectedScenarioId: 'archive-blackout',
-  selectedActionId: 'preserve-scene',
 };
 const profile: TeacherStudentProfile = {
   ...createInitialTeacherProfile(baseSession),
@@ -153,12 +151,23 @@ describe('교사용 Markdown 내보내기', () => {
       expect(parsedUnsafe.session.transcript[0]?.text).toBe('[학생 자유입력 원문 생략: 개인정보 보호]');
     }
 
-    const forgedSelection = request(false);
-    forgedSelection.session.selectedScenarioId = 'student-mastered-everything';
-    forgedSelection.session.selectedActionId = 'teacher-approved';
-    const parsedSelection = parse(forgedSelection);
-    expect(parsedSelection.session.selectedScenarioId).toBe('');
-    expect(parsedSelection.session.selectedActionId).toBe('');
+    for (const [scenarioId, actionId] of [
+      ['student-mastered-everything', 'teacher-approved'],
+      ['archive-blackout', 'preserve-scene'],
+    ]) {
+      const forgedSelection = request(false);
+      forgedSelection.session.scenariosReady = true;
+      forgedSelection.session.selectedScenarioId = scenarioId;
+      forgedSelection.session.selectedActionId = actionId;
+      forgedSelection.session.startIntentText = '시작';
+      forgedSelection.session.started = true;
+      const parsedSelection = parse(forgedSelection);
+      expect(parsedSelection.session.scenariosReady).toBe(false);
+      expect(parsedSelection.session.selectedScenarioId).toBe('');
+      expect(parsedSelection.session.selectedActionId).toBe('');
+      expect(parsedSelection.session.startIntentText).toBe('');
+      expect(parsedSelection.session.started).toBe(false);
+    }
 
     const forgedGrade = request(false);
     forgedGrade.session.grade = '6학년 2반 김민수 010-1234-5678';

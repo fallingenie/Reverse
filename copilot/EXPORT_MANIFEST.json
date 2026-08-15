@@ -12,13 +12,13 @@
     "TENANT_TEST_PROFILE.json": "d7c28d23308db6ed958f797a62fa4742f63a054fde81fcdad3c899120c43257c",
     "appPackage/assets/color.png": "5a4a4faef8c63794e1a720c6bafb8a38ed51f31df42e998b815e34ed68b67131",
     "appPackage/assets/outline.png": "0b164f11e209be6c0d65ca3733ac8ad30a3d18351bbc1eedf326e1e0e719b685",
-    "appPackage/declarativeAgent.json": "6aa322b53b649fe1380e9f309f4996bcd05e3785d08a3f71bc54b230603bf4fa",
+    "appPackage/declarativeAgent.json": "4fbf418afa9d5d5cdc510046120791f3ea8c2e47a2431f310b9fad555ef11010",
     "appPackage/knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
     "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
-    "declarativeAgent.json": "6aa322b53b649fe1380e9f309f4996bcd05e3785d08a3f71bc54b230603bf4fa",
+    "declarativeAgent.json": "4fbf418afa9d5d5cdc510046120791f3ea8c2e47a2431f310b9fad555ef11010",
     "knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
-    "studio/DEPLOYMENT_EXPECTED.json": "b9d51be0b122f0681054dde349a896d2f5bd135ea29d71bb0955784a9b05b34f",
-    "studio/STUDIO_INSTRUCTIONS.md": "c659836a0d0c43be516211bf453a7642ed838f29d1e67da868abac3b65d73a73"
+    "studio/DEPLOYMENT_EXPECTED.json": "b44a06d0c19f53bde2972bc86c1076ff990fdc478863daaddd8935d1aecd7281",
+    "studio/STUDIO_INSTRUCTIONS.md": "3a27f02741e8b7972240ee76c937f45bd2e957bd38258ffb83d1f759a9471fa7"
   },
-  "seal_sha256": "46823bd164442fab813acdc6875e9f2eeed6fe15df2a6a43c378ca106a2a332e"
+  "seal_sha256": "558976b3caf908cdd3c96f3ff9b51a68fa3ca24459c0a95005720d67bc1a45c5"
 }

@@ -11,9 +11,9 @@
     },
     "instructions": {
       "source_path": "copilot/studio/STUDIO_INSTRUCTIONS.md",
-      "source_sha256": "c659836a0d0c43be516211bf453a7642ed838f29d1e67da868abac3b65d73a73",
-      "canonical_text_sha256": "f3c3f964ac3af3a2d6da963c5e5fa7b1b6623d46cb4af860f6e720634e49fb9a",
-      "source_bytes": 17573,
+      "source_sha256": "3a27f02741e8b7972240ee76c937f45bd2e957bd38258ffb83d1f759a9471fa7",
+      "canonical_text_sha256": "3c6d7795ab9e22e38826dbfc294621cb8e53853331a58d0d972876a0802b4043",
+      "source_bytes": 17880,
       "utf8_sig": true
     },
     "model": {
@@ -23,8 +23,8 @@
     },
     "skill_zip": {
       "archive_name": "teach-grounded-scenarios-student.zip",
-      "sha256": "295a84537d52036ab1f08d349db447dd1d7d6d97653a5cf99b33df4923ed9c3c",
-      "file_count": 19
+      "sha256": "e3d285b2d5922bac62d493059c9b55ab48f605a364f94f1899f3df4083f62a91",
+      "file_count": 25
     },
     "resources": {
       "tools": {
@@ -160,5 +160,5 @@
     "contains_live_urls": false,
     "contains_tokens_or_credentials": false
   },
-  "seal_sha256": "5367f4bc23d9b0c7ac514b2c8e5fbc362319b1e44da55da767cf3701a61294a1"
+  "seal_sha256": "5015214bf2f7f1bba4c14e320c290541705a4df7008b7aeaaca33f0f61fda3f4"
 }

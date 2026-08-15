@@ -14,7 +14,6 @@ import {
   isTeacherStudentProfile,
   isTeacherStudentProfileSemanticallyValid,
 } from './teacher-records';
-import {buildDemoScenarios} from './scenarios';
 import {
   GRADE_OPTIONS,
   SCHOOL_LABELS,
@@ -179,11 +178,6 @@ function safeTranscript(value: unknown): TranscriptEntry[] {
   });
 }
 
-function safeIdentifier(value: unknown): string {
-  const cleaned = cleanText(value, 64).trim();
-  return /^[a-z0-9][a-z0-9-]{0,63}$/u.test(cleaned) ? cleaned : '';
-}
-
 function safeSession(value: unknown): LessonSession {
   const session = value && typeof value === 'object'
     ? (value as Partial<LessonSession>)
@@ -209,21 +203,13 @@ function safeSession(value: unknown): LessonSession {
       ? '입력됨(원문 비공개)'
       : '',
     interestSource: session.interestSource === 'UNIT_INFERRED' ? 'UNIT_INFERRED' : 'NONE',
-    scenariosReady: Boolean(session.scenariosReady),
+    scenariosReady: false,
     selectedScenarioId: '',
     selectedActionId: '',
     startIntentText: '',
     started: false,
     transcript: safeTranscript(session.transcript),
   };
-  const scenarioId = safeIdentifier(session.selectedScenarioId);
-  const selectedScenario = buildDemoScenarios(draft)
-    .find(scenario => scenario.id === scenarioId);
-  const actionId = safeIdentifier(session.selectedActionId);
-  draft.selectedScenarioId = selectedScenario?.id ?? '';
-  draft.selectedActionId = selectedScenario?.actions
-    .find(action => action.id === actionId)?.id ?? '';
-  draft.started = Boolean(session.started && draft.selectedScenarioId);
   return draft;
 }
 
