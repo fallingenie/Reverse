@@ -4,12 +4,12 @@
   "license": "Apache-2.0",
   "file_count": 15,
   "file_digests": {
-    "IT-ADMIN-QUICK-START.md": "ec005c54277d66927b6da905acaf9f608686f8c0a94fb9c3d72d2fe3716f8a91",
+    "IT-ADMIN-QUICK-START.md": "55d1098640ba023ffe4909d6d9f4c7658e2831de62d89ff6306d92e178786b08",
     "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
     "NOTICE": "f522b196e59c55a85a475371a1b481708d6e5ecc3bdf48fe5dbe7965b34df82f",
-    "README.md": "da2ff6fbcac1ccac355e9b4c294f874550a90aad8cf351c5146cabc118fbf717",
+    "README.md": "a25144f7b4f08be096f0a18a0a8055ca5c0e34a76bc4e073be011689aaa46613",
     "RUNTIME_PROFILE.json": "a93d20cd71a7ab0da1bb9b46fa1470126511cd7e3bc5ec9dd3e2b1f4f4051db3",
-    "TENANT_TEST_PROFILE.json": "95568357fea44b460752387be354d5f73794c237d5376b9fa051986f23faf54f",
+    "TENANT_TEST_PROFILE.json": "d7c28d23308db6ed958f797a62fa4742f63a054fde81fcdad3c899120c43257c",
     "appPackage/assets/color.png": "5a4a4faef8c63794e1a720c6bafb8a38ed51f31df42e998b815e34ed68b67131",
     "appPackage/assets/outline.png": "0b164f11e209be6c0d65ca3733ac8ad30a3d18351bbc1eedf326e1e0e719b685",
     "appPackage/declarativeAgent.json": "6aa322b53b649fe1380e9f309f4996bcd05e3785d08a3f71bc54b230603bf4fa",
@@ -17,8 +17,8 @@
     "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
     "declarativeAgent.json": "6aa322b53b649fe1380e9f309f4996bcd05e3785d08a3f71bc54b230603bf4fa",
     "knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
-    "studio/DEPLOYMENT_EXPECTED.json": "4bff8cc4207d121e4958f64ee75b950f645b78dcf489dec77d65ee2ffe04adc5",
+    "studio/DEPLOYMENT_EXPECTED.json": "df17deb79fc31d9634e48cf0bdd670d852652f7f5b03c141438ffe08a832a36c",
     "studio/STUDIO_INSTRUCTIONS.md": "d52475ff8d6583dff9954e73a0efb7d4c3f2691ddc121d7134b72cbcd0511e65"
   },
-  "seal_sha256": "ab8db05574194e0779777ab89e36dfe9f818e293fbdcd16a3c715513846c11d1"
+  "seal_sha256": "6d08bc848495775f84854a18b95b2f6b7565d978f09e79042ddb9d49c28df6c4"
 }

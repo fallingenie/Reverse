@@ -346,8 +346,13 @@ function validateReceiptConfiguration(manifest, receipt, issues) {
       issues.push("라이브 privacy 상태가 expected manifest와 다릅니다.");
     }
   } else {
-    if (observed.environment_display_name !== manifest.configuration.environment.display_name) {
-      issues.push("Copilot environment display name이 '한국과학창의재단'과 다릅니다.");
+    const environmentContract = manifest.configuration.environment;
+    if (environmentContract.scope === "ANY_MICROSOFT_365_WORK_OR_EDUCATION_TENANT") {
+      if (typeof observed.environment_display_name !== "string" || observed.environment_display_name.trim() === "") {
+        issues.push("Copilot 설치 대상 환경의 표시 이름을 라이브 receipt에 기록해야 합니다.");
+      }
+    } else if (observed.environment_display_name !== environmentContract.display_name) {
+      issues.push("Copilot environment display name이 expected manifest와 다릅니다.");
     }
     if (observed.model_display_name !== manifest.configuration.model.display_name) {
       issues.push("Copilot Model이 'GPT-5.6 Reasoning'과 다릅니다. 모델 표시는 권한·성능 증거로 사용하지 않습니다.");
@@ -431,11 +436,13 @@ async function initializeReceipts(platforms, receiptDirectory, force) {
   return initialized;
 }
 
-export async function verifyLiveDeployments({ platforms, receiptDirectory }) {
+export async function verifyLiveDeployments({ platforms, receiptDirectory, verifyWorkspaceArtifacts = true }) {
   const results = [];
   for (const platform of platforms) {
     const manifest = await loadExpected(platform);
-    const workspaceIssues = await verifyExpectedAgainstWorkspace(manifest);
+    const workspaceIssues = verifyWorkspaceArtifacts
+      ? await verifyExpectedAgainstWorkspace(manifest)
+      : [];
     const receiptPath = join(receiptDirectory, receiptName(platform));
     let receiptResult;
     try {

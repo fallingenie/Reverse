@@ -5,7 +5,7 @@ import test from "node:test";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const ignored = new Set([".git", ".reverse-local", ".venv", "__pycache__", "build", "coverage", "dist", "node_modules"]);
+const ignored = new Set([".git", ".next", ".reverse-local", ".vercel", ".venv", "__pycache__", "build", "coverage", "dist", "node_modules", "out"]);
 const humanExtensions = new Set([".md", ".ps1", ".txt"]);
 const humanNames = new Set(["LICENSE", "NOTICE"]);
 const machineNames = new Set([".editorconfig", ".gitattributes", ".gitignore", "pnpm-lock.yaml"]);

@@ -15,6 +15,7 @@
     "verify:copilot": "node scripts/verify-copilot-schema.mjs",
     "chatgpt:knowledge": "node scripts/build-chatgpt-knowledge.mjs",
     "chatgpt:knowledge:verify": "node scripts/build-chatgpt-knowledge.mjs --verify",
+    "chatgpt:knowledge:verify-public": "node scripts/build-chatgpt-knowledge.mjs --verify-public-contract",
     "student:skill": "node scripts/build-student-skill-runtime.mjs",
     "encoding:check:active": "node scripts/check-text-integrity.mjs --active",
     "copilot:doctor": "node scripts/copilot-doctor.mjs",
@@ -33,6 +34,7 @@
     "validate": "node scripts/validate.mjs",
     "test": "node --test",
     "check:active": "pnpm run encoding:check:active && pnpm run chatgpt:knowledge:verify && pnpm run student:skill && pnpm run validate && pnpm test && pnpm run verify:exports:active && pnpm run verify:copilot && pnpm run copilot:package && pnpm run copilot:validate-package",
+    "check:ci": "pnpm run encoding:check:active && pnpm run chatgpt:knowledge:verify-public && pnpm run student:skill && pnpm run validate && pnpm test && pnpm run verify:exports:active && pnpm run verify:copilot && pnpm run copilot:package && pnpm run copilot:validate-package",
     "check": "pnpm run validate && pnpm test && pnpm run test:python && pnpm run verify:exports"
   },
   "engines": {

@@ -4,8 +4,9 @@
   "platform": "COPILOT_STUDIO",
   "configuration": {
     "environment": {
-      "display_name": "한국과학창의재단",
-      "immutable": true,
+      "scope": "ANY_MICROSOFT_365_WORK_OR_EDUCATION_TENANT",
+      "display_name": "TARGET_TENANT_SELECTED_AT_INSTALL",
+      "immutable": false,
       "identifier_storage": "LOCAL_RECEIPT_FINGERPRINT_ONLY"
     },
     "instructions": {
@@ -159,5 +160,5 @@
     "contains_live_urls": false,
     "contains_tokens_or_credentials": false
   },
-  "seal_sha256": "53a3ed8529f67c5fea3452071766df8dd59bef32020ab12d58afe04f0ae3f86c"
+  "seal_sha256": "cca6b9ac064d666682b99d71e4d9121aad2b22d7b4d346866906fe3e477bf618"
 }

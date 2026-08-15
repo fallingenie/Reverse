@@ -62,7 +62,8 @@ test("웹 빌드 산출물은 제외하지만 apps/web/src 원본은 계속 검�
     join(sandbox, "apps", "web", ".next"),
     join(sandbox, "apps", "web", ".vercel"),
     join(sandbox, "apps", "web", "coverage"),
-    join(sandbox, "apps", "web", "node_modules")
+    join(sandbox, "apps", "web", "node_modules"),
+    join(sandbox, "apps", "web", "out")
   ];
   await mkdir(sourceDirectory, { recursive: true });
   for (const directory of generatedDirectories) {

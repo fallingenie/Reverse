@@ -362,8 +362,9 @@ export async function buildExpectedManifests({ skillZipPath } = {}) {
     platform: "COPILOT_STUDIO",
     configuration: {
       environment: {
-        display_name: "한국과학창의재단",
-        immutable: true,
+        scope: "ANY_MICROSOFT_365_WORK_OR_EDUCATION_TENANT",
+        display_name: "TARGET_TENANT_SELECTED_AT_INSTALL",
+        immutable: false,
         identifier_storage: "LOCAL_RECEIPT_FINGERPRINT_ONLY"
       },
       instructions: copilotInstruction,

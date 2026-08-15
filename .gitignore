@@ -13,4 +13,5 @@ windows/*.egg-info/
 windows/**/__pycache__/
 windows/**/*.pyc
 .gstack/
+skills/teach-grounded-scenarios/*.zip
 /tmp/

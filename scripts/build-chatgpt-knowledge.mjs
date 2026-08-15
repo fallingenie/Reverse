@@ -167,7 +167,7 @@ function assertExactKeys(value, expectedKeys, label) {
   }
 }
 
-export function validateExternalPdfBytes(contract, receipt, bytes) {
+export function validateExternalPdfContract(contract) {
   assertExactKeys(contract, [
     "upload_name",
     "size_bytes",
@@ -177,21 +177,14 @@ export function validateExternalPdfBytes(contract, receipt, bytes) {
     "non_academic_fact_authority",
     "authority_limit_ko"
   ], `외부 PDF 계약 ${contract.upload_name ?? "이름 없음"}`);
-  assertExactKeys(receipt, ["upload_name", "source_absolute_path"], `외부 PDF 영수증 ${receipt.upload_name ?? "이름 없음"}`);
-  if (contract.upload_name !== receipt.upload_name || !contract.upload_name.endsWith(".pdf")) {
-    throw new Error("외부 PDF 계약과 로컬 영수증의 파일명이 일치하지 않습니다.");
+  if (typeof contract.upload_name !== "string" || !contract.upload_name.endsWith(".pdf") || basename(contract.upload_name) !== contract.upload_name) {
+    throw new Error("외부 PDF 계약의 파일명이 올바르지 않습니다.");
   }
-  if (!isAbsolute(receipt.source_absolute_path) || basename(receipt.source_absolute_path) !== contract.upload_name) {
-    throw new Error(`${contract.upload_name}: 로컬 영수증에는 같은 파일명의 절대경로가 필요합니다.`);
+  if (!Number.isSafeInteger(contract.size_bytes) || contract.size_bytes <= 0) {
+    throw new Error(`${contract.upload_name}: PDF 크기 계약이 올바르지 않습니다.`);
   }
-  if (!Number.isSafeInteger(contract.size_bytes) || contract.size_bytes <= 0 || bytes.length !== contract.size_bytes) {
-    throw new Error(`${contract.upload_name}: PDF 크기가 추적 계약과 일치하지 않습니다.`);
-  }
-  if (!/^[0-9a-f]{64}$/u.test(contract.sha256) || sha256(bytes) !== contract.sha256) {
-    throw new Error(`${contract.upload_name}: PDF SHA-256이 추적 계약과 일치하지 않습니다.`);
-  }
-  if (bytes.length < 5 || bytes.subarray(0, 5).toString("ascii") !== "%PDF-") {
-    throw new Error(`${contract.upload_name}: PDF 서명이 없습니다.`);
+  if (!/^[0-9a-f]{64}$/u.test(contract.sha256)) {
+    throw new Error(`${contract.upload_name}: PDF SHA-256 계약이 올바르지 않습니다.`);
   }
   if (!new Set(["ELEMENTARY", "MIDDLE", "HIGH"]).has(contract.school_level)) {
     throw new Error(`${contract.upload_name}: 지원하지 않는 학교급입니다.`);
@@ -204,49 +197,105 @@ export function validateExternalPdfBytes(contract, receipt, bytes) {
   }
 }
 
-export async function loadExternalPdfEntries() {
-  const contract = parseStrictJson("chatgpt/custom-gpt/EXTERNAL_PDF_KNOWLEDGE.json", await readFile(externalPdfContractPath));
-  const receipt = parseStrictJson(".reverse-local/chatgpt-knowledge-external-pdfs.json", await readFile(externalPdfReceiptPath));
-  assertExactKeys(contract, ["schema_version", "contract_id", "required_count", "files"], "외부 PDF 계약");
-  assertExactKeys(receipt, ["schema_version", "contract_id", "files"], "외부 PDF 로컬 영수증");
-  if (contract.schema_version !== "1.0.0" || receipt.schema_version !== "1.0.0" || contract.contract_id !== receipt.contract_id) {
-    throw new Error("외부 PDF 계약과 로컬 영수증의 버전 또는 계약 ID가 일치하지 않습니다.");
+export function validateExternalPdfBytes(contract, receipt, bytes) {
+  validateExternalPdfContract(contract);
+  assertExactKeys(receipt, ["upload_name", "source_absolute_path"], `외부 PDF 영수증 ${receipt.upload_name ?? "이름 없음"}`);
+  if (contract.upload_name !== receipt.upload_name) {
+    throw new Error("외부 PDF 계약과 로컬 영수증의 파일명이 일치하지 않습니다.");
   }
-  if (contract.required_count !== 3 || contract.files.length !== 3 || receipt.files.length !== 3) {
+  if (!isAbsolute(receipt.source_absolute_path) || basename(receipt.source_absolute_path) !== contract.upload_name) {
+    throw new Error(`${contract.upload_name}: 로컬 영수증에는 같은 파일명의 절대경로가 필요합니다.`);
+  }
+  if (bytes.length !== contract.size_bytes) {
+    throw new Error(`${contract.upload_name}: PDF 크기가 추적 계약과 일치하지 않습니다.`);
+  }
+  if (sha256(bytes) !== contract.sha256) {
+    throw new Error(`${contract.upload_name}: PDF SHA-256이 추적 계약과 일치하지 않습니다.`);
+  }
+  if (bytes.length < 5 || bytes.subarray(0, 5).toString("ascii") !== "%PDF-") {
+    throw new Error(`${contract.upload_name}: PDF 서명이 없습니다.`);
+  }
+}
+
+function externalPdfManifestEntry(expected) {
+  return {
+    upload_name: expected.upload_name,
+    sha256: expected.sha256,
+    bytes: expected.size_bytes,
+    content_type: "application/pdf",
+    school_level: expected.school_level,
+    authority_role: expected.authority_role,
+    non_academic_fact_authority: expected.non_academic_fact_authority,
+    authority_limit_ko: expected.authority_limit_ko,
+    purpose: "학교급별 국가 교육과정 범위·성취기준 참조",
+    classification: "external-curriculum-pdf",
+    delivery: "EXTERNAL_UPLOAD",
+    source_locator: "LOCAL_RECEIPT_ONLY",
+    repository_copy: false,
+    required_upload: true,
+    reference_only: true,
+    validator_executed: false
+  };
+}
+
+export async function loadExternalPdfContractEntries() {
+  const contract = parseStrictJson("chatgpt/custom-gpt/EXTERNAL_PDF_KNOWLEDGE.json", await readFile(externalPdfContractPath));
+  assertExactKeys(contract, ["schema_version", "contract_id", "required_count", "files"], "외부 PDF 계약");
+  if (contract.schema_version !== "1.0.0" || typeof contract.contract_id !== "string" || contract.contract_id.length < 8) {
+    throw new Error("외부 PDF 계약의 버전 또는 계약 ID가 올바르지 않습니다.");
+  }
+  if (contract.required_count !== 3 || !Array.isArray(contract.files) || contract.files.length !== 3) {
     throw new Error("외부 교육과정 PDF는 정확히 3개여야 합니다.");
   }
   const contractNames = contract.files.map((entry) => entry.upload_name);
-  const receiptNames = receipt.files.map((entry) => entry.upload_name);
-  if (new Set(contractNames).size !== 3 || new Set(receiptNames).size !== 3) {
+  if (new Set(contractNames).size !== 3) {
     throw new Error("외부 PDF 파일명이 중복되었습니다.");
+  }
+  const schoolLevels = contract.files.map((entry) => entry.school_level);
+  if (schoolLevels.join(",") !== "ELEMENTARY,MIDDLE,HIGH") {
+    throw new Error("외부 PDF 계약은 초등·중등·고등 순서로 정확히 한 개씩 필요합니다.");
+  }
+  for (const expected of contract.files) {
+    validateExternalPdfContract(expected);
+  }
+  return {
+    contract_id: contract.contract_id,
+    entries: contract.files.map(externalPdfManifestEntry)
+  };
+}
+
+export async function loadExternalPdfEntries() {
+  const publicContract = await loadExternalPdfContractEntries();
+  const receipt = parseStrictJson(".reverse-local/chatgpt-knowledge-external-pdfs.json", await readFile(externalPdfReceiptPath));
+  assertExactKeys(receipt, ["schema_version", "contract_id", "files"], "외부 PDF 로컬 영수증");
+  if (receipt.schema_version !== "1.0.0" || publicContract.contract_id !== receipt.contract_id) {
+    throw new Error("외부 PDF 계약과 로컬 영수증의 버전 또는 계약 ID가 일치하지 않습니다.");
+  }
+  if (!Array.isArray(receipt.files) || receipt.files.length !== 3) {
+    throw new Error("외부 교육과정 PDF 로컬 영수증은 정확히 3개여야 합니다.");
+  }
+  const receiptNames = receipt.files.map((entry) => entry.upload_name);
+  if (new Set(receiptNames).size !== 3) {
+    throw new Error("외부 PDF 로컬 영수증 파일명이 중복되었습니다.");
   }
   const receiptByName = new Map(receipt.files.map((entry) => [entry.upload_name, entry]));
   const entries = [];
-  for (const expected of contract.files) {
+  for (const expected of publicContract.entries) {
     const local = receiptByName.get(expected.upload_name);
     if (!local) {
       throw new Error(`${expected.upload_name}: 로컬 영수증 항목이 없습니다.`);
     }
     const bytes = await readFile(local.source_absolute_path);
-    validateExternalPdfBytes(expected, local, bytes);
-    entries.push({
+    validateExternalPdfBytes({
       upload_name: expected.upload_name,
+      size_bytes: expected.bytes,
       sha256: expected.sha256,
-      bytes: expected.size_bytes,
-      content_type: "application/pdf",
       school_level: expected.school_level,
       authority_role: expected.authority_role,
       non_academic_fact_authority: expected.non_academic_fact_authority,
-      authority_limit_ko: expected.authority_limit_ko,
-      purpose: "학교급별 국가 교육과정 범위·성취기준 참조",
-      classification: "external-curriculum-pdf",
-      delivery: "EXTERNAL_UPLOAD",
-      source_locator: "LOCAL_RECEIPT_ONLY",
-      repository_copy: false,
-      required_upload: true,
-      reference_only: true,
-      validator_executed: false
-    });
+      authority_limit_ko: expected.authority_limit_ko
+    }, local, bytes);
+    entries.push(expected);
   }
   return entries;
 }
@@ -261,7 +310,7 @@ function canonicalJson(value) {
   return JSON.stringify(value);
 }
 
-export async function expectedKnowledgeManifest() {
+export async function expectedKnowledgeManifest({verifyExternalFiles = true} = {}) {
   const files = [];
   for (const mapping of knowledgeMappings) {
     const bytes = await readFile(join(root, mapping.source));
@@ -282,7 +331,10 @@ export async function expectedKnowledgeManifest() {
       validator_executed: false
     });
   }
-  files.push(...await loadExternalPdfEntries());
+  const externalEntries = verifyExternalFiles
+    ? await loadExternalPdfEntries()
+    : (await loadExternalPdfContractEntries()).entries;
+  files.push(...externalEntries);
   const unsigned = {
     schema_version: "1.0.0",
     package_id: "reverse-chatgpt-knowledge",
@@ -319,8 +371,8 @@ export async function buildKnowledgeBundle() {
   return manifest;
 }
 
-export async function verifyKnowledgeBundle() {
-  const expected = await expectedKnowledgeManifest();
+export async function verifyKnowledgeBundle({verifyExternalFiles = true} = {}) {
+  const expected = await expectedKnowledgeManifest({verifyExternalFiles});
   const actual = JSON.parse(await readFile(manifestPath, "utf8"));
   if (canonicalJson(actual) !== canonicalJson(expected)) {
     throw new Error("KNOWLEDGE_MANIFEST.json이 현재 원본과 일치하지 않습니다.");
@@ -341,9 +393,26 @@ export async function verifyKnowledgeBundle() {
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const verifyOnly = process.argv.includes("--verify");
-  (verifyOnly ? verifyKnowledgeBundle() : buildKnowledgeBundle())
+  const verifyPublicContract = process.argv.includes("--verify-public-contract");
+  if (verifyOnly && verifyPublicContract) {
+    throw new Error("--verify와 --verify-public-contract는 함께 사용할 수 없습니다.");
+  }
+  const operation = verifyPublicContract
+    ? verifyKnowledgeBundle({verifyExternalFiles: false})
+    : verifyOnly
+      ? verifyKnowledgeBundle()
+      : buildKnowledgeBundle();
+  operation
     .then((manifest) => {
-      process.stdout.write(`${JSON.stringify({ ok: true, mode: verifyOnly ? "verify" : "build", file_count: manifest.file_count, packaged_file_count: manifest.packaged_file_count, external_upload_count: manifest.external_upload_count, seal_sha256: manifest.seal_sha256 }, null, 2)}\n`);
+      process.stdout.write(`${JSON.stringify({
+        ok: true,
+        mode: verifyPublicContract ? "verify-public-contract" : verifyOnly ? "verify" : "build",
+        external_pdf_byte_verification: !verifyPublicContract,
+        file_count: manifest.file_count,
+        packaged_file_count: manifest.packaged_file_count,
+        external_upload_count: manifest.external_upload_count,
+        seal_sha256: manifest.seal_sha256
+      }, null, 2)}\n`);
     })
     .catch((error) => {
       process.stderr.write(`${error.stack ?? error.message}\n`);

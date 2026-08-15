@@ -36,7 +36,8 @@ export function parseTenantChecks({ authOutput, doctorOutput, localPackageReady,
   const customUploadReady = doctorOutput.code === 0 && !customUploadBlocked;
   const accountDomain = account?.split("@").at(-1)?.toLowerCase() ?? null;
   const allowedDomains = tenantProfile.supported_environment.allowed_account_domains.map((domain) => domain.toLowerCase());
-  const accountDomainReady = authReady && allowedDomains.includes(accountDomain);
+  const anyWorkEducationTenant = tenantProfile.supported_environment.scope === "ANY_MICROSOFT_365_WORK_OR_EDUCATION_TENANT";
+  const accountDomainReady = authReady && (anyWorkEducationTenant || allowedDomains.includes(accountDomain));
 
   let status = "TENANT_PREFLIGHT_READY";
   if (!localPackageReady) status = "LOCAL_PACKAGE_NOT_READY";
@@ -50,10 +51,10 @@ export function parseTenantChecks({ authOutput, doctorOutput, localPackageReady,
     account,
     checks: [
       { id: "account", ok: authReady, label: "Microsoft 365 시험 계정 로그인" },
-      { id: "account_domain", ok: accountDomainReady, label: "시험 계정 조직 도메인이 허용된 범위와 일치" },
+      { id: "account_domain", ok: accountDomainReady, label: anyWorkEducationTenant ? "대상 Work/Education 조직 계정 확인" : "시험 계정 조직 도메인이 허용된 범위와 일치" },
       { id: "custom_app_upload", ok: customUploadReady, label: "관리자의 사용자 지정 앱 업로드 허용" },
       { id: "local_package", ok: localPackageReady, label: "로컬 시험 ZIP 준비" },
-      { id: "supported_environment", ok: environmentIdentityConfirmed, label: "Copilot Studio의 지원 대상 환경 ID를 관리자가 직접 대조" }
+      { id: "supported_environment", ok: environmentIdentityConfirmed, label: "관리자가 설치할 Copilot Studio 환경과 조직 정책을 직접 확인" }
     ],
     upload_allowed: status === "TENANT_PREFLIGHT_READY",
     supported_environment: tenantProfile.supported_environment,
@@ -82,10 +83,12 @@ function formatHuman(result) {
   const lines = [
     "Microsoft 365 Copilot 테넌트 사전 점검",
     "",
-    `지원 대상 환경: ${result.supported_environment.display_name}`,
-    `환경 ID: ${result.supported_environment.environment_id}`,
+    `지원 범위: ${result.supported_environment.display_name}`,
     ""
   ];
+  if (result.supported_environment.environment_id) {
+    lines.splice(3, 0, `환경 ID: ${result.supported_environment.environment_id}`);
+  }
   for (const check of result.checks) lines.push(`${check.ok ? "[확인]" : "[차단]"} ${check.label}`);
   if (result.account) lines.push("", `시험 계정: ${result.account}`);
   lines.push("");
@@ -97,9 +100,9 @@ function formatHuman(result) {
   } else if (result.status === "TENANT_AUTH_REQUIRED") {
     lines.push("결론: Microsoft 365 시험 계정 로그인이 필요합니다. 개인 학생 계정으로 진행하지 마세요.");
   } else if (result.status === "TENANT_IDENTITY_MISMATCH") {
-    lines.push("결론: 현재 로그인 계정의 조직 도메인이 허용된 시험 범위와 다릅니다. 업로드하지 마세요.");
+    lines.push("결론: 현재 로그인 계정이 이 배포물에서 허용한 조직 범위와 다릅니다. 업로드하지 마세요.");
   } else if (result.status === "TENANT_ENVIRONMENT_CONFIRMATION_REQUIRED") {
-    lines.push("결론: Copilot Studio 화면의 환경 ID를 위 값과 직접 대조해야 합니다. 확인 전에는 업로드하지 마세요.");
+    lines.push("결론: 관리자가 설치 대상 Copilot Studio 환경과 조직 정책을 직접 확인해야 합니다. 확인 전에는 업로드하지 마세요.");
   } else {
     lines.push("결론: 로컬 시험 ZIP부터 완성해야 합니다. 업로드하지 마세요.");
   }

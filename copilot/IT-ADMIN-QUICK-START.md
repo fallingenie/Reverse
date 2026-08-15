@@ -4,7 +4,7 @@
 
 현재 폴더에는 형식 검증용 Microsoft 365 앱 ZIP 패키지가 있습니다. 실제 학교 테넌트 동작과 조직 정책은 아직 별도 검증 대상이므로 교사에게 설치를 맡기거나 학생에게 배포하지 마세요.
 
-이번 비공개 시험의 지원 대상 환경은 `한국과학창의재단`이며 환경 ID는 `9324e73a-cd4e-e049-b7ba-177af6165e9c`입니다. Copilot Studio URL의 `/environments/` 뒤 값을 직접 대조하세요. 다른 환경이면 업로드하지 말고, 이 값을 임의로 바꾸지 마세요.
+배포 ZIP은 특정 재단 환경 ID에 묶이지 않습니다. Microsoft 365 Copilot Chat을 사용할 수 있고 사용자 지정 에이전트 업로드가 허용된 Work/Education 테넌트라면 별도 에이전트로 가져올 수 있습니다. 다만 설치할 Copilot Studio 환경, 계정, 앱 업로드 정책, 학생 공개 범위는 각 학교·기관 IT 관리자가 직접 확인해야 합니다. 한 기관에서 얻은 라이브 시험 결과를 다른 테넌트의 통과 증거로 재사용하지 마세요.
 
 ## 역할 구분
 
@@ -49,7 +49,7 @@ pnpm verify:copilot
 - 실제 Enterprise/Education 테스트 테넌트와 테스트 계정
 - 조직의 개인정보·교과서 이용권리·보존정책 확인
 
-현재 저장소에는 이 항목을 포함한 시험 ZIP이 있습니다. `pnpm copilot:package`로 재생성하고 `pnpm copilot:doctor`, `pnpm copilot:tenant-doctor` 순서로 확인합니다. 이후에도 실제 테넌트 검증 전에는 배포 보류입니다.
+현재 저장소에는 이 항목을 포함한 시험 ZIP이 있습니다. `pnpm copilot:package`로 재생성하고 `pnpm copilot:doctor`, `pnpm copilot:tenant-doctor` 순서로 확인합니다. 특정 환경 ID를 코드에 입력할 필요는 없습니다. 이후에도 설치 대상 테넌트의 실제 검증 전에는 그 테넌트에서의 배포 완료로 표시하지 않습니다.
 
 ## 실제 테넌트 시험 항목
 

@@ -1,9 +1,10 @@
 'use client';
 
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {AppShell} from '@astryxdesign/core/AppShell';
 import {Banner} from '@astryxdesign/core/Banner';
 import {Card} from '@astryxdesign/core/Card';
+import {CodeBlock} from '@astryxdesign/core/CodeBlock';
 import {HStack} from '@astryxdesign/core/HStack';
 import {
   Layout,
@@ -17,11 +18,96 @@ import {TopNav, TopNavHeading} from '@astryxdesign/core/TopNav';
 import {VStack} from '@astryxdesign/core/VStack';
 import {StudentOnboarding} from '@/components/student-onboarding';
 import {TeacherReview} from '@/components/teacher-review';
-import {INITIAL_SESSION, type LessonSession} from '@/lib/session';
+import {INITIAL_SESSION, SCHOOL_LABELS, type LessonSession} from '@/lib/session';
+import {
+  createInitialTeacherProfile,
+  type TeacherStudentProfile,
+} from '@/lib/teacher-records';
 
 type WorkspaceTab = 'student' | 'teacher';
 
-function LicenseNotice() {
+const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const localRunCommand = `git clone https://github.com/fallingenie/Reverse.git
+cd Reverse/apps/web
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev`;
+const vercelDeployUrl =
+  'https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffallingenie%2FReverse&project-name=reverse-education-beta&repository-name=Reverse&root-directory=apps%2Fweb';
+
+function QuickStart() {
+  return (
+    <Card variant="muted" padding={5}>
+      <VStack gap={4}>
+        <VStack gap={2}>
+          <Heading level={2}>바로 실행하기</Heading>
+          <Text color="secondary">
+            아래 명령을 터미널에 그대로 붙여 넣거나, 링크를 눌러 설치 안내와
+            배포 화면을 여세요.
+          </Text>
+        </VStack>
+        <CodeBlock
+          code={localRunCommand}
+          language="bash"
+          title="로컬 실행"
+          hasLineNumbers={false}
+          hasCopyButton
+          isWrapped
+          width="100%"
+        />
+        <HStack gap={4} wrap="wrap">
+          <Link
+            href={vercelDeployUrl}
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Vercel에 바로 배포
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse"
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            GitHub 저장소
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse/blob/agent/runtime-profiles/START-HERE.md"
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            초보자 빠른 시작
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse/blob/agent/runtime-profiles/copilot/IT-ADMIN-QUICK-START.md"
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Copilot 설치 안내
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse/actions/workflows/pages.yml"
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Pages 배포 상태
+          </Link>
+        </HStack>
+      </VStack>
+    </Card>
+  );
+}
+
+export function LicenseNotice() {
   return (
     <Card variant="muted" padding={5}>
       <VStack gap={2}>
@@ -37,14 +123,15 @@ function LicenseNotice() {
           따릅니다.
         </Text>
         <HStack gap={4} wrap="wrap">
-          <Link href="/LICENSE" isStandalone>
+          <Link href={`${publicBasePath}/LICENSE`} hasUnderline isStandalone>
             라이선스
           </Link>
-          <Link href="/NOTICE" isStandalone>
+          <Link href={`${publicBasePath}/NOTICE`} hasUnderline isStandalone>
             고지
           </Link>
           <Link
             href="https://www.apache.org/licenses/LICENSE-2.0"
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -53,6 +140,7 @@ function LicenseNotice() {
           </Link>
           <Link
             href="https://github.com/lemos999/Singulari-Tea-Codex-Prompt-for-Gemini"
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -68,6 +156,34 @@ function LicenseNotice() {
 export function ReverseWorkspace() {
   const [activeTab, setActiveTab] = useState<WorkspaceTab>('student');
   const [session, setSession] = useState<LessonSession>(INITIAL_SESSION);
+  const [teacherProfile, setTeacherProfile] = useState<TeacherStudentProfile>(
+    () => createInitialTeacherProfile(INITIAL_SESSION),
+  );
+
+  useEffect(() => {
+    const schoolAndGrade = session.schoolLevel && session.grade
+      ? `${SCHOOL_LABELS[session.schoolLevel]} ${session.grade}학년`
+      : '';
+    const gradeAndUnit = [schoolAndGrade, session.unit.trim()]
+      .filter(Boolean)
+      .join(' · ');
+    setTeacherProfile(current => ({
+      ...current,
+      gradeAndUnit: {
+        value: gradeAndUnit,
+        provenance: gradeAndUnit ? 'STUDENT_STATED' : 'NEEDS_CONFIRMATION',
+      },
+      explicitInterest: current.explicitInterest.value
+        ? current.explicitInterest
+        : {
+            value: session.unit.trim(),
+            provenance: session.unit.trim()
+              ? 'STUDENT_STATED'
+              : 'NEEDS_CONFIRMATION',
+          },
+      updatedAt: new Date().toISOString(),
+    }));
+  }, [session.schoolLevel, session.grade, session.unit]);
 
   const topNav = (
     <TopNav
@@ -79,14 +195,24 @@ export function ReverseWorkspace() {
         />
       }
       endContent={
-        <Link
-          href="https://github.com/fallingenie/Reverse"
-          isExternalLink
-          isStandalone
-          newTabLabel="새 탭에서 열림"
-        >
-          GitHub
-        </Link>
+        <HStack gap={4} wrap="wrap">
+          <Link
+            href={`${publicBasePath}/copilot`}
+            hasUnderline
+            isStandalone
+          >
+            Copilot 체험
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse"
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            GitHub
+          </Link>
+        </HStack>
       }
     />
   );
@@ -97,6 +223,28 @@ export function ReverseWorkspace() {
       status="info"
       title="로컬 데모"
       description="현재 웹 버전은 백엔드·LLM·웹 검색에 연결되지 않았습니다. 입력은 브라우저 메모리에만 머물며 새로고침하면 사라집니다."
+      endContent={
+        <HStack gap={4} wrap="wrap">
+          <Link
+            href={vercelDeployUrl}
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Vercel 배포
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse"
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            GitHub 저장소
+          </Link>
+        </HStack>
+      }
     />
   );
 
@@ -122,6 +270,8 @@ export function ReverseWorkspace() {
                 </Text>
               </VStack>
 
+              <QuickStart />
+
               <TabList
                 value={activeTab}
                 onChange={value => setActiveTab(value as WorkspaceTab)}
@@ -136,7 +286,11 @@ export function ReverseWorkspace() {
               {activeTab === 'student' ? (
                 <StudentOnboarding session={session} onChange={setSession} />
               ) : (
-                <TeacherReview session={session} />
+                <TeacherReview
+                  session={session}
+                  profile={teacherProfile}
+                  onProfileChange={setTeacherProfile}
+                />
               )}
 
               <LicenseNotice />

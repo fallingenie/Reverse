@@ -1,11 +1,10 @@
 {
   "schema_version": "1.0.0",
   "supported_environment": {
-    "display_name": "한국과학창의재단",
-    "environment_id": "9324e73a-cd4e-e049-b7ba-177af6165e9c",
-    "allowed_account_domains": [
-      "kosacai.onmicrosoft.com"
-    ]
+    "scope": "ANY_MICROSOFT_365_WORK_OR_EDUCATION_TENANT",
+    "display_name": "Microsoft 365 Work/Education 테넌트",
+    "environment_id": null,
+    "allowed_account_domains": []
   },
-  "environment_identity_verification": "manual-copilot-studio-url-required"
+  "environment_identity_verification": "manual-target-environment-and-policy-verification-required"
 }

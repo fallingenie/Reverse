@@ -71,7 +71,11 @@ function escapeRegExp(value) {
 export function sanitizeAbsoluteUserPaths(text, roots = []) {
   let sanitized = text;
   let replacements = 0;
-  const candidates = [...new Set([homedir(), ...roots].filter(Boolean).map((value) => resolve(value)))]
+  const candidates = [...new Set([homedir(), ...roots].filter(Boolean).flatMap((value) => {
+    const literal = String(value);
+    const resolved = resolve(literal);
+    return literal === resolved ? [literal] : [literal, resolved];
+  }))]
     .sort((left, right) => right.length - left.length);
 
   for (const root of candidates) {

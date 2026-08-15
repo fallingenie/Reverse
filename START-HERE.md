@@ -48,9 +48,9 @@ pnpm start
 현재 `copilot/declarativeAgent.json`과 시험용 Microsoft 365 앱 패키지가 준비되어 있습니다. 패키지 형식 검증은 실제 학교 테넌트의 동작·개인정보 정책·학생 배포 승인을 대신하지 않습니다.
 
 1. `pnpm copilot:doctor`로 로컬 패키지를 확인하고 `pnpm copilot:tenant-doctor`로 시험 계정과 조직 정책을 확인합니다.
-2. 지원 대상 환경이 `한국과학창의재단`이고 URL의 환경 ID가 `9324e73a-cd4e-e049-b7ba-177af6165e9c`인지 직접 확인합니다. 다른 환경이면 업로드하지 않습니다.
+2. 설치할 학교·기관의 Microsoft 365 Work/Education 테넌트와 Copilot Studio 환경을 직접 확인합니다. 패키지는 특정 재단 환경 ID에 묶이지 않지만, 다른 테넌트의 시험 결과를 현재 환경의 통과 증거로 간주하면 안 됩니다.
 3. `copilot/IT-ADMIN-QUICK-START.md`에서 필요한 권한과 남은 패키지 항목을 확인합니다.
-4. `pnpm copilot:package`로 ZIP을 다시 만들고 `copilot/appPackage/build/reverse-m365-copilot.zip`을 시험 테넌트에만 업로드합니다.
+4. `pnpm copilot:package`로 ZIP을 다시 만들고 `copilot/appPackage/build/reverse-m365-copilot.zip`을 관리자가 승인한 대상 테넌트에 업로드합니다.
 5. 실제 Enterprise/Education 테넌트에서 직접 실행, 호출 방식, 응답 모드 변경, 웹 출처 표시를 시험합니다.
 
 관리자 정책 허용 뒤 실제 응답 검증 전에는 “Copilot 배포 가능” 또는 “Think deeper 강제”라고 표시하지 않습니다.
