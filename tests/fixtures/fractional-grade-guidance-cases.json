@@ -204,6 +204,62 @@
       "input": "초등학교 3학년이면서 중학교 1학년",
       "expected_event": "GRADE_CLARIFY",
       "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-021",
+      "school_level": "중학교",
+      "invalid_grade_count": 0,
+      "input": "3과 13학년이요",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-022",
+      "school_level": "중학교",
+      "invalid_grade_count": 1,
+      "input": "해~리포터",
+      "expected_event": "GRADE_TEASE_RETRY",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-023",
+      "school_level": "중학교",
+      "invalid_grade_count": 2,
+      "input": "3과 1/2학년이요",
+      "expected_event": "END_UNCONFIRMED_GRADE",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-024",
+      "school_level": "중학교",
+      "invalid_grade_count": 0,
+      "input": "3학년과 1학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-025",
+      "school_level": "중학교",
+      "invalid_grade_count": 0,
+      "input": "중1 또는 중3",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-026",
+      "school_level": "중학교",
+      "invalid_grade_count": 0,
+      "input": "3, 13학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-027",
+      "school_level": "중학교",
+      "invalid_grade_count": 0,
+      "input": "3/13학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
     }
   ]
 }

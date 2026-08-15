@@ -97,6 +97,22 @@ test('Skill과 프로파일 정책은 학생 행동 로그와 평가를 분리�
   assert.match(profilePolicy, /성격·지능·장애·건강·가정환경/u);
 });
 
+test('학생 런타임은 대화만으로 심리·성격·능력 프로파일을 만들지 않는다', async () => {
+  const runtimeFiles = [
+    new URL('skills/teach-grounded-scenarios/student-runtime/SKILL.md', root),
+    new URL('skills/teach-grounded-scenarios/student-runtime/prompts/05-lesson-turn.prompt.md', root),
+    new URL('copilot/studio/STUDIO_INSTRUCTIONS.md', root),
+    new URL('chatgpt/custom-gpt/INSTRUCTIONS.md', root),
+  ];
+  for (const file of runtimeFiles) {
+    const contents = (await readFile(file, 'utf8')).replace(/^\uFEFF/u, '');
+    assert.match(contents, /대화만으로.*심리.*성격.*공격성.*학습 유형.*집중력.*능력.*숙달.*프로파일링하지 않는다/su);
+    assert.match(contents, /명시.*선호.*실제 행동/su);
+    assert.match(contents, /현재 세션 관찰 요약/u);
+    assert.match(contents, /평가.*기록.*재사용하지 않는다/su);
+  }
+});
+
 test('새 기계 파일은 UTF-8 무BOM이며 사람용 CJK Skill 문서는 UTF-8-SIG다', async () => {
   const machineFiles = [
     new URL('skills/guide-brief-learner-dialogue/scripts/decide-guidance-transition.mjs', root),
