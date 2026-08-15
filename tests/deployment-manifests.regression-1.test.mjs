@@ -118,7 +118,7 @@ function expectedManifest(platform) {
         },
         capability_toggles: {
           web_search: true,
-          image_generation: false,
+          image_generation: true,
           code_interpreter_data_analysis: true,
           apps: false,
           actions: false
