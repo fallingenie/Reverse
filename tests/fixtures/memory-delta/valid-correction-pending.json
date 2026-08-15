@@ -1,0 +1,42 @@
+{
+  "base_revision": 7,
+  "next_revision": 8,
+  "add": [],
+  "correct": [
+    {
+      "correction_id": "COR-TEST-0001",
+      "target_id": "CAN-001",
+      "replacement": "검증된 새 연도와 근거를 사용하되 기존 기록은 보존한다.",
+      "reason": "기존 연도가 원문 기록과 충돌한다.",
+      "severity": "TRACK_REBASE",
+      "evidence_ids": ["VER-001"],
+      "provenance": [
+        {
+          "kind": "EVIDENCE",
+          "ref": "VER-001"
+        },
+        {
+          "kind": "SOURCE",
+          "ref": "SRC-001",
+          "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+        }
+      ],
+      "affected_ids": ["CAN-001", "EP-001"],
+      "impact_scope": {
+        "summary": "연표와 해당 연표에서 파생된 첫 에피소드를 다시 계산해야 한다.",
+        "timeline": true,
+        "causality": true,
+        "student_choices": false,
+        "current_state": true,
+        "learning_objective": false
+      },
+      "last_valid_checkpoint": "EP-000",
+      "decision": "USER_DECISION_PENDING",
+      "user_options": [
+        "마지막 유효 체크포인트에서 다시 이어간다.",
+        "영향 구간을 재구성한 뒤 현재 지점에서 계속한다."
+      ]
+    }
+  ],
+  "resolve": []
+}

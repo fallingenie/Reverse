@@ -1,0 +1,17 @@
+{
+  "base_revision": 0,
+  "next_revision": 1,
+  "add": [
+    {
+      "path": "/memory/canon/-",
+      "value": {
+        "id": "CAN-999",
+        "text": "기존 Canon을 직접 바꾼다.",
+        "must_keep": true
+      },
+      "reason": "우회 시도"
+    }
+  ],
+  "correct": [],
+  "resolve": []
+}

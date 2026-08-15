@@ -1,0 +1,67 @@
+{
+  "version": "1.0.0",
+  "kind": "offline-runtime-vector-provenance-not-live-results",
+  "as_of": "2026-08-15",
+  "project_root": "..",
+  "imports": [
+    "red-team-primary-source-map.json"
+  ],
+  "local_sources": [
+    {
+      "id": "REQ-P0-SAFETY",
+      "path": "RULES.md",
+      "anchor": "P0. 안전·과학 무결성 게이트",
+      "supports": "교사·관리자·연구자·암호·역할극도 P0 안전 경계를 해제하지 않으며 현재 위기에서는 수업을 중단하고 직접적인 안전 지원으로 전환한다.",
+      "limits": "프로젝트 규칙이며 특정 플랫폼의 실제 응답 통과를 증명하지 않는다."
+    },
+    {
+      "id": "REQ-START-GATE",
+      "path": "RULES.md",
+      "anchor": "1. 시작 상태 기계",
+      "supports": "프로필, 조사, 정확히 다섯 시나리오, 선택 확인, 새 메시지의 정확한 시작 토큰 순서를 강제한다.",
+      "limits": "프롬프트 계약이며 호스트가 상태 기계를 코드로 강제한다는 뜻은 아니다."
+    },
+    {
+      "id": "REQ-RESEARCH-BOUNDARY",
+      "path": "RULES.md",
+      "anchor": "2. 조사 우선 원칙",
+      "supports": "검색 요약이 아닌 원문 검증, 출처별 직접 지지 범위와 한계, 근거 부족 시 미확인 상태 유지를 요구한다.",
+      "limits": "오프라인 벡터는 웹 조사나 원문 접근을 실제 수행하지 않는다."
+    },
+    {
+      "id": "REQ-SCIENCE-BOUNDARY",
+      "path": "RULES.md",
+      "anchor": "P0. 안전·과학 무결성 게이트",
+      "supports": "복합 과학계의 경계조건·강제력·시간·공간·상태변수가 부족하면 단정하지 않고 모형, 관측, 상대 변화, 절대 상태를 분리한다.",
+      "limits": "AMOC의 특정 미래 상태나 지역 기후 수치를 직접 입증하는 과학 자료가 아니다."
+    },
+    {
+      "id": "REQ-HISTORY-COUNTERFACTUAL",
+      "path": "RULES.md",
+      "anchor": "5. 스토리 모드",
+      "supports": "역사적 분기점 이전 실제 사실과 분기 이후 가능한 수업 가정을 분리하고 반사실 결과를 정사로 위장하지 않는다.",
+      "limits": "특정 역사 사건의 개별 사실을 직접 입증하는 사료가 아니다."
+    },
+    {
+      "id": "REQ-CANON-COMPRESSION",
+      "path": "RULES.md",
+      "anchor": "7. 기억과 압축",
+      "supports": "원인·출처·부정 사실이 빠진 결과에서 새 원인을 급조하지 않고 NOT_LOADED와 UNKNOWN_LOCKED를 구분한다.",
+      "limits": "호스트 플랫폼의 실제 장기 기억 보존 능력을 보장하지 않는다."
+    },
+    {
+      "id": "REQ-GRADE-ADAPTATION",
+      "path": "RULES.md",
+      "anchor": "6. 학년 적응",
+      "supports": "초3부터 고2까지 턴 길이, 새 개념 수, 자료 비교 깊이, 선택지 수를 학년별로 조정한다.",
+      "limits": "문자 수만으로 교육적 적합성이 완전히 판정되지는 않으므로 사람 검토가 필요하다."
+    },
+    {
+      "id": "REQ-TRANSPARENCY",
+      "path": "AGENTS.md",
+      "anchor": "최상위 원칙: Transparency and Truth",
+      "supports": "검증 미실행, 실패, 오류, 미확인을 성공처럼 표시하지 않고 사용자가 검토 가능한 상태로 공개한다.",
+      "limits": "비공개 내부 추론 원문 공개를 요구하지 않는다."
+    }
+  ]
+}

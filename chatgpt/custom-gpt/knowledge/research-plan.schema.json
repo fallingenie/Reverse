@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/research-plan.schema.json",
+  "title": "수업 조사 계획",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "subject_domains", "candidate_modes", "essential_question", "freshness", "risk", "claim_candidates", "claim_quality_gates", "required_source_classes", "search_queries", "readiness"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^RES-[A-Z0-9-]+$" },
+    "subject_domains": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": ["HISTORY", "SCIENCE", "SOCIAL_STUDIES", "GEOGRAPHY", "MATHEMATICS", "LANGUAGE_LITERATURE", "INTERDISCIPLINARY"]
+      },
+      "uniqueItems": true
+    },
+    "candidate_modes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": ["HISTORICAL_ROLE", "COUNTERFACTUAL", "SCIENCE_INQUIRY", "EXPERIMENT_DESIGN", "SOCIAL_DECISION", "GEOGRAPHIC_FIELDWORK", "MATHEMATICAL_PROBLEM", "LITERARY_PERSPECTIVE", "INTERDISCIPLINARY_PROJECT"]
+      },
+      "uniqueItems": true
+    },
+    "essential_question": { "type": "string", "minLength": 1 },
+    "freshness": { "enum": ["STABLE", "CHECK_THIS_SESSION", "REAL_TIME"] },
+    "risk": { "enum": ["LOW", "MEDIUM", "HIGH"] },
+    "claim_candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "claim_quality_gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["claim", "risk", "minimum_independent_sources", "minimum_tier_a_sources", "evidence_ids", "exception_reason"],
+        "properties": {
+          "claim": { "type": "string", "minLength": 1 },
+          "risk": { "enum": ["LOW", "MEDIUM", "HIGH"] },
+          "minimum_independent_sources": { "type": "integer", "minimum": 1 },
+          "minimum_tier_a_sources": { "type": "integer", "minimum": 0 },
+          "evidence_ids": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "exception_reason": {
+            "anyOf": [
+              { "type": "string", "minLength": 1 },
+              { "type": "null" }
+            ]
+          }
+        }
+      }
+    },
+    "required_source_classes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "search_queries": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "readiness": {
+      "enum": ["READY", "NEEDS_RESEARCH", "SCOPE_REDUCTION", "BLOCKED"]
+    }
+  }
+}

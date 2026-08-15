@@ -3,10 +3,12 @@
   "session_id": "replace-with-session-id",
   "revision": 0,
   "profile": {
-    "grade": "초6",
-    "subject": "사회",
-    "unit": "",
-    "interests": ["평범한 사람의 생활"]
+    "school_level": null,
+    "grade": null,
+    "subject": null,
+    "unit": null,
+    "interests": null,
+    "interest_source": null
   },
   "gate": {
     "state": "COLLECT_PROFILE",

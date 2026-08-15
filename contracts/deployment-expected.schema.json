@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reverse/deployment-expected.schema.json",
+  "title": "Reverse public expected deployment manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_type",
+    "platform",
+    "configuration",
+    "live_contract",
+    "public_repository",
+    "seal_sha256"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "manifest_type": { "const": "EXPECTED_DEPLOYMENT" },
+    "platform": { "enum": ["CUSTOM_GPT", "COPILOT_STUDIO"] },
+    "configuration": { "type": "object" },
+    "live_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["receipt_location", "identifier_policy", "required_checks", "completion_policy"],
+      "properties": {
+        "receipt_location": { "type": "string", "pattern": "^\\.reverse-local/deployment-receipts/" },
+        "identifier_policy": { "const": "LOCAL_FINGERPRINT_ONLY" },
+        "required_checks": {
+          "type": "array",
+          "minItems": 5,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "completion_policy": { "const": "ALL_REQUIRED_CHECKS_PASS_WITH_BROWSER_EVIDENCE" }
+      }
+    },
+    "public_repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contains_live_identifiers", "contains_live_urls", "contains_tokens_or_credentials"],
+      "properties": {
+        "contains_live_identifiers": { "const": false },
+        "contains_live_urls": { "const": false },
+        "contains_tokens_or_credentials": { "const": false }
+      }
+    },
+    "seal_sha256": { "$ref": "#/$defs/sha256" }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "textArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_path", "source_sha256", "canonical_text_sha256", "source_bytes", "utf8_sig"],
+      "properties": {
+        "source_path": { "type": "string", "minLength": 1 },
+        "source_sha256": { "$ref": "#/$defs/sha256" },
+        "canonical_text_sha256": { "$ref": "#/$defs/sha256" },
+        "source_bytes": { "type": "integer", "minimum": 1 },
+        "utf8_sig": { "const": true }
+      }
+    },
+    "knowledgeFile": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["upload_name", "sha256", "bytes", "delivery"],
+          "properties": {
+            "upload_name": { "type": "string", "minLength": 1 },
+            "sha256": { "$ref": "#/$defs/sha256" },
+            "bytes": { "type": "integer", "minimum": 1 },
+            "delivery": { "const": "PACKAGE_COPY" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "upload_name",
+            "original_filename",
+            "sha256",
+            "bytes",
+            "page_count",
+            "school_level",
+            "delivery",
+            "source_locator",
+            "repository_copy",
+            "authority_role",
+            "non_academic_fact_authority",
+            "authority_limit_ko"
+          ],
+          "properties": {
+            "upload_name": { "type": "string", "pattern": "\\.pdf$" },
+            "original_filename": { "type": "string", "pattern": "\\.pdf$" },
+            "sha256": { "$ref": "#/$defs/sha256" },
+            "bytes": { "type": "integer", "minimum": 1 },
+            "page_count": { "type": "integer", "minimum": 1 },
+            "school_level": { "enum": ["ELEMENTARY", "MIDDLE", "HIGH"] },
+            "delivery": { "const": "EXTERNAL_UPLOAD" },
+            "source_locator": { "const": "LOCAL_RECEIPT_ONLY" },
+            "repository_copy": { "const": false },
+            "authority_role": { "const": "CURRICULUM_AUTHORITY" },
+            "non_academic_fact_authority": { "const": false },
+            "authority_limit_ko": { "type": "string", "minLength": 20 }
+          }
+        }
+      ]
+    },
+    "curriculumFragment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "live_filename",
+        "bytes",
+        "sha256",
+        "page_count",
+        "page_range",
+        "mapped_original_sha256",
+        "content_preservation"
+      ],
+      "properties": {
+        "live_filename": { "type": "string", "pattern": "\\.pdf$" },
+        "bytes": { "type": "integer", "minimum": 1, "maximum": 16777216 },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "page_count": { "type": "integer", "minimum": 1 },
+        "page_range": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["start", "end"],
+          "properties": {
+            "start": { "type": "integer", "minimum": 1 },
+            "end": { "type": "integer", "minimum": 1 }
+          }
+        },
+        "mapped_original_sha256": { "$ref": "#/$defs/sha256" },
+        "content_preservation": { "enum": ["ORIGINAL_FILE", "PAGE_RANGE_SPLIT_FROM_ORIGINAL"] }
+      }
+    },
+    "curriculumSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "school_level",
+        "original_filename",
+        "original_bytes",
+        "original_sha256",
+        "original_page_count",
+        "authority_role",
+        "non_academic_fact_authority",
+        "authority_limit_ko",
+        "source_locator",
+        "repository_copy",
+        "live_fragments"
+      ],
+      "properties": {
+        "school_level": { "enum": ["ELEMENTARY", "MIDDLE", "HIGH"] },
+        "original_filename": { "type": "string", "pattern": "\\.pdf$" },
+        "original_bytes": { "type": "integer", "minimum": 1 },
+        "original_sha256": { "$ref": "#/$defs/sha256" },
+        "original_page_count": { "type": "integer", "minimum": 1 },
+        "authority_role": { "const": "CURRICULUM_AUTHORITY" },
+        "non_academic_fact_authority": { "const": false },
+        "authority_limit_ko": { "type": "string", "minLength": 20 },
+        "source_locator": { "const": "LOCAL_RECEIPT_ONLY" },
+        "repository_copy": { "const": false },
+        "live_fragments": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": { "$ref": "#/$defs/curriculumFragment" }
+        }
+      }
+    },
+    "exclusion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "reason"],
+      "properties": {
+        "source": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "platform": { "const": "CUSTOM_GPT" } } },
+      "then": {
+        "properties": {
+          "configuration": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["instructions", "knowledge", "capability_toggles", "privacy"],
+            "properties": {
+              "instructions": { "$ref": "#/$defs/textArtifact" },
+              "knowledge": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["manifest_path", "package_seal_sha256", "file_count", "packaged_file_count", "external_upload_count", "files", "excluded"],
+                "properties": {
+                  "manifest_path": { "type": "string", "minLength": 1 },
+                  "package_seal_sha256": { "$ref": "#/$defs/sha256" },
+                  "file_count": { "const": 9 },
+                  "packaged_file_count": { "const": 6 },
+                  "external_upload_count": { "const": 3 },
+                  "files": {
+                    "type": "array",
+                    "minItems": 9,
+                    "maxItems": 9,
+                    "items": { "$ref": "#/$defs/knowledgeFile" }
+                  },
+                  "excluded": {
+                    "type": "array",
+                    "minItems": 4,
+                    "items": { "$ref": "#/$defs/exclusion" }
+                  }
+                }
+              },
+              "capability_toggles": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["web_search", "image_generation", "code_interpreter_data_analysis", "apps", "actions"],
+                "properties": {
+                  "web_search": { "type": "boolean" },
+                  "image_generation": { "type": "boolean" },
+                  "code_interpreter_data_analysis": { "type": "boolean" },
+                  "apps": { "type": "boolean" },
+                  "actions": { "type": "boolean" }
+                }
+              },
+              "privacy": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["visibility", "sharing"],
+                "properties": {
+                  "visibility": { "const": "OWNER_ONLY" },
+                  "sharing": { "const": "PRIVATE" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "platform": { "const": "COPILOT_STUDIO" } } },
+      "then": {
+        "properties": {
+          "configuration": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["environment", "instructions", "model", "skill_zip", "resources"],
+            "properties": {
+              "environment": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["display_name", "immutable", "identifier_storage"],
+                "properties": {
+                  "display_name": { "const": "한국과학창의재단" },
+                  "immutable": { "const": true },
+                  "identifier_storage": { "const": "LOCAL_RECEIPT_FINGERPRINT_ONLY" }
+                }
+              },
+              "instructions": { "$ref": "#/$defs/textArtifact" },
+              "model": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["display_name", "selection", "identity_or_capability_proof"],
+                "properties": {
+                  "display_name": { "const": "GPT-5.6 Reasoning" },
+                  "selection": { "const": "PLATFORM_OBSERVED" },
+                  "identity_or_capability_proof": { "const": false }
+                }
+              },
+              "skill_zip": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["archive_name", "sha256", "file_count"],
+                "properties": {
+                  "archive_name": { "type": "string", "pattern": "^teach-grounded-scenarios.*\\.zip$" },
+                  "sha256": { "$ref": "#/$defs/sha256" },
+                  "file_count": { "type": "integer", "minimum": 2 }
+                }
+              },
+              "resources": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["tools", "knowledge", "connected_agents", "memory"],
+                "properties": {
+                  "tools": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["mode"],
+                    "properties": { "mode": { "const": "NONE" } }
+                  },
+                  "knowledge": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["mode", "web_search", "max_live_file_bytes", "original_source_count", "live_file_count", "curriculum_sources"],
+                    "properties": {
+                      "mode": { "const": "SEARCH_ALL_WEBSITES_PLUS_CURRICULUM_FILES" },
+                      "web_search": {
+                        "type": "object",
+                        "additionalProperties": false,
+                        "required": ["enabled", "scope"],
+                        "properties": {
+                          "enabled": { "const": true },
+                          "scope": { "const": "ALL_WEBSITES" }
+                        }
+                      },
+                      "max_live_file_bytes": { "const": 16777216 },
+                      "original_source_count": { "const": 3 },
+                      "live_file_count": { "const": 4 },
+                      "curriculum_sources": {
+                        "type": "array",
+                        "minItems": 3,
+                        "maxItems": 3,
+                        "items": { "$ref": "#/$defs/curriculumSource" }
+                      }
+                    }
+                  },
+                  "connected_agents": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["mode"],
+                    "properties": { "mode": { "const": "NONE" } }
+                  },
+                  "memory": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": ["enabled"],
+                    "properties": { "enabled": { "const": false } }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "$comment": "CURRICULUM_AUTHORITY는 교육과정 범위·성취기준 권위이며 개별 역사·과학·통계·법령 사실의 자동 권위가 아니다."
+}

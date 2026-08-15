@@ -1,0 +1,4 @@
+minimumReleaseAgeExclude:
+  - '@astryxdesign/core@0.4.1'
+allowBuilds:
+  '@astryxdesign/core': true

@@ -1,0 +1,41 @@
+{
+  "research": {
+    "plan": {
+      "claim_candidates": ["A search summary alone supports the claim."],
+      "claim_quality_gates": [
+        {
+          "claim": "A search summary alone supports the claim.",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-301"],
+          "exception_reason": null
+        }
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": []
+  },
+  "sources": [
+    {
+      "id": "SRC-301",
+      "source_class": "REFERENCE_WORK",
+      "authority_tier": "C_CONTEXT_ONLY",
+      "independence_key": "SEARCH-PROVIDER-301",
+      "url": "https://www.google.com/search?q=unopened+claim",
+      "opened": false,
+      "direct_support": ["VER-301"],
+      "limitations": ["SEARCH_SUMMARY_ONLY"],
+      "quality_checks": ["RESPONSIBLE_ENTITY_CONFIRMED", "LIMITATIONS_RECORDED"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-301",
+      "status": "VERIFIED",
+      "claim": "A search summary alone supports the claim.",
+      "source_ids": ["SRC-301"]
+    }
+  ]
+}

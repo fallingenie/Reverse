@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "package_id": "reverse-copilot",
   "license": "Apache-2.0",
-  "file_count": 13,
+  "file_count": 15,
   "file_digests": {
     "IT-ADMIN-QUICK-START.md": "ec005c54277d66927b6da905acaf9f608686f8c0a94fb9c3d72d2fe3716f8a91",
     "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
@@ -16,7 +16,9 @@
     "appPackage/knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
     "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
     "declarativeAgent.json": "6aa322b53b649fe1380e9f309f4996bcd05e3785d08a3f71bc54b230603bf4fa",
-    "knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076"
+    "knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
+    "studio/DEPLOYMENT_EXPECTED.json": "4bff8cc4207d121e4958f64ee75b950f645b78dcf489dec77d65ee2ffe04adc5",
+    "studio/STUDIO_INSTRUCTIONS.md": "d52475ff8d6583dff9954e73a0efb7d4c3f2691ddc121d7134b72cbcd0511e65"
   },
-  "seal_sha256": "add22a6ebc416856afd276fcd6a7fe8ed3ed9611642efe300e9a4d29283214d3"
+  "seal_sha256": "ab8db05574194e0779777ab89e36dfe9f818e293fbdcd16a3c715513846c11d1"
 }

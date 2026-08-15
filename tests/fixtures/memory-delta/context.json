@@ -1,0 +1,26 @@
+{
+  "session_revision": 7,
+  "known_record_ids": ["CAN-001", "EP-000", "EP-001", "OPEN-001", "SRC-001", "VER-001"],
+  "evidence_records": [
+    {
+      "id": "VER-001",
+      "status": "VERIFIED"
+    }
+  ],
+  "provenance_records": [
+    {
+      "kind": "SOURCE",
+      "ref": "SRC-001",
+      "content_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    }
+  ],
+  "checkpoint_records": [
+    {
+      "id": "EP-000",
+      "revision": 0
+    }
+  ],
+  "approved_corrections": [],
+  "protected_target_ids": ["CAN-001"],
+  "resolvable_ids": ["OPEN-001"]
+}

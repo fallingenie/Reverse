@@ -5,8 +5,23 @@ import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
-const bomExtensions = new Set([".md", ".ps1", ".txt", ".yaml", ".yml"]);
-const machineExtensions = new Set([".json", ".mjs"]);
+const bomExtensions = new Set([".md", ".ps1", ".txt"]);
+const machineExtensions = new Set([
+  ".cjs",
+  ".css",
+  ".html",
+  ".js",
+  ".json",
+  ".jsonl",
+  ".jsx",
+  ".mjs",
+  ".ndjson",
+  ".svg",
+  ".ts",
+  ".tsx",
+  ".yaml",
+  ".yml"
+]);
 const bomNames = new Set(["LICENSE", "NOTICE"]);
 const machineNames = new Set([".gitattributes", ".gitignore", "pnpm-lock.yaml"]);
 const textExtensions = new Set([...bomExtensions, ...machineExtensions]);

@@ -12,3 +12,5 @@ windows/dist/
 windows/*.egg-info/
 windows/**/__pycache__/
 windows/**/*.pyc
+.gstack/
+/tmp/

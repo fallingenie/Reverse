@@ -1,0 +1,26 @@
+{
+  "base_revision": 0,
+  "next_revision": 1,
+  "add": [
+    {
+      "path": "/memory/open_threads/-",
+      "value": {
+        "id": "OPEN-101",
+        "text": "첫 번째 미해결 질문",
+        "must_keep": true
+      },
+      "reason": "첫 질문 보존"
+    },
+    {
+      "path": "/memory/open_threads/-",
+      "value": {
+        "id": "OPEN-102",
+        "text": "두 번째 미해결 질문",
+        "must_keep": true
+      },
+      "reason": "같은 append 경로를 중복 사용"
+    }
+  ],
+  "correct": [],
+  "resolve": []
+}

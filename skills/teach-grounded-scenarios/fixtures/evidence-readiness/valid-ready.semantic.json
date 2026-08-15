@@ -1,0 +1,73 @@
+{
+  "research": {
+    "plan": {
+      "claim_candidates": ["Two independent originals support the classroom claim."],
+      "claim_quality_gates": [
+        {
+          "claim": "Two independent originals support the classroom claim.",
+          "risk": "MEDIUM",
+          "minimum_independent_sources": 2,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": ["VER-101"],
+          "exception_reason": null
+        }
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": []
+  },
+  "sources": [
+    {
+      "id": "SRC-101",
+      "title": "Original public record",
+      "creator": "Records office",
+      "institution": "Public archive",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "UPSTREAM-ORIGINAL-101",
+      "subject_domains": ["HISTORY"],
+      "url": "https://example.org/original-101",
+      "published_at": "2026-01-01",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-101"],
+      "limitations": ["The record supports only the stated date and action."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-102",
+      "title": "Independent scholarly analysis",
+      "creator": "Research author",
+      "institution": "Scholarly publisher",
+      "source_class": "PEER_REVIEWED",
+      "authority_tier": "B_SCHOLARLY",
+      "independence_key": "UPSTREAM-STUDY-102",
+      "subject_domains": ["HISTORY"],
+      "url": "https://example.org/study-102",
+      "published_at": "2025-01-01",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-101"],
+      "limitations": ["The analysis does not establish later outcomes."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-101",
+      "status": "VERIFIED",
+      "subject_domains": ["HISTORY"],
+      "basis": "DOCUMENTED_EVENT",
+      "consensus": "ESTABLISHED",
+      "claim": "Two independent originals support the classroom claim.",
+      "source_ids": ["SRC-101", "SRC-102"],
+      "reason": "Both opened originals directly support the bounded claim.",
+      "must_keep": true
+    }
+  ]
+}

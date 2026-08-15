@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "package_id": "reverse-chatgpt",
   "license": "Apache-2.0",
-  "file_count": 11,
+  "file_count": 21,
   "file_digests": {
-    "BOOTSTRAP.md": "ce8c642abdc0d87cea7f993a20db1030a5078b48aeb022067b2730e4915d667c",
+    "BOOTSTRAP.md": "6ca5ff11d2417b852fac282a65943e11aa861805f24f651ddccb59cce4133fdb",
     "CLASSROOM_SETTINGS.example.md": "6477acec45f80653ef68000b693604da09554079e035d783b24019de85831600",
     "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
     "NOTICE": "f522b196e59c55a85a475371a1b481708d6e5ecc3bdf48fe5dbe7965b34df82f",
@@ -12,9 +12,19 @@
     "RUNTIME_PROFILE.json": "13065e25876046eaeb6cbf0df2b646735dd271a50d37cac43e429f8b98f2e982",
     "START-HERE.md": "da6b85721edeaa5313fdd7ab4c8e4761f44c06f7dd3c00b016f8487de9a6c508",
     "TEACHER-QUICK-START.md": "1a317f1333db957d483e19e108a52a4f9b1a1858e058b7b7a75ebc3632a75c94",
-    "custom-gpt/BUILDER_CONFIG.md": "3e8e557369bef5fd3867e20d3b0f5a6a9afeeac601aafbccaf1017818dc7d75f",
-    "custom-gpt/INSTRUCTIONS.md": "c35ae756957dd60fe617cafeedddcefa1633b8db6394afc13693a32e7ed4ea58",
-    "custom-gpt/KNOWLEDGE_REFERENCE.md": "e03803093d92f95b3fc1a4922fad3211bf98503df6e8f01117838a63d121bb39"
+    "custom-gpt/BUILDER_CONFIG.md": "6c4267756c3d37056ba10f7e562092eec70a1eaa8eb3923376e30ce96259e492",
+    "custom-gpt/DEPLOYMENT_EXPECTED.json": "4237fe8887525c9d643cfe419e3a40477de44157b7d1853ad17c8c02c7efe7a2",
+    "custom-gpt/EXTERNAL_PDF_KNOWLEDGE.json": "317f3e045689b1a95f89ed6679aa47f9b2583a9aab94f5f2cd6cc132a294799a",
+    "custom-gpt/INSTRUCTIONS.md": "e00ab13aa4683426699a4325022b81cda2d7601d9b102ef869d20e7e05a81f01",
+    "custom-gpt/KNOWLEDGE_REFERENCE.md": "e03803093d92f95b3fc1a4922fad3211bf98503df6e8f01117838a63d121bb39",
+    "custom-gpt/knowledge/KNOWLEDGE_MANIFEST.json": "33b143a118703d0138efa59b8bb499ae4f4e438c99dd9dbd681782fdb8eb40ee",
+    "custom-gpt/knowledge/PUBLIC_LESSON_PRINCIPLES.md": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6",
+    "custom-gpt/knowledge/cross-domain-catalog.json": "9632e680a341daa5298d4dee5427aa4892a477ab35419ccc808a8f46ef840d54",
+    "custom-gpt/knowledge/evidence.schema.json": "be88be97082aab9602d0a39704db943f053d0bf8cc74beea9f2febfe47dad3bc",
+    "custom-gpt/knowledge/research-plan.schema.json": "4bad591227747c23c12bc5edd8f63c98f25a2441c6e50b1ae7a201b741fd2f79",
+    "custom-gpt/knowledge/source-record.schema.json": "2caef797fba8d2a80ffc7f3e78cdbd87eed87e869b16e1c69795ef87f4a73b68",
+    "custom-gpt/knowledge/student-lesson-turn.schema.json": "d7256bbf9a0fe86cd36a26c0c87d8cfe51b1a991129552a6495cccc91458d005",
+    "custom-gpt/public-knowledge/PUBLIC_LESSON_PRINCIPLES.md": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6"
   },
-  "seal_sha256": "3499db1f850c67c8a8f4e53a466394bfa9868293a594c1481c7d21c8f0ea7da6"
+  "seal_sha256": "336bb81c04512ba391131ba3bc8fbda16f91a299f6acc0a1413dce3d04268474"
 }

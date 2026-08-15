@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const ignored = new Set([".git", ".reverse-local", ".venv", "__pycache__", "build", "coverage", "dist", "node_modules"]);
-const humanExtensions = new Set([".md", ".ps1", ".txt", ".yaml", ".yml"]);
+const humanExtensions = new Set([".md", ".ps1", ".txt"]);
 const humanNames = new Set(["LICENSE", "NOTICE"]);
 const machineNames = new Set([".editorconfig", ".gitattributes", ".gitignore", "pnpm-lock.yaml"]);
 
@@ -40,8 +40,32 @@ test("사람이 편집하는 텍스트는 UTF-8-SIG이고 제어·기계 파일�
       assert.equal(hasUtf8Sig(contents), true, `${path}: UTF-8-SIG 필요`);
     }
 
-    if (machineNames.has(name) || [".json", ".jsonl", ".ndjson", ".mjs", ".js", ".py", ".toml", ".lock", ".spec"].includes(extension)) {
+    if (machineNames.has(name) || [
+      ".cjs",
+      ".css",
+      ".html",
+      ".js",
+      ".json",
+      ".jsonl",
+      ".jsx",
+      ".lock",
+      ".mjs",
+      ".ndjson",
+      ".py",
+      ".spec",
+      ".svg",
+      ".toml",
+      ".ts",
+      ".tsx",
+      ".yaml",
+      ".yml"
+    ].includes(extension)) {
       assert.equal(hasUtf8Sig(contents), false, `${path}: 기계 파일은 무BOM이어야 함`);
     }
   }
+});
+
+test("JSON의 선행 UTF-8 BOM은 표준 JSON.parse와 호환되지 않는다", () => {
+  assert.deepEqual(JSON.parse('{"값":1}'), { 값: 1 });
+  assert.throws(() => JSON.parse('\uFEFF{"값":1}'), SyntaxError);
 });

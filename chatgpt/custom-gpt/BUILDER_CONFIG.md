@@ -25,8 +25,11 @@
 ## Builder 입력
 
 - 지침: `INSTRUCTIONS.md`의 본문 전체
-- 지식: `KNOWLEDGE_REFERENCE.md`
-- 선택 지식: 교사가 대괄호 안을 수정한 `../CLASSROOM_SETTINGS.example.md`; 학생 개인정보, 숨은 정답, 비공개 루브릭·교사 메모, 인증정보가 없는지 먼저 확인
+- 지식: `knowledge/KNOWLEDGE_MANIFEST.json`의 `files[].upload_name`에 적힌 자료 9개를 모두 업로드한다. 6개 공개 안전 자료와 학교급별 외부 교육과정 PDF 3개이며, 하나라도 빠지면 완료로 판정하지 않는다. `KNOWLEDGE_MANIFEST.json` 자체는 로컬 대조용이므로 업로드하지 않는다.
+- 지식 생성·검증: 저장소 루트에서 `pnpm chatgpt:knowledge`, `pnpm chatgpt:knowledge:verify`. 검증은 외부 PDF의 현재 파일명·크기·SHA-256까지 확인하며 불일치하면 실패한다.
+- 외부 PDF: Git에 복사하지 않는다. 절대경로는 `.reverse-local/chatgpt-knowledge-external-pdfs.json`에만 두고, 검증 통과 뒤 그 로컬 경로의 PDF 3개를 Builder에 직접 업로드한다.
+- 권위 한계: 외부 PDF는 학교급별 범위·성취기준·용어를 정하는 `CURRICULUM_AUTHORITY`다. 수록 문장이 역사·과학·통계·법령의 개별 사실을 자동으로 확정하지 않으므로 필요한 교과 원문을 별도 확인한다.
+- 학급 설정: 학생 Knowledge로 업로드하지 않는다. 접근이 분리된 교사용 사본에서 개인정보·숨은 정답·비공개 평가 메모·인증정보를 제거한 뒤, 수업 시작 시 `[학급 설정]` 입력으로만 제공한다.
 
 처음 만드는 교사는 `../TEACHER-QUICK-START.md`부터 읽는다. 공유받은 GPT를 사용하는 권한과 GPT를 편집하는 권한은 다르며, 편집 권한이 없으면 일반 대화에서 `BOOTSTRAP.md`와 학급 설정표를 붙여 넣는 방식을 사용한다.
 

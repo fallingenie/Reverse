@@ -28,18 +28,82 @@
       "additionalProperties": false,
       "required": ["grade", "subject", "unit", "interests"],
       "properties": {
-        "grade": {
-          "enum": ["초3", "초4", "초5", "초6", "중1", "중2", "중3", "고1", "고2"]
+        "school_level": {
+          "description": "새 세션은 학교급을 학년과 별도로 수집한다. 이 필드가 없는 기존 1.0.0 세션은 호환 목적으로 허용한다.",
+          "enum": ["초등학교", "중학교", "고등학교", null]
         },
-        "subject": { "type": "string", "minLength": 1 },
-        "unit": { "type": "string" },
+        "grade": {
+          "enum": ["초3", "초4", "초5", "초6", "중1", "중2", "중3", "고1", "고2", null]
+        },
+        "subject": {
+          "anyOf": [
+            { "type": "string", "minLength": 1 },
+            { "type": "null" }
+          ]
+        },
+        "unit": { "type": ["string", "null"] },
         "interests": {
-          "type": "array",
-          "minItems": 1,
-          "items": { "type": "string", "minLength": 1 },
-          "uniqueItems": true
+          "anyOf": [
+            {
+              "type": "array",
+              "items": { "type": "string", "minLength": 1 },
+              "uniqueItems": true
+            },
+            { "type": "null" }
+          ]
+        },
+        "interest_source": {
+          "description": "새 세션에서 관심이 학생의 직접 선택인지, 확인된 단원에서 자동 설정됐는지 구분한다. 이 필드가 없는 기존 1.0.0 세션은 호환 목적으로 허용한다.",
+          "enum": ["STUDENT_EXPLICIT", "UNIT_INFERRED", "TEACHER_PRESET", "NONE", null]
         }
-      }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "interest_source": { "const": "UNIT_INFERRED" } },
+            "required": ["interest_source"]
+          },
+          "then": {
+            "properties": {
+              "unit": { "type": "string", "minLength": 1 },
+              "interests": { "type": "array", "minItems": 1 }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "school_level": { "const": "초등학교" } },
+            "required": ["school_level"]
+          },
+          "then": {
+            "properties": {
+              "grade": { "enum": ["초3", "초4", "초5", "초6", null] }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "school_level": { "const": "중학교" } },
+            "required": ["school_level"]
+          },
+          "then": {
+            "properties": {
+              "grade": { "enum": ["중1", "중2", "중3", null] }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": { "school_level": { "const": "고등학교" } },
+            "required": ["school_level"]
+          },
+          "then": {
+            "properties": {
+              "grade": { "enum": ["고1", "고2", null] }
+            }
+          }
+        }
+      ]
     },
     "gate": {
       "type": "object",
@@ -297,6 +361,53 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "gate": {
+            "type": "object",
+            "properties": {
+              "state": {
+                "enum": [
+                  "PLAN_RESEARCH",
+                  "RESEARCH",
+                  "OFFER_SCENARIOS",
+                  "CONFIRM_SCENARIO",
+                  "WAIT_FOR_START",
+                  "RUN_LESSON",
+                  "DEBRIEF"
+                ]
+              }
+            },
+            "required": ["state"]
+          }
+        },
+        "required": ["gate"]
+      },
+      "then": {
+        "properties": {
+          "profile": {
+            "type": "object",
+            "properties": {
+              "school_level": {
+                "enum": ["초등학교", "중학교", "고등학교"]
+              },
+              "grade": {
+                "enum": ["초3", "초4", "초5", "초6", "중1", "중2", "중3", "고1", "고2"]
+              },
+              "subject": { "type": "string", "minLength": 1 },
+              "unit": { "type": "string" },
+              "interests": { "type": "array" },
+              "interest_source": {
+                "enum": ["STUDENT_EXPLICIT", "UNIT_INFERRED", "TEACHER_PRESET", "NONE"]
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
     "memoryItem": {
       "type": "object",

@@ -1,0 +1,13 @@
+{
+  "base_revision": 0,
+  "next_revision": 1,
+  "add": [
+    {
+      "path": "/memory/~2anon/-",
+      "value": "우회 시도",
+      "reason": "잘못된 JSON Pointer escape"
+    }
+  ],
+  "correct": [],
+  "resolve": []
+}

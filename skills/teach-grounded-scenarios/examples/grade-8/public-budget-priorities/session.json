@@ -1,0 +1,442 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "grade8-public-budget-priorities",
+  "revision": 1,
+  "profile": {
+    "grade": "중2",
+    "subject": "사회",
+    "unit": "지방자치와 주민 참여",
+    "interests": ["공공예산", "공정한 의사결정", "자료 읽기"]
+  },
+  "gate": {
+    "state": "RUN_LESSON",
+    "start_token": "[시작]",
+    "start_confirmed": true,
+    "start_armed_revision": 0,
+    "start_consumed_revision": 1
+  },
+  "research": {
+    "plan": {
+      "id": "RES-PUBLIC-BUDGET-PRIORITIES",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "candidate_modes": ["SOCIAL_DECISION", "MATHEMATICAL_PROBLEM"],
+      "essential_question": "한정된 공공예산의 우선순위를 정하려면 총액 외에 어떤 법적·통계적·지역적 근거가 필요한가?",
+      "freshness": "CHECK_THIS_SESSION",
+      "risk": "MEDIUM",
+      "claim_candidates": [
+        "지방예산 경비 산정의 법적 원칙",
+        "주민참여예산제도의 의무와 참여 방법",
+        "지방재정 운용상황의 공개 범위",
+        "전국 청소년 통계의 대상과 지역 적용 한계"
+      ],
+      "claim_quality_gates": [
+        {
+          "claim": "지방예산 경비 산정의 법적 원칙",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": ["VER-001"],
+          "exception_reason": null
+        },
+        {
+          "claim": "주민참여예산제도의 의무와 참여 방법",
+          "risk": "MEDIUM",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 2,
+          "evidence_ids": ["VER-002", "VER-003"],
+          "exception_reason": "법률과 시행령은 같은 법체계이므로 독립된 경험 자료로 세지 않고, 의무와 구체적 방법을 각각 확인하는 두 개의 Tier A 원문으로 사용한다."
+        },
+        {
+          "claim": "지방재정 운용상황의 공개 범위",
+          "risk": "LOW",
+          "minimum_independent_sources": 2,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": ["VER-004", "VER-005"],
+          "exception_reason": null
+        },
+        {
+          "claim": "전국 청소년 통계의 대상과 지역 적용 한계",
+          "risk": "MEDIUM",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-006"],
+          "exception_reason": "통계 발표 원문이 수록 지표의 작성기관과 대상 연령 차이를 직접 밝힌다. 지역 수요는 추론하지 않고 미확정으로 둔다."
+        }
+      ],
+      "required_source_classes": ["LEGAL_TEXT", "OFFICIAL_RECORD", "DATASET"],
+      "search_queries": [
+        "지방재정법 제36조 예산의 편성 국가법령정보센터",
+        "지방재정법 제39조 주민참여예산 국가법령정보센터",
+        "지방재정365 통합공시 지방재정 통계",
+        "2026 청소년 통계 공식"
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": [
+      "해솔구는 가상 지역이므로 실제 조례와 재정공시는 없다.",
+      "세 후보 사업의 실제 비용·이용자 수·유지비·효과 자료는 제공되지 않았다."
+    ]
+  },
+  "lesson": {
+    "scenario_id": "public-budget-priorities",
+    "title": "우리 구의 추가 예산 1억 원",
+    "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+    "lesson_mode": "SOCIAL_DECISION",
+    "premise": "가상의 해솔구 청소년 주민참여예산 모의위원이 추가 예산 1억 원의 후보 사업을 근거에 따라 검토한다.",
+    "research_id": "RES-PUBLIC-BUDGET-PRIORITIES",
+    "objectives": [
+      "실제 법령·공공 통계와 수업용 예산안을 구분한다.",
+      "예산 총액 외에 비용 근거, 수혜 범위, 유지비와 지역 수요를 질문한다.",
+      "전국 통계가 특정 지역 수요를 직접 보여 주지 않는다는 한계를 설명한다.",
+      "근거가 부족하면 결론 대신 조건부 권고안이나 조사 계획을 제시한다."
+    ],
+    "sensitivity": "LOW"
+  },
+  "sources": [
+    {
+      "id": "SRC-01",
+      "title": "지방재정법 제36조 예산의 편성",
+      "creator": "대한민국",
+      "institution": "국가법령정보센터",
+      "source_class": "LEGAL_TEXT",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "KR-LAW-LOCAL-FINANCE-ARTICLE-36",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "url": "https://www.law.go.kr/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1027668001",
+      "published_at": "2026-02-05",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-001"],
+      "limitations": ["특정 사업의 적정 금액·우선순위·효과를 정하지 않는다.", "실제 수업 시점의 현행 조문을 다시 확인해야 한다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-02",
+      "title": "지방재정법 제39조 지방예산 편성 등 예산과정의 주민 참여",
+      "creator": "대한민국",
+      "institution": "국가법령정보센터",
+      "source_class": "LEGAL_TEXT",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "KR-LAW-LOCAL-FINANCE-ARTICLE-39",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "url": "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1018913295",
+      "published_at": "2026-02-05",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-002"],
+      "limitations": ["특정 주민 제안이나 투표 1위 사업이 반드시 반영·집행된다고 규정하지 않는다.", "세부 절차는 해당 지방자치단체 조례의 영향을 받는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-03",
+      "title": "지방재정법 시행령 제46조 지방예산 편성 등 예산과정에의 주민참여",
+      "creator": "대한민국",
+      "institution": "국가법령정보센터",
+      "source_class": "LEGAL_TEXT",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "KR-DECREE-LOCAL-FINANCE-ARTICLE-46",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "url": "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1021964339",
+      "published_at": "2025-12-30",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-003"],
+      "limitations": ["모든 지방자치단체가 같은 참여 절차와 권한을 운영한다는 뜻이 아니다.", "수렴된 주민 의견의 자동 반영을 보장하지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-04",
+      "title": "지방재정법 제60조 지방재정 운용상황의 공시 등",
+      "creator": "대한민국",
+      "institution": "국가법령정보센터",
+      "source_class": "LEGAL_TEXT",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "KR-LAW-LOCAL-FINANCE-ARTICLE-60",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "url": "https://www.law.go.kr/lsLinkCommonInfo.do?lsJoLnkSeq=1031350933",
+      "published_at": "2026-02-05",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-004"],
+      "limitations": ["공시가 존재한다는 사실만으로 개별 사업의 효과나 공정성이 자동 보장되지는 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-05",
+      "title": "지방자치단체 재정공시·통합공시 개요",
+      "creator": "행정안전부",
+      "institution": "지방재정365",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "KR-MOIS-LOFIN365",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "url": "https://www.lofin365.go.kr/portal/LF2100000.do?fyr=2026&tab=atcEpl&uprPfaIndcCd=LCTSMM000",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-005"],
+      "limitations": ["유사 자치단체 평균은 특정 지역의 최적 예산 비율이 아니다.", "개별 동네의 수요를 직접 보여 주지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-06",
+      "title": "2026 청소년 통계 발표",
+      "creator": "청소년정책과",
+      "institution": "성평등가족부",
+      "source_class": "DATASET",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "KR-MOGEF-YOUTH-STATISTICS-2026",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "url": "https://www.mogef.go.kr/nw/enw/nw_enw_s001d.do?bbtSn=713835&mid=mda700",
+      "published_at": "2026-05-21",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-006"],
+      "limitations": ["지표별 대상 연령이 서로 다를 수 있다.", "전국 결과가 가상의 해솔구 또는 특정 학교의 요구를 대표하지 않는다.", "개별 수치를 가상 사업의 효과 추정에 사용하지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-001",
+      "status": "VERIFIED",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "basis": "LEGAL_TEXT",
+      "consensus": "ESTABLISHED",
+      "claim": "지방재정법 제36조는 지방자치단체가 합리적인 기준에 따라 경비를 산정하고 세입·세출 항목을 구체적으로 명시하도록 한다.",
+      "source_ids": ["SRC-01"],
+      "reason": "국가법령정보센터의 현행 조문이 요구사항을 직접 규정한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-002",
+      "status": "VERIFIED",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "basis": "LEGAL_TEXT",
+      "consensus": "ESTABLISHED",
+      "claim": "지방자치단체장은 주민참여예산제도를 마련해 시행하고 수렴한 주민 의견서를 지방의회 제출 예산안에 첨부해야 한다.",
+      "source_ids": ["SRC-02"],
+      "reason": "지방재정법 제39조가 의무와 의견서 첨부를 직접 규정한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-003",
+      "status": "VERIFIED",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "basis": "LEGAL_TEXT",
+      "consensus": "ESTABLISHED",
+      "claim": "주민참여 방법에는 공청회·간담회, 설문조사, 사업공모와 조례로 정한 방법이 포함된다.",
+      "source_ids": ["SRC-03"],
+      "reason": "지방재정법 시행령 제46조가 참여 방법을 열거한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-004",
+      "status": "VERIFIED",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "basis": "LEGAL_TEXT",
+      "consensus": "ESTABLISHED",
+      "claim": "예산·결산의 주요 사항과 주민참여예산제도 운영현황·주민의견서 등은 주민에게 공시되어야 한다.",
+      "source_ids": ["SRC-04"],
+      "reason": "지방재정법 제60조가 공시 대상과 인터넷 공개를 직접 규정한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-005",
+      "status": "VERIFIED",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "basis": "STATISTICAL_DATA",
+      "consensus": "ESTABLISHED",
+      "claim": "지방재정365는 지방자치단체의 재정공시 주요 항목을 통합하고 유사 자치단체 비교·통계·데이터 기능을 제공한다.",
+      "source_ids": ["SRC-05"],
+      "reason": "행정안전부 지방재정365의 통합공시 개요가 제공 범위를 직접 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-006",
+      "status": "VERIFIED",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "basis": "STATISTICAL_DATA",
+      "consensus": "ESTABLISHED",
+      "claim": "2026 청소년 통계는 여러 기관의 통계를 발췌·재분류한 자료이며 지표별 대상 연령이 다를 수 있다.",
+      "source_ids": ["SRC-06"],
+      "reason": "성평등가족부 발표가 작성 방식과 지표별 대상 연령을 직접 밝힌다.",
+      "must_keep": true
+    },
+    {
+      "id": "SCN-001",
+      "status": "SCENARIO",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "basis": "SCENARIO_CONSTRAINT",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "가상의 해솔구에 올해만 사용할 수 있는 추가 예산 1억 원이 있다.",
+      "source_ids": [],
+      "reason": "공공예산 의사결정을 연습하기 위한 수업 가정이다.",
+      "must_keep": true
+    },
+    {
+      "id": "SCN-002",
+      "status": "SCENARIO",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "basis": "SCENARIO_CONSTRAINT",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "후보 사업은 통학로 안전 개선 4천만 원, 공공도서관 방과후 공간 개선 3천만 원, 마을공원 그늘·생태 관찰 공간 개선 3천만 원이다.",
+      "source_ids": [],
+      "reason": "합계와 우선순위 판단을 연습하기 위해 만든 가상 후보와 금액이다.",
+      "must_keep": true
+    },
+    {
+      "id": "DER-001",
+      "status": "DERIVED",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "공식 법령과 전국 통계만으로 세 가상 후보 중 하나를 최선의 사업으로 확정할 수 없다.",
+      "source_ids": ["SRC-01", "SRC-05", "SRC-06"],
+      "derived_from": ["VER-001", "VER-005", "VER-006", "SCN-001", "SCN-002", "UNK-001", "UNK-002"],
+      "reason": "법은 합리적 산정 원칙을 주고 공식 통계는 비교 범위를 제공하지만, 가상 지역의 실제 비용·수요·효과 자료는 없다.",
+      "must_keep": true
+    },
+    {
+      "id": "DER-002",
+      "status": "DERIVED",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "basis": "LEGAL_TEXT",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "주민 의견은 예산과정의 입력이지만 이 모의위원 한 명의 선택이 실제 예산을 확정하지는 않는다.",
+      "source_ids": ["SRC-02", "SRC-03", "SRC-04"],
+      "derived_from": ["VER-002", "VER-003", "VER-004"],
+      "reason": "법령은 의견 수렴·검토·의견서 첨부를 규정하며 학생 개인에게 실제 예산 확정 권한을 부여하지 않는다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-001",
+      "status": "UNKNOWN",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
+      "claim": "세 후보 사업의 실제 설치·운영·유지 비용은 알 수 없다.",
+      "source_ids": [],
+      "reason": "가상의 후보 금액 외에 견적서나 비용 산출 자료가 없다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-002",
+      "status": "UNKNOWN",
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
+      "claim": "해솔구 주민의 실제 수요와 사업별 예상 효과는 알 수 없다.",
+      "source_ids": [],
+      "reason": "해솔구는 가상이고 지역 조사 자료가 제공되지 않았다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-003",
+      "status": "UNKNOWN",
+      "subject_domains": ["SOCIAL_STUDIES"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
+      "claim": "실제 조례와 지방의회 심의를 거쳤을 때 어떤 결과가 나올지는 알 수 없다.",
+      "source_ids": [],
+      "reason": "가상 지역에는 적용할 실제 조례와 의회 절차가 없다.",
+      "must_keep": true
+    }
+  ],
+  "memory": {
+    "canon": [
+      {
+        "id": "CAN-001",
+        "text": "해솔구는 실제 지방자치단체가 아니라 수업용 가상 지역이다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-002",
+        "text": "학생 역할은 중학교 2학년 청소년 주민참여예산 모의위원이다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-003",
+        "text": "추가 예산 1억 원과 모든 후보 사업·금액은 실제 단가가 아니라 수업 가정이다.",
+        "must_keep": true
+      }
+    ],
+    "current_state": {
+      "time": "주민참여예산 모의회의 첫날",
+      "place": "가상의 해솔구 모의회의실",
+      "role": "중학교 2학년 청소년 모의위원",
+      "constraints": [
+        "예산 한도는 가상의 1억 원이다.",
+        "실제 비용·지역 수요·유지비 자료가 아직 없다.",
+        "학생은 실제 행정 결정권이나 예산 집행 권한이 없다.",
+        "결론보다 근거 확인과 조건부 권고를 우선한다."
+      ]
+    },
+    "negative_facts": [
+      {
+        "id": "NEG-001",
+        "text": "해솔구와 세 후보 사업비는 실제 지방자치단체 자료가 아니다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-002",
+        "text": "주민참여예산에서 모의위원 한 명의 선택이나 단순 투표 1위가 실제 예산을 자동 확정하지 않는다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-003",
+        "text": "전국 청소년 통계는 해솔구 주민 수요를 직접 보여 주지 않는다.",
+        "must_keep": true
+      }
+    ],
+    "corrections": [],
+    "open_threads": [
+      {
+        "id": "OPEN-001",
+        "text": "세 후보 사업의 비용 산출 근거와 다음 해 유지비를 확인해야 한다.",
+        "must_keep": true
+      },
+      {
+        "id": "OPEN-002",
+        "text": "연령·장애·이용시간에 따른 수혜와 배제 가능성을 비교해야 한다.",
+        "must_keep": true
+      },
+      {
+        "id": "OPEN-003",
+        "text": "현황 자료와 주민 의견을 어떤 안전한 방법으로 모을지 정해야 한다.",
+        "must_keep": true
+      }
+    ],
+    "episode_archive": [
+      {
+        "id": "EP-001",
+        "turn": 1,
+        "student_choice": "[시작] 토큰으로 수업 시작",
+        "result": "가상의 추가 예산안과 세 가지 조사 선택지가 제시되었다.",
+        "detail": "후보 금액의 합계는 1억 원이지만 실제 비용 산출서와 지역 수요 자료는 없다.",
+        "evidence_ids": ["VER-001", "VER-002", "SCN-001", "SCN-002", "UNK-001", "UNK-002"],
+        "must_keep": true
+      }
+    ],
+    "conflicts": [],
+    "discarded_detail_summary": [],
+    "compaction": {
+      "sequence": 0,
+      "source_revision": 1,
+      "source_sha256": ""
+    }
+  }
+}

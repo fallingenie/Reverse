@@ -100,6 +100,13 @@ pnpm teacher -- build-fork --token <세션> --profile grade6-2 --output <새 출
 
 ## 라이선스와 고지
 
-프로젝트는 Apache License 2.0에 따라 배포됩니다. 전체 조건은 `LICENSE`, 원 프로젝트와 수정 사항의 고지는 `NOTICE`를 확인하세요.
+Reverse © 2026 fallingenie. 이 프로젝트는 Apache License 2.0에 따라 배포됩니다.
 
-참고 원본: https://github.com/lemos999/Singulari-Tea-Codex-Prompt-for-Gemini
+Reverse는 다음 프로젝트의 공개 모듈형 프롬프트 아키텍처를 참고해 교육용으로 재구현했습니다.
+
+- Singulari-Tea Codex: A Modular Architecture for Dynamic Narrative Simulation
+- Copyright 2025 fewweekslater (lemos999)
+- 원 저장소: https://github.com/lemos999/Singulari-Tea-Codex-Prompt-for-Gemini
+- 원 프로젝트 라이선스: Apache License 2.0
+
+Reverse는 수업 목적, 용어, 상태 모델, 근거 정책, 기억 모델, 안전 정책, 프롬프트와 예시를 실질적으로 변경했습니다. 전체 조건은 `LICENSE`, Reverse와 원 프로젝트의 저작권·원저작자·변경 고지는 `NOTICE`를 확인하세요.

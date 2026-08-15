@@ -2,7 +2,7 @@
 
 이 도구는 GitHub Actions가 결제·예산 문제로 시작되지 않을 때, 정확한 원격 커밋을 별도의 깨끗한 폴더에서 다시 검사하고 그 결과를 파일로 보관합니다.
 
-> **LOCAL SELF-ATTESTATION — NOT CI**  
+> **LOCAL SELF-ATTESTATION — NOT CI**
 > 이 결과는 로컬 자기검증이며 GitHub Actions 통과가 아닙니다.
 
 ## 무엇을 바꾸나요?

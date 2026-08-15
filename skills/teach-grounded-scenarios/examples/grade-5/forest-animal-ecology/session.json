@@ -1,0 +1,463 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "grade5-forest-animal-ecology",
+  "revision": 1,
+  "profile": {
+    "grade": "초5",
+    "subject": "과학·환경",
+    "unit": "생물과 환경",
+    "interests": ["숲", "동물의 흔적", "사진 기록"]
+  },
+  "gate": {
+    "state": "RUN_LESSON",
+    "start_token": "[시작]",
+    "start_confirmed": true,
+    "start_armed_revision": 0,
+    "start_consumed_revision": 1
+  },
+  "research": {
+    "plan": {
+      "id": "RES-FOREST-ANIMAL-ECOLOGY",
+      "subject_domains": ["SCIENCE", "GEOGRAPHY", "INTERDISCIPLINARY"],
+      "candidate_modes": ["SCIENCE_INQUIRY", "GEOGRAPHIC_FIELDWORK"],
+      "essential_question": "숲길 두 지점의 동물 흔적을 안전하고 비교 가능하게 기록하려면 무엇을 같게 하고 무엇을 미확인으로 남겨야 하는가?",
+      "freshness": "CHECK_THIS_SESSION",
+      "risk": "MEDIUM",
+      "claim_candidates": [
+        "시민 생태 관찰 자료의 활용과 전문가 검증",
+        "동물 흔적의 종류와 관찰 기록 항목",
+        "야생동물 비접촉·비포획 관찰 원칙",
+        "관찰 조건 표준화의 필요성",
+        "미검출과 실제 부재의 차이"
+      ],
+      "claim_quality_gates": [
+        {
+          "claim": "시민 생태 관찰 자료의 활용과 전문가 검증",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-101"],
+          "exception_reason": null
+        },
+        {
+          "claim": "동물 흔적의 종류와 관찰 기록 항목",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-103"],
+          "exception_reason": null
+        },
+        {
+          "claim": "야생동물 비접촉·비포획 관찰 원칙",
+          "risk": "HIGH",
+          "minimum_independent_sources": 3,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-102"],
+          "exception_reason": "법적 판단이나 위험종 대응을 가르치는 주장이 아니라, 국립생태원과 서로 독립된 두 대학의 청소년 현장활동 지침이 공통으로 제시하는 것보다 더 엄격한 비접촉 수업 규칙을 적용한다."
+        },
+        {
+          "claim": "관찰 조건 표준화의 필요성",
+          "risk": "MEDIUM",
+          "minimum_independent_sources": 2,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-104"],
+          "exception_reason": null
+        },
+        {
+          "claim": "미검출과 실제 부재의 차이",
+          "risk": "MEDIUM",
+          "minimum_independent_sources": 2,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-105"],
+          "exception_reason": null
+        }
+      ],
+      "required_source_classes": ["OFFICIAL_RECORD", "CURRICULUM_RESOURCE", "PEER_REVIEWED"],
+      "search_queries": [
+        "site:nie.re.kr 시민참여 전국자연환경조사 생물종 사진 전문가 검증",
+        "site:forest.go.kr 교사숲교실 야생동물 관찰 서식지",
+        "site:edu animal signs observation journal date location do not disturb",
+        "peer reviewed imperfect detection occupancy wildlife survey DOI"
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": [
+      "실제 관찰 전에는 어느 지점에서 어떤 종이나 흔적이 발견될지 알 수 없다.",
+      "두 차례의 짧은 관찰만으로 숲 전체의 종 수, 개체 수, 건강 상태를 추정하지 않는다."
+    ]
+  },
+  "lesson": {
+    "scenario_id": "forest-animal-ecology",
+    "title": "숲길 두 지점의 동물 흔적 비교",
+    "subject_domains": ["SCIENCE", "GEOGRAPHY", "INTERDISCIPLINARY"],
+    "lesson_mode": "SCIENCE_INQUIRY",
+    "premise": "초등학교 5학년 학생이 교사와 함께 허가된 공개 숲길의 두 지점에서 같은 기록표와 관찰 시간을 사용해 동물 활동의 단서를 비접촉으로 비교한다.",
+    "research_id": "RES-FOREST-ANIMAL-ECOLOGY",
+    "objectives": [
+      "직접 관찰, 동물 흔적, 추측을 구분한다.",
+      "비교를 위해 장소·시간·날씨·관찰 시간을 기록한다.",
+      "미검출과 실제 부재를 구분한다.",
+      "야생동물과 서식지를 건드리지 않는 관찰 원칙을 지킨다."
+    ],
+    "sensitivity": "LOW"
+  },
+  "sources": [
+    {
+      "id": "SRC-101",
+      "title": "소개 | 발견제보 | 멸종위기 야생생물",
+      "creator": "멸종위기종복원센터",
+      "institution": "국립생태원",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "NIE-ENDANGERED-SPECIES-REPORT",
+      "subject_domains": ["SCIENCE"],
+      "url": "https://www.nie.re.kr/nie/main/contents.do?menuNo=200146",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-102"],
+      "limitations": ["멸종위기 야생생물 발견제보 지침이며 모든 생태조사의 종 판별법을 제공하지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-102",
+      "title": "NIE 시민참여사업 소개",
+      "creator": "자연환경조사팀",
+      "institution": "국립생태원",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "NIE-CITIZEN-NATURE-SURVEY",
+      "subject_domains": ["SCIENCE", "GEOGRAPHY"],
+      "url": "https://www.nie.re.kr/nie/main/contents.do?menuNo=200341",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-101"],
+      "limitations": ["시민 관찰 자료는 전문가 검증을 거친 보완자료이며 전문 전국조사를 대체하지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-103",
+      "title": "교사숲교실 교육자료",
+      "creator": "산림복지교육과",
+      "institution": "산림청",
+      "source_class": "CURRICULUM_RESOURCE",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "KFS-TEACHER-FOREST-CLASS",
+      "subject_domains": ["SCIENCE"],
+      "url": "https://north.forest.go.kr/kfsweb/kfi/kfs/cms/cmsView.do?cmsId=FC_000211&mn=AR02_04_07_03",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": [],
+      "limitations": ["산림교육 주제 목록이며 특정 숲의 동물 분포나 조사 결과를 제시하지 않는다."],
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-104",
+      "title": "Finding Animal Signs [4-H Activity]",
+      "creator": "New Hampshire 4-H",
+      "institution": "University of New Hampshire Cooperative Extension",
+      "source_class": "CURRICULUM_RESOURCE",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "UNH-EXTENSION-ANIMAL-SIGNS",
+      "subject_domains": ["SCIENCE"],
+      "url": "https://extension.unh.edu/resource/finding-animal-signs-4-h-activity",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-102", "VER-103"],
+      "limitations": ["청소년 관찰 활동 자료이며 흔적만으로 종과 개체 수를 확정하는 전문 동정 지침은 아니다."],
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-105",
+      "title": "Wild animals",
+      "creator": "Minnesota 4-H Volunteer Resource Center",
+      "institution": "University of Minnesota Extension",
+      "source_class": "CURRICULUM_RESOURCE",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "UMN-EXTENSION-WILDLIFE-SAFETY",
+      "subject_domains": ["SCIENCE"],
+      "url": "https://4-h-volunteer.extension.umn.edu/keep-youth-safe/information-sheets/emergencies/wild-animals",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-102"],
+      "limitations": ["미국 4-H 일반 안전 안내이며 한국 지역별 위험종 대응이나 법률을 대신하지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-106",
+      "title": "A Guide to the Conservation of Forest Interior Dwelling Birds in the Chesapeake Bay Critical Area",
+      "creator": "Maryland Critical Area Commission and Maryland Department of Natural Resources",
+      "institution": "Maryland Critical Area Commission",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "MARYLAND-FIDS-PROTOCOL",
+      "subject_domains": ["SCIENCE", "GEOGRAPHY"],
+      "url": "https://www.birds.cornell.edu/landtrust/wp-content/uploads/2023/10/MD_Conservation_Forest_dwelling_birds_2000.pdf",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-104"],
+      "limitations": ["미국 메릴랜드의 산림성 조류 전문 조사 지침이므로 구체적인 계절, 거리, 종 목록은 한국 초등학생 활동에 적용하지 않는다."],
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-107",
+      "title": "The Bees among Us: Modelling Occupancy of Solitary Bees",
+      "creator": "J. Scott MacIvor, Laurence Packer",
+      "institution": "PLOS ONE",
+      "source_class": "PEER_REVIEWED",
+      "authority_tier": "B_SCHOLARLY",
+      "independence_key": "DOI-10-1371-JOURNAL-PONE-0164764",
+      "subject_domains": ["SCIENCE", "MATHEMATICS"],
+      "url": "https://doi.org/10.1371/journal.pone.0164764",
+      "published_at": "2016-12-02",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-105"],
+      "limitations": ["벌집 상자를 설치·수거한 전문 연구의 절차를 초5 야외 수업에 적용하지 않으며, 미검출의 개념만 사용한다."],
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "METHODS_AND_SCOPE_CHECKED", "CORRECTION_RETRACTION_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-108",
+      "title": "Ignoring Imperfect Detection in Biological Surveys Is Dangerous: A Response to ‘Fitting and Interpreting Occupancy Models’",
+      "creator": "Gurutzeta Guillera-Arroita, José J. Lahoz-Monfort, Darryl I. MacKenzie, Brendan A. Wintle, Michael A. McCarthy",
+      "institution": "PLOS ONE",
+      "source_class": "PEER_REVIEWED",
+      "authority_tier": "B_SCHOLARLY",
+      "independence_key": "DOI-10-1371-JOURNAL-PONE-0099571",
+      "subject_domains": ["SCIENCE", "MATHEMATICS"],
+      "url": "https://doi.org/10.1371/journal.pone.0099571",
+      "published_at": "2014-07-30",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-104", "VER-105"],
+      "limitations": ["전문 통계모형 논문이며 초5 활동에서는 미검출의 불확실성과 반복 기록의 필요성만 사용한다."],
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "METHODS_AND_SCOPE_CHECKED", "CORRECTION_RETRACTION_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"],
+      "citation_metric": null
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-101",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE", "GEOGRAPHY"],
+      "basis": "SCIENTIFIC_EVIDENCE",
+      "consensus": "ESTABLISHED",
+      "claim": "시민이 촬영한 생물 관찰 기록은 전문가 검증을 거쳐 전국자연환경조사의 보완자료로 활용될 수 있다.",
+      "source_ids": ["SRC-102"],
+      "reason": "국립생태원이 시민참여 전국자연환경조사의 자료 수집, 전문가 검증, 활용 범위를 직접 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-102",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "ESTABLISHED",
+      "claim": "학생 야생동물 관찰은 장소·날짜·사진 같은 정보를 기록하고, 동물과 흔적을 포획·채취·훼손·접촉·먹이주기 없이 거리를 두어 수행해야 한다.",
+      "source_ids": ["SRC-101", "SRC-104", "SRC-105"],
+      "reason": "국립생태원과 서로 독립된 두 대학의 청소년 현장활동 자료가 기록과 비접촉 관찰 원칙을 함께 지지하며, 이 수업은 그중 더 엄격한 규칙을 적용한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-103",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE"],
+      "basis": "SCIENTIFIC_EVIDENCE",
+      "consensus": "ESTABLISHED",
+      "claim": "발자국, 파헤쳐진 흙·낙엽, 구멍, 갉은 잎, 배설물, 긁힌 자국, 소리는 동물 활동을 관찰하는 단서가 될 수 있다.",
+      "source_ids": ["SRC-104"],
+      "reason": "University of New Hampshire Extension의 4-H 활동 자료가 비접촉으로 찾을 수 있는 동물 흔적을 구체적으로 제시한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-104",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE", "MATHEMATICS"],
+      "basis": "SCIENTIFIC_EVIDENCE",
+      "consensus": "STRONG",
+      "claim": "두 지점의 관찰을 비교하려면 관찰 지점과 시간을 정하고 날짜, 시작·종료 시각, 날씨, 관찰자를 기록하며 반복 관찰을 구분해야 한다.",
+      "source_ids": ["SRC-106", "SRC-108"],
+      "reason": "현장 점조사 지침이 표준화된 시간과 기록 항목을 제시하고, 동료평가 논문이 검출 과정을 알 수 있도록 반복 방문 등으로 자료를 기록해야 함을 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-105",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE", "MATHEMATICS"],
+      "basis": "SCIENTIFIC_EVIDENCE",
+      "consensus": "ESTABLISHED",
+      "claim": "한 번의 조사에서 발견되지 않았다는 사실만으로 그 생물이 그곳에 없다고 확정할 수 없다.",
+      "source_ids": ["SRC-107", "SRC-108"],
+      "reason": "서로 독립된 두 동료평가 연구가 생물이 있어도 조사에서 검출되지 않을 수 있으며 미검출과 점유를 구분해야 한다고 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "SCN-101",
+      "status": "SCENARIO",
+      "subject_domains": ["SCIENCE", "GEOGRAPHY"],
+      "basis": "SCENARIO_CONSTRAINT",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "교사가 허가와 안전을 확인한 공개 숲길의 지점 A와 B에서 각각 8분 동안 같은 기록표로 관찰한다.",
+      "source_ids": [],
+      "reason": "초5 수업에서 비교 조건을 단순하게 유지하기 위한 수업 가정이다.",
+      "must_keep": true
+    },
+    {
+      "id": "SCN-102",
+      "status": "SCENARIO",
+      "subject_domains": ["SCIENCE"],
+      "basis": "SCENARIO_CONSTRAINT",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "학생은 지정된 길을 벗어나지 않고 눈·귀·사진만 사용하며 불분명한 흔적은 미확인으로 기록한다.",
+      "source_ids": ["SRC-101", "SRC-104", "SRC-105"],
+      "reason": "공식·대학 안전 지침보다 더 엄격한 비접촉 수업 제약이다.",
+      "must_keep": true
+    },
+    {
+      "id": "DER-101",
+      "status": "DERIVED",
+      "subject_domains": ["SCIENCE", "MATHEMATICS"],
+      "basis": "SCIENTIFIC_EVIDENCE",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "A와 B의 관찰 시간이나 날씨가 다르면 기록 수의 차이가 동물 활동의 차이인지 관찰 조건의 차이인지 분리하기 어렵다.",
+      "source_ids": ["SRC-106", "SRC-108"],
+      "derived_from": ["VER-104", "VER-105"],
+      "reason": "관찰 조건과 검출 과정이 기록 결과에 영향을 줄 수 있으므로 비교 조건을 맞추지 않은 차이는 단일 원인으로 설명할 수 없다.",
+      "must_keep": true
+    },
+    {
+      "id": "DER-102",
+      "status": "DERIVED",
+      "subject_domains": ["SCIENCE", "MATHEMATICS"],
+      "basis": "SCIENTIFIC_EVIDENCE",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "두 지점의 짧은 관찰 기록은 그 시각과 경로의 관찰 결과이며 숲 전체의 종 수, 개체 수, 건강 상태를 대표하지 않는다.",
+      "source_ids": ["SRC-102", "SRC-107", "SRC-108"],
+      "derived_from": ["VER-101", "VER-104", "VER-105"],
+      "reason": "시민 관찰은 전문조사의 보완자료이고 검출은 불완전하므로 짧은 표본의 범위를 숲 전체로 확대하지 않는다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-101",
+      "status": "UNKNOWN",
+      "subject_domains": ["SCIENCE"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
+      "claim": "실제 관찰에서 어느 지점에 어떤 종이나 흔적이 발견될지는 조사 전에는 알 수 없다.",
+      "source_ids": [],
+      "reason": "관찰 결과를 미리 만들지 않고 현장 기록을 기다린다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-102",
+      "status": "UNKNOWN",
+      "subject_domains": ["SCIENCE", "MATHEMATICS"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
+      "claim": "두 차례의 짧은 관찰만으로 숲 전체의 종 수, 개체 수, 건강 상태를 확정할 수 없다.",
+      "source_ids": ["SRC-107", "SRC-108"],
+      "reason": "표본 범위가 작고 검출이 불완전하며 전문 추정에 필요한 반복 자료가 부족하다.",
+      "must_keep": true
+    }
+  ],
+  "memory": {
+    "canon": [
+      {
+        "id": "CAN-101",
+        "text": "수업은 교사가 허가와 안전을 확인한 낮 시간의 공개 숲길에서 진행한다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-102",
+        "text": "학생은 숲길의 지점 A와 B에서 각각 8분 동안 같은 기록표를 사용한다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-103",
+        "text": "학생은 눈·귀·사진만 사용하며 동물, 둥지, 구멍, 배설물, 털, 깃털, 돌, 통나무를 만지거나 옮기지 않는다.",
+        "must_keep": true
+      }
+    ],
+    "current_state": {
+      "time": "오전 9시 10분",
+      "place": "교사가 허가와 안전을 확인한 공개 숲길의 관찰 지점 A",
+      "role": "비접촉 동물 흔적 조사 기록자",
+      "constraints": [
+        "지정된 길을 벗어나지 않는다.",
+        "모든 야생동물과 흔적에 손대지 않고 거리를 둔다.",
+        "각 지점에서 8분 동안 같은 기록 항목을 사용한다.",
+        "종 이름이 확실하지 않으면 미확인으로 남긴다.",
+        "교사와 떨어져 혼자 이동하지 않는다."
+      ]
+    },
+    "negative_facts": [
+      {
+        "id": "NEG-101",
+        "text": "학생은 야생동물이나 흔적을 포획, 접촉, 먹이주기, 수집, 훼손하지 않는다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-102",
+        "text": "한 번 보지 못한 생물을 숲에 없다고 확정하지 않는다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-103",
+        "text": "두 지점의 짧은 기록을 숲 전체의 종 수, 개체 수, 건강 상태로 확대하지 않는다.",
+        "must_keep": true
+      }
+    ],
+    "corrections": [],
+    "open_threads": [
+      {
+        "id": "OPEN-101",
+        "text": "지점 A에서 직접 관찰, 소리, 흔적, 미확인 중 무엇이 기록될지 아직 모른다.",
+        "must_keep": true
+      },
+      {
+        "id": "OPEN-102",
+        "text": "지점 A와 B의 차이를 해석하려면 관찰 시간과 날씨가 실제로 같았는지 확인해야 한다.",
+        "must_keep": true
+      }
+    ],
+    "episode_archive": [
+      {
+        "id": "EP-101",
+        "turn": 1,
+        "student_choice": "[시작] 토큰으로 비접촉 숲 생태 조사를 시작",
+        "result": "지점 A에서 기록 조건을 먼저 정하는 첫 장면과 세 가지 안전한 선택지가 제시되었다.",
+        "detail": "오전 9시 10분, 비가 오지 않고 바람이 약한 조건을 기록했다.",
+        "evidence_ids": ["VER-102", "VER-103", "VER-104", "SCN-101", "UNK-102"],
+        "must_keep": true
+      }
+    ],
+    "conflicts": [],
+    "discarded_detail_summary": [],
+    "compaction": {
+      "sequence": 0,
+      "source_revision": 1,
+      "source_sha256": ""
+    }
+  }
+}

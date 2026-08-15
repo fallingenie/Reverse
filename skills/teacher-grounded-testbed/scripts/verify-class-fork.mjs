@@ -104,8 +104,8 @@ export async function verifyFork(root, options = {}) {
     const name = key.split("/").at(-1);
     const extension = extname(name);
     const contents = await readFile(path);
-    const humanText = [".md", ".ps1", ".txt", ".yaml", ".yml"].includes(extension) || ["LICENSE", "NOTICE"].includes(name);
-    const machineText = [".json", ".jsonl", ".ndjson", ".mjs", ".js", ".py", ".toml", ".lock", ".spec"].includes(extension);
+    const humanText = [".md", ".ps1", ".txt"].includes(extension) || ["LICENSE", "NOTICE"].includes(name);
+    const machineText = [".json", ".jsonl", ".ndjson", ".yaml", ".yml", ".mjs", ".js", ".py", ".toml", ".lock", ".spec"].includes(extension);
     if (humanText && !hasUtf8Sig(contents)) {
       errors.push(`사람이 편집하는 파일에 UTF-8-SIG 누락: ${key}`);
     }

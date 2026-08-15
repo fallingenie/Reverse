@@ -1,0 +1,34 @@
+{
+  "base_revision": 7,
+  "next_revision": 8,
+  "add": [],
+  "correct": [
+    {
+      "correction_id": "COR-TEST-0003",
+      "target_id": "CAN-001",
+      "replacement": "승인 없이 보호된 Canon을 바꾼다.",
+      "reason": "공격용 fixture",
+      "severity": "LOCAL_PATCH",
+      "evidence_ids": ["VER-001"],
+      "provenance": [
+        {
+          "kind": "EVIDENCE",
+          "ref": "VER-001"
+        }
+      ],
+      "affected_ids": ["CAN-001"],
+      "impact_scope": {
+        "summary": "보호된 Canon 하나에 영향을 준다.",
+        "timeline": false,
+        "causality": false,
+        "student_choices": false,
+        "current_state": true,
+        "learning_objective": false
+      },
+      "last_valid_checkpoint": null,
+      "decision": "APPLIED",
+      "user_options": []
+    }
+  ],
+  "resolve": []
+}
