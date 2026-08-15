@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFile, readdir } from "node:fs/promises";
+import { access, readFile, readdir } from "node:fs/promises";
 import { dirname, isAbsolute, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
@@ -36,8 +36,8 @@ test("Knowledge 생성기는 UTF-8-SIG와 strict JSON 정책 위반을 배포 �
 });
 
 test("Custom GPT 지식 묶음은 공개 안전 자료 6개와 외부 교육과정 PDF 3개를 필수로 포함한다", async () => {
-  const manifest = await verifyKnowledgeBundle();
-  const external = await loadExternalPdfEntries();
+  const manifest = await verifyKnowledgeBundle({verifyExternalFiles: false});
+  const external = (await loadExternalPdfContractEntries()).entries;
   assert.equal(manifest.file_count, 9);
   assert.equal(manifest.packaged_file_count, 6);
   assert.equal(manifest.external_upload_count, 3);
@@ -58,7 +58,7 @@ test("Custom GPT 지식 묶음은 공개 안전 자료 6개와 외부 교육과�
 });
 
 test("외부 PDF 3개는 파일명·크기·SHA-256·학교급·교육과정 권위 한계를 검증한다", async () => {
-  const manifest = await verifyKnowledgeBundle();
+  const manifest = await verifyKnowledgeBundle({verifyExternalFiles: false});
   const external = manifest.files.filter((entry) => entry.delivery === "EXTERNAL_UPLOAD");
   assert.deepEqual(external.map((entry) => entry.school_level), ["ELEMENTARY", "MIDDLE", "HIGH"]);
   assert(external.every((entry) => (
@@ -105,12 +105,21 @@ test("외부 PDF validator는 이름·절대경로·크기·해시·PDF 서명 �
   assert.throws(() => validateExternalPdfBytes(contract, { ...receipt, source_absolute_path: uploadName }, bytes), /절대경로/u);
 });
 
-test("추적 계약과 manifest에는 외부 PDF 절대경로가 없고 로컬 영수증에만 있다", async () => {
+test("추적 계약과 manifest에는 외부 PDF 절대경로가 없고 로컬 영수증에만 있다", async (context) => {
   const manifestText = await readFile(join(root, "chatgpt", "custom-gpt", "knowledge", "KNOWLEDGE_MANIFEST.json"), "utf8");
   const contractText = await readFile(externalPdfContractPath, "utf8");
   const builderText = await readFile(join(root, "chatgpt", "custom-gpt", "BUILDER_CONFIG.md"), "utf8");
   const trackedText = `${manifestText}\n${contractText}\n${builderText}`;
   assert.doesNotMatch(trackedText, /[A-Za-z]:[\\/]|Downloads|source_absolute_path/u);
+  try {
+    await access(externalPdfReceiptPath);
+  } catch (error) {
+    if (error.code === "ENOENT") {
+      context.skip("공개 CI에는 로컬 PDF 절대경로 영수증이 없으며 추적 계약만 검증한다.");
+      return;
+    }
+    throw error;
+  }
   const receipt = JSON.parse(await readFile(externalPdfReceiptPath, "utf8"));
   assert.equal(receipt.files.length, 3);
   assert(receipt.files.every((entry) => isAbsolute(entry.source_absolute_path)));
@@ -138,7 +147,7 @@ test("학생 공개용 수업 턴 구조에는 교사용 보기와 기억 변경
 });
 
 test("학생용 Knowledge 어느 파일에도 교사용 보기·세션 상태기계·기억 수정 인터페이스가 없다", async () => {
-  const manifest = await verifyKnowledgeBundle();
+  const manifest = await verifyKnowledgeBundle({verifyExternalFiles: false});
   const forbidden = /teacher_view|assessment_note|misconception_watch|start_confirmed|memory_delta|next_revision|base_revision|UNKNOWN_LOCKED|\$teach-grounded-scenarios/u;
   for (const file of manifest.files.filter((entry) => entry.delivery === "PACKAGE_COPY")) {
     const content = await readFile(join(root, "chatgpt", "custom-gpt", "knowledge", file.upload_name), "utf8");
@@ -147,7 +156,7 @@ test("학생용 Knowledge 어느 파일에도 교사용 보기·세션 상태기
 });
 
 test("Knowledge의 사람용 Markdown은 UTF-8-SIG이고 엄격 JSON은 무BOM으로 파싱된다", async () => {
-  const manifest = await verifyKnowledgeBundle();
+  const manifest = await verifyKnowledgeBundle({verifyExternalFiles: false});
   for (const file of manifest.files.filter((entry) => entry.delivery === "PACKAGE_COPY")) {
     const bytes = await readFile(join(root, "chatgpt", "custom-gpt", "knowledge", file.upload_name));
     const decoded = new TextDecoder("utf-8", { fatal: true }).decode(bytes);

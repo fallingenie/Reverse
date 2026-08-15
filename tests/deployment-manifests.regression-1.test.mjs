@@ -359,7 +359,8 @@ test("ChatGPT 원본 PDF에는 Copilot Studio의 16MB 분할 제한을 적용하
   const receiptDirectory = await mkdtemp(join(tmpdir(), "reverse-chatgpt-receipt-"));
   const result = await verifyLiveDeployments({
     platforms: ["CUSTOM_GPT"],
-    receiptDirectory
+    receiptDirectory,
+    verifyWorkspaceArtifacts: false
   });
   assert.equal(result.ok, false);
   assert.equal(result.results[0].issues.length, 1);

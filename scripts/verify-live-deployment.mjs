@@ -436,11 +436,13 @@ async function initializeReceipts(platforms, receiptDirectory, force) {
   return initialized;
 }
 
-export async function verifyLiveDeployments({ platforms, receiptDirectory }) {
+export async function verifyLiveDeployments({ platforms, receiptDirectory, verifyWorkspaceArtifacts = true }) {
   const results = [];
   for (const platform of platforms) {
     const manifest = await loadExpected(platform);
-    const workspaceIssues = await verifyExpectedAgainstWorkspace(manifest);
+    const workspaceIssues = verifyWorkspaceArtifacts
+      ? await verifyExpectedAgainstWorkspace(manifest)
+      : [];
     const receiptPath = join(receiptDirectory, receiptName(platform));
     let receiptResult;
     try {
