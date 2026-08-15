@@ -18,7 +18,7 @@ import {TopNav, TopNavHeading} from '@astryxdesign/core/TopNav';
 import {VStack} from '@astryxdesign/core/VStack';
 import {StudentOnboarding} from '@/components/student-onboarding';
 import {TeacherReview} from '@/components/teacher-review';
-import {INITIAL_SESSION, SCHOOL_LABELS, type LessonSession} from '@/lib/session';
+import {INITIAL_SESSION, type LessonSession} from '@/lib/session';
 import {
   createInitialTeacherProfile,
   type TeacherStudentProfile,
@@ -181,29 +181,19 @@ export function ReverseWorkspace() {
   );
 
   useEffect(() => {
-    const schoolAndGrade = session.schoolLevel && session.grade
-      ? `${SCHOOL_LABELS[session.schoolLevel]} ${session.grade}학년`
-      : '';
-    const gradeAndUnit = [schoolAndGrade, session.unit.trim()]
-      .filter(Boolean)
-      .join(' · ');
     setTeacherProfile(current => ({
-      ...current,
-      gradeAndUnit: {
-        value: gradeAndUnit,
-        provenance: gradeAndUnit ? 'STUDENT_STATED' : 'NEEDS_CONFIRMATION',
-      },
-      explicitInterest: current.explicitInterest.value
-        ? current.explicitInterest
-        : {
-            value: session.unit.trim(),
-            provenance: session.unit.trim()
-              ? 'STUDENT_STATED'
-              : 'NEEDS_CONFIRMATION',
-          },
+      ...createInitialTeacherProfile(session),
+      pseudonymousStudentId: current.pseudonymousStudentId,
       updatedAt: new Date().toISOString(),
     }));
-  }, [session.schoolLevel, session.grade, session.unit]);
+  }, [
+    session.schoolLevel,
+    session.grade,
+    session.subject,
+    session.unit,
+    session.selectedScenarioId,
+    session.selectedActionId,
+  ]);
 
   const topNav = (
     <TopNav
@@ -242,7 +232,7 @@ export function ReverseWorkspace() {
       container="section"
       status="info"
       title="로컬 데모"
-      description="현재 웹 버전은 백엔드·LLM·웹 검색에 연결되지 않았습니다. 입력은 브라우저 메모리에만 머물며 새로고침하면 사라집니다."
+      description="현재 웹 버전은 LLM·웹 검색에 연결되지 않았습니다. 학생 입력과 교사용 프로파일은 브라우저 메모리에만 머물며 새로고침하면 사라집니다. 인증된 교사만 서버에서 Markdown 다운로드를 만들 수 있으며 서버 저장은 하지 않습니다."
       endContent={
         <HStack gap={4} wrap="wrap">
           <Link

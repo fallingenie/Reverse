@@ -15,6 +15,8 @@ import {TextInput} from '@astryxdesign/core/TextInput';
 import {Token} from '@astryxdesign/core/Token';
 import {VStack} from '@astryxdesign/core/VStack';
 import {buildDemoScenarios, profileLabel} from '@/lib/scenarios';
+import {MathLearningCheckpoint} from '@/components/math-learning-checkpoint';
+import {getMathCheckpoint} from '@/lib/math-checkpoint';
 import {
   GRADE_OPTIONS,
   INITIAL_SESSION,
@@ -70,6 +72,7 @@ export function StudentOnboarding({
   const startResult = session.startIntentText
     ? interpretStartIntent(session.startIntentText)
     : null;
+  const mathCheckpoint = getMathCheckpoint(session.subject, session.unit);
 
   function selectSchool(value: string) {
     const schoolLevel = value as SchoolLevel;
@@ -469,7 +472,18 @@ export function StudentOnboarding({
               <Banner
                 status="success"
                 title="행동 경로를 선택했습니다"
-                description="이 로컬 데모는 여기까지 진행됩니다. 선택에는 정답 판정이 붙지 않습니다."
+                description={
+                  mathCheckpoint
+                    ? '선택한 경로를 유지한 채 짧은 수학 점검으로 이어집니다.'
+                    : '이 로컬 데모는 여기까지 진행됩니다. 선택에는 정답 판정이 붙지 않습니다.'
+                }
+              />
+            ) : null}
+
+            {session.selectedActionId && mathCheckpoint ? (
+              <MathLearningCheckpoint
+                key={`${session.selectedScenarioId}:${session.selectedActionId}`}
+                checkpoint={mathCheckpoint}
               />
             ) : null}
           </VStack>

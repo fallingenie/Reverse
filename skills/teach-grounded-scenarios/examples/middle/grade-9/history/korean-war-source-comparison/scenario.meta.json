@@ -1,0 +1,15 @@
+{
+  "format": "reverse.scenario-example.v1",
+  "scenario_id": "grade9-korean-war-source-comparison",
+  "school_level": "middle",
+  "grade": 9,
+  "grade_label": "중3",
+  "subject_id": "history",
+  "subject_label": "역사",
+  "unit": "냉전 체제와 6·25 전쟁",
+  "safety_risk": "HIGH",
+  "source_boundary": "SESSION_EVIDENCE_ONLY",
+  "creative_boundary": "LOCAL_SCENE_ONLY",
+  "live_status": "REFERENCE_FIXTURE_NOT_LIVE_VERIFIED",
+  "regression_case_ids": ["SCN-M9-HIS-SOURCE-COMPARE-001"]
+}

@@ -1,0 +1,15 @@
+{
+  "format": "reverse.scenario-example.v1",
+  "scenario_id": "grade8-public-budget-priorities",
+  "school_level": "middle",
+  "grade": 8,
+  "grade_label": "중2",
+  "subject_id": "social-studies",
+  "subject_label": "사회",
+  "unit": "지방자치와 주민 참여",
+  "safety_risk": "MEDIUM",
+  "source_boundary": "SESSION_EVIDENCE_ONLY",
+  "creative_boundary": "LOCAL_SCENE_ONLY",
+  "live_status": "REFERENCE_FIXTURE_NOT_LIVE_VERIFIED",
+  "regression_case_ids": ["SCN-M8-SOC-BUDGET-001"]
+}

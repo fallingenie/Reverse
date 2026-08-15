@@ -14,7 +14,9 @@ const existingExamplePath = join(
   "skills",
   "teach-grounded-scenarios",
   "examples",
+  "elementary",
   "grade-6",
+  "social-studies",
   "1945-no-atomic-bomb",
   "session.json"
 );

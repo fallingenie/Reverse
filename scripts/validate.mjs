@@ -18,6 +18,7 @@ const companionFiles = [
   "lesson-turn.json",
   "onboarding-transcript.md",
   "opening-turn.md",
+  "scenario.meta.json",
   "session.json",
   "source-pack.md",
   "teacher-debrief.md"
@@ -32,6 +33,27 @@ const gradeBands = new Map([
   ["중3", { minimum: 450, maximum: 750 }],
   ["고1", { minimum: 600, maximum: 1000 }],
   ["고2", { minimum: 600, maximum: 1000 }]
+]);
+const gradeLabels = new Map([
+  [3, "초3"],
+  [4, "초4"],
+  [5, "초5"],
+  [6, "초6"],
+  [7, "중1"],
+  [8, "중2"],
+  [9, "중3"],
+  [10, "고1"],
+  [11, "고2"]
+]);
+const schoolGradeRanges = new Map([
+  ["elementary", [3, 6]],
+  ["middle", [7, 9]],
+  ["high", [10, 11]]
+]);
+const riskWeights = new Map([
+  ["LOW", 1],
+  ["MEDIUM", 2],
+  ["HIGH", 3]
 ]);
 const harmfulProceduralPatterns = [
   {
@@ -108,7 +130,7 @@ export async function discoverExampleFixtures(directory = examplesDirectory) {
     const name = basename(path);
     const parent = dirname(path);
     const relativeParent = portablePath(directory, parent);
-    if (name === "session.json" || name === "lesson-turn.json") {
+    if (name === "session.json" || name === "lesson-turn.json" || name === "scenario.meta.json") {
       const entry = lessonDirectories.get(parent) ?? { directory: parent, path: relativeParent };
       entry[name] = path;
       lessonDirectories.set(parent, entry);
@@ -124,8 +146,8 @@ export async function discoverExampleFixtures(directory = examplesDirectory) {
   const lessons = [...lessonDirectories.values()].sort((left, right) => left.path.localeCompare(right.path, "en"));
   const safety = [...safetyDirectories.values()].sort((left, right) => left.path.localeCompare(right.path, "en"));
   for (const entry of lessons) {
-    if (!entry["session.json"] || !entry["lesson-turn.json"]) {
-      errors.push(`full example JSON 쌍 누락: ${entry.path}`);
+    if (!entry["session.json"] || !entry["lesson-turn.json"] || !entry["scenario.meta.json"]) {
+      errors.push(`full example 필수 JSON 누락: ${entry.path}`);
     }
   }
   for (const entry of safety) {
@@ -135,6 +157,34 @@ export async function discoverExampleFixtures(directory = examplesDirectory) {
   }
 
   return { files, lessons, safety, errors };
+}
+
+export function validateScenarioExampleMetadata(metadata, session, examplePath) {
+  const errors = [];
+  const match = /^(elementary|middle|high)\/grade-(\d{1,2})\/([a-z][a-z0-9-]{1,47})\/([a-z0-9][a-z0-9-]{1,95})$/u.exec(examplePath);
+  assert(Boolean(match), `시나리오 경로가 학교급/학년/과목/시나리오 구조가 아닙니다: ${examplePath}`, errors);
+  if (!match) return errors;
+
+  const [, pathSchoolLevel, pathGradeText, pathSubjectId] = match;
+  const pathGrade = Number(pathGradeText);
+  const range = schoolGradeRanges.get(pathSchoolLevel);
+  assert(Boolean(range) && pathGrade >= range[0] && pathGrade <= range[1], `학교급과 학년 경로가 충돌합니다: ${examplePath}`, errors);
+  assert(metadata.school_level === pathSchoolLevel, `scenario.meta 학교급이 경로와 다릅니다: ${examplePath}`, errors);
+  assert(metadata.grade === pathGrade, `scenario.meta 학년이 경로와 다릅니다: ${examplePath}`, errors);
+  assert(metadata.grade_label === gradeLabels.get(pathGrade), `scenario.meta 학년 표기가 경로와 다릅니다: ${examplePath}`, errors);
+  assert(metadata.subject_id === pathSubjectId, `scenario.meta 과목 ID가 경로와 다릅니다: ${examplePath}`, errors);
+  assert(metadata.scenario_id === session.session_id, `scenario.meta 시나리오 ID가 session_id와 다릅니다: ${examplePath}`, errors);
+  assert(metadata.grade_label === session.profile?.grade, `scenario.meta 학년 표기가 session profile과 다릅니다: ${examplePath}`, errors);
+  assert(metadata.subject_label === session.profile?.subject, `scenario.meta 과목명이 session profile과 다릅니다: ${examplePath}`, errors);
+  assert(metadata.unit === session.profile?.unit, `scenario.meta 단원이 session profile과 다릅니다: ${examplePath}`, errors);
+
+  const risks = session.research?.plan?.claim_quality_gates?.map((gate) => gate.risk) ?? [];
+  const maximumRisk = risks.reduce((highest, risk) => (
+    (riskWeights.get(risk) ?? 0) > (riskWeights.get(highest) ?? 0) ? risk : highest
+  ), "LOW");
+  assert(risks.length > 0, `scenario.meta 안전 등급을 계산할 주장 게이트가 없습니다: ${examplePath}`, errors);
+  assert(metadata.safety_risk === maximumRisk, `scenario.meta 안전 등급이 주장 게이트 최대 위험과 다릅니다: ${examplePath}`, errors);
+  return errors;
 }
 
 export function validateExampleCatalogCoverage(catalog, lessons, safety) {
@@ -338,6 +388,7 @@ export async function validateRepository() {
     "skills/teach-grounded-scenarios/instructions/system.md",
     "skills/teach-grounded-scenarios/assets/session.template.json",
     "skills/teach-grounded-scenarios/examples/cross-domain-catalog.json",
+    "skills/teach-grounded-scenarios/schemas/scenario-example.schema.json",
     "skills/teach-grounded-scenarios/schemas/student-lesson-turn.schema.json",
     "skills/teach-grounded-scenarios/references/source-quality.md",
     "skills/teach-grounded-scenarios/references/canon-repair.md",
@@ -426,6 +477,7 @@ export async function validateRepository() {
   const memoryDeltaSchema = JSON.parse(await text(join(schemaDirectory, "memory-delta.schema.json")));
   const lessonTurnSchema = JSON.parse(await text(join(schemaDirectory, "lesson-turn.schema.json")));
   const studentLessonTurnSchema = JSON.parse(await text(join(schemaDirectory, "student-lesson-turn.schema.json")));
+  const scenarioExampleSchema = JSON.parse(await text(join(schemaDirectory, "scenario-example.schema.json")));
   const sessionSchema = JSON.parse(await text(join(schemaDirectory, "session.schema.json")));
   const contractDirectory = join(root, "contracts");
   const referenceChunkSchema = JSON.parse(await text(join(contractDirectory, "reference-chunk.schema.json")));
@@ -442,6 +494,7 @@ export async function validateRepository() {
     memoryDeltaSchema,
     lessonTurnSchema,
     studentLessonTurnSchema,
+    scenarioExampleSchema,
     sessionSchema,
     referenceChunkSchema,
     pdfReferenceSchema,
@@ -476,9 +529,11 @@ export async function validateRepository() {
   const validateSession = ajv.getSchema("https://example.org/reverse/session.schema.json");
   const validateLessonTurn = ajv.getSchema("https://example.org/reverse/lesson-turn.schema.json");
   const validateStudentLessonTurn = ajv.getSchema("https://example.org/reverse/student-lesson-turn.schema.json");
+  const validateScenarioExample = ajv.getSchema("https://example.org/reverse/scenario-example.schema.json");
   const parsedLessons = [];
+  const regressionCaseIds = new Set();
 
-  for (const entry of discovery.lessons.filter((candidate) => candidate["session.json"] && candidate["lesson-turn.json"])) {
+  for (const entry of discovery.lessons.filter((candidate) => candidate["session.json"] && candidate["lesson-turn.json"] && candidate["scenario.meta.json"])) {
     const label = entry.path;
     for (const name of companionFiles) {
       assert(discovery.files.includes(join(entry.directory, name)), `${label} full example 필수 파일 누락: ${name}`, errors);
@@ -486,20 +541,30 @@ export async function validateRepository() {
 
     let session;
     let lessonTurn;
+    let scenarioMetadata;
     try {
       session = JSON.parse(await text(entry["session.json"]));
       lessonTurn = JSON.parse(await text(entry["lesson-turn.json"]));
+      scenarioMetadata = JSON.parse(await text(entry["scenario.meta.json"]));
     } catch (error) {
       errors.push(`${label} JSON 파싱 오류: ${error.message}`);
       continue;
     }
-    parsedLessons.push({ ...entry, session, lessonTurn });
+    parsedLessons.push({ ...entry, session, lessonTurn, scenarioMetadata });
 
     if (!validateSession(session)) {
       errors.push(`${label}/session.json 스키마 오류: ${ajv.errorsText(validateSession.errors, { separator: "; " })}`);
     }
     if (!validateLessonTurn(lessonTurn)) {
       errors.push(`${label}/lesson-turn.json 스키마 오류: ${ajv.errorsText(validateLessonTurn.errors, { separator: "; " })}`);
+    }
+    if (!validateScenarioExample(scenarioMetadata)) {
+      errors.push(`${label}/scenario.meta.json 스키마 오류: ${ajv.errorsText(validateScenarioExample.errors, { separator: "; " })}`);
+    }
+    errors.push(...validateScenarioExampleMetadata(scenarioMetadata, session, label));
+    for (const caseId of scenarioMetadata.regression_case_ids ?? []) {
+      assert(!regressionCaseIds.has(caseId), `${label} 회귀 사례 ID가 다른 시나리오와 중복됩니다: ${caseId}`, errors);
+      regressionCaseIds.add(caseId);
     }
     const studentLessonTurn = {
       turn: lessonTurn.turn,

@@ -28,6 +28,8 @@ export const studentSkillRuntimeMappings = [
   ["skills/teach-grounded-scenarios/references/source-quality.md", "references/source-quality.md"],
   ["skills/teach-grounded-scenarios/references/safety-policy.md", "references/safety-policy.md"],
   ["skills/teach-grounded-scenarios/references/research-workflow.md", "references/research-workflow.md"],
+  ["skills/guide-brief-learner-dialogue/references/dialogue-state-contract.md", "references/dialogue-state-contract.md"],
+  ["skills/guide-brief-learner-dialogue/references/learner-profile-policy.md", "references/learner-profile-policy.md"],
   ["skills/teach-grounded-scenarios/schemas/source-record.schema.json", "schemas/source-record.schema.json"],
   ["skills/teach-grounded-scenarios/schemas/evidence.schema.json", "schemas/evidence.schema.json"],
   ["skills/teach-grounded-scenarios/schemas/research-plan.schema.json", "schemas/research-plan.schema.json"],

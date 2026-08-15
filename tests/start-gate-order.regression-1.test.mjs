@@ -46,7 +46,7 @@ test("시작 의사는 선택 확인 뒤 별도 메시지에서 문맥으로 한
 test("세션 스키마는 무장되지 않은 시작과 미소비 시작을 실행 상태로 허용하지 않는다", async () => {
   const schema = await json("skills/teach-grounded-scenarios/schemas/session.schema.json");
   const template = await json("skills/teach-grounded-scenarios/assets/session.template.json");
-  const example = await json("skills/teach-grounded-scenarios/examples/grade-6/1945-no-atomic-bomb/session.json");
+  const example = await json("skills/teach-grounded-scenarios/examples/elementary/grade-6/social-studies/1945-no-atomic-bomb/session.json");
   const ajv = new Ajv2020({ allErrors: true, strict: true });
   addFormats(ajv);
   const validate = ajv.compile(schema.properties.gate);

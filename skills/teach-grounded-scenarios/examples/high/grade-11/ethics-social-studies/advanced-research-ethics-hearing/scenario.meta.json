@@ -1,0 +1,15 @@
+{
+  "format": "reverse.scenario-example.v1",
+  "scenario_id": "grade11-advanced-research-ethics-hearing",
+  "school_level": "high",
+  "grade": 11,
+  "grade_label": "고2",
+  "subject_id": "ethics-social-studies",
+  "subject_label": "도덕·윤리와 사회 융합",
+  "unit": "과학기술과 윤리 — 인간 대상 연구, 인권, 법과 정책",
+  "safety_risk": "HIGH",
+  "source_boundary": "SESSION_EVIDENCE_ONLY",
+  "creative_boundary": "LOCAL_SCENE_ONLY",
+  "live_status": "REFERENCE_FIXTURE_NOT_LIVE_VERIFIED",
+  "regression_case_ids": ["SCN-H11-ETH-HEARING-001"]
+}

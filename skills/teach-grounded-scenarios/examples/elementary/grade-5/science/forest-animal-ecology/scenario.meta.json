@@ -1,0 +1,15 @@
+{
+  "format": "reverse.scenario-example.v1",
+  "scenario_id": "grade5-forest-animal-ecology",
+  "school_level": "elementary",
+  "grade": 5,
+  "grade_label": "초5",
+  "subject_id": "science",
+  "subject_label": "과학·환경",
+  "unit": "생물과 환경",
+  "safety_risk": "HIGH",
+  "source_boundary": "SESSION_EVIDENCE_ONLY",
+  "creative_boundary": "LOCAL_SCENE_ONLY",
+  "live_status": "REFERENCE_FIXTURE_NOT_LIVE_VERIFIED",
+  "regression_case_ids": ["SCN-E5-SCI-FOREST-001"]
+}

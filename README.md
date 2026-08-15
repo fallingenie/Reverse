@@ -36,7 +36,7 @@
 - `skills/teach-grounded-scenarios/prompts/`: 단계별 프롬프트 예시
 - `skills/teach-grounded-scenarios/references/`: 학년, 근거, 기억, 안전 정책
 - `skills/teach-grounded-scenarios/schemas/`: 세션과 턴 JSON Schema
-- `skills/teach-grounded-scenarios/examples/`: 초6 광복절 예시 수업
+- `skills/teach-grounded-scenarios/examples/`: `학교급/학년/과목/시나리오`로 분리한 회귀용 수업 예시
 - `skills/teach-grounded-scenarios/scripts/`: 기억 압축 도구
 - `skills/teacher-grounded-testbed/`: 설치별 교사 암호, 학급 로컬 학습, 학생용 포크 생성
 - `scripts/validate.mjs`, `tests/`: 저장소 계약 검증
@@ -96,7 +96,7 @@ pnpm teacher -- build-fork --token <세션> --profile grade6-2 --output <새 출
 
 이 설정은 “원자폭탄이 없었다면 일본은 반드시 특정 날짜에 항복했거나 항복하지 않았을 것”이라고 결론 내리지 않습니다. 포츠담 선언, 소련의 대일전 참전, 재래식 전쟁, 일본 지도부의 판단, 한국인의 독립운동을 별도 요인으로 살핍니다.
 
-이 사례는 회귀 검증용 예시 하나입니다. `examples/cross-domain-catalog.json`에는 과학 조사, 수학 문제, 지리 현장 조사, 사회 의사결정, 문학 관점, 융합 프로젝트 예시가 함께 있습니다.
+이 사례는 회귀 검증용 예시 하나입니다. 실제 full 예시는 `elementary/grade-5/science/...`처럼 학교급·학년·과목·시나리오 순서의 디렉터리에 저장합니다. 각 디렉터리의 `scenario.meta.json`은 학년, 과목, 단원, 최대 안전 위험, 근거·창작 경계, 회귀 사례 ID를 기록합니다. `examples/cross-domain-catalog.json`에는 full 예시 경로와 과학 조사, 수학 문제, 지리 현장 조사, 사회 의사결정, 문학 관점, 융합 프로젝트 후보가 함께 있습니다.
 
 ## 라이선스와 고지
 

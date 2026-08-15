@@ -1,0 +1,51 @@
+[
+  {
+    "id": "first-brief",
+    "state": {"mode": "STANDARD", "briefStreak": 0, "defaultActionId": null},
+    "signal": "BRIEF_CONTINUE",
+    "action": "ASK_LOW_BURDEN",
+    "contributionKind": "NONE"
+  },
+  {
+    "id": "repeat-brief",
+    "state": {"mode": "LOW_BURDEN", "briefStreak": 1, "defaultActionId": null},
+    "signal": "BRIEF_CONTINUE",
+    "action": "REQUEST_DEFAULT_ACTION_ID",
+    "contributionKind": "NONE"
+  },
+  {
+    "id": "accept-default",
+    "state": {"mode": "DEFAULT_ACTION_OFFERED", "briefStreak": 2, "defaultActionId": "inspect-cup-surface"},
+    "signal": "BRIEF_CONTINUE",
+    "action": "RUN_ACCEPTED_DEFAULT_ACTION",
+    "contributionKind": "DEFAULT_ACTION_ACCEPTED"
+  },
+  {
+    "id": "decline-question",
+    "state": {"mode": "LOW_BURDEN", "briefStreak": 2, "defaultActionId": null},
+    "signal": "DECLINE_QUESTION",
+    "action": "DEMONSTRATE_ONE_STEP",
+    "contributionKind": "AGENT_DEMONSTRATED"
+  },
+  {
+    "id": "substantive",
+    "state": {"mode": "LOW_BURDEN", "briefStreak": 2, "defaultActionId": null},
+    "signal": "SUBSTANTIVE",
+    "action": "RESPOND_TO_CONTRIBUTION",
+    "contributionKind": "STUDENT_CONTENT_UNASSESSED"
+  },
+  {
+    "id": "stop",
+    "state": {"mode": "LOW_BURDEN", "briefStreak": 1, "defaultActionId": null},
+    "signal": "STOP",
+    "action": "CONFIRM_STOP_ONCE",
+    "contributionKind": "STOP_INTENT"
+  },
+  {
+    "id": "p0",
+    "state": {"mode": "DEFAULT_ACTION_OFFERED", "briefStreak": 2, "defaultActionId": "inspect-cup-surface"},
+    "signal": "P0",
+    "action": "HAND_OFF_P0",
+    "contributionKind": "RISK_SIGNAL"
+  }
+]

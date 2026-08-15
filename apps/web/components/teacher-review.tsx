@@ -19,20 +19,12 @@ import {VStack} from '@astryxdesign/core/VStack';
 import {buildDemoScenarios, profileLabel} from '@/lib/scenarios';
 import {getLessonPhase, isProfileComplete, type LessonSession} from '@/lib/session';
 import {
-  PROFILE_PROVENANCE,
   createInitialTeacherProfile,
   encodeMarkdownWithUtf8Bom,
-  type ProfileObservation,
-  type ProfileProvenance,
+  isSafePseudonymousStudentId,
   type TeacherExportResult,
   type TeacherStudentProfile,
 } from '@/lib/teacher-records';
-import {
-  TEACHER_VAULT_STORAGE_KEY,
-  openTeacherVault,
-  sealTeacherVault,
-  type TeacherVaultSession,
-} from '@/lib/teacher-vault';
 
 interface TeacherReviewProps {
   session: LessonSession;
@@ -41,63 +33,6 @@ interface TeacherReviewProps {
 }
 
 type TeacherAccess = 'closed' | 'checking' | 'locked' | 'unlocked' | 'unavailable';
-
-const PROVENANCE_OPTIONS = PROFILE_PROVENANCE.map(value => ({
-  value,
-  label: {
-    STUDENT_STATED: '학생이 직접 말함',
-    TEACHER_OBSERVED: '교사가 관찰함',
-    NEEDS_CONFIRMATION: '추가 확인 필요',
-  }[value],
-}));
-
-function ProfileField({
-  label,
-  description,
-  observation,
-  onChange,
-  isLong = false,
-}: Readonly<{
-  label: string;
-  description: string;
-  observation: ProfileObservation;
-  onChange: (value: ProfileObservation) => void;
-  isLong?: boolean;
-}>) {
-  return (
-    <Card variant="muted" padding={4}>
-      <VStack gap={3}>
-        {isLong ? (
-          <TextArea
-            label={label}
-            description={description}
-            value={observation.value}
-            onChange={value => onChange({...observation, value})}
-            maxLength={2000}
-            rows={4}
-            width="100%"
-          />
-        ) : (
-          <TextInput
-            label={label}
-            description={description}
-            value={observation.value}
-            onChange={value => onChange({...observation, value})}
-            width="100%"
-          />
-        )}
-        <Selector
-          label={`${label}의 출처`}
-          options={PROVENANCE_OPTIONS}
-          value={observation.provenance}
-          onChange={value =>
-            onChange({...observation, provenance: value as ProfileProvenance})
-          }
-        />
-      </VStack>
-    </Card>
-  );
-}
 
 function SummaryCard({
   label,
@@ -130,7 +65,7 @@ export function TeacherReview({
   const [includeTeacherProfile, setIncludeTeacherProfile] = useState(false);
   const [preview, setPreview] = useState<TeacherExportResult | null>(null);
   const [isExporting, setIsExporting] = useState(false);
-  const [vaultSession, setVaultSession] = useState<TeacherVaultSession | null>(null);
+  const [teacherSessionExpiresAt, setTeacherSessionExpiresAt] = useState(0);
   const scenarios = buildDemoScenarios(session);
   const selectedScenario = scenarios.find(
     scenario => scenario.id === session.selectedScenarioId,
@@ -139,27 +74,22 @@ export function TeacherReview({
   const isStaticExport = process.env.NEXT_PUBLIC_STATIC_EXPORT === 'true';
 
   useEffect(() => {
-    if (access !== 'unlocked' || !vaultSession) return;
-    let isCurrent = true;
-    void sealTeacherVault(profile, vaultSession).then(serialized => {
-      if (isCurrent) localStorage.setItem(TEACHER_VAULT_STORAGE_KEY, serialized);
-    });
-    return () => {
-      isCurrent = false;
+    if (access !== 'unlocked' || teacherSessionExpiresAt <= 0) return;
+    const remaining = teacherSessionExpiresAt - Date.now();
+    const expire = () => {
+      setAccess('locked');
+      setTeacherSessionExpiresAt(0);
+      onProfileChange(createInitialTeacherProfile(session));
+      setPreview(null);
+      setAccessMessage('교사 세션이 만료되었습니다. 키를 다시 입력하세요.');
     };
-  }, [access, profile, vaultSession]);
-
-  function updateProfileField(
-    field: keyof Omit<TeacherStudentProfile, 'pseudonymousStudentId' | 'updatedAt'>,
-    observation: ProfileObservation,
-  ) {
-    onProfileChange(current => ({
-      ...current,
-      [field]: observation,
-      updatedAt: new Date().toISOString(),
-    }));
-    setPreview(null);
-  }
+    if (remaining <= 0) {
+      expire();
+      return;
+    }
+    const timer = window.setTimeout(expire, remaining);
+    return () => window.clearTimeout(timer);
+  }, [access, onProfileChange, session, teacherSessionExpiresAt]);
 
   function openTeacherTools() {
     setPreview(null);
@@ -175,7 +105,6 @@ export function TeacherReview({
   async function unlockTeacherTools(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setAccessMessage('');
-    const keyForVault = teacherKey;
     setTeacherKey('');
     try {
       const response = await fetch('/api/teacher/unlock', {
@@ -186,21 +115,9 @@ export function TeacherReview({
       });
       const result = (await response.json()) as {authorized?: boolean; error?: string};
       if (response.ok && result.authorized) {
-        try {
-          const vault = await openTeacherVault(
-            keyForVault,
-            localStorage.getItem(TEACHER_VAULT_STORAGE_KEY),
-          );
-          setVaultSession(vault.session);
-          if (vault.profile) onProfileChange(vault.profile);
-        } catch {
-          setVaultSession(null);
-          setAccess('unlocked');
-          setAccessMessage('교사 인증은 통과했지만 이 브라우저의 기존 암호화 기록을 열 수 없습니다. 기존 기록은 덮어쓰지 않습니다.');
-          return;
-        }
         setAccess('unlocked');
-        setAccessMessage('교사용 기록 기능을 열고 이 브라우저의 암호화 프로파일을 복원했습니다. 세션은 15분 뒤 만료됩니다.');
+        setTeacherSessionExpiresAt(Date.now() + 15 * 60 * 1000);
+        setAccessMessage('교사용 기록 기능을 열었습니다. 기록은 브라우저 메모리에만 있고 세션은 15분 뒤 만료됩니다.');
         return;
       }
       setAccess(response.status === 503 ? 'unavailable' : 'locked');
@@ -223,7 +140,7 @@ export function TeacherReview({
       credentials: 'same-origin',
     }).catch(() => undefined);
     setAccess('closed');
-    setVaultSession(null);
+    setTeacherSessionExpiresAt(0);
     onProfileChange(createInitialTeacherProfile(session));
     setPreview(null);
     setAccessMessage('');
@@ -233,13 +150,17 @@ export function TeacherReview({
     setIsExporting(true);
     setAccessMessage('');
     try {
-      const response = await fetch('/api/teacher/export', {
+       const response = await fetch('/api/teacher/export', {
         method: 'POST',
         credentials: 'same-origin',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({
-          generatedAt: new Date().toISOString(),
-          session,
+         headers: {'Content-Type': 'application/json'},
+         body: JSON.stringify({
+           session: {
+             ...session,
+             unit: session.unit.trim() ? 'entered' : '',
+             startIntentText: '',
+             transcript: [],
+           },
           pseudonymousStudentId: profile.pseudonymousStudentId,
           includeTeacherProfile,
           teacherProfile: includeTeacherProfile ? profile : undefined,
@@ -286,8 +207,8 @@ export function TeacherReview({
         <Heading level={2}>교사 검수</Heading>
         <Text color="secondary">
           학생 화면과 분리해 현재 수업의 근거 연결 상태, 수업 가정,
-          확인할 항목을 봅니다. 이 데모에서는 내용을 편집하거나 저장하지
-          않습니다.
+          확인할 항목을 봅니다. 교사 키를 확인하기 전에는 프로파일을 편집하거나
+          내보낼 수 없고, 확인 뒤에도 기록은 브라우저 메모리에만 머뭅니다.
         </Text>
       </VStack>
 
@@ -367,10 +288,10 @@ export function TeacherReview({
       <Card variant="muted" padding={5}>
         <VStack gap={2}>
           <Heading level={3}>표시 기준</Heading>
-          <Text>
-            근거 있음은 이 브라우저 세션에서 직접 확인한 입력이나 선택을
-            뜻합니다. 수업 가정은 활동 구성을 위한 창작 요소입니다. 확인
-            필요는 외부 원문이나 교사 검토가 아직 필요한 상태입니다.
+           <Text>
+             브라우저 상태는 학생 입력·선택의 암호학적 원장이 아닙니다. 따라서
+             교사용 기록의 시나리오·행동 ID도 확인 필요·미평가로 둡니다. 수업
+             가정은 활동 구성을 위한 창작 요소입니다.
           </Text>
         </VStack>
       </Card>
@@ -378,11 +299,17 @@ export function TeacherReview({
       <Card padding={6}>
         <VStack gap={4}>
           <VStack gap={2}>
-            <Heading level={2}>교사용 학생 기록</Heading>
+             <Heading level={2}>교사용 학생 기록</Heading>
+             <Text color="secondary">
+               자유입력 원문은 프로파일이나 내보내기에 넣지 않습니다. 가명 ID와
+               학교급·학년·과목, 선택한 시나리오·행동 ID만 구조화된 활동 기록으로
+               사용합니다. 선택 횟수와 Agent가 제안한 기본 행동 수락은 학생의
+               강점이나 숙달 근거가 아닙니다.
+            </Text>
             <Text color="secondary">
-              학생이 말한 내용과 교사가 직접 관찰한 내용만 기록합니다. 건강,
-              가정환경, 장애, 성격, 능력처럼 학생이 밝히지 않은 민감 특성은
-              추론하지 않습니다.
+              현재 베타는 개인 교사 신원·평가 과제·rubric 원장을 검증하지 않으므로
+               잠정 패턴이나 평가 완료를 기록할 수 없습니다. 구조화된 선택 사건과
+               미평가 상태만 내보냅니다.
             </Text>
           </VStack>
 
@@ -439,7 +366,7 @@ export function TeacherReview({
               <FormLayout direction="vertical">
                 <TextInput
                   label="가명 학생 ID"
-                  description="실명, 학번, 전화번호 대신 교사가 정한 가명을 사용하세요."
+                  description="실명·학번·전화번호를 넣지 말고 RVS- 뒤에 영문 대문자·숫자 6자리만 사용하세요. 예: RVS-A2B3C4"
                   value={profile.pseudonymousStudentId}
                   onChange={value => {
                     onProfileChange(current => ({
@@ -453,45 +380,32 @@ export function TeacherReview({
                 />
 
                 <Grid columns={{minWidth: 280, max: 2, repeat: 'fit'}} gap={4}>
-                  <ProfileField
-                    label="학년·단원"
-                    description="학생이 입력한 학년과 단원을 기록합니다."
-                    observation={profile.gradeAndUnit}
-                    onChange={value => updateProfileField('gradeAndUnit', value)}
+                  <SummaryCard
+                    label="학년·단원 활동 기록"
+                    value={profile.gradeAndUnit.value || '입력 대기'}
+                    detail="학생 탭 입력에서 자동 생성되며 교사 화면에서 바꾸지 않습니다."
                   />
-                  <ProfileField
-                    label="학생이 밝힌 관심"
-                    description="학생이 직접 말한 관심만 기록합니다."
-                    observation={profile.explicitInterest}
-                    onChange={value => updateProfileField('explicitInterest', value)}
+                  <SummaryCard
+                     label="선택한 시나리오 활동"
+                    value={profile.explicitInterest.value || '선택 전'}
+                     detail="시나리오 ID만 확인 필요 상태로 기록합니다. 실제 선택 원장이나 관심·선호·능력의 증거가 아닙니다."
                   />
-                  <ProfileField
-                    label="지원 선호"
-                    description="힌트, 예시, 읽기 속도처럼 학습 지원에 관한 선호만 기록합니다."
-                    observation={profile.supportPreference}
-                    onChange={value => updateProfileField('supportPreference', value)}
+                  <SummaryCard
+                    label="선택한 행동 활동"
+                    value={profile.misconceptionEvidence.value || '선택 전'}
+                     detail="행동 ID만 확인 필요 상태로 기록합니다. 실제 선택 원장이나 정답·오개념·숙달의 증거가 아닙니다."
                   />
-                  <ProfileField
-                    label="확인된 오개념"
-                    description="추측하지 말고 학생 답변으로 확인된 내용만 적습니다."
-                    observation={profile.confirmedMisconception}
-                    onChange={value => updateProfileField('confirmedMisconception', value)}
-                  />
-                  <ProfileField
-                    label="오개념 근거"
-                    description="판단에 사용한 학생 발언이나 과제 근거를 적습니다."
-                    observation={profile.misconceptionEvidence}
-                    onChange={value => updateProfileField('misconceptionEvidence', value)}
-                    isLong
-                  />
-                  <ProfileField
-                    label="교사 메모"
-                    description="수업 지원에 필요한 최소한의 메모만 적습니다."
-                    observation={profile.teacherNote}
-                    onChange={value => updateProfileField('teacherNote', value)}
-                    isLong
+                  <SummaryCard
+                    label="교사 자유 메모"
+                    value="현재 베타에서 비활성화"
+                    detail="민감정보나 평가 문구가 프로파일로 우회 저장되는 것을 막기 위해, 검증된 교사 원장 도입 전까지 자유 메모를 받지 않습니다."
                   />
                 </Grid>
+                  <Banner
+                    status="warning"
+                    title="이번 베타에서 평가하지 않는 항목"
+                    description="지원 선호, 강점, 숙달, 독립 문제 해결 능력, 오개념 확정은 미평가로 유지합니다. 자유입력 원문과 교사 메모는 내보내지 않으며, 가명 ID와 구조화된 선택 사건만 사용합니다. 별도 평가 원장과 개인 교사 신원 검증이 구현되기 전에는 바꿀 수 없습니다."
+                  />
               </FormLayout>
 
               <SelectableCard
@@ -503,9 +417,9 @@ export function TeacherReview({
               >
                 <VStack gap={2}>
                   <Heading level={3}>교사용 프로파일 별도 포함</Heading>
-                  <Text color="secondary">
-                    선택하지 않으면 학생에게 보인 대화와 학생 입력만 내보냅니다.
-                    선택하면 위 프로파일과 교사 메모가 별도 절에 포함됩니다.
+                   <Text color="secondary">
+                     선택하지 않으면 개인정보가 제거된 대화 자리표시자와 수업 상태만
+                     내보냅니다. 선택하면 위 구조화된 활동 프로파일이 별도 절에 포함됩니다.
                   </Text>
                 </VStack>
               </SelectableCard>
@@ -515,6 +429,7 @@ export function TeacherReview({
                   label="Markdown 미리보기 만들기"
                   variant="primary"
                   isLoading={isExporting}
+                  isDisabled={includeTeacherProfile && !isSafePseudonymousStudentId(profile.pseudonymousStudentId)}
                   clickAction={requestExportPreview}
                 />
                 {preview ? (
@@ -530,7 +445,7 @@ export function TeacherReview({
                 <VStack gap={3}>
                   <TextArea
                     label="내보내기 미리보기"
-                    description={`파일명: ${preview.filename} · SHA-256: ${preview.sha256}`}
+                    description={`파일명: ${preview.filename} · 손상 확인용 SHA-256(서명 아님): ${preview.sha256}`}
                     value={preview.markdown}
                     onChange={() => undefined}
                     isReadOnly

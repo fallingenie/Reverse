@@ -1,0 +1,642 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "grade9-korean-war-source-comparison",
+  "revision": 1,
+  "profile": {
+    "grade": "중3",
+    "subject": "역사",
+    "unit": "냉전 체제와 6·25 전쟁",
+    "interests": [
+      "전쟁사",
+      "사람들의 일상",
+      "상반된 사료 비교"
+    ]
+  },
+  "gate": {
+    "state": "RUN_LESSON",
+    "start_token": "[시작]",
+    "start_confirmed": true,
+    "start_armed_revision": 0,
+    "start_consumed_revision": 1
+  },
+  "research": {
+    "plan": {
+      "id": "RES-KOREAN-WAR-SOURCE-COMPARISON",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "candidate_modes": [
+        "HISTORICAL_ROLE",
+        "INTERDISCIPLINARY_PROJECT"
+      ],
+      "essential_question": "서로 반대되는 전쟁 기록에서 문서가 실제로 한 주장, 독립적으로 확인된 사실, 빠진 민간인의 목소리를 어떻게 구분할 수 있는가?",
+      "freshness": "STABLE",
+      "risk": "HIGH",
+      "claim_candidates": [
+        "유엔 안전보장이사회 결의 제82호의 채택일과 문서 기호",
+        "트루먼 대통령의 1950년 6월 27일 발표 내용",
+        "프라우다의 1950년 6월 28일 논평 내용",
+        "미국 국립문서기록관리청이 제시한 1951년 전쟁기 소녀 사진의 표제",
+        "대한민국 사회부의 피난민 소개·구호 행정 기록 내용",
+        "서울특별시 피해자 명부의 생산 주체와 조사 범위",
+        "공식 발표와 사진·행정 기록이 각각 보여 주는 범위의 차이"
+      ],
+      "claim_quality_gates": [
+        {
+          "claim": "유엔 안전보장이사회 결의 제82호의 채택일과 문서 기호",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": [
+            "VER-001"
+          ],
+          "exception_reason": "공식 결의 목록과 유엔 디지털도서관 메타데이터가 채택일과 안정 문서 기호를 직접 지지하는 범위로 주장을 제한했다."
+        },
+        {
+          "claim": "트루먼 대통령의 1950년 6월 27일 발표 내용",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": [
+            "VER-002"
+          ],
+          "exception_reason": "발표의 존재·날짜·명시적 내용은 대통령 도서관이 제공하는 해당 발표 원문이 직접 답하는 단일 사료 사실이다."
+        },
+        {
+          "claim": "프라우다의 1950년 6월 28일 논평 내용",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": [
+            "VER-003"
+          ],
+          "exception_reason": "검증 대상은 논평의 원인·책임 주장이 아니라 그 논평이 해당 주장을 게재했다는 단일 사료 사실이다."
+        },
+        {
+          "claim": "미국 국립문서기록관리청이 제시한 1951년 전쟁기 소녀 사진의 표제",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": [
+            "VER-004"
+          ],
+          "exception_reason": "사진의 존재·날짜·장소·표제는 공식 기록관 페이지가 직접 답하는 단일 기록 사실이다."
+        },
+        {
+          "claim": "대한민국 사회부의 피난민 소개·구호 행정 기록 내용",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": [
+            "VER-005"
+          ],
+          "exception_reason": "원문 스캔이 아니라 국가기록원의 공식 관리번호·문서 설명이 직접 지지하는 범위로 주장을 제한했다."
+        },
+        {
+          "claim": "서울특별시 피해자 명부의 생산 주체와 조사 범위",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": [
+            "VER-006"
+          ],
+          "exception_reason": "원문 스캔이 아니라 국가기록원의 공식 관리번호·문서 설명이 직접 지지하는 범위로 주장을 제한했다."
+        },
+        {
+          "claim": "공식 발표와 사진·행정 기록이 각각 보여 주는 범위의 차이",
+          "risk": "HIGH",
+          "minimum_independent_sources": 3,
+          "minimum_tier_a_sources": 2,
+          "evidence_ids": [
+            "VER-001",
+            "VER-002",
+            "VER-003",
+            "VER-004",
+            "VER-005",
+            "VER-006"
+          ],
+          "exception_reason": null
+        }
+      ],
+      "required_source_classes": [
+        "PRIMARY_SOURCE",
+        "OFFICIAL_RECORD"
+      ],
+      "search_queries": [
+        "site:main.un.org/securitycouncil S/RES/82 1950 Korea",
+        "site:trumanlibrary.gov Statement President Situation Korea June 27 1950",
+        "site:trumanlibrary.gov Pravda Korean War June 28 1950 PDF",
+        "site:archives.gov Korean War Records girl brother Haengju 1951",
+        "site:theme.archives.go.kr 6.25 피난민 소개 구호요강 BA0852069",
+        "site:theme.archives.go.kr 서울특별시 피해자 명부 DA0795281"
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": [
+      "프라우다 자료는 1950년 원 신문 지면이 아니라 영어 번역 재수록본이다.",
+      "국가기록원 자동 검증 화면에서는 공식 메타데이터와 문서 설명을 확인했으나 원문 스캔은 렌더링되지 않았다.",
+      "단일 명부로 전쟁 전체 민간 피해 규모를 확정하지 않는다."
+    ]
+  },
+  "lesson": {
+    "scenario_id": "korean-war-source-comparison",
+    "title": "같은 전쟁, 다른 발표문",
+    "subject_domains": [
+      "HISTORY",
+      "SOCIAL_STUDIES"
+    ],
+    "lesson_mode": "INTERDISCIPLINARY_PROJECT",
+    "premise": "중학교 3학년 역사 자료 조사팀이 유엔 결의, 미국 대통령 발표, 소련 신문 논평, 전쟁기 소녀 사진과 피란민 행정 기록을 비교해 주장·사실·관점·누락을 구분한다.",
+    "research_id": "RES-KOREAN-WAR-SOURCE-COMPARISON",
+    "objectives": [
+      "사료가 실제로 한 주장과 그 주장의 역사적 진위를 구분한다.",
+      "작성 주체·목적·예상 독자가 자료의 관점에 미치는 영향을 설명한다.",
+      "공식 발표와 사진·행정 기록의 직접 지지 범위와 한계를 비교한다.",
+      "민간 피해를 자극적으로 재현하지 않고 자료의 범위와 누락으로 분석한다."
+    ],
+    "sensitivity": "HIGH"
+  },
+  "sources": [
+    {
+      "id": "SRC-01",
+      "title": "Resolutions adopted by the Security Council in 1950 — S/RES/82 (1950)",
+      "creator": "United Nations Security Council",
+      "institution": "United Nations Security Council",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "UN-SC-S-RES-82-1950",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "url": "https://digitallibrary.un.org/record/112025?ln=en",
+      "published_at": "1950-06-25",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": [
+        "VER-001"
+      ],
+      "limitations": [
+        "유엔 안전보장이사회의 공식 결의 목록과 디지털도서관 메타데이터 페이지를 열어 채택일과 문서 기호를 확인했다.",
+        "결의 원문 PDF 직접 열기는 자동 검증 환경에서 403으로 거부되어 ORIGINAL_OPENED로 표시하지 않는다. 학생 화면에는 후속 확인용 유엔 원문 링크를 별도로 제공한다."
+      ],
+      "freshness": "STABLE",
+      "quality_checks": [
+        "RESPONSIBLE_ENTITY_CONFIRMED",
+        "PUBLICATION_OR_RECORD_DATE_CHECKED",
+        "STABLE_IDENTIFIER_CHECKED",
+        "LIMITATIONS_RECORDED"
+      ],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-02",
+      "title": "Statement by the President on the Situation in Korea",
+      "creator": "Harry S. Truman",
+      "institution": "Harry S. Truman Presidential Library and Museum",
+      "source_class": "PRIMARY_SOURCE",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "US-TRUMAN-LIBRARY-PUBLIC-PAPERS-173",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "url": "https://www.trumanlibrary.gov/library/public-papers/173/statement-president-situation-korea",
+      "published_at": "1950-06-27",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": [
+        "VER-002"
+      ],
+      "limitations": [
+        "미국 대통령이 미국의 정책 결정을 설명하고 정당화한 문서다.",
+        "한국 민간인의 경험과 북한·소련·중국 내부 의사 결정은 이 발표만으로 알 수 없다."
+      ],
+      "freshness": "STABLE",
+      "quality_checks": [
+        "ORIGINAL_OPENED",
+        "RESPONSIBLE_ENTITY_CONFIRMED",
+        "PUBLICATION_OR_RECORD_DATE_CHECKED",
+        "STABLE_IDENTIFIER_CHECKED",
+        "LIMITATIONS_RECORDED",
+        "INDEPENDENCE_CHECKED"
+      ],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-03",
+      "title": "American ruling circles have gone over to direct acts of aggression — Pravda editorial, 28 June 1950",
+      "creator": "Pravda editorial board; English reproduction source identified in the PDF",
+      "institution": "Harry S. Truman Presidential Library and Museum",
+      "source_class": "PRIMARY_SOURCE",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "USSR-PRAVDA-1950-06-28-REPRODUCTION",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "url": "https://www.trumanlibrary.gov/sites/default/files/Pravda-KoreanWar.pdf",
+      "published_at": "1950-06-28",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": [
+        "VER-003"
+      ],
+      "limitations": [
+        "현재 링크는 1950년 신문 원본 지면이 아니라 영어 번역 재수록본이다.",
+        "논평이 그런 주장을 했다는 사실은 확인하지만 원인·책임 주장 자체의 진위를 이 자료로 확정하지 않는다."
+      ],
+      "freshness": "STABLE",
+      "quality_checks": [
+        "ORIGINAL_OPENED",
+        "RESPONSIBLE_ENTITY_CONFIRMED",
+        "PUBLICATION_OR_RECORD_DATE_CHECKED",
+        "STABLE_IDENTIFIER_CHECKED",
+        "LIMITATIONS_RECORDED",
+        "INDEPENDENCE_CHECKED"
+      ],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-04",
+      "title": "With her brother on her back a war weary Korean girl... at Haengju, Korea, 06/09/1951",
+      "creator": "United States Department of the Navy record creator",
+      "institution": "U.S. National Archives and Records Administration",
+      "source_class": "PRIMARY_SOURCE",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "US-NARA-RG80-KOREAN-WAR-PHOTO-1951-06-09",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "url": "https://www.archives.gov/research/military/korean-war",
+      "published_at": "1951-06-09",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": [
+        "VER-004"
+      ],
+      "limitations": [
+        "사진은 한 순간과 기록기관의 표제를 보여 주며 전쟁기 민간인 전체의 경험을 대표하지 않는다. 표제는 두 인물을 피란민이라고 밝히지 않는다.",
+        "화면 밖 상황, 인물의 생각, 이동 원인은 사진만으로 확정할 수 없다."
+      ],
+      "freshness": "STABLE",
+      "quality_checks": [
+        "ORIGINAL_OPENED",
+        "RESPONSIBLE_ENTITY_CONFIRMED",
+        "PUBLICATION_OR_RECORD_DATE_CHECKED",
+        "STABLE_IDENTIFIER_CHECKED",
+        "LIMITATIONS_RECORDED",
+        "INDEPENDENCE_CHECKED"
+      ],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-05",
+      "title": "피난민 소개 및 구호요강 송부에 관한 건",
+      "creator": "대한민국 사회부",
+      "institution": "국가기록원",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "KR-NAK-BA0852069",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "url": "https://theme.archives.go.kr/next/625/records/recordDetail.do?flag=5&page=5&searchKey=&searchTxt=&seq=1022",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": [
+        "VER-005"
+      ],
+      "limitations": [
+        "계획이 문서에 존재한다는 사실만으로 모든 지역에서 그대로 집행됐다고 단정할 수 없다.",
+        "국가기록원 레코드 페이지의 공식 메타데이터와 문서 설명은 열어 확인했다.",
+        "원문 스캔 자체는 자동 검증 화면에서 렌더링되지 않아 ORIGINAL_OPENED로 표시하지 않는다."
+      ],
+      "freshness": "STABLE",
+      "quality_checks": [
+        "RESPONSIBLE_ENTITY_CONFIRMED",
+        "STABLE_IDENTIFIER_CHECKED",
+        "METHODS_AND_SCOPE_CHECKED",
+        "LIMITATIONS_RECORDED",
+        "INDEPENDENCE_CHECKED"
+      ],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-06",
+      "title": "서울특별시 피해자 명부(1950.12.1.)",
+      "creator": "대한민국 공보처 통계국",
+      "institution": "국가기록원",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "KR-NAK-DA0795281-DA0795282",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "url": "https://theme.archives.go.kr/next/625/records/recordDetail.do?flag=5&page=5&searchKey=&searchTxt=&seq=1028",
+      "published_at": "1950-12-01",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": [
+        "VER-006"
+      ],
+      "limitations": [
+        "조사 기간·지역·피해 유형 밖의 사람과 누락 가능성을 이 명부만으로 파악할 수 없다.",
+        "숫자를 사용할 때는 관리번호·권수·집계 범주를 함께 확인해야 한다.",
+        "국가기록원 레코드 페이지의 공식 메타데이터와 문서 설명은 열어 확인했지만 원문 스캔 자체는 자동 검증 화면에서 렌더링되지 않아 ORIGINAL_OPENED로 표시하지 않는다.",
+        "학생 화면에는 개인 이름과 세부 피해를 노출하지 않는다."
+      ],
+      "freshness": "STABLE",
+      "quality_checks": [
+        "RESPONSIBLE_ENTITY_CONFIRMED",
+        "PUBLICATION_OR_RECORD_DATE_CHECKED",
+        "STABLE_IDENTIFIER_CHECKED",
+        "METHODS_AND_SCOPE_CHECKED",
+        "LIMITATIONS_RECORDED",
+        "INDEPENDENCE_CHECKED"
+      ],
+      "citation_metric": null
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-001",
+      "status": "VERIFIED",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "DOCUMENTED_EVENT",
+      "consensus": "ESTABLISHED",
+      "claim": "유엔 안전보장이사회 공식 목록과 디지털도서관 메타데이터는 1950년 6월 25일 채택된 결의 제82호의 문서 기호를 S/RES/82(1950)로 제시한다.",
+      "source_ids": [
+        "SRC-01"
+      ],
+      "reason": "열어 확인한 유엔 안전보장이사회 공식 목록과 디지털도서관 메타데이터가 채택일과 안정 문서 기호를 직접 제시한다. 원문 PDF 내용은 이 VERIFIED 범위에 포함하지 않는다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-002",
+      "status": "VERIFIED",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "PRIMARY_SOURCE",
+      "consensus": "ESTABLISHED",
+      "claim": "트루먼 대통령은 1950년 6월 27일 발표에서 북한군의 공격과 유엔 결의를 근거로 미국 공군·해군의 지원을 명령했다고 밝혔다.",
+      "source_ids": [
+        "SRC-02"
+      ],
+      "reason": "트루먼 대통령 도서관이 보존한 공식 발표 원문이 날짜와 명령 내용을 직접 기록한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-003",
+      "status": "VERIFIED",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "PRIMARY_SOURCE",
+      "consensus": "ESTABLISHED",
+      "claim": "프라우다는 1950년 6월 28일 논평에서 전쟁의 발단과 미국의 군사 지원을 트루먼 발표와 반대되는 정치 언어로 설명했다.",
+      "source_ids": [
+        "SRC-03"
+      ],
+      "reason": "보존된 영어 재수록본이 논평의 날짜와 명시적 주장을 직접 보여 준다. 검증 대상은 주장의 게재 사실이지 주장 자체의 진위가 아니다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-004",
+      "status": "VERIFIED",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "PRIMARY_SOURCE",
+      "consensus": "ESTABLISHED",
+      "claim": "미국 국립문서기록관리청은 1951년 6월 9일 행주에서 동생을 업고 이동하는 한국인 소녀의 사진과 표제를 한국 전쟁 기록 안내에 제시한다.",
+      "source_ids": [
+        "SRC-04"
+      ],
+      "reason": "공식 기록관 페이지가 생산 계통, 표제, 촬영일과 장소를 사진과 함께 제시한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-005",
+      "status": "VERIFIED",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "DOCUMENTED_EVENT",
+      "consensus": "ESTABLISHED",
+      "claim": "국가기록원 관리번호 BA0852069의 공식 설명은 1950년 사회부 문서가 피난 통로, 수용 계획, 피난민증 발행·등록과 구호 요령을 포함한다고 밝힌다.",
+      "source_ids": [
+        "SRC-05"
+      ],
+      "reason": "국가기록원이 관리번호와 생산기관, 생산년도, 문서 구성과 내용을 직접 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-006",
+      "status": "VERIFIED",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "DOCUMENTED_EVENT",
+      "consensus": "ESTABLISHED",
+      "claim": "공보처 통계국은 1950년 12월 1일 서울특별시 피해자 명부를 발간했고 국가기록원은 두 관리번호와 조사 항목·피해 유형별 집계 구성을 제시한다.",
+      "source_ids": [
+        "SRC-06"
+      ],
+      "reason": "국가기록원 공식 레코드가 생산 주체, 날짜, 관리번호, 조사 항목과 권수 구성을 직접 설명한다.",
+      "must_keep": true
+    },
+    {
+      "id": "DER-001",
+      "status": "DERIVED",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "공식 결의 목록은 유엔 기관의 공식 조치가 있었음을, 대통령 발표와 정당 기관지 논평은 각 작성 주체의 판단과 정당화 논리를 보여 주지만 어느 하나도 전쟁 전체의 원인과 책임을 혼자 확정하지 못한다.",
+      "source_ids": [
+        "SRC-01",
+        "SRC-02",
+        "SRC-03"
+      ],
+      "derived_from": [
+        "VER-001",
+        "VER-002",
+        "VER-003"
+      ],
+      "limitations": [
+        "세 자료만으로 전쟁 전체의 원인과 책임을 확정하지 않는다."
+      ],
+      "reason": "공식 목록과 두 발표 자료의 작성 주체·목적·표현이 다르므로 확인된 범위를 넘는 전체 인과 판단에는 독립 사료와 후속 연구가 필요하다.",
+      "must_keep": true
+    },
+    {
+      "id": "DER-002",
+      "status": "DERIVED",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "사진과 피란민 행정 기록·피해 명부를 함께 보면 외교·정책 발표만으로 보이지 않는 민간 생활과 기록 누락의 문제를 질문할 수 있다.",
+      "source_ids": [
+        "SRC-04",
+        "SRC-05",
+        "SRC-06"
+      ],
+      "derived_from": [
+        "VER-004",
+        "VER-005",
+        "VER-006"
+      ],
+      "limitations": [
+        "특정 기록이나 개인을 전체 민간 경험으로 일반화하지 않는다."
+      ],
+      "reason": "시각 기록, 행정 계획, 피해 조사 명부는 서로 다른 범위를 직접 지지하므로 함께 보되 특정 개인이나 기록을 전체 민간 경험으로 일반화하지 않는다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-001",
+      "status": "UNKNOWN",
+      "subject_domains": [
+        "HISTORY",
+        "SOCIAL_STUDIES"
+      ],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
+      "claim": "이 수업에서 연 단일 발표문·사진·행정 기록만으로 모든 행위자의 동기, 개별 피란민의 경험, 전쟁 전체 민간 피해 규모를 확정할 수 없다.",
+      "source_ids": [
+        "SRC-01",
+        "SRC-02",
+        "SRC-03",
+        "SRC-04",
+        "SRC-05",
+        "SRC-06"
+      ],
+      "reason": "각 자료는 생산 목적과 조사 범위가 다르고, 사진은 한 순간이며, 행정 기록은 계획 또는 제한된 조사 결과다.",
+      "must_keep": true
+    }
+  ],
+  "memory": {
+    "canon": [
+      {
+        "id": "CAN-001",
+        "text": "수업은 1950년 유엔 결의, 트루먼 발표, 프라우다 논평과 한·미 기록관의 민간 자료를 비교한다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-002",
+        "text": "문서가 실제로 특정 주장을 했다는 사실과 그 주장 자체의 역사적 진위를 분리한다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-003",
+        "text": "전투 재현, 무기·작전 절차, 자극적인 피해 묘사는 수업 범위 밖이다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-004",
+        "text": "민간 경험은 사진과 행정 기록의 직접 지지 범위 안에서만 다루고 전체 경험으로 일반화하지 않는다.",
+        "must_keep": true
+      }
+    ],
+    "current_state": {
+      "time": "현재의 교실 수업, [시작] 직후",
+      "place": "학교 자료실의 디지털 사료 비교 화면",
+      "role": "중학교 3학년 역사 자료 조사팀 구성원",
+      "constraints": [
+        "전투에 참여하거나 전투를 재현하지 않는다.",
+        "무기·작전 절차를 다루지 않는다.",
+        "자료 속 주장과 확인된 사실을 구분한다.",
+        "피해자 이름과 세부 피해를 불필요하게 노출하지 않는다.",
+        "단일 사료를 전체 현실의 대표로 일반화하지 않는다."
+      ]
+    },
+    "negative_facts": [
+      {
+        "id": "NEG-001",
+        "text": "프라우다 논평의 책임 주장은 확인된 역사적 사실로 채택되지 않았다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-002",
+        "text": "트루먼 발표의 모든 정치적 해석은 중립적 사실로 채택되지 않았다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-003",
+        "text": "NARA 사진 속 인물의 생각·이동 원인·이후 삶은 확인되지 않았다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-004",
+        "text": "서울특별시 피해자 명부의 집계를 전쟁 전체 민간 피해 규모로 사용하지 않았다.",
+        "must_keep": true
+      }
+    ],
+    "corrections": [],
+    "open_threads": [
+      {
+        "id": "OPEN-001",
+        "text": "서로 반대되는 정치적 주장의 진위를 평가하려면 어떤 독립 사료와 연구가 더 필요한가?",
+        "must_keep": true
+      },
+      {
+        "id": "OPEN-002",
+        "text": "피란민의 직접 목소리를 보여 주는 일기·편지·구술 기록을 어떤 기준으로 추가할 것인가?",
+        "must_keep": true
+      },
+      {
+        "id": "OPEN-003",
+        "text": "피해 명부의 관리번호·권수·집계 범주가 다른 숫자를 어떻게 설명하는가?",
+        "must_keep": true
+      }
+    ],
+    "episode_archive": [
+      {
+        "id": "EP-001",
+        "turn": 1,
+        "student_choice": "[시작] 토큰으로 사료 비교 수업 시작",
+        "result": "네 자료 카드와 세 가지 비폭력 자료 분석 선택지가 제시되었다.",
+        "detail": "유엔 결의, 트루먼 발표, 프라우다 논평, NARA 전쟁기 소녀 사진을 함께 제시하고 주장·사실·관점·누락을 구분하도록 했다.",
+        "evidence_ids": [
+          "VER-001",
+          "VER-002",
+          "VER-003",
+          "VER-004",
+          "DER-001",
+          "DER-002"
+        ],
+        "must_keep": true
+      }
+    ],
+    "conflicts": [],
+    "discarded_detail_summary": [
+      "전투 부대의 이동·무장·전술 세부는 학습 목표와 안전 경계에 따라 제외했다.",
+      "신문 논평과 대통령 발표의 긴 원문은 저작권과 인지 부하를 고려해 복제하지 않고 요약했다."
+    ],
+    "compaction": {
+      "sequence": 0,
+      "source_revision": 1,
+      "source_sha256": ""
+    }
+  }
+}

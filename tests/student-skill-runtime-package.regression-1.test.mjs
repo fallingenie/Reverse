@@ -27,6 +27,8 @@ const expectedNames = [
   "references/source-quality.md",
   "references/safety-policy.md",
   "references/research-workflow.md",
+  "references/dialogue-state-contract.md",
+  "references/learner-profile-policy.md",
   "schemas/source-record.schema.json",
   "schemas/evidence.schema.json",
   "schemas/research-plan.schema.json",
