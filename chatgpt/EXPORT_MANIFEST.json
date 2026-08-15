@@ -13,9 +13,9 @@
     "START-HERE.md": "da6b85721edeaa5313fdd7ab4c8e4761f44c06f7dd3c00b016f8487de9a6c508",
     "TEACHER-QUICK-START.md": "1a317f1333db957d483e19e108a52a4f9b1a1858e058b7b7a75ebc3632a75c94",
     "custom-gpt/BUILDER_CONFIG.md": "ca1c77c19a110c4ce36589c448e1a9f3828cad7dac7fd7c365d3c888385b392d",
-    "custom-gpt/DEPLOYMENT_EXPECTED.json": "8d46e9a84ccc55735020ceb1bf5f32cb2236857b820dfe51be5887dff8c24fb9",
+    "custom-gpt/DEPLOYMENT_EXPECTED.json": "549eed673c473a300856b48f609d034cda0416fdfc58e4f3ca09cb6bb9aca9c6",
     "custom-gpt/EXTERNAL_PDF_KNOWLEDGE.json": "317f3e045689b1a95f89ed6679aa47f9b2583a9aab94f5f2cd6cc132a294799a",
-    "custom-gpt/INSTRUCTIONS.md": "21237a5cba02c2410c349fb5abdb5c77b2e4c008e909be778ef6a07c1eaf513b",
+    "custom-gpt/INSTRUCTIONS.md": "559b545c9ea39eb0d3da8c622fe463d2fcdde1a3b23a616cb6c9edb1633b7996",
     "custom-gpt/KNOWLEDGE_REFERENCE.md": "e03803093d92f95b3fc1a4922fad3211bf98503df6e8f01117838a63d121bb39",
     "custom-gpt/knowledge/KNOWLEDGE_MANIFEST.json": "23ee5c81e49f2805e227066e34931126c9229e84e84a4da36fb640b7c108e3c1",
     "custom-gpt/knowledge/PUBLIC_LESSON_PRINCIPLES.md": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6",
@@ -26,5 +26,5 @@
     "custom-gpt/knowledge/student-lesson-turn.schema.json": "d7256bbf9a0fe86cd36a26c0c87d8cfe51b1a991129552a6495cccc91458d005",
     "custom-gpt/public-knowledge/PUBLIC_LESSON_PRINCIPLES.md": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6"
   },
-  "seal_sha256": "816f761d4f37bbcf147b08de168c2edaf695af0a93fd679eb146fa79c92a87bc"
+  "seal_sha256": "a8d778500bb318c52a107acd59c35a25dcf771120d10a38dcfe164de90e4edab"
 }
