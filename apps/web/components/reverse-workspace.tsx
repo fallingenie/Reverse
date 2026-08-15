@@ -34,6 +34,8 @@ pnpm install --frozen-lockfile
 pnpm dev`;
 const vercelDeployUrl =
   'https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffallingenie%2FReverse&project-name=reverse-education-beta&repository-name=Reverse&root-directory=apps%2Fweb';
+const customGptBuilderGuideUrl =
+  'https://github.com/fallingenie/Reverse/blob/main/chatgpt/custom-gpt/BUILDER_CONFIG.md';
 
 function QuickStart() {
   return (
@@ -42,19 +44,37 @@ function QuickStart() {
         <VStack gap={2}>
           <Heading level={2}>바로 실행하기</Heading>
           <Text color="secondary">
-            아래 명령을 터미널에 그대로 붙여 넣거나, 링크를 눌러 설치 안내와
-            배포 화면을 여세요.
+            아래 명령은 Git·Node.js·pnpm을 사용할 수 있는 Codex 또는
+            터미널에서만 실행됩니다. 일반 ChatGPT와 Custom GPT 대화창은
+            셸 명령을 실행하지 못합니다.
           </Text>
         </VStack>
         <CodeBlock
           code={localRunCommand}
           language="bash"
-          title="로컬 실행"
+          title="Codex·터미널에서 로컬 웹 데모 실행"
           hasLineNumbers={false}
           hasCopyButton
           isWrapped
           width="100%"
         />
+        <VStack gap={2}>
+          <Heading level={3}>ChatGPT에 적용할 때</Heading>
+          <Text color="secondary">
+            GPT Builder에는 저장소를 복제하는 대신 지침과 공개 Knowledge를
+            구성표에 따라 직접 등록해야 합니다. 이 과정은 웹 데모 실행과
+            별개입니다.
+          </Text>
+          <Link
+            href={customGptBuilderGuideUrl}
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Custom GPT 구성표 열기
+          </Link>
+        </VStack>
         <HStack gap={4} wrap="wrap">
           <Link
             href={vercelDeployUrl}
@@ -75,7 +95,7 @@ function QuickStart() {
             GitHub 저장소
           </Link>
           <Link
-            href="https://github.com/fallingenie/Reverse/blob/agent/runtime-profiles/START-HERE.md"
+            href="https://github.com/fallingenie/Reverse/blob/main/START-HERE.md"
             hasUnderline
             isExternalLink
             isStandalone
@@ -84,7 +104,7 @@ function QuickStart() {
             초보자 빠른 시작
           </Link>
           <Link
-            href="https://github.com/fallingenie/Reverse/blob/agent/runtime-profiles/copilot/IT-ADMIN-QUICK-START.md"
+            href="https://github.com/fallingenie/Reverse/blob/main/copilot/IT-ADMIN-QUICK-START.md"
             hasUnderline
             isExternalLink
             isStandalone
