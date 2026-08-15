@@ -1,5 +1,6 @@
 import type {Metadata} from 'next';
 import type {ReactNode} from 'react';
+import '@fontsource-variable/noto-sans-kr';
 import '@astryxdesign/core/reset.css';
 import '@astryxdesign/core/astryx.css';
 import {AppProviders} from '@/components/app-providers';

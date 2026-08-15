@@ -14,6 +14,9 @@ importers:
       '@astryxdesign/theme-neutral':
         specifier: ^0.4.1
         version: 0.4.1(@astryxdesign/core@0.4.1(@stylexjs/stylex@0.19.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8))(react@19.2.8)
+      '@fontsource-variable/noto-sans-kr':
+        specifier: 5.3.0
+        version: 5.3.0
       '@stylexjs/stylex':
         specifier: 0.19.0
         version: 0.19.0
@@ -259,6 +262,9 @@ packages:
 
   '@emnapi/runtime@1.11.3':
     resolution: {integrity: sha512-Xz4Tpyki7XyrpbUK1jR1AhdAdaXyhhY4lZ3neLodmhpuWfy2PAQN5B46sAiU4liOXGLkHypn/qU+jvfWSCYYLA==}
+
+  '@fontsource-variable/noto-sans-kr@5.3.0':
+    resolution: {integrity: sha512-h863ZOIVMKjX0PSr0hLMUp/SjrwOul2yp0f5P61avqXdhqDABSkakzG2Ee07d3W8gVYgS9dMmxULdCkoN09f1A==}
 
   '@formatjs/fast-memoize@3.1.7':
     resolution: {integrity: sha512-zXfhLpvA6T7+efdt9JLbBwZ00tT7NsBMDVnDu8rpHeNNv8KfRZAMo2gkG0k9lK/Nzc//3kJ9pImsfuJxk3KhUA==}
@@ -1514,6 +1520,8 @@ snapshots:
     dependencies:
       tslib: 2.8.1
     optional: true
+
+  '@fontsource-variable/noto-sans-kr@5.3.0': {}
 
   '@formatjs/fast-memoize@3.1.7': {}
 

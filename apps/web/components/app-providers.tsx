@@ -3,13 +3,13 @@
 import type {ReactNode} from 'react';
 import {InternationalizationProvider} from '@astryxdesign/core/i18n';
 import {Theme} from '@astryxdesign/core/theme';
-import {neutralTheme} from '@astryxdesign/theme-neutral/built';
-import '@astryxdesign/theme-neutral/theme.css';
+import {reverseTheme} from '@/lib/reverse';
+import '@/lib/reverse.css';
 import {astryxKoreanMessages} from '@/lib/astryx-ko';
 
 export function AppProviders({children}: Readonly<{children: ReactNode}>) {
   return (
-    <Theme theme={neutralTheme} mode="system">
+    <Theme theme={reverseTheme} mode="light">
       <InternationalizationProvider
         locale="ko"
         dir="ltr"
