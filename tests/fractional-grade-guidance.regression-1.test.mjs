@@ -98,6 +98,8 @@ test("세 런타임은 같은 제한된 학년 재확인 계약을 가진다", a
     assert.match(text, /메시지 전체.*(?:한 학교급·학년|한 학년).*명백|전체 뜻.*한 학교급·학년/su, relativePath);
     assert.match(text, /예시는 닫힌 목록이 아/u, relativePath);
     assert.match(text, /소수·분수·범위·상충·불명확/u, relativePath);
+    assert.match(text, /둘 이상의 (?:서로 다른 )?(?:정수 )?(?:학년 )?후보|학년 후보가 둘 이상/u, relativePath);
+    assert.match(text, /13학년.*(?:다른 학년 체계|난이도).*취급하지 않|다른 학년 체계.*13학년.*취급하지 않/u, relativePath);
     for (const form of ["삼학년", "중학교 삼학년", "중학교 3학년", "중3", "중 3"]) {
       assert.match(text, new RegExp(form, "u"), `${relativePath}: ${form}`);
     }
@@ -126,11 +128,24 @@ test("설명 문장 속 소수형과 NFKC 전각 표기도 유효 학년이나 �
 });
 
 test("분수형·범위형·상충 표현도 의미가 하나로 정해질 때까지 진행하지 않는다", () => {
-  for (const id of ["FG-018", "FG-019", "FG-020"]) {
+  for (const id of ["FG-018", "FG-019", "FG-020", "FG-021", "FG-024", "FG-025", "FG-026", "FG-027"]) {
     const result = reduceGradeTurn(fixture.cases.find((item) => item.id === id));
     assert.equal(result.event, "GRADE_CLARIFY", id);
     assert.equal(result.invalidGradeCount, 1, id);
   }
+});
+
+test("복수 정수 학년 뒤의 무효 입력은 확인·한 번의 도발·종료를 넘지 않는다", () => {
+  const first = reduceGradeTurn(fixture.cases.find((item) => item.id === "FG-021"));
+  const second = reduceGradeTurn(fixture.cases.find((item) => item.id === "FG-022"));
+  const third = reduceGradeTurn(fixture.cases.find((item) => item.id === "FG-023"));
+
+  assert.equal(first.event, "GRADE_CLARIFY");
+  assert.equal(second.event, "GRADE_TEASE_RETRY");
+  assert.equal(third.event, "END_UNCONFIRMED_GRADE");
+  assert.doesNotMatch(first.studentText, /13학년.*(?:체계|난이도)|중학교 3학년으로 진행/u);
+  assert.match(second.studentText, /아직 유치원생인가요/u);
+  assert.equal(third.studentText, fixture.termination_text);
 });
 
 test("한글 수사와 학교급 결합 표기는 정상 학년으로 수용한다", () => {

@@ -68,7 +68,7 @@ function assertCjkInstructionIntegrity(text, path) {
   if (text.includes("\uFFFD") || text.includes("\u0000")) {
     throw new Error(`${path}: 손상된 Unicode 문자가 있습니다.`);
   }
-  for (const marker of ["초등학교", "근거", "투명"]) {
+  for (const marker of ["초등학교", "근거", "확인 필요"]) {
     if (!text.includes(marker)) {
       throw new Error(`${path}: CJK 무결성 표식 '${marker}'가 없습니다.`);
     }
@@ -325,7 +325,7 @@ export async function buildExpectedManifests({ skillZipPath } = {}) {
       },
       capability_toggles: {
         web_search: true,
-        image_generation: false,
+        image_generation: true,
         code_interpreter_data_analysis: true,
         apps: false,
         actions: false

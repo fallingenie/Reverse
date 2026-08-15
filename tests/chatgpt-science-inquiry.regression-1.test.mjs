@@ -46,11 +46,11 @@ test("학생 출처는 opaque turn 표지만으로 대체하지 않는다", asyn
   assert.match(instructions, /출처명·직접 링크·지지 범위/u);
 });
 
-test("학생 평문은 대화와 프로파일 파일 내보내기 권한이 아니다", async () => {
+test("학생 평문은 파일·프로파일 내보내기 권한이 아니지만 화면 복사까지 막지는 않는다", async () => {
   const instructions = await text("chatgpt/custom-gpt/INSTRUCTIONS.md");
-  assert.match(instructions, /학생 역할·평문 키는 내보내기 권한이 아니다/u);
-  assert.match(instructions, /서버에서 인증된 교사용 Vercel 경로 외에는/u);
-  assert.match(instructions, /대화 Markdown·프로파일 파일 생성·전송·영구 저장을 약속하지 않는다/u);
+  assert.match(instructions, /현재 세션에서 이미 보이는 사용자·GPT 메시지/u);
+  assert.match(instructions, /화면용 복사 Markdown/u);
+  assert.match(instructions, /파일 생성·다운로드·전송·영구 저장·교사용 기록 export는 인증된 교사용 Vercel 경로/u);
 });
 
 test("과학 회귀 기계 파일은 UTF-8 무BOM이다", async () => {

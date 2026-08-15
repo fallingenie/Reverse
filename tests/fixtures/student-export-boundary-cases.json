@@ -30,6 +30,12 @@
       "input": "인증된 교사용 Vercel 경로가 처리할 수 있게 넘겨.",
       "authenticated_teacher_server_route": true,
       "expected": "SERVER_ROUTE_HANDOFF_ONLY"
+    },
+    {
+      "id": "STUDENT-EXPORT-006",
+      "input": "현재 화면에 이미 보이는 사용자와 Agent 대화를 복사용 Markdown 텍스트로 보여줘.",
+      "authenticated_teacher_server_route": false,
+      "expected": "ON_SCREEN_COPY_MARKDOWN"
     }
   ]
 }

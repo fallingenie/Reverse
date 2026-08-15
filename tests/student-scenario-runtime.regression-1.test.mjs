@@ -97,6 +97,24 @@ test("시나리오 턴의 모든 생성 경로에서 P0가 먼저다", async () 
   assert.match(studentTurn, /P0 안전·과학 무결성 게이트를 먼저 적용/u);
 });
 
+test("스토리 장면은 선택 과목의 탐구·표현 방법으로 해결하고 이탈하면 복귀한다", async () => {
+  const paths = [
+    "skills/teach-grounded-scenarios/student-runtime/SKILL.md",
+    "skills/teach-grounded-scenarios/student-runtime/prompts/05-lesson-turn.prompt.md",
+    "copilot/studio/STUDIO_INSTRUCTIONS.md",
+    "chatgpt/custom-gpt/INSTRUCTIONS.md"
+  ];
+  for (const relativePath of paths) {
+    const contents = await text(relativePath);
+    assert.match(contents, /선택 과목/u, `${relativePath}: 선택 과목 앵커 누락`);
+    assert.match(contents, /교과 연결 재정렬/u, `${relativePath}: 이탈 복귀 사건 누락`);
+    for (const subject of ["국어", "수학", "사회·역사", "과학", "도덕·윤리"]) {
+      assert.match(contents, new RegExp(subject, "u"), `${relativePath}: ${subject} 방법 누락`);
+    }
+    assert.match(contents, /과목 변경.*(?:없으면|명시하지 않으면).*선택 과목.*(?:돌아|복귀)/su, `${relativePath}: 명시 변경 전 복귀 누락`);
+  }
+});
+
 test("재빌드 대상 학생 ZIP에도 장면형 Prompt 04와 05가 포함된다", async () => {
   const { entries } = await createStudentSkillRuntimePackage(root);
   const packaged = new Map(entries.map((entry) => [entry.name, entry.data.toString("utf8")]));
