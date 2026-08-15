@@ -21,6 +21,8 @@ import {INITIAL_SESSION, type LessonSession} from '@/lib/session';
 
 type WorkspaceTab = 'student' | 'teacher';
 
+const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+
 function LicenseNotice() {
   return (
     <Card variant="muted" padding={5}>
@@ -37,10 +39,10 @@ function LicenseNotice() {
           따릅니다.
         </Text>
         <HStack gap={4} wrap="wrap">
-          <Link href="/LICENSE" isStandalone>
+          <Link href={`${publicBasePath}/LICENSE`} isStandalone>
             라이선스
           </Link>
-          <Link href="/NOTICE" isStandalone>
+          <Link href={`${publicBasePath}/NOTICE`} isStandalone>
             고지
           </Link>
           <Link
