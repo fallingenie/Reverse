@@ -1,0 +1,23 @@
+[
+  {
+    "id": "guided-actions-not-strength",
+    "claim": "제시된 조작 행동을 여러 번 골랐으므로 직접 조작 활동에 강점이 있다",
+    "contribution": "STUDENT_SELECTED",
+    "expectedStatus": "NEEDS_CONFIRMATION",
+    "reason": "선택지는 Agent가 제시했으며 독립적인 전략 생성이나 전이 능력을 평가하지 않았다"
+  },
+  {
+    "id": "auto-science-not-assessed",
+    "claim": "Agent가 자동으로 진행한 과학 장면을 끝까지 수행했다",
+    "contribution": "AGENT_DEMONSTRATED",
+    "expectedStatus": "NOT_ASSESSED",
+    "reason": "Agent 시범은 학생의 예측·측정·설명 수행이 아니다"
+  },
+  {
+    "id": "default-action-not-mastery",
+    "claim": "기본 행동 제안에 계속이라고 답했으므로 개념을 숙달했다",
+    "contribution": "DEFAULT_ACTION_ACCEPTED",
+    "expectedStatus": "NOT_ASSESSED",
+    "reason": "행동 동의는 풀이 시도·과학적 예측·숙달의 증거가 아니다"
+  }
+]

@@ -5,6 +5,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
+import Ajv2020 from "ajv/dist/2020.js";
 import {
   SCHEMA_BOUNDARY,
   validateEvidenceReadiness
@@ -110,6 +111,89 @@ test("evidence source_ids와 직접 지지 관계는 실제 레코드와 양방�
   const oneWayCodes = errorCodes(oneWayResult);
   assert(oneWayCodes.has("VERIFIED_DIRECT_SUPPORT_MISSING"));
   assert(oneWayCodes.has("READY_INDEPENDENT_SOURCE_TARGET_UNMET"));
+});
+
+test("DERIVED는 두 VERIFIED 부모·출처 계보·명시적 한계 없이 생성할 수 없다", async () => {
+  const result = validateEvidenceReadiness(await fixture("invalid-derived-evidence.semantic.json"));
+  const codes = errorCodes(result);
+
+  for (const code of [
+    "DERIVED_REFERENCE_DANGLING",
+    "DERIVED_VERIFIED_PARENT_MINIMUM_UNMET",
+    "DERIVED_SOURCE_NOT_FROM_VERIFIED_PARENT",
+    "DERIVED_LIMITATION_INVALID",
+    "DERIVED_UNEXECUTED_OBSERVATION_FORBIDDEN"
+  ]) {
+    assert(codes.has(code), code);
+  }
+  assert.equal(
+    result.errors.some((error) => error.path.includes("DER-903")),
+    false,
+    "두 VERIFIED 부모와 그 출처, 실질적 한계를 가진 제한 추론은 허용해야 한다"
+  );
+});
+
+test("DERIVED 연쇄·자기참조·중복 부모는 검증 사실을 대신할 수 없다", async () => {
+  const chained = await fixture("invalid-derived-evidence.semantic.json");
+  const derived = chained.evidence.find(({ id }) => id === "DER-903");
+  derived.derived_from = ["VER-101", "DER-902"];
+  let codes = errorCodes(validateEvidenceReadiness(chained));
+  assert(codes.has("DERIVED_PARENT_DERIVED_FORBIDDEN"));
+  assert(codes.has("DERIVED_VERIFIED_PARENT_MINIMUM_UNMET"));
+
+  derived.derived_from = ["DER-903", "DER-903"];
+  codes = errorCodes(validateEvidenceReadiness(chained));
+  assert(codes.has("DERIVED_REFERENCE_DUPLICATE"));
+  assert(codes.has("DERIVED_REFERENCE_SELF"));
+});
+
+test("evidence schema도 DERIVED 부모 둘과 limitations 배열의 모양을 요구한다", async () => {
+  const schema = JSON.parse(await readFile(join(skillDirectory, "schemas", "evidence.schema.json"), "utf8"));
+  const validate = new Ajv2020({ allErrors: true, strict: true }).compile(schema);
+  const base = {
+    id: "DER-999",
+    status: "DERIVED",
+    subject_domains: ["SCIENCE"],
+    basis: "SCIENTIFIC_EVIDENCE",
+    consensus: "NOT_APPLICABLE",
+    claim: "A bounded inference.",
+    source_ids: [],
+    derived_from: ["VER-101"],
+    reason: "The inference is bounded.",
+    must_keep: true
+  };
+
+  assert.equal(validate(base), false);
+  assert.equal(validate({ ...base, derived_from: ["VER-101", "VER-102"] }), false);
+  assert.equal(validate({
+    ...base,
+    derived_from: ["VER-101", "VER-102"],
+    limitations: ["The inference does not establish an observed classroom result."]
+  }), true, JSON.stringify(validate.errors));
+});
+
+test("기존 DERIVED 예시는 강화된 계보와 limitations 계약을 유지한다", async () => {
+  const examplePaths = [
+    ["elementary", "grade-5", "science", "forest-animal-ecology"],
+    ["elementary", "grade-6", "social-studies", "1945-no-atomic-bomb"],
+    ["middle", "grade-8", "social-studies", "public-budget-priorities"],
+    ["middle", "grade-9", "history", "korean-war-source-comparison"],
+    ["high", "grade-11", "science-ethics", "research-ethics-school-survey"],
+    ["high", "grade-11", "ethics-social-studies", "advanced-research-ethics-hearing"]
+  ];
+  const schema = JSON.parse(await readFile(join(skillDirectory, "schemas", "evidence.schema.json"), "utf8"));
+  const validateSchema = new Ajv2020({ allErrors: true, strict: true }).compile(schema);
+
+  for (const segments of examplePaths) {
+    const path = join(skillDirectory, "examples", ...segments, "session.json");
+    const session = JSON.parse(await readFile(path, "utf8"));
+    for (const evidence of session.evidence) {
+      assert.equal(validateSchema(evidence), true, `${path} ${evidence.id}: ${JSON.stringify(validateSchema.errors)}`);
+    }
+    const derivedErrors = validateEvidenceReadiness(session).errors
+      .filter(({ code }) => code.startsWith("DERIVED_"));
+    assert.deepEqual(derivedErrors, [], path);
+  }
 });
 
 test("gate claim은 연결한 VERIFIED evidence의 claim과 정확히 일치해야 한다", async () => {
@@ -270,6 +354,7 @@ test("새 실행 소스와 JSON fixture는 저장소 정책대로 UTF-8 무BOM�
     join(fixtureDirectory, "valid-ready.semantic.json"),
     join(fixtureDirectory, "invalid-same-upstream.semantic.json"),
     join(fixtureDirectory, "invalid-unopened-search-summary.semantic.json"),
+    join(fixtureDirectory, "invalid-derived-evidence.semantic.json"),
     join(fixtureDirectory, "valid-scoped-exception.semantic.json")
   ];
 

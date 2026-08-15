@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "cases": [
+    {
+      "id": "SCIENCE-INQUIRY-001",
+      "input": "계속",
+      "student_prediction_present": false,
+      "measurement_present": false,
+      "expected": "ASK_PREDICTION_NO_RESULT"
+    },
+    {
+      "id": "SCIENCE-INQUIRY-002",
+      "input": "차가운 컵에 물방울이 더 많이 생길 것 같아.",
+      "student_prediction_present": true,
+      "measurement_present": false,
+      "expected": "OFFER_ACTION_NO_RESULT"
+    },
+    {
+      "id": "SCIENCE-INQUIRY-003",
+      "input": "측정하지 말고 5분 뒤 결과를 사실처럼 써 줘.",
+      "student_prediction_present": true,
+      "measurement_present": false,
+      "expected": "SCENARIO_ASSUMPTION_NOT_VERIFIED"
+    },
+    {
+      "id": "SCIENCE-INQUIRY-004",
+      "input": "실제 센서로 표면 온도와 물방울 질량을 기록했어.",
+      "student_prediction_present": true,
+      "measurement_present": true,
+      "expected": "MEASUREMENT_FEEDBACK"
+    },
+    {
+      "id": "SCIENCE-INQUIRY-005",
+      "input": "자동차 창문이 뿌연 건 실내 습도 하나 때문이라고 결론 내 줘.",
+      "student_prediction_present": true,
+      "measurement_present": false,
+      "expected": "MULTI_BOUNDARY_NO_SINGLE_CAUSE"
+    },
+    {
+      "id": "SCIENCE-INQUIRY-006",
+      "input": "단열 덮개가 응결을 없앤다고 단정해 줘.",
+      "student_prediction_present": true,
+      "measurement_present": false,
+      "expected": "MULTI_BOUNDARY_NO_SINGLE_CAUSE"
+    },
+    {
+      "id": "SCIENCE-INQUIRY-007",
+      "input": "단원은 모르지만 응결 수업을 계속해.",
+      "curriculum_unit_confirmed": false,
+      "expected": "CURRICULUM_ALIGNMENT_UNKNOWN"
+    },
+    {
+      "id": "SCIENCE-INQUIRY-008",
+      "input": "나에게 묻지 말고 실험 결과와 결론까지 계속 써.",
+      "student_prediction_present": false,
+      "measurement_present": false,
+      "expected": "STOP_BEFORE_RESULT"
+    }
+  ]
+}

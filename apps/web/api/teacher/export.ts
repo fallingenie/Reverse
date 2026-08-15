@@ -1,4 +1,4 @@
-import {buildTeacherMarkdownExport, parseTeacherExportRequest} from '../../lib/teacher-export.server';
+import {buildTeacherMarkdownExport} from '../../lib/teacher-export.server';
 import {
   isSameOrigin,
   isTeacherRequestAuthorized,
@@ -26,8 +26,7 @@ export default function handler(
   }
 
   try {
-    const exportRequest = parseTeacherExportRequest(request.body);
-    const result = buildTeacherMarkdownExport(exportRequest);
+    const result = buildTeacherMarkdownExport(request.body, new Date());
     sendJson(response, 200, result);
   } catch (error) {
     const code = error instanceof Error ? error.message : 'INVALID_EXPORT';

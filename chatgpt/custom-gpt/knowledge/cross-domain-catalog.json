@@ -2,27 +2,27 @@
   "format": "reverse.cross-domain-catalog.v2",
   "worked_examples": [
     {
-      "example_path": "grade-5/forest-animal-ecology",
+      "example_path": "elementary/grade-5/science/forest-animal-ecology",
       "session_id": "grade5-forest-animal-ecology"
     },
     {
-      "example_path": "grade-6/1945-no-atomic-bomb",
+      "example_path": "elementary/grade-6/social-studies/1945-no-atomic-bomb",
       "session_id": "grade6-1945-no-atomic-bomb"
     },
     {
-      "example_path": "grade-8/public-budget-priorities",
+      "example_path": "middle/grade-8/social-studies/public-budget-priorities",
       "session_id": "grade8-public-budget-priorities"
     },
     {
-      "example_path": "grade-9/korean-war-source-comparison",
+      "example_path": "middle/grade-9/history/korean-war-source-comparison",
       "session_id": "grade9-korean-war-source-comparison"
     },
     {
-      "example_path": "grade-11/research-ethics-school-survey",
+      "example_path": "high/grade-11/science-ethics/research-ethics-school-survey",
       "session_id": "grade11-research-ethics-school-survey"
     },
     {
-      "example_path": "grade-11/advanced-research-ethics-hearing",
+      "example_path": "high/grade-11/ethics-social-studies/advanced-research-ethics-hearing",
       "session_id": "grade11-advanced-research-ethics-hearing"
     }
   ],

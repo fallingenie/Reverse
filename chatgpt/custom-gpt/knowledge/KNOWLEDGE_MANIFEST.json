@@ -42,8 +42,8 @@
     {
       "upload_name": "evidence.schema.json",
       "source_path": "skills/teach-grounded-scenarios/schemas/evidence.schema.json",
-      "sha256": "be88be97082aab9602d0a39704db943f053d0bf8cc74beea9f2febfe47dad3bc",
-      "bytes": 2059,
+      "sha256": "4bf7dfd613d7f8427e65bdc449b4761c29ef35c3e84520df55c1ce25c3f97780",
+      "bytes": 2305,
       "purpose": "사실·추론·가정·미확인 근거 형식",
       "classification": "public-schema",
       "encoding": "UTF-8",
@@ -87,8 +87,8 @@
     {
       "upload_name": "cross-domain-catalog.json",
       "source_path": "skills/teach-grounded-scenarios/examples/cross-domain-catalog.json",
-      "sha256": "9632e680a341daa5298d4dee5427aa4892a477ab35419ccc808a8f46ef840d54",
-      "bytes": 3974,
+      "sha256": "b9e76f6dc017efab89569e9c0b00bc712ee1facf9fa3e8fc8df009a4f1c13dba",
+      "bytes": 4103,
       "purpose": "여러 교과·학년 수업 모드 방향 검토",
       "classification": "public-catalog",
       "encoding": "UTF-8",
@@ -208,5 +208,5 @@
       "reason": "교사가 별도 접근 통제 아래 검토할 선택 설정이며 학생 공용 Knowledge가 아님"
     }
   ],
-  "seal_sha256": "400ab9a378500b43b04c40ae535fa1e89414d5a4bef17bcac0e72670eb7d45d5"
+  "seal_sha256": "d04fb1326c858b35c4791e9c6c44ccc54af921d48a3e034f97099ca2588a48e6"
 }

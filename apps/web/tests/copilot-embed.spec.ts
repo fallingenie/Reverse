@@ -16,7 +16,7 @@ describe('Copilot WebChat 임베드', () => {
     const url = new URL(COPILOT_WEBCHAT_URL);
 
     expect(Object.fromEntries(url.searchParams)).toEqual({
-      version: '2',
+      __version__: '2',
       enableFileAttachment: 'false',
       cliAgent: 'true',
     });

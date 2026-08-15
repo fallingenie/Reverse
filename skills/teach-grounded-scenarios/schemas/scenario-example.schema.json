@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/scenario-example.schema.json",
+  "title": "Reverse worked scenario classification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format",
+    "scenario_id",
+    "school_level",
+    "grade",
+    "grade_label",
+    "subject_id",
+    "subject_label",
+    "unit",
+    "safety_risk",
+    "source_boundary",
+    "creative_boundary",
+    "live_status",
+    "regression_case_ids"
+  ],
+  "properties": {
+    "format": { "const": "reverse.scenario-example.v1" },
+    "scenario_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,95}$" },
+    "school_level": { "enum": ["elementary", "middle", "high"] },
+    "grade": { "type": "integer", "minimum": 3, "maximum": 11 },
+    "grade_label": { "enum": ["초3", "초4", "초5", "초6", "중1", "중2", "중3", "고1", "고2"] },
+    "subject_id": { "type": "string", "pattern": "^[a-z][a-z0-9-]{1,47}$" },
+    "subject_label": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "unit": { "type": "string", "minLength": 1, "maxLength": 160 },
+    "safety_risk": { "enum": ["LOW", "MEDIUM", "HIGH"] },
+    "source_boundary": { "const": "SESSION_EVIDENCE_ONLY" },
+    "creative_boundary": { "const": "LOCAL_SCENE_ONLY" },
+    "live_status": { "const": "REFERENCE_FIXTURE_NOT_LIVE_VERIFIED" },
+    "regression_case_ids": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^SCN-[A-Z0-9-]{8,63}$" }
+    }
+  }
+}

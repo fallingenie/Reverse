@@ -1,0 +1,496 @@
+{
+  "schema_version": "1.0.0",
+  "session_id": "grade11-research-ethics-school-survey",
+  "revision": 1,
+  "profile": {
+    "grade": "고2",
+    "subject": "과학·윤리 융합",
+    "unit": "연구윤리와 인간대상연구",
+    "interests": ["연구윤리", "개인정보", "학생 안전", "연구진실성"]
+  },
+  "gate": {
+    "state": "RUN_LESSON",
+    "start_token": "[시작]",
+    "start_confirmed": true,
+    "start_armed_revision": 0,
+    "start_consumed_revision": 1
+  },
+  "research": {
+    "plan": {
+      "id": "RES-GRADE11-RESEARCH-ETHICS",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "candidate_modes": ["INTERDISCIPLINARY_PROJECT", "SOCIAL_DECISION"],
+      "essential_question": "미성년 학생을 대상으로 할 수 있는 학교 설문 계획을 실행 전에 어떻게 수정해야 동의, 위험, 개인정보, 연구진실성을 함께 지킬 수 있는가?",
+      "freshness": "CHECK_THIS_SESSION",
+      "risk": "HIGH",
+      "claim_candidates": [
+        "인간대상연구의 사전 심의와 실제 기관 확인",
+        "동의의 정보 제공·이해·자발성·철회 요소",
+        "미성년 연구대상자의 추가 보호",
+        "개인정보의 최소 수집과 안전한 관리",
+        "위조·변조·표절·부당한 저자 표시 예방",
+        "인간 존중·선행·정의의 연구윤리 원칙"
+      ],
+      "claim_quality_gates": [
+        {
+          "claim": "인간대상연구의 사전 심의와 실제 기관 확인",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": ["VER-001"],
+          "exception_reason": null
+        },
+        {
+          "claim": "동의의 정보 제공·이해·자발성·철회 요소",
+          "risk": "HIGH",
+          "minimum_independent_sources": 3,
+          "minimum_tier_a_sources": 2,
+          "evidence_ids": ["VER-002"],
+          "exception_reason": null
+        },
+        {
+          "claim": "미성년 연구대상자의 추가 보호",
+          "risk": "HIGH",
+          "minimum_independent_sources": 3,
+          "minimum_tier_a_sources": 2,
+          "evidence_ids": ["VER-003"],
+          "exception_reason": null
+        },
+        {
+          "claim": "개인정보의 최소 수집과 안전한 관리",
+          "risk": "HIGH",
+          "minimum_independent_sources": 3,
+          "minimum_tier_a_sources": 2,
+          "evidence_ids": ["VER-004"],
+          "exception_reason": null
+        },
+        {
+          "claim": "위조·변조·표절·부당한 저자 표시 예방",
+          "risk": "MEDIUM",
+          "minimum_independent_sources": 2,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-005"],
+          "exception_reason": null
+        },
+        {
+          "claim": "인간 존중·선행·정의의 연구윤리 원칙",
+          "risk": "LOW",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 0,
+          "evidence_ids": ["VER-006"],
+          "exception_reason": null
+        }
+      ],
+      "required_source_classes": ["LEGAL_TEXT", "OFFICIAL_RECORD", "CURRICULUM_RESOURCE"],
+      "search_queries": [
+        "생명윤리법 인간대상연구 사전 심의 동의 미성년자",
+        "개인정보 보호법 최소 수집 연구 개인정보",
+        "연구윤리 확보를 위한 지침 위조 변조 표절 부당한 저자 표시",
+        "대학 IRB 설명문 동의서 위험 개인정보 철회",
+        "Belmont Report respect beneficence justice official"
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": [
+      "실제 학교 프로젝트의 법률상 인간대상연구 해당 여부와 담당 심의 절차는 기관 확인 없이는 확정할 수 없다.",
+      "실제 미성년 참여자의 동의·보호자 동의·승낙·개인정보 처리 절차는 구체 계획과 기관 판단이 필요하다."
+    ]
+  },
+  "lesson": {
+    "scenario_id": "research-ethics-school-survey",
+    "title": "우리 학교 설문 계획을 연구윤리위원처럼 검토하기",
+    "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+    "lesson_mode": "INTERDISCIPLINARY_PROJECT",
+    "premise": "학생 연구윤리위원이 실제 모집과 자료 수집 전에 가상 학교 설문 계획의 동의, 위험, 개인정보, 연구진실성 문제를 찾고 안전한 수정안을 제안한다.",
+    "research_id": "RES-GRADE11-RESEARCH-ETHICS",
+    "objectives": [
+      "동의의 정보 제공, 이해, 자발성, 철회 가능성을 설명한다.",
+      "위험 최소화와 개인정보 최소 수집 원칙을 적용한다.",
+      "위조·변조·표절·부당한 저자 표시를 구분하고 예방 장치를 제안한다.",
+      "실제 심의와 법률 판단은 담당 기관에 확인해야 함을 설명한다."
+    ],
+    "sensitivity": "HIGH"
+  },
+  "sources": [
+    {
+      "id": "SRC-01",
+      "title": "생명윤리 및 안전에 관한 법률 제15조 인간대상연구의 심의",
+      "creator": "대한민국",
+      "institution": "법제처 국가법령정보센터",
+      "source_class": "LEGAL_TEXT",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "KR-LAW-BIOETHICS-ART15",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1030696827",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-001"],
+      "limitations": ["실제 학교 활동의 법률상 연구 해당 여부와 심의 면제 여부는 이 조문만으로 확정할 수 없다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-02",
+      "title": "생명윤리 및 안전에 관한 법률 제16조 인간대상연구의 동의",
+      "creator": "대한민국",
+      "institution": "법제처 국가법령정보센터",
+      "source_class": "LEGAL_TEXT",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "KR-LAW-BIOETHICS-ART16",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://www.law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1029630635",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-002", "VER-004"],
+      "limitations": ["가상 계획의 개별 동의서 문구를 승인하거나 실제 기관위원회의 판단을 대신하지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-03",
+      "title": "생명윤리 및 안전에 관한 법률 시행규칙 제14조 대리인의 동의를 받아야 하는 연구대상자",
+      "creator": "보건복지부",
+      "institution": "법제처 국가법령정보센터",
+      "source_class": "LEGAL_TEXT",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "KR-LAW-BIOETHICS-RULE-ART14",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://www.law.go.kr/LSW/lsInfoP.do?ancYnChk=0&chrClsCd=010202&efYd=20240821&lsiSeq=265059&urlMode=lsInfoP",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-003"],
+      "limitations": ["2024년 8월 21일 시행본 링크이므로 실제 적용 전 최신 시행본과 기관위원회 판단을 다시 확인해야 한다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-04",
+      "title": "개인정보 보호법 제3조 개인정보 보호 원칙",
+      "creator": "대한민국",
+      "institution": "법제처 국가법령정보센터",
+      "source_class": "LEGAL_TEXT",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "KR-LAW-PIPA-ART3",
+      "subject_domains": ["SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://law.go.kr/LSW/lsLinkCommonInfo.do?chrClsCd=010202&lsJoLnkSeq=1016827305",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-004"],
+      "limitations": ["특정 연구의 적법한 처리 근거와 구체적인 보안 통제를 대신 설계하지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-05",
+      "title": "연구윤리 확보를 위한 지침 2018년 7월 17일 개정 게시본",
+      "creator": "교육부",
+      "institution": "한국연구재단 연구윤리정보포털",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "KR-NRF-CRE-RESEARCH-ETHICS-GUIDELINE",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://cre.nrf.re.kr/bbs/BoardDetail.do?bbsId=BBSMSTR_000000000002&nttId=1844&pageIndex=1&schBlogId=&searchCnd=&searchWrd=",
+      "published_at": "2018-07-17",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-005"],
+      "limitations": ["게시본의 적용 범위와 최신 개정 여부는 소속 기관 규정 및 최신 행정규칙과 함께 확인해야 한다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-06",
+      "title": "Q61. 인간대상연구의 설명문과 동의서를 작성하는 경우 중요하게 고려해야 할 사항",
+      "creator": "부산대학교 생명윤리위원회",
+      "institution": "부산대학교",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "PUSAN-UNIVERSITY-IRB-Q61",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://irb.pusan.ac.kr/irb/34051/subview.do?enc=Zm5jdDF8QEB8JTJGYmJzJTJGaXJiJTJGNzU4NiUyRjY4MjE0OSUyRmFydGNsVmlldy5kbyUzRg%3D%3D",
+      "published_at": "2018-07-26",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-002", "VER-004"],
+      "limitations": ["부산대학교 기관 안내이며 다른 학교의 실제 절차를 자동으로 결정하지 않는다."],
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-07",
+      "title": "What Regulations Protect Research Participants?",
+      "creator": "Office for Human Research Protections",
+      "institution": "U.S. Department of Health and Human Services",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "A_SYNTHESIS",
+      "independence_key": "US-HHS-OHRP-PARTICIPANT-PROTECTIONS",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://www.hhs.gov/ohrp/education-and-outreach/about-research-participation/protecting-research-volunteers/principal-regulations/index.html",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-003"],
+      "limitations": ["미국 규정 설명이며 대한민국 법령과 기관 절차를 대체하지 않는다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-08",
+      "title": "The Belmont Report",
+      "creator": "National Commission for the Protection of Human Subjects of Biomedical and Behavioral Research",
+      "institution": "U.S. Department of Health and Human Services, Office for Human Research Protections",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "A_SYNTHESIS",
+      "independence_key": "US-HHS-OHRP-BELMONT",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://www.hhs.gov/ohrp/regulations-and-policy/belmont-report/read-the-belmont-report/index.html",
+      "published_at": "1979-04-18",
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-002", "VER-003", "VER-006"],
+      "limitations": ["윤리 원칙 문서이며 특정 연구의 법적 승인 여부를 판정하지 않는다."],
+      "freshness": "STABLE",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"],
+      "citation_metric": null
+    },
+    {
+      "id": "SRC-09",
+      "title": "Research Integrity Committee",
+      "creator": "한국과학기술원 연구처",
+      "institution": "한국과학기술원",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "KAIST-RESEARCH-INTEGRITY-COMMITTEE",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "url": "https://research.kaist.ac.kr/page/en/selectPage.do?menuSeq=3060&pageSeq=3590",
+      "published_at": null,
+      "accessed_at": "2026-08-15",
+      "opened": true,
+      "direct_support": ["VER-005"],
+      "limitations": ["한국과학기술원의 기관 안내이며 모든 학교 연구의 직접 적용 규정은 아니다."],
+      "freshness": "CHECKED_THIS_SESSION",
+      "quality_checks": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "METHODS_AND_SCOPE_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"],
+      "citation_metric": null
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-001",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "LEGAL_TEXT",
+      "consensus": "ESTABLISHED",
+      "claim": "대한민국 생명윤리법은 인간대상연구를 시작하기 전에 연구계획서를 작성하여 기관위원회 심의를 받도록 정한다.",
+      "source_ids": ["SRC-01"],
+      "reason": "법률 제15조 원문이 직접 규정한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-002",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "ESTABLISHED",
+      "claim": "인간대상연구 동의는 목적, 절차, 위험과 이득, 개인정보, 철회에 관한 이해 가능한 설명과 자발적인 결정을 포함한다.",
+      "source_ids": ["SRC-02", "SRC-06", "SRC-08"],
+      "reason": "대한민국 법률, 대학 IRB 안내, 공식 국제 윤리 원칙이 서로 다른 편찬 계통에서 지지한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-003",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "ESTABLISHED",
+      "claim": "아동을 연구대상자로 포함할 때에는 대리인 동의 등 추가 보호가 필요할 수 있으며 연구대상자 본인의 이해와 의사도 존중해야 한다.",
+      "source_ids": ["SRC-03", "SRC-07", "SRC-08"],
+      "reason": "대한민국 시행규칙과 공식 연구대상자 보호·윤리 원칙 자료가 추가 보호 필요성을 지지한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-004",
+      "status": "VERIFIED",
+      "subject_domains": ["SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "ESTABLISHED",
+      "claim": "개인정보는 목적에 필요한 최소 범위로 수집하고 안전하게 관리하며 연구대상자의 비밀과 권리를 보호해야 한다.",
+      "source_ids": ["SRC-02", "SRC-04", "SRC-06"],
+      "reason": "생명윤리법, 개인정보 보호법, 대학 IRB 안내가 수집 최소화와 비밀 보호를 함께 지지한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-005",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "ESTABLISHED",
+      "claim": "위조, 변조, 표절, 부당한 저자 표시는 연구부정행위로 구분되며 예방해야 한다.",
+      "source_ids": ["SRC-05", "SRC-09"],
+      "reason": "교육부 지침 게시본과 독립된 대학 연구처 안내가 같은 핵심 범주를 제시한다.",
+      "must_keep": true
+    },
+    {
+      "id": "VER-006",
+      "status": "VERIFIED",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "PRIMARY_SOURCE",
+      "consensus": "ESTABLISHED",
+      "claim": "벨몬트 보고서는 인간 존중, 선행, 정의를 인간대상연구 윤리의 기본 원칙으로 제시한다.",
+      "source_ids": ["SRC-08"],
+      "reason": "미국 보건복지부 연구대상자보호국이 제공하는 공식 원문이 직접 제시한다.",
+      "must_keep": true
+    },
+    {
+      "id": "SCN-001",
+      "status": "SCENARIO",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "SCENARIO_CONSTRAINT",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "검토할 학교 설문 계획과 등장인물은 수업용 가상 자료이며 실제 참여자와 실제 자료는 없다.",
+      "source_ids": [],
+      "reason": "실제 개인정보와 실제 연구 실행을 배제하기 위한 수업 제약이다.",
+      "must_keep": true
+    },
+    {
+      "id": "SCN-002",
+      "status": "SCENARIO",
+      "subject_domains": ["INTERDISCIPLINARY"],
+      "basis": "SCENARIO_CONSTRAINT",
+      "consensus": "NOT_APPLICABLE",
+      "claim": "학생 역할은 연구 수행자가 아니라 실행 전 계획을 검토하는 학생 연구윤리위원이다.",
+      "source_ids": [],
+      "reason": "연구 실행 절차 대신 윤리적 사전 검토에만 참여하도록 역할을 제한한다.",
+      "must_keep": true
+    },
+    {
+      "id": "DER-001",
+      "status": "DERIVED",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "MULTI_DOMAIN",
+      "consensus": "STRONG",
+      "claim": "가상 계획서 초안은 동의, 위험, 개인정보, 연구진실성 모두에 수정 필요 사항이 있으므로 실제 모집과 자료 수집으로 진행하지 않는다.",
+      "source_ids": [],
+      "derived_from": ["VER-001", "VER-002", "VER-003", "VER-004", "VER-005", "SCN-001", "SCN-002"],
+      "limitations": ["실제 법적 분류와 심의 또는 면제 여부는 담당 기관의 판단 전에는 확정할 수 없다."],
+      "reason": "평가상 불이익 암시, 불필요한 식별정보, 위험·철회 설명 부재, 임의 자료 삭제와 무단 문항 사용이 공식 원칙과 충돌한다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-001",
+      "status": "UNKNOWN",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
+      "claim": "이 학교 활동이 실제 법률상 인간대상연구인지, 기관위원회 심의 또는 심의 면제 대상인지 확정할 수 없다.",
+      "source_ids": [],
+      "reason": "실제 연구 목적, 자료 이용 방식, 기관 규정과 담당 위원회 판단이 제시되지 않았다.",
+      "must_keep": true
+    },
+    {
+      "id": "UNK-002",
+      "status": "UNKNOWN",
+      "subject_domains": ["SCIENCE", "SOCIAL_STUDIES", "INTERDISCIPLINARY"],
+      "basis": "UNRESOLVED",
+      "consensus": "UNKNOWN",
+      "claim": "실제 미성년 참여자에게 필요한 동의, 대리인 동의, 승낙, 개인정보 처리의 구체 절차를 확정할 수 없다.",
+      "source_ids": [],
+      "reason": "구체적인 연구계획과 소속 기관의 심의 결과가 없다.",
+      "must_keep": true
+    }
+  ],
+  "memory": {
+    "canon": [
+      {
+        "id": "CAN-001",
+        "text": "수업은 실제 연구가 시작되기 전의 가상 연구윤리 검토 회의다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-002",
+        "text": "학생 역할은 연구 수행자가 아니라 가상 계획서를 검토하는 학생 연구윤리위원이다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-003",
+        "text": "검토 영역은 동의, 위험, 개인정보, 연구진실성이다.",
+        "must_keep": true
+      },
+      {
+        "id": "CAN-004",
+        "text": "실제 학생 모집, 실제 자료 수집, 위해 결과 예측, 인체실험 실행 절차는 금지한다.",
+        "must_keep": true
+      }
+    ],
+    "current_state": {
+      "time": "현재 수업 시간, 연구 시작 전",
+      "place": "특수목적고 연구윤리 모의심의실",
+      "role": "가상 계획서를 검토하는 고2 학생 연구윤리위원",
+      "constraints": [
+        "실제 참여자와 실제 자료는 없다.",
+        "연구를 실행하지 않고 계획의 문제와 수정안을 검토한다.",
+        "실제 심의와 법률 판단은 교사와 담당 기관에 확인한다.",
+        "위해 결과 예측과 위해를 일으키는 실행 절차를 만들지 않는다."
+      ]
+    },
+    "negative_facts": [
+      {
+        "id": "NEG-001",
+        "text": "아직 실제 학생을 모집하거나 설문 자료를 수집하지 않았다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-002",
+        "text": "이 수업은 기관생명윤리위원회의 승인이나 심의 면제 결정을 대신하지 않는다.",
+        "must_keep": true
+      },
+      {
+        "id": "NEG-003",
+        "text": "가상 인체실험의 위해 결과와 실행 프로토콜을 만들지 않는다.",
+        "must_keep": true
+      }
+    ],
+    "corrections": [],
+    "open_threads": [
+      {
+        "id": "OPEN-001",
+        "text": "동의, 위험, 개인정보, 연구진실성 네 영역에서 수정 필요 사항을 각각 분류해야 한다.",
+        "must_keep": true
+      },
+      {
+        "id": "OPEN-002",
+        "text": "학교의 실제 담당자에게 연구 해당 여부와 심의·동의 절차를 확인해야 한다.",
+        "must_keep": true
+      }
+    ],
+    "episode_archive": [
+      {
+        "id": "EP-001",
+        "turn": 1,
+        "student_choice": "[시작] 토큰으로 수업 시작",
+        "result": "가상 설문 계획에서 네 연구윤리 영역을 검토하는 첫 장면과 세 가지 안전한 선택지가 제시되었다.",
+        "detail": "참여자 모집 전이며 강요 가능성, 불필요한 개인정보, 결과 왜곡, 무단 문항 사용 문제를 발견한다.",
+        "evidence_ids": ["VER-001", "VER-002", "VER-003", "VER-004", "VER-005", "SCN-001", "UNK-001"],
+        "must_keep": true
+      }
+    ],
+    "conflicts": [],
+    "discarded_detail_summary": [],
+    "compaction": {
+      "sequence": 0,
+      "source_revision": 1,
+      "source_sha256": ""
+    }
+  }
+}

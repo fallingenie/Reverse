@@ -1,0 +1,4 @@
+interface:
+  display_name: "짧은 발화 대화 유도"
+  short_description: "짧은 학생 답변을 낮은 부담의 참여로 연결합니다"
+  default_prompt: "Use $guide-brief-learner-dialogue to guide a learner who answers only briefly without inventing their reasoning."

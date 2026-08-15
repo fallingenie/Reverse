@@ -16,18 +16,26 @@ const defaultOutputPath = join(
 
 export const studentSkillRuntimeMappings = [
   ["skills/teach-grounded-scenarios/student-runtime/SKILL.md", "SKILL.md"],
+  ["skills/teach-grounded-scenarios/student-runtime/agents/openai.yaml", "agents/openai.yaml"],
   ["skills/teach-grounded-scenarios/student-runtime/prompts/01-onboarding.prompt.md", "prompts/01-onboarding.prompt.md"],
   ["skills/teach-grounded-scenarios/student-runtime/prompts/02-research-plan.prompt.md", "prompts/02-research-plan.prompt.md"],
   ["skills/teach-grounded-scenarios/prompts/03-source-audit.prompt.md", "prompts/03-source-audit.prompt.md"],
   ["skills/teach-grounded-scenarios/student-runtime/prompts/04-scenario-cards.prompt.md", "prompts/04-scenario-cards.prompt.md"],
   ["skills/teach-grounded-scenarios/student-runtime/prompts/05-lesson-turn.prompt.md", "prompts/05-lesson-turn.prompt.md"],
   ["skills/teach-grounded-scenarios/student-runtime/prompts/07-debrief.prompt.md", "prompts/07-debrief.prompt.md"],
+  ["skills/teach-grounded-scenarios/prompts/08-canon-repair.prompt.md", "prompts/08-canon-repair.prompt.md"],
   ["skills/teach-grounded-scenarios/references/grade-bands.md", "references/grade-bands.md"],
   ["skills/teach-grounded-scenarios/references/evidence-policy.md", "references/evidence-policy.md"],
   ["skills/teach-grounded-scenarios/references/domain-policies.md", "references/domain-policies.md"],
   ["skills/teach-grounded-scenarios/references/source-quality.md", "references/source-quality.md"],
   ["skills/teach-grounded-scenarios/references/safety-policy.md", "references/safety-policy.md"],
   ["skills/teach-grounded-scenarios/references/research-workflow.md", "references/research-workflow.md"],
+  ["skills/teach-grounded-scenarios/references/canon-integrity-v2.md", "references/canon-integrity-v2.md"],
+  ["skills/teach-grounded-scenarios/references/canon-repair.md", "references/canon-repair.md"],
+  ["skills/teach-grounded-scenarios/references/lesson-quality-balance.md", "references/lesson-quality-balance.md"],
+  ["skills/teach-grounded-scenarios/references/pdf-reference-policy.md", "references/pdf-reference-policy.md"],
+  ["skills/guide-brief-learner-dialogue/references/dialogue-state-contract.md", "references/dialogue-state-contract.md"],
+  ["skills/guide-brief-learner-dialogue/references/learner-profile-policy.md", "references/learner-profile-policy.md"],
   ["skills/teach-grounded-scenarios/schemas/source-record.schema.json", "schemas/source-record.schema.json"],
   ["skills/teach-grounded-scenarios/schemas/evidence.schema.json", "schemas/evidence.schema.json"],
   ["skills/teach-grounded-scenarios/schemas/research-plan.schema.json", "schemas/research-plan.schema.json"],
@@ -35,6 +43,42 @@ export const studentSkillRuntimeMappings = [
 ].map(([source, target]) => ({ source, target }));
 
 export const excludedStudentRuntimeSources = [
+  {
+    source: "skills/teach-grounded-scenarios/SKILL.md",
+    reason: "교사용·로컬 호스트 경로를 포함하며 학생 공개용 SKILL.md로 대체"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/instructions/system.md",
+    reason: "플랫폼 전체 배포 지침이며 학생 전용 저지연 실행 계약과 충돌할 수 있어 제외"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/prompts/01-onboarding.prompt.md",
+    reason: "학생 전용 onboarding prompt로 대체"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/prompts/02-research-plan.prompt.md",
+    reason: "학생 전용 저지연 research prompt로 대체"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/prompts/04-scenario-cards.prompt.md",
+    reason: "학생 전용 scenario-card prompt로 대체"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/prompts/05-lesson-turn.prompt.md",
+    reason: "학생 공개 필드만 만드는 lesson-turn prompt로 대체"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/prompts/06-memory-compaction.prompt.md",
+    reason: "전체 세션과 내부 기억 변경 인터페이스가 필요한 로컬 호스트용 prompt"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/prompts/07-debrief.prompt.md",
+    reason: "학생 공개용 debrief prompt로 대체"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/assets/session.template.json",
+    reason: "학생 응답에 필요하지 않은 전체 세션·기억 상태 template"
+  },
   {
     source: "skills/teach-grounded-scenarios/schemas/lesson-turn.schema.json",
     reason: "개발 회귀검사와 접근 분리된 교사용 결합 fixture"
@@ -48,6 +92,18 @@ export const excludedStudentRuntimeSources = [
     reason: "학생 응답에 필요하지 않은 내부 기억 변경 인터페이스"
   },
   {
+    source: "skills/teach-grounded-scenarios/schemas/scenario-example.schema.json",
+    reason: "완성 예시를 검증하는 개발용 schema"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/references/memory-policy.md",
+    reason: "Node 검증기와 전체 세션 원장을 전제로 하는 로컬 호스트 정책"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/references/runtime-profiles.md",
+    reason: "학생 수업 동작에 필요하지 않은 플랫폼별 운영·권한 문서"
+  },
+  {
     source: "skills/teach-grounded-scenarios/references/teacher-mode.md",
     reason: "접근이 분리된 교사용 사본에서만 사용하는 자료"
   },
@@ -56,8 +112,16 @@ export const excludedStudentRuntimeSources = [
     reason: "비공개 평가 메모와 완성된 회귀 답안을 포함할 수 있는 개발 fixture"
   },
   {
+    source: "skills/teach-grounded-scenarios/fixtures",
+    reason: "검증기의 성공·실패 입력으로 사용하는 개발 fixture"
+  },
+  {
     source: "skills/teach-grounded-scenarios/scripts",
     reason: "Copilot Studio에서 실행이 보장되지 않는 로컬 개발 도구"
+  },
+  {
+    source: "skills/teach-grounded-scenarios/tests",
+    reason: "배포 파일이 아니라 로컬 회귀검사 코드"
   },
   {
     source: "skills/teacher-grounded-testbed",
@@ -121,6 +185,10 @@ function assertStudentRuntimeEntry(entry) {
   }
   if (entry.name.endsWith(".json")) {
     JSON.parse(text);
+  } else if (entry.name.endsWith(".yaml")) {
+    if (!/^interface:\s*$/mu.test(text) || !/\$teach-grounded-scenarios/u.test(text)) {
+      throw new Error(`${entry.name}: 학생 Skill 인터페이스 YAML 계약이 없습니다.`);
+    }
   }
 }
 

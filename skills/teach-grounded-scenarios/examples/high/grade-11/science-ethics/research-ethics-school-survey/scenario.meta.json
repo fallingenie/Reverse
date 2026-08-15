@@ -1,0 +1,15 @@
+{
+  "format": "reverse.scenario-example.v1",
+  "scenario_id": "grade11-research-ethics-school-survey",
+  "school_level": "high",
+  "grade": 11,
+  "grade_label": "고2",
+  "subject_id": "science-ethics",
+  "subject_label": "과학·윤리 융합",
+  "unit": "연구윤리와 인간대상연구",
+  "safety_risk": "HIGH",
+  "source_boundary": "SESSION_EVIDENCE_ONLY",
+  "creative_boundary": "LOCAL_SCENE_ONLY",
+  "live_status": "REFERENCE_FIXTURE_NOT_LIVE_VERIFIED",
+  "regression_case_ids": ["SCN-H11-SCI-ETH-SURVEY-001"]
+}

@@ -68,10 +68,16 @@ test("비공개 Custom GPT 구성은 핵심 게이트와 보장 경계를 명시
   assert.match(instructions, /핵심 설정 수정 제안/u);
   assert.match(instructions, /처음부터 다시 시작 권고/u);
   assert.match(instructions, /암호를 받아 권한이 생겼다고 주장하지 않는다/u);
-  assert.match(instructions, /이미지 생성 도구를 자발적으로 호출하지 않는다/u);
+  assert.match(instructions, /이미지는 초3~고2 모든 과목/u);
+  assert.match(instructions, /장면당 1회/u);
+  assert.match(instructions, /과학·역사.*실제 사진처럼/u);
+  assert.match(instructions, /국어·문학.*파스텔톤 삽화/u);
+  assert.match(instructions, /세포 관찰·감수분열·식물 개화/u);
+  assert.match(instructions, /AI 생성 이미지 — 교육용 시각화이며 실제 사진·관찰·사료가 아닙니다/u);
+  assert.match(config, /이미지 생성: 켬/u);
   assert.match(instructions, /각 카드 제목에는 `1\.`부터 `5\.`까지 번호/u);
   assert.match(instructions, /실제 선택 버튼을 지원하면 같은 다섯 제목을 버튼/u);
-  assert.match(config, /제품 전체 UI를 제거하는 권한으로 취급하지 않는다/u);
+  assert.match(config, /제품 전체 UI나 사용량을 통제하는 권한으로 취급하지 않는다/u);
   assert.match(knowledge, /영구 원장/u);
   assert.match(knowledge, /선생님이나 교과서, 참고서를 확인하여 주세요/u);
   assert.match(instructions, /기술 정보는 학생에게 먼저 보여주지 않는다/u);

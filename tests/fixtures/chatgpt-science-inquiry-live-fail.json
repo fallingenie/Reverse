@@ -1,0 +1,42 @@
+{
+  "id": "LIVE-CHATGPT-SCIENCE-001",
+  "profile": "초등학교 6학년",
+  "subject": "과학",
+  "unit_status": "UNCONFIRMED",
+  "topic": "응결",
+  "observed_failures": [
+    "학생 예측 없이 가상 실험 결과 연속 선공개",
+    "미측정 관찰과 일반 설명의 사실 확인됨 혼합",
+    "표면 온도 중심 단일 원인 설명",
+    "평문 요청만으로 Markdown 파일 생성과 전송 약속",
+    "계속 입력을 학생 선택과 관찰로 대체",
+    "가상 반복 결과로 추론 강도 승격",
+    "차가운 운송 장면에서 얼음과 표면 물의 원인을 단정"
+  ],
+  "required_inquiry_order": [
+    "관찰 질문",
+    "학생 예측 또는 행동",
+    "실제 측정 또는 명시적 수업 가정",
+    "피드백",
+    "개념 연결"
+  ],
+  "condensation_boundaries": [
+    "표면온도",
+    "노점",
+    "수증기량",
+    "공기 흐름",
+    "시간",
+    "표면 조건"
+  ],
+  "phase_change_boundaries": [
+    "차가움은 영하와 같지 않음",
+    "표면 물은 융해수 또는 응결일 수 있음",
+    "운송 성공은 서사 가정"
+  ],
+  "low_burden_turn": {
+    "observation_questions": 1,
+    "distinct_actions_or_predictions": 2,
+    "continue_is_evidence": false
+  },
+  "export_boundary": "AUTHENTICATED_TEACHER_VERCEL_ONLY"
+}

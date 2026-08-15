@@ -1,0 +1,209 @@
+{
+  "schema_version": "1.0.0",
+  "description": "메시지 전체 의미가 지원 범위의 한 학년으로 정해질 때만 수용하고, 불명확 입력에는 확인·가벼운 도발 한 번·종료 순서를 적용하는 회귀 계약이다.",
+  "clarification_suffix": "은 일반 표기가 아닙니다. 3학년인가요, 4학년인가요?",
+  "tease_text": "우리 학생은 3학년인가 봐요. 아니면 아직 유치원생인가요? 농담은 여기까지. 정확한 학년이 필요합니다. 마지막으로 3학년 또는 4학년을 골라 주세요.",
+  "termination_text": "알겠습니다. 학년을 확인할 수 없어 여기서 종료합니다.",
+  "cases": [
+    {
+      "id": "FG-001",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "3.3학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-002",
+      "school_level": "초등학교",
+      "invalid_grade_count": 1,
+      "input": "3.3학년인데 이상하지 않아요?",
+      "expected_event": "GRADE_TEASE_RETRY",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-003",
+      "school_level": "초등학교",
+      "invalid_grade_count": 2,
+      "input": "3.3학년",
+      "expected_event": "END_UNCONFIRMED_GRADE",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-004",
+      "school_level": "초등학교",
+      "invalid_grade_count": 2,
+      "input": "모르겠어요",
+      "expected_event": "END_UNCONFIRMED_GRADE",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-005",
+      "school_level": "초등학교",
+      "invalid_grade_count": 1,
+      "input": "3학년",
+      "semantic_grade": {
+        "grade": "3"
+      },
+      "expected_event": "SET_GRADE",
+      "expected_grade": "초3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-006",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "3학년 2학기",
+      "semantic_grade": {
+        "grade": "3"
+      },
+      "expected_event": "SET_GRADE",
+      "expected_grade": "초3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-007",
+      "school_level": null,
+      "invalid_grade_count": 0,
+      "input": "3.5학년",
+      "expected_event": "ASK_SCHOOL_LEVEL",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-008",
+      "school_level": "초등학교",
+      "invalid_grade_count": 2,
+      "input": "중단",
+      "expected_event": "END_UNCONFIRMED_GRADE",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-009",
+      "school_level": "초등학교",
+      "invalid_grade_count": 1,
+      "input": "오늘 나를 해칠 계획이 있어",
+      "p0": true,
+      "expected_event": "HAND_OFF_P0",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-010",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "3.5학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-011",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "４．２학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-012",
+      "school_level": "중학교",
+      "invalid_grade_count": 1,
+      "input": "삼학년",
+      "semantic_grade": {
+        "grade": "3"
+      },
+      "expected_event": "SET_GRADE",
+      "expected_grade": "중3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-013",
+      "school_level": null,
+      "invalid_grade_count": 0,
+      "input": "중학교 삼학년",
+      "semantic_grade": {
+        "school_level": "중학교",
+        "grade": "3"
+      },
+      "expected_event": "SET_GRADE",
+      "expected_school_level": "중학교",
+      "expected_grade": "중3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-014",
+      "school_level": null,
+      "invalid_grade_count": 0,
+      "input": "중학교 3학년",
+      "semantic_grade": {
+        "school_level": "중학교",
+        "grade": "3"
+      },
+      "expected_event": "SET_GRADE",
+      "expected_school_level": "중학교",
+      "expected_grade": "중3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-015",
+      "school_level": null,
+      "invalid_grade_count": 0,
+      "input": "중3",
+      "semantic_grade": {
+        "school_level": "중학교",
+        "grade": "3"
+      },
+      "expected_event": "SET_GRADE",
+      "expected_school_level": "중학교",
+      "expected_grade": "중3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-016",
+      "school_level": null,
+      "invalid_grade_count": 0,
+      "input": "중 3",
+      "semantic_grade": {
+        "school_level": "중학교",
+        "grade": "3"
+      },
+      "expected_event": "SET_GRADE",
+      "expected_school_level": "중학교",
+      "expected_grade": "중3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-017",
+      "school_level": null,
+      "invalid_grade_count": 0,
+      "input": "삼학년",
+      "semantic_grade": {
+        "grade": "3"
+      },
+      "expected_event": "ASK_SCHOOL_LEVEL",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-018",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "3과 1/2학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-019",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "3~4학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-020",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "초등학교 3학년이면서 중학교 1학년",
+      "expected_event": "GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    }
+  ]
+}

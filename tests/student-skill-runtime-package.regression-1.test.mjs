@@ -15,18 +15,26 @@ import {
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const expectedNames = [
   "SKILL.md",
+  "agents/openai.yaml",
   "prompts/01-onboarding.prompt.md",
   "prompts/02-research-plan.prompt.md",
   "prompts/03-source-audit.prompt.md",
   "prompts/04-scenario-cards.prompt.md",
   "prompts/05-lesson-turn.prompt.md",
   "prompts/07-debrief.prompt.md",
+  "prompts/08-canon-repair.prompt.md",
   "references/grade-bands.md",
   "references/evidence-policy.md",
   "references/domain-policies.md",
   "references/source-quality.md",
   "references/safety-policy.md",
   "references/research-workflow.md",
+  "references/canon-integrity-v2.md",
+  "references/canon-repair.md",
+  "references/lesson-quality-balance.md",
+  "references/pdf-reference-policy.md",
+  "references/dialogue-state-contract.md",
+  "references/learner-profile-policy.md",
   "schemas/source-record.schema.json",
   "schemas/evidence.schema.json",
   "schemas/research-plan.schema.json",
@@ -105,6 +113,7 @@ test("학생 Skill runtime은 allowlist의 공개 안전 파일만 패키징한�
   assert(Buffer.isBuffer(archive));
   assert(archive.length > 0);
   assert(names.includes("SKILL.md"));
+  assert(names.includes("agents/openai.yaml"));
   assert(names.includes("schemas/student-lesson-turn.schema.json"));
   assert(!names.some((name) => /examples|teacher-mode|session\.schema|memory-delta|(?<!student-)lesson-turn\.schema|scripts/u.test(name)));
 });
@@ -126,11 +135,21 @@ test("학생 Skill runtime의 어느 바이트에도 교사용·기억 변경 �
 test("full fixture와 교사용 경로는 학생 Skill manifest에서 이유와 함께 제외된다", () => {
   const excluded = new Map(excludedStudentRuntimeSources.map((entry) => [entry.source, entry.reason]));
   for (const path of [
+    "skills/teach-grounded-scenarios/SKILL.md",
+    "skills/teach-grounded-scenarios/instructions/system.md",
+    "skills/teach-grounded-scenarios/prompts/06-memory-compaction.prompt.md",
+    "skills/teach-grounded-scenarios/assets/session.template.json",
     "skills/teach-grounded-scenarios/schemas/lesson-turn.schema.json",
     "skills/teach-grounded-scenarios/schemas/session.schema.json",
     "skills/teach-grounded-scenarios/schemas/memory-delta.schema.json",
+    "skills/teach-grounded-scenarios/schemas/scenario-example.schema.json",
+    "skills/teach-grounded-scenarios/references/memory-policy.md",
+    "skills/teach-grounded-scenarios/references/runtime-profiles.md",
     "skills/teach-grounded-scenarios/references/teacher-mode.md",
     "skills/teach-grounded-scenarios/examples",
+    "skills/teach-grounded-scenarios/fixtures",
+    "skills/teach-grounded-scenarios/scripts",
+    "skills/teach-grounded-scenarios/tests",
     "skills/teacher-grounded-testbed"
   ]) {
     assert(excluded.get(path), `${path}의 제외 이유가 필요하다`);
@@ -144,9 +163,11 @@ test("학생 Skill runtime의 Markdown은 UTF-8-SIG, JSON은 UTF-8 무BOM이다"
     const hasBom = [...entry.data.subarray(0, 3)].join(",") === "239,187,191";
     if (entry.name.endsWith(".md")) {
       assert.equal(hasBom, true, `${entry.name}은 UTF-8-SIG여야 한다`);
-    } else if (entry.name.endsWith(".json")) {
+    } else if (entry.name.endsWith(".json") || entry.name.endsWith(".yaml")) {
       assert.equal(hasBom, false, `${entry.name}은 UTF-8 무BOM이어야 한다`);
-      assert.doesNotThrow(() => JSON.parse(entry.data.toString("utf8")));
+      if (entry.name.endsWith(".json")) {
+        assert.doesNotThrow(() => JSON.parse(entry.data.toString("utf8")));
+      }
     }
   }
 
@@ -165,7 +186,7 @@ test("학생 Skill runtime의 지원 파일 참조는 ZIP 안에서 닫혀 있�
   const names = new Set(entries.map((entry) => entry.name));
   for (const entry of entries.filter(({ name }) => name.endsWith(".md"))) {
     const text = entry.data.toString("utf8");
-    for (const match of text.matchAll(/`([^`]+\.(?:md|json))`/gu)) {
+    for (const match of text.matchAll(/`([^`]+\.(?:md|json|yaml))`/gu)) {
       const reference = match[1];
       const direct = posix.normalize(reference);
       const relative = posix.normalize(posix.join(posix.dirname(entry.name), reference));

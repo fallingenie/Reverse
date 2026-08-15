@@ -1,6 +1,5 @@
-import {ReverseWorkspace} from '@/components/reverse-workspace';
+import {CopilotExperience} from '@/components/copilot-experience';
 
 export default function HomePage() {
-  return <ReverseWorkspace />;
+  return <CopilotExperience />;
 }
-

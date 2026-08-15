@@ -12,19 +12,19 @@
     "RUNTIME_PROFILE.json": "13065e25876046eaeb6cbf0df2b646735dd271a50d37cac43e429f8b98f2e982",
     "START-HERE.md": "da6b85721edeaa5313fdd7ab4c8e4761f44c06f7dd3c00b016f8487de9a6c508",
     "TEACHER-QUICK-START.md": "1a317f1333db957d483e19e108a52a4f9b1a1858e058b7b7a75ebc3632a75c94",
-    "custom-gpt/BUILDER_CONFIG.md": "6c4267756c3d37056ba10f7e562092eec70a1eaa8eb3923376e30ce96259e492",
-    "custom-gpt/DEPLOYMENT_EXPECTED.json": "4237fe8887525c9d643cfe419e3a40477de44157b7d1853ad17c8c02c7efe7a2",
+    "custom-gpt/BUILDER_CONFIG.md": "ca1c77c19a110c4ce36589c448e1a9f3828cad7dac7fd7c365d3c888385b392d",
+    "custom-gpt/DEPLOYMENT_EXPECTED.json": "549eed673c473a300856b48f609d034cda0416fdfc58e4f3ca09cb6bb9aca9c6",
     "custom-gpt/EXTERNAL_PDF_KNOWLEDGE.json": "317f3e045689b1a95f89ed6679aa47f9b2583a9aab94f5f2cd6cc132a294799a",
-    "custom-gpt/INSTRUCTIONS.md": "e00ab13aa4683426699a4325022b81cda2d7601d9b102ef869d20e7e05a81f01",
+    "custom-gpt/INSTRUCTIONS.md": "559b545c9ea39eb0d3da8c622fe463d2fcdde1a3b23a616cb6c9edb1633b7996",
     "custom-gpt/KNOWLEDGE_REFERENCE.md": "e03803093d92f95b3fc1a4922fad3211bf98503df6e8f01117838a63d121bb39",
-    "custom-gpt/knowledge/KNOWLEDGE_MANIFEST.json": "33b143a118703d0138efa59b8bb499ae4f4e438c99dd9dbd681782fdb8eb40ee",
+    "custom-gpt/knowledge/KNOWLEDGE_MANIFEST.json": "23ee5c81e49f2805e227066e34931126c9229e84e84a4da36fb640b7c108e3c1",
     "custom-gpt/knowledge/PUBLIC_LESSON_PRINCIPLES.md": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6",
-    "custom-gpt/knowledge/cross-domain-catalog.json": "9632e680a341daa5298d4dee5427aa4892a477ab35419ccc808a8f46ef840d54",
-    "custom-gpt/knowledge/evidence.schema.json": "be88be97082aab9602d0a39704db943f053d0bf8cc74beea9f2febfe47dad3bc",
+    "custom-gpt/knowledge/cross-domain-catalog.json": "b9e76f6dc017efab89569e9c0b00bc712ee1facf9fa3e8fc8df009a4f1c13dba",
+    "custom-gpt/knowledge/evidence.schema.json": "4bf7dfd613d7f8427e65bdc449b4761c29ef35c3e84520df55c1ce25c3f97780",
     "custom-gpt/knowledge/research-plan.schema.json": "4bad591227747c23c12bc5edd8f63c98f25a2441c6e50b1ae7a201b741fd2f79",
     "custom-gpt/knowledge/source-record.schema.json": "2caef797fba8d2a80ffc7f3e78cdbd87eed87e869b16e1c69795ef87f4a73b68",
     "custom-gpt/knowledge/student-lesson-turn.schema.json": "d7256bbf9a0fe86cd36a26c0c87d8cfe51b1a991129552a6495cccc91458d005",
     "custom-gpt/public-knowledge/PUBLIC_LESSON_PRINCIPLES.md": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6"
   },
-  "seal_sha256": "336bb81c04512ba391131ba3bc8fbda16f91a299f6acc0a1413dce3d04268474"
+  "seal_sha256": "a8d778500bb318c52a107acd59c35a25dcf771120d10a38dcfe164de90e4edab"
 }

@@ -7,9 +7,17 @@ const basePath = isGitHubPages ? `/${repositoryName}` : '';
 const nextConfig: NextConfig = {
   agentRules: false,
   env: {
+    NEXT_PUBLIC_BASE_PATH: basePath,
     NEXT_PUBLIC_STATIC_EXPORT: isGitHubPages ? 'true' : 'false',
   },
-  ...(isGitHubPages ? {basePath, output: 'export', trailingSlash: true} : {}),
+  ...(isGitHubPages
+    ? {
+        assetPrefix: basePath,
+        basePath,
+        output: 'export',
+        trailingSlash: true,
+      }
+    : {}),
   poweredByHeader: false,
   reactStrictMode: true,
 };

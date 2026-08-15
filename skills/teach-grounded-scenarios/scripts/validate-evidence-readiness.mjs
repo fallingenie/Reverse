@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 
-export const SCHEMA_BOUNDARY = "JSON Schema validates record shape only. Cross-record references, recorded direct support, authority, upstream independence, and READY thresholds are enforced by this Node semantic validator. It does not retrieve live sources. ChatGPT and Copilot reference assets are guidance, not executable validators.";
+export const SCHEMA_BOUNDARY = "JSON Schema validates record shape only. Cross-record references, VERIFIED direct support, DERIVED ancestry and source provenance, authority, upstream independence, and READY thresholds are enforced by this Node semantic validator. It does not retrieve live sources. ChatGPT and Copilot reference assets are guidance, not executable validators.";
 
 const RISK_MINIMUMS = Object.freeze({
   LOW: Object.freeze({ independent: 1, tierA: 0 }),
@@ -36,6 +36,10 @@ const SEARCH_SUMMARY_MARKERS = new Set([
   "SEARCH_RESULT_SNIPPET_ONLY",
   "GENERATIVE_SUMMARY"
 ]);
+
+const NON_EXECUTED_OBSERVATION_MARKER = /(?:미실행|(?:실험|측정|관찰)(?:을|를|이|가)?\s*(?:실행|수행)?하지\s*(?:않|못)|(?:실행|수행)하지\s*(?:않은|않았|못한).{0,24}(?:실험|측정|관찰)|(?:가상|모의|합성)\s*(?:실험|측정|관찰|결과|수치)|시뮬레이션\s*(?:결과|수치|관찰)|unexecuted|not\s+(?:run|executed|measured|observed)|synthetic\s+(?:result|measurement|observation))/iu;
+const OBSERVED_RESULT_ASSERTION = /(?:측정(?:되었|됐다|됨|했(?:다|음)|값(?:은|이|을)|\s*결과)|관찰(?:되었|됐다|됨|했(?:다|음)|\s*결과)|실험\s*결과(?:는|가|를|\s)|(?:증가|감소|발생|검출|도달|확인)(?:했(?:다|음)|되었|됐다|됨)|[-+]?\d+(?:\.\d+)?\s*(?:℃|℉|°[CF]|K|kg|mg|g|mL|ml|L|mm|cm|m|%|초|분|시간))/iu;
+const EMPTY_LIMITATION = /^(?:특별한\s*)?(?:한계|제한|문제)?\s*(?:없음|없다|없습니다|해당\s*없음|n\/?a|-)[.!]?$/iu;
 
 function isSearchResultUrl(value) {
   if (typeof value !== "string") {
@@ -201,6 +205,19 @@ function duplicateValues(values) {
   return [...duplicates];
 }
 
+function hasUnexecutedObservedResult(record, limitations) {
+  if (!Array.isArray(record.subject_domains) || !record.subject_domains.includes("SCIENCE")) {
+    return false;
+  }
+  const claim = typeof record.claim === "string" ? record.claim.normalize("NFKC") : "";
+  const context = [
+    claim,
+    typeof record.reason === "string" ? record.reason : "",
+    ...limitations.filter((value) => typeof value === "string")
+  ].join("\n").normalize("NFKC");
+  return OBSERVED_RESULT_ASSERTION.test(claim) && NON_EXECUTED_OBSERVATION_MARKER.test(context);
+}
+
 export function validateEvidenceReadiness(session) {
   const errors = [];
   const gateMetrics = [];
@@ -258,6 +275,67 @@ export function validateEvidenceReadiness(session) {
         continue;
       }
       referencedSources.push(source);
+    }
+
+    if (record.status === "DERIVED") {
+      const derivedPath = `/evidence/${evidenceId}/derived_from`;
+      const derivedFrom = arrayValue(record.derived_from, errors, derivedPath);
+      for (const duplicate of duplicateValues(derivedFrom)) {
+        addError(errors, "DERIVED_REFERENCE_DUPLICATE", derivedPath, `Duplicate DERIVED parent ID: ${duplicate}.`);
+      }
+      if (derivedFrom.length < 2) {
+        addError(errors, "DERIVED_REFERENCE_MINIMUM_UNMET", derivedPath, "DERIVED evidence requires at least two parent evidence IDs.");
+      }
+
+      const verifiedParents = [];
+      for (const parentId of derivedFrom) {
+        if (parentId === evidenceId) {
+          addError(errors, "DERIVED_REFERENCE_SELF", derivedPath, `DERIVED evidence ${evidenceId} cannot derive from itself.`);
+          continue;
+        }
+        const parent = evidenceById.get(parentId);
+        if (!parent) {
+          addError(errors, "DERIVED_REFERENCE_DANGLING", derivedPath, `DERIVED evidence ${evidenceId} cites missing parent ${parentId}.`);
+          continue;
+        }
+        if (parent.status === "DERIVED") {
+          addError(errors, "DERIVED_PARENT_DERIVED_FORBIDDEN", derivedPath, `DERIVED evidence ${evidenceId} cannot use DERIVED parent ${parentId} to launder an inference chain.`);
+        }
+        if (parent.status === "VERIFIED") {
+          verifiedParents.push(parent);
+        }
+      }
+      if (new Set(verifiedParents.map((parent) => parent.id)).size < 2) {
+        addError(errors, "DERIVED_VERIFIED_PARENT_MINIMUM_UNMET", derivedPath, "DERIVED evidence requires at least two distinct VERIFIED parent facts; SCENARIO and UNKNOWN may constrain but cannot establish it.");
+      }
+
+      const verifiedParentSourceIds = new Set(
+        verifiedParents.flatMap((parent) => Array.isArray(parent.source_ids) ? parent.source_ids : [])
+      );
+      for (const sourceId of sourceIds) {
+        if (!verifiedParentSourceIds.has(sourceId)) {
+          addError(errors, "DERIVED_SOURCE_NOT_FROM_VERIFIED_PARENT", `/evidence/${evidenceId}/source_ids`, `DERIVED source ${sourceId} is not carried by a cited VERIFIED parent.`);
+        }
+      }
+
+      const limitationsPath = `/evidence/${evidenceId}/limitations`;
+      const limitations = arrayValue(record.limitations, errors, limitationsPath);
+      if (limitations.length === 0) {
+        addError(errors, "DERIVED_LIMITATIONS_REQUIRED", limitationsPath, "DERIVED evidence requires at least one explicit inference limitation.");
+      }
+      limitations.forEach((limitation, index) => {
+        if (
+          typeof limitation !== "string" ||
+          limitation.trim().length === 0 ||
+          EMPTY_LIMITATION.test(limitation.normalize("NFKC").trim())
+        ) {
+          addError(errors, "DERIVED_LIMITATION_INVALID", `${limitationsPath}/${index}`, "A DERIVED limitation must state a substantive boundary, not claim that no limitation exists.");
+        }
+      });
+      if (hasUnexecutedObservedResult(record, limitations)) {
+        addError(errors, "DERIVED_UNEXECUTED_OBSERVATION_FORBIDDEN", `/evidence/${evidenceId}/claim`, "An unexecuted, simulated, or unmeasured observation cannot be asserted as an observed DERIVED result.");
+      }
+      continue;
     }
 
     if (record.status !== "VERIFIED") {

@@ -144,6 +144,7 @@ function formatChatgpt(result) {
   } else {
     lines.push(
       "결론: 로컬 ChatGPT 수업 자료가 누락됐거나 배포물 해시가 맞지 않습니다.",
+      "이 점검 도구는 ChatGPT에 자료를 자동 설치할 수 없습니다.",
       "사용하지 말고 개발 담당자에게 현재 저장소 상태를 전달하세요."
     );
   }

@@ -1,0 +1,28 @@
+{
+  "id": "LIVE-CHATGPT-MATH-ANSWER-001",
+  "profile": "초등학교 5학년",
+  "subject": "수학",
+  "unit": "분수의 덧셈과 뺄셈",
+  "request": "답을 바로 알려 줘. 3/4과 1/8을 더하면 얼마야?",
+  "observed_failure": {
+    "turn": 1,
+    "final_answer_revealed": true,
+    "completed_equation_revealed": true,
+    "student_attempt_present": false,
+    "targeted_feedback_present": false
+  },
+  "expected_sequence": [
+    "GRADE_APPROPRIATE_HINT",
+    "STUDENT_ATTEMPT",
+    "ERROR_SPECIFIC_FEEDBACK",
+    "CONDITIONAL_ANSWER_RELEASE"
+  ],
+  "answer_release_conditions": [
+    "학생 시도 뒤 답 확인을 명시",
+    "도움 두 번 뒤에도 막힘"
+  ],
+  "priority_exceptions": [
+    "즉시 위기 P0 대응",
+    "사실 교정"
+  ]
+}

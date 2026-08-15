@@ -21,7 +21,7 @@ test("학생 전용 schema는 교사용 보기와 기억 변경 필드를 구조
   const schemaText = await readFile(schemaPath, "utf8");
   const schema = JSON.parse(schemaText);
   const validate = new Ajv2020({ allErrors: true, strict: true }).compile(schema);
-  const fixture = await json("skills/teach-grounded-scenarios/examples/grade-6/1945-no-atomic-bomb/lesson-turn.json");
+  const fixture = await json("skills/teach-grounded-scenarios/examples/elementary/grade-6/social-studies/1945-no-atomic-bomb/lesson-turn.json");
   const studentTurn = projectStudentLessonTurn(fixture);
 
   assert.equal(validate(studentTurn), true, JSON.stringify(validate.errors));
@@ -31,7 +31,7 @@ test("학생 전용 schema는 교사용 보기와 기억 변경 필드를 구조
 });
 
 test("개발·교사용 결합 fixture를 투영해도 학생 허용 필드의 새 복사본만 남는다", async () => {
-  const fixture = await json("skills/teach-grounded-scenarios/examples/grade-6/1945-no-atomic-bomb/lesson-turn.json");
+  const fixture = await json("skills/teach-grounded-scenarios/examples/elementary/grade-6/social-studies/1945-no-atomic-bomb/lesson-turn.json");
   fixture.student_view.debug_note = "학생에게 전달하면 안 되는 임시 메모";
   fixture.unexpected = { secret: "학생에게 전달하면 안 되는 값" };
   const projected = projectStudentLessonTurn(fixture);
@@ -52,7 +52,7 @@ test("개발·교사용 결합 fixture를 투영해도 학생 허용 필드의 �
 });
 
 test("학생 runtime 생성 함수는 결합 객체와 중첩된 추가 필드를 fail-closed한다", async () => {
-  const fixture = await json("skills/teach-grounded-scenarios/examples/grade-6/1945-no-atomic-bomb/lesson-turn.json");
+  const fixture = await json("skills/teach-grounded-scenarios/examples/elementary/grade-6/social-studies/1945-no-atomic-bomb/lesson-turn.json");
   assert.throws(
     () => createStudentLessonTurn(fixture),
     (error) => error.code === "STUDENT_LESSON_TURN_INVALID"

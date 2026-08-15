@@ -3,7 +3,7 @@ name: GitHub Pages
 on:
   workflow_dispatch:
   push:
-    branches: [main, agent/runtime-profiles]
+    branches: [main]
     paths:
       - apps/web/**
       - .github/workflows/pages.yml
@@ -40,7 +40,6 @@ jobs:
         working-directory: apps/web
         env:
           GITHUB_PAGES: 'true'
-          NEXT_PUBLIC_BASE_PATH: /Reverse
         run: pnpm run check
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:

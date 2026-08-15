@@ -39,17 +39,18 @@ test("full worked example은 재귀 발견되고 카탈로그와 양방향으로
 test("재귀 발견기는 session과 lesson-turn 중 한쪽만 추가된 예시를 P0로 거부한다", async () => {
   const temporary = await mkdtemp(join(tmpdir(), "reverse-worked-example-"));
   try {
-    const nested = join(temporary, "grade-5", "new-example");
+    const nested = join(temporary, "elementary", "grade-5", "science", "new-example");
     await mkdir(nested, { recursive: true });
     await writeFile(join(nested, "session.json"), "{}\n", "utf8");
 
     const incomplete = await discoverExampleFixtures(temporary);
-    assert.ok(incomplete.errors.some((error) => error.includes("full example JSON 쌍 누락")));
+    assert.ok(incomplete.errors.some((error) => error.includes("full example 필수 JSON 누락")));
 
     await writeFile(join(nested, "lesson-turn.json"), "{}\n", "utf8");
+    await writeFile(join(nested, "scenario.meta.json"), "{}\n", "utf8");
     const paired = await discoverExampleFixtures(temporary);
     assert.deepEqual(paired.errors, []);
-    assert.equal(paired.lessons[0].path, "grade-5/new-example");
+    assert.equal(paired.lessons[0].path, "elementary/grade-5/science/new-example");
   } finally {
     await rm(temporary, { recursive: true, force: true });
   }
@@ -98,7 +99,7 @@ test("full example 안전 감사는 실행 가능한 위해 수치와 절차 순
 });
 
 test("원문을 열지 못한 출처는 열린 공식 페이지와 접근 한계를 분리하고 모순을 거부한다", async () => {
-  const path = join(examplesDirectory, "grade-9", "korean-war-source-comparison", "session.json");
+  const path = join(examplesDirectory, "middle", "grade-9", "history", "korean-war-source-comparison", "session.json");
   const fixture = await json(path);
   const limitedSources = fixture.sources.filter((source) => ["SRC-01", "SRC-05", "SRC-06"].includes(source.id));
 
@@ -116,7 +117,7 @@ test("원문을 열지 못한 출처는 열린 공식 페이지와 접근 한계
 });
 
 test("claim quality gate는 DERIVED와 UNKNOWN을 포함한 VERIFIED 외 근거를 모두 거부한다", async () => {
-  const path = join(examplesDirectory, "grade-9", "korean-war-source-comparison", "session.json");
+  const path = join(examplesDirectory, "middle", "grade-9", "history", "korean-war-source-comparison", "session.json");
   const fixture = await json(path);
   const mutated = structuredClone(fixture);
   mutated.research.plan.claim_quality_gates[0].evidence_ids.push("DER-001", "DER-002", "UNK-001");
@@ -128,7 +129,7 @@ test("claim quality gate는 DERIVED와 UNKNOWN을 포함한 VERIFIED 외 근거�
 });
 
 test("grade-9 시작 화면은 후속 확인용 공식 원문 링크를 보존한다", async () => {
-  const path = join(examplesDirectory, "grade-9", "korean-war-source-comparison", "opening-turn.md");
+  const path = join(examplesDirectory, "middle", "grade-9", "history", "korean-war-source-comparison", "opening-turn.md");
   const opening = await readFile(path, "utf8");
 
   assert.match(opening, /원문:/u);
