@@ -18,6 +18,8 @@ import {buildDemoScenarios, profileLabel} from '@/lib/scenarios';
 import {
   GRADE_OPTIONS,
   INITIAL_SESSION,
+  SCHOOL_LABELS,
+  appendTranscript,
   getLessonPhase,
   interpretStartIntent,
   isProfileComplete,
@@ -70,9 +72,18 @@ export function StudentOnboarding({
     : null;
 
   function selectSchool(value: string) {
+    const schoolLevel = value as SchoolLevel;
     onChange({
       ...INITIAL_SESSION,
-      schoolLevel: value as SchoolLevel,
+      schoolLevel,
+      transcript: [
+        {actor: 'student', text: SCHOOL_LABELS[schoolLevel]},
+        {
+          actor: 'simulator',
+          text: '학교급을 확인했습니다. 학년을 선택해 주세요.',
+          epistemicStatus: 'FACT',
+        },
+      ],
     });
   }
 
@@ -87,6 +98,15 @@ export function StudentOnboarding({
       selectedScenarioId: '',
       selectedActionId: '',
       started: false,
+      transcript: appendTranscript(
+        current,
+        {actor: 'student', text: `${value}학년`},
+        {
+          actor: 'simulator',
+          text: '학년을 확인했습니다. 현재 공부 중인 과목을 선택해 주세요.',
+          epistemicStatus: 'FACT',
+        },
+      ),
     }));
   }
 
@@ -101,6 +121,15 @@ export function StudentOnboarding({
       selectedActionId: '',
       startIntentText: '',
       started: false,
+      transcript: appendTranscript(
+        current,
+        {actor: 'student', text: value},
+        {
+          actor: 'simulator',
+          text: '과목을 확인했습니다. 현재 공부 중인 단원을 입력해 주세요.',
+          epistemicStatus: 'FACT',
+        },
+      ),
     }));
   }
 
@@ -120,7 +149,19 @@ export function StudentOnboarding({
   function prepareScenarios(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!isProfileComplete(session)) return;
-    onChange(current => ({...current, scenariosReady: true}));
+    onChange(current => ({
+      ...current,
+      scenariosReady: true,
+      transcript: appendTranscript(
+        current,
+        {actor: 'student', text: `${current.subject} · ${current.unit.trim()}`},
+        {
+          actor: 'simulator',
+          text: '입력한 단원을 중심으로 수업 가정 시나리오 다섯 개를 제시했습니다.',
+          epistemicStatus: 'ASSUMPTION',
+        },
+      ),
+    }));
   }
 
   function selectScenario(id: string, isSelected: boolean) {
@@ -130,6 +171,20 @@ export function StudentOnboarding({
       selectedActionId: '',
       startIntentText: '',
       started: false,
+      transcript: isSelected
+        ? appendTranscript(
+            current,
+            {
+              actor: 'student',
+              text: scenarios.find(scenario => scenario.id === id)?.title ?? id,
+            },
+            {
+              actor: 'simulator',
+              text: '시나리오를 선택했습니다. 준비되면 시작 의사를 말해 주세요.',
+              epistemicStatus: 'ASSUMPTION',
+            },
+          )
+        : current.transcript,
     }));
   }
 
@@ -137,6 +192,21 @@ export function StudentOnboarding({
     onChange(current => ({
       ...current,
       selectedActionId: isSelected ? id : '',
+      transcript: isSelected
+        ? appendTranscript(
+            current,
+            {
+              actor: 'student',
+              text:
+                selectedScenario?.actions.find(action => action.id === id)?.label ?? id,
+            },
+            {
+              actor: 'simulator',
+              text: '행동 경로를 선택했습니다. 이 데모에서는 정답 판정을 하지 않습니다.',
+              epistemicStatus: 'ASSUMPTION',
+            },
+          )
+        : current.transcript,
     }));
   }
 
@@ -145,7 +215,19 @@ export function StudentOnboarding({
     if (!session.selectedScenarioId) return;
     const result = interpretStartIntent(session.startIntentText);
     if (!result.accepted) return;
-    onChange(current => ({...current, started: true}));
+    onChange(current => ({
+      ...current,
+      started: true,
+      transcript: appendTranscript(
+        current,
+        {actor: 'student', text: current.startIntentText},
+        {
+          actor: 'simulator',
+          text: `수업을 시작했습니다. ${selectedScenario?.opening.observation ?? ''} ${selectedScenario?.opening.change ?? ''}`.trim(),
+          epistemicStatus: 'ASSUMPTION',
+        },
+      ),
+    }));
   }
 
   return (

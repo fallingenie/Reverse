@@ -33,6 +33,20 @@ describe('학생 온보딩 상태', () => {
     expect(session.interestSource).toBe('UNIT_INFERRED');
     expect(getLessonPhase(session)).toBe('START_INTENT');
   });
+
+  it('학생에게 보이는 대화만 세션 기록으로 보존한다', () => {
+    const session: LessonSession = {
+      ...INITIAL_SESSION,
+      transcript: [
+        {actor: 'student', text: '초등학교'},
+        {actor: 'simulator', text: '학년을 선택해 주세요.', epistemicStatus: 'FACT'},
+      ],
+    };
+    expect(session.transcript).toEqual([
+      {actor: 'student', text: '초등학교'},
+      {actor: 'simulator', text: '학년을 선택해 주세요.', epistemicStatus: 'FACT'},
+    ]);
+  });
 });
 
 describe('시나리오 생성', () => {

@@ -1,6 +1,6 @@
 'use client';
 
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {AppShell} from '@astryxdesign/core/AppShell';
 import {Banner} from '@astryxdesign/core/Banner';
 import {Card} from '@astryxdesign/core/Card';
@@ -18,7 +18,11 @@ import {TopNav, TopNavHeading} from '@astryxdesign/core/TopNav';
 import {VStack} from '@astryxdesign/core/VStack';
 import {StudentOnboarding} from '@/components/student-onboarding';
 import {TeacherReview} from '@/components/teacher-review';
-import {INITIAL_SESSION, type LessonSession} from '@/lib/session';
+import {INITIAL_SESSION, SCHOOL_LABELS, type LessonSession} from '@/lib/session';
+import {
+  createInitialTeacherProfile,
+  type TeacherStudentProfile,
+} from '@/lib/teacher-records';
 
 type WorkspaceTab = 'student' | 'teacher';
 
@@ -103,7 +107,7 @@ function QuickStart() {
   );
 }
 
-function LicenseNotice() {
+export function LicenseNotice() {
   return (
     <Card variant="muted" padding={5}>
       <VStack gap={2}>
@@ -152,6 +156,34 @@ function LicenseNotice() {
 export function ReverseWorkspace() {
   const [activeTab, setActiveTab] = useState<WorkspaceTab>('student');
   const [session, setSession] = useState<LessonSession>(INITIAL_SESSION);
+  const [teacherProfile, setTeacherProfile] = useState<TeacherStudentProfile>(
+    () => createInitialTeacherProfile(INITIAL_SESSION),
+  );
+
+  useEffect(() => {
+    const schoolAndGrade = session.schoolLevel && session.grade
+      ? `${SCHOOL_LABELS[session.schoolLevel]} ${session.grade}학년`
+      : '';
+    const gradeAndUnit = [schoolAndGrade, session.unit.trim()]
+      .filter(Boolean)
+      .join(' · ');
+    setTeacherProfile(current => ({
+      ...current,
+      gradeAndUnit: {
+        value: gradeAndUnit,
+        provenance: gradeAndUnit ? 'STUDENT_STATED' : 'NEEDS_CONFIRMATION',
+      },
+      explicitInterest: current.explicitInterest.value
+        ? current.explicitInterest
+        : {
+            value: session.unit.trim(),
+            provenance: session.unit.trim()
+              ? 'STUDENT_STATED'
+              : 'NEEDS_CONFIRMATION',
+          },
+      updatedAt: new Date().toISOString(),
+    }));
+  }, [session.schoolLevel, session.grade, session.unit]);
 
   const topNav = (
     <TopNav
@@ -163,15 +195,24 @@ export function ReverseWorkspace() {
         />
       }
       endContent={
-        <Link
-          href="https://github.com/fallingenie/Reverse"
-          hasUnderline
-          isExternalLink
-          isStandalone
-          newTabLabel="새 탭에서 열림"
-        >
-          GitHub
-        </Link>
+        <HStack gap={4} wrap="wrap">
+          <Link
+            href={`${publicBasePath}/copilot`}
+            hasUnderline
+            isStandalone
+          >
+            Copilot 체험
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse"
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            GitHub
+          </Link>
+        </HStack>
       }
     />
   );
@@ -245,7 +286,11 @@ export function ReverseWorkspace() {
               {activeTab === 'student' ? (
                 <StudentOnboarding session={session} onChange={setSession} />
               ) : (
-                <TeacherReview session={session} />
+                <TeacherReview
+                  session={session}
+                  profile={teacherProfile}
+                  onProfileChange={setTeacherProfile}
+                />
               )}
 
               <LicenseNotice />
