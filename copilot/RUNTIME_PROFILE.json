@@ -1,0 +1,56 @@
+{
+  "schema_version": "2.0.0",
+  "id": "COPILOT_M365",
+  "platform": "Microsoft 365 Copilot Chat declarative agent",
+  "assurance": "PLATFORM_CONFIGURED",
+  "model": {
+    "preferred_response_mode": "Think deeper",
+    "fallback_response_mode": "Auto",
+    "identity_attested": false,
+    "observed_label_trusted": false
+  },
+  "permissions": {
+    "read_canon": true,
+    "propose_t0_t1": true,
+    "commit_t0_t1": false,
+    "write_t2_t3": true,
+    "persist_local_state": false,
+    "execute_validators": false
+  },
+  "pdf": {
+    "accepted_input": "TEXT_BASED_PDF_ONLY",
+    "ocr": "NOT_SUPPORTED",
+    "local_preprocessing": false,
+    "remote_upload_required": true
+  },
+  "deployment": {
+    "kind": "DECLARATIVE_AGENT",
+    "limitations": [
+      "Think deeper는 기본 요청이며 사용자가 모델 선택기에서 바꿀 수 있다.",
+      "메인 Copilot의 @mention 호출에는 기본 응답 모드가 적용되지 않을 수 있다.",
+      "선택된 내부 모델 버전과 fallback 발생을 이 패키지가 증명할 수 없다.",
+      "T0/T1 변경은 후보로만 출력하고 외부 호스트의 승인을 기다려야 한다."
+    ]
+  },
+  "capability_documentation_status": "PUBLIC_CONFIGURATION_DOCUMENTED",
+  "public_sources": [
+    {
+      "title": "Overview of Microsoft 365 Copilot Chat",
+      "url": "https://learn.microsoft.com/en-us/copilot/overview",
+      "checked_at": "2026-08-13",
+      "supports": "Auto, Quick response, Think deeper 선택과 동적 라우팅을 설명한다."
+    },
+    {
+      "title": "Declarative agent schema 1.8 for Microsoft 365 Copilot",
+      "url": "https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/declarative-agent-manifest-1.8",
+      "checked_at": "2026-08-13",
+      "supports": "default_response_mode=Think deeper와 사용자 override, @mention 예외를 설명한다."
+    },
+    {
+      "title": "Select a primary AI model for your agent",
+      "url": "https://learn.microsoft.com/en-us/microsoft-copilot-studio/authoring-select-agent-model",
+      "checked_at": "2026-08-13",
+      "supports": "선택 모델이 꺼지거나 사용할 수 없을 때 기본 모델 fallback이 가능함을 설명한다."
+    }
+  ]
+}

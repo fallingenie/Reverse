@@ -1,23 +1,46 @@
 {
   "name": "reverse-grounded-learning-prototype",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "초3~고2 근거 기반 시나리오 수업 Skill 프로토타입",
   "type": "module",
+  "packageManager": "pnpm@11.19.0",
   "scripts": {
+    "start": "node scripts/get-started.mjs",
     "format": "node scripts/format.mjs",
+    "export": "node scripts/export-platforms.mjs",
+    "export:active": "node scripts/export-platforms.mjs --platforms=chatgpt,copilot",
+    "verify:exports": "node scripts/export-platforms.mjs --verify",
+    "verify:exports:active": "node scripts/export-platforms.mjs --verify --platforms=chatgpt,copilot",
+    "verify:copilot": "node scripts/verify-copilot-schema.mjs",
+    "chatgpt:knowledge": "node scripts/build-chatgpt-knowledge.mjs",
+    "chatgpt:knowledge:verify": "node scripts/build-chatgpt-knowledge.mjs --verify",
+    "student:skill": "node scripts/build-student-skill-runtime.mjs",
+    "encoding:check:active": "node scripts/check-text-integrity.mjs --active",
+    "copilot:doctor": "node scripts/copilot-doctor.mjs",
+    "copilot:tenant-doctor": "node scripts/copilot-tenant-doctor.mjs",
+    "copilot:package": "node scripts/build-copilot-package.mjs",
+    "copilot:validate-package": "atk validate --package-file copilot/appPackage/build/reverse-m365-copilot.zip",
+    "redteam:plan": "node scripts/red-team-plan.mjs",
+    "redteam:evaluate": "node scripts/evaluate-red-team-runtime.mjs",
+    "deployment:manifest": "node scripts/build-deployment-expectations.mjs --copilot-skill-zip=.reverse-local/copilot-skill/teach-grounded-scenarios-student.zip",
+    "deployment:receipt:init": "node scripts/verify-live-deployment.mjs --init-not-run",
+    "deployment:verify-live": "node scripts/verify-live-deployment.mjs",
     "teacher": "node skills/teacher-grounded-testbed/scripts/teacher-store.mjs",
     "fork:verify": "node skills/teacher-grounded-testbed/scripts/verify-class-fork.mjs",
     "test:e2e": "node scripts/e2e-class-fork.mjs",
+    "test:python": "node scripts/run-python-tests.mjs",
     "validate": "node scripts/validate.mjs",
     "test": "node --test",
-    "check": "pnpm run validate && pnpm test"
+    "check:active": "pnpm run encoding:check:active && pnpm run chatgpt:knowledge:verify && pnpm run student:skill && pnpm run validate && pnpm test && pnpm run verify:exports:active && pnpm run verify:copilot && pnpm run copilot:package && pnpm run copilot:validate-package",
+    "check": "pnpm run validate && pnpm test && pnpm run test:python && pnpm run verify:exports"
   },
   "engines": {
     "node": ">=20"
   },
   "devDependencies": {
-    "ajv": "8.17.1",
+    "@microsoft/m365agentstoolkit-cli": "1.1.15",
+    "ajv": "8.18.0",
     "ajv-formats": "3.0.1"
   },
   "license": "Apache-2.0"

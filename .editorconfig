@@ -1,0 +1,22 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8-bom
+
+[*.{json,jsonl,ndjson,yaml,yml,mjs,js,cjs,jsx,ts,tsx,css,html,svg,py,toml,lock,spec}]
+charset = utf-8
+
+[*.ps1]
+end_of_line = lf
+charset = utf-8-bom
+
+[pnpm-lock.yaml]
+charset = utf-8
+
+[.gitattributes]
+charset = utf-8
+
+[.gitignore]
+charset = utf-8

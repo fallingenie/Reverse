@@ -1,7 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.org/reverse/lesson-turn.schema.json",
-  "title": "수업 턴 출력",
+  "title": "개발·교사용 결합 수업 턴 fixture",
+  "description": "개발 회귀검사와 접근이 분리된 교사용 흐름에서만 쓰는 결합 fixture다. 학생 런타임, 학생용 Skill 배포물, 학생용 Knowledge 또는 학생 응답에는 사용하지 않는다. 학생 경로는 student-lesson-turn.schema.json을 사용한다.",
   "type": "object",
   "additionalProperties": false,
   "required": ["turn", "student_view", "evidence_ids", "memory_delta"],
@@ -39,7 +40,7 @@
     },
     "evidence_ids": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": { "type": "string", "minLength": 1 },
       "uniqueItems": true
     },
     "memory_delta": {

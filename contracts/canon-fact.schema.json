@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/canon-fact.schema.json",
+  "title": "Reverse Canon 사실 레코드",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "fact_id",
+    "truth_domain",
+    "subject",
+    "predicate",
+    "value",
+    "epistemic_status",
+    "durability",
+    "authority",
+    "write_policy",
+    "provenance",
+    "caused_by",
+    "causes",
+    "prohibited_inferences",
+    "lifecycle",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": { "const": "2.0.0" },
+    "fact_id": { "type": "string", "pattern": "^FACT-[A-Z0-9-]{4,80}$" },
+    "truth_domain": { "enum": ["REAL_WORLD", "SCENARIO_CANON", "SESSION_EVENT", "PEDAGOGICAL_POLICY"] },
+    "subject": { "type": "string", "minLength": 1 },
+    "predicate": { "type": "string", "minLength": 1 },
+    "value": {},
+    "epistemic_status": { "enum": ["VERIFIED", "DERIVED", "SCENARIO", "UNKNOWN"] },
+    "durability": { "enum": ["T0", "T1", "T2", "T3", "T4"] },
+    "authority": { "enum": ["EXTERNAL_SOURCE", "USER_CONFIRMED", "TEACHER_CONFIRMED", "SYSTEM_DERIVED", "STORY_EVENT"] },
+    "write_policy": { "enum": ["HOST_ONLY", "USER_APPROVAL", "RUNTIME_ALLOWED", "EPHEMERAL_ONLY"] },
+    "provenance": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "ref"],
+        "properties": {
+          "kind": { "enum": ["SOURCE", "TURN", "PDF_CHUNK", "USER_DECISION", "SYSTEM_RULE"] },
+          "ref": { "type": "string", "minLength": 1 },
+          "content_sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
+        }
+      }
+    },
+    "caused_by": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "causes": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "prohibited_inferences": { "type": "array", "items": { "type": "string", "minLength": 1 }, "uniqueItems": true },
+    "lifecycle": { "enum": ["ACTIVE", "SUPERSEDED", "CONFLICTED", "RETRACTED"] },
+    "supersedes": { "type": ["string", "null"] },
+    "superseded_by": { "type": ["string", "null"] },
+    "created_at": { "type": "string", "format": "date-time" }
+  }
+}

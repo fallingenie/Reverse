@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "supported_environment": {
+    "display_name": "한국과학창의재단",
+    "environment_id": "9324e73a-cd4e-e049-b7ba-177af6165e9c",
+    "allowed_account_domains": [
+      "kosacai.onmicrosoft.com"
+    ]
+  },
+  "environment_identity_verification": "manual-copilot-studio-url-required"
+}

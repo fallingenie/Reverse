@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/reverse/deployment-receipt.schema.json",
+  "title": "Reverse local live deployment receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_type",
+    "platform",
+    "expected_manifest_seal_sha256",
+    "target_fingerprint_sha256",
+    "observed_configuration",
+    "checks",
+    "completion"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "manifest_type": { "const": "LIVE_DEPLOYMENT_RECEIPT" },
+    "platform": { "enum": ["CUSTOM_GPT", "COPILOT_STUDIO"] },
+    "expected_manifest_seal_sha256": { "$ref": "#/$defs/sha256" },
+    "target_fingerprint_sha256": {
+      "oneOf": [
+        { "$ref": "#/$defs/sha256" },
+        { "type": "null" }
+      ]
+    },
+    "observed_configuration": { "type": "object" },
+    "checks": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/check" }
+    },
+    "completion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["complete", "status", "evaluated_at", "reason"],
+      "properties": {
+        "complete": { "type": "boolean" },
+        "status": { "enum": ["BLOCKED", "COMPLETE"] },
+        "evaluated_at": { "type": ["string", "null"], "format": "date-time" },
+        "reason": { "type": "string" }
+      }
+    }
+  },
+  "$defs": {
+    "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "nullableSha256": {
+      "oneOf": [
+        { "$ref": "#/$defs/sha256" },
+        { "type": "null" }
+      ]
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "sha256", "captured_at", "description", "local_artifact_path"],
+      "properties": {
+        "kind": {
+          "enum": ["BROWSER_SCREENSHOT", "BROWSER_DOM", "LIVE_TRANSCRIPT", "PLATFORM_CONFIRMATION"]
+        },
+        "sha256": { "$ref": "#/$defs/sha256" },
+        "captured_at": { "type": "string", "format": "date-time" },
+        "description": { "type": "string", "minLength": 1 },
+        "local_artifact_path": {
+          "type": "string",
+          "pattern": "^\\.reverse-local/deployment-evidence/"
+        }
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "observed_at", "evidence"],
+      "properties": {
+        "status": { "enum": ["NOT_RUN", "PASS", "FAIL", "BLOCKED"] },
+        "observed_at": { "type": ["string", "null"], "format": "date-time" },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/evidence" }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "platform": { "const": "CUSTOM_GPT" } } },
+      "then": {
+        "properties": {
+          "observed_configuration": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "instructions_canonical_sha256",
+              "knowledge_package_seal_sha256",
+              "knowledge_files",
+              "capability_toggles",
+              "privacy"
+            ],
+            "properties": {
+              "instructions_canonical_sha256": { "$ref": "#/$defs/nullableSha256" },
+              "knowledge_package_seal_sha256": { "$ref": "#/$defs/nullableSha256" },
+              "knowledge_files": { "type": "array" },
+              "capability_toggles": { "type": ["object", "null"] },
+              "privacy": { "type": ["object", "null"] }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "platform": { "const": "COPILOT_STUDIO" } } },
+      "then": {
+        "properties": {
+          "observed_configuration": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "environment_display_name",
+              "instructions_canonical_sha256",
+              "model_display_name",
+              "skill_zip_sha256",
+              "skill_file_count",
+              "resources"
+            ],
+            "properties": {
+              "environment_display_name": { "type": ["string", "null"] },
+              "instructions_canonical_sha256": { "$ref": "#/$defs/nullableSha256" },
+              "model_display_name": { "type": ["string", "null"] },
+              "skill_zip_sha256": { "$ref": "#/$defs/nullableSha256" },
+              "skill_file_count": { "type": ["integer", "null"], "minimum": 0 },
+              "resources": { "type": ["object", "null"] }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

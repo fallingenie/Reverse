@@ -1,0 +1,50 @@
+{
+  "research": {
+    "plan": {
+      "claim_candidates": ["Two citations appear independent but reuse one upstream record."],
+      "claim_quality_gates": [
+        {
+          "claim": "Two citations appear independent but reuse one upstream record.",
+          "risk": "MEDIUM",
+          "minimum_independent_sources": 2,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": ["VER-201"],
+          "exception_reason": null
+        }
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": []
+  },
+  "sources": [
+    {
+      "id": "SRC-201",
+      "source_class": "OFFICIAL_RECORD",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": " upstream-shared-201 ",
+      "opened": true,
+      "direct_support": ["VER-201"],
+      "limitations": ["First publication of the shared record."],
+      "quality_checks": ["ORIGINAL_OPENED", "INDEPENDENCE_CHECKED"]
+    },
+    {
+      "id": "SRC-202",
+      "source_class": "REFERENCE_WORK",
+      "authority_tier": "B_INSTITUTIONAL",
+      "independence_key": "UPSTREAM-SHARED-201",
+      "opened": true,
+      "direct_support": ["VER-201"],
+      "limitations": ["A republication of the same upstream record."],
+      "quality_checks": ["ORIGINAL_OPENED", "INDEPENDENCE_CHECKED"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-201",
+      "status": "VERIFIED",
+      "claim": "Two citations appear independent but reuse one upstream record.",
+      "source_ids": ["SRC-201", "SRC-202"]
+    }
+  ]
+}

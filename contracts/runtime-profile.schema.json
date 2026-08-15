@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/runtime-profile.schema.json",
+  "title": "Reverse 런타임 프로파일",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "platform",
+    "assurance",
+    "model",
+    "permissions",
+    "pdf",
+    "deployment",
+    "capability_documentation_status",
+    "public_sources"
+  ],
+  "properties": {
+    "schema_version": { "const": "2.0.0" },
+    "id": { "enum": ["CHATGPT_FREE", "COPILOT_M365", "WINDOWS_STANDALONE"] },
+    "platform": { "type": "string", "minLength": 1 },
+    "assurance": { "enum": ["PROMPT_GUARDED", "PLATFORM_CONFIGURED", "HOST_ENFORCED"] },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["preferred_response_mode", "fallback_response_mode", "identity_attested", "observed_label_trusted"],
+      "properties": {
+        "preferred_response_mode": { "type": ["string", "null"] },
+        "fallback_response_mode": { "type": ["string", "null"] },
+        "identity_attested": { "type": "boolean" },
+        "observed_label_trusted": { "type": "boolean" }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "read_canon",
+        "propose_t0_t1",
+        "commit_t0_t1",
+        "write_t2_t3",
+        "persist_local_state",
+        "execute_validators"
+      ],
+      "properties": {
+        "read_canon": { "type": "boolean" },
+        "propose_t0_t1": { "type": "boolean" },
+        "commit_t0_t1": { "type": "boolean" },
+        "write_t2_t3": { "type": "boolean" },
+        "persist_local_state": { "type": "boolean" },
+        "execute_validators": { "type": "boolean" }
+      }
+    },
+    "pdf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accepted_input", "ocr", "local_preprocessing", "remote_upload_required"],
+      "properties": {
+        "accepted_input": { "const": "TEXT_BASED_PDF_ONLY" },
+        "ocr": { "const": "NOT_SUPPORTED" },
+        "local_preprocessing": { "type": "boolean" },
+        "remote_upload_required": { "type": "boolean" }
+      }
+    },
+    "deployment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "limitations"],
+      "properties": {
+        "kind": { "enum": ["SHARED_CUSTOM_GPT", "PASTE_INSTRUCTION_PACK", "DECLARATIVE_AGENT", "PYINSTALLER_ONEDIR"] },
+        "limitations": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "capability_documentation_status": {
+      "enum": ["NO_PUBLIC_GUARANTEE_FOUND", "PUBLIC_CONFIGURATION_DOCUMENTED", "LOCAL_IMPLEMENTATION_VERIFIED"]
+    },
+    "public_sources": {
+      "type": "array",
+      "minItems": 0,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "url", "checked_at", "supports"],
+        "properties": {
+          "title": { "type": "string", "minLength": 1 },
+          "url": { "type": "string", "format": "uri", "pattern": "^https://" },
+          "checked_at": { "type": "string", "format": "date" },
+          "supports": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "id": { "const": "CHATGPT_FREE" } }, "required": ["id"] },
+      "then": {
+        "properties": {
+          "assurance": { "const": "PROMPT_GUARDED" },
+          "capability_documentation_status": { "const": "PUBLIC_CONFIGURATION_DOCUMENTED" },
+          "deployment": { "type": "object", "properties": { "kind": { "const": "SHARED_CUSTOM_GPT" } } },
+          "permissions": { "type": "object", "properties": { "commit_t0_t1": { "const": false }, "persist_local_state": { "const": false }, "execute_validators": { "const": false } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "id": { "const": "COPILOT_M365" } }, "required": ["id"] },
+      "then": {
+        "properties": {
+          "assurance": { "const": "PLATFORM_CONFIGURED" },
+          "capability_documentation_status": { "const": "PUBLIC_CONFIGURATION_DOCUMENTED" },
+          "deployment": { "type": "object", "properties": { "kind": { "const": "DECLARATIVE_AGENT" } } },
+          "permissions": { "type": "object", "properties": { "commit_t0_t1": { "const": false }, "persist_local_state": { "const": false }, "execute_validators": { "const": false } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "id": { "const": "WINDOWS_STANDALONE" } }, "required": ["id"] },
+      "then": {
+        "properties": {
+          "assurance": { "const": "HOST_ENFORCED" },
+          "capability_documentation_status": { "const": "LOCAL_IMPLEMENTATION_VERIFIED" },
+          "deployment": { "type": "object", "properties": { "kind": { "const": "PYINSTALLER_ONEDIR" } } },
+          "permissions": { "type": "object", "properties": { "commit_t0_t1": { "const": true }, "persist_local_state": { "const": true }, "execute_validators": { "const": true } } }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "research": {
+    "plan": {
+      "claim_candidates": ["A unique primary record establishes its own bounded wording."],
+      "claim_quality_gates": [
+        {
+          "claim": "A unique primary record establishes its own bounded wording.",
+          "risk": "HIGH",
+          "minimum_independent_sources": 1,
+          "minimum_tier_a_sources": 1,
+          "evidence_ids": ["VER-401"],
+          "exception_reason": "scope=MINIMUM_INDEPENDENT_SOURCES,MINIMUM_TIER_A_SOURCES; reason=The claim is limited to the wording and date of one uniquely authoritative original record."
+        }
+      ],
+      "readiness": "READY"
+    },
+    "readiness_checked": true,
+    "gaps": []
+  },
+  "sources": [
+    {
+      "id": "SRC-401",
+      "source_class": "PRIMARY_SOURCE",
+      "authority_tier": "A_PRIMARY",
+      "independence_key": "UNIQUE-ORIGINAL-401",
+      "opened": true,
+      "direct_support": ["VER-401"],
+      "limitations": ["The record does not support broader causal conclusions."],
+      "quality_checks": ["ORIGINAL_OPENED", "STABLE_IDENTIFIER_CHECKED", "LIMITATIONS_RECORDED"]
+    }
+  ],
+  "evidence": [
+    {
+      "id": "VER-401",
+      "status": "VERIFIED",
+      "claim": "A unique primary record establishes its own bounded wording.",
+      "source_ids": ["SRC-401"]
+    }
+  ]
+}

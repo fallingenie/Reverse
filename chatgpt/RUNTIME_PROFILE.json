@@ -1,0 +1,56 @@
+{
+  "schema_version": "2.0.0",
+  "id": "CHATGPT_FREE",
+  "platform": "ChatGPT Free using an accessible shared Custom GPT",
+  "assurance": "PROMPT_GUARDED",
+  "model": {
+    "preferred_response_mode": "GPT-5.6 Luna",
+    "fallback_response_mode": null,
+    "identity_attested": false,
+    "observed_label_trusted": false
+  },
+  "permissions": {
+    "read_canon": true,
+    "propose_t0_t1": true,
+    "commit_t0_t1": false,
+    "write_t2_t3": true,
+    "persist_local_state": false,
+    "execute_validators": false
+  },
+  "pdf": {
+    "accepted_input": "TEXT_BASED_PDF_ONLY",
+    "ocr": "NOT_SUPPORTED",
+    "local_preprocessing": false,
+    "remote_upload_required": true
+  },
+  "deployment": {
+    "kind": "SHARED_CUSTOM_GPT",
+    "limitations": [
+      "GPT-5.6 Luna는 2026-08-14 공개 문서상의 Free 기본 모델이지만 기본 모델과 사용 한도는 바뀔 수 있고 이 프로필이 모델 신원을 강제하거나 검증하지 못한다.",
+      "Custom GPT는 저장된 메모리, 개인 사용자 지정 지침, 이전 대화를 사용하지 않으므로 대화 밖 Canon은 별도 Context Pack으로 다시 제공해야 한다.",
+      "Free의 GPT 사용은 현재 사용 한도를 따르며 한도에 도달하면 초기화 시점까지 접근이 일시 중지된다.",
+      "T0/T1 변경은 후보로만 출력하고 외부 호스트의 승인을 기다려야 한다."
+    ]
+  },
+  "capability_documentation_status": "PUBLIC_CONFIGURATION_DOCUMENTED",
+  "public_sources": [
+    {
+      "title": "ChatGPT Free Tier FAQ",
+      "url": "https://help.openai.com/en/articles/9275245-chatgpt-free-tier-faq",
+      "checked_at": "2026-08-14",
+      "supports": "Free 사용자의 GPT-5.6 Luna, GPT 사용, 현재 사용 한도와 한도 도달 시 일시 중지를 설명한다."
+    },
+    {
+      "title": "GPTs in ChatGPT",
+      "url": "https://help.openai.com/en/articles/8554407-gpts-in-chatgpt",
+      "checked_at": "2026-08-14",
+      "supports": "접근 권한이 있는 GPT를 모든 로그인 사용자가 사용할 수 있고 GPT가 저장된 메모리, 사용자 지정 지침, 이전 대화를 사용하지 않는다고 설명한다."
+    },
+    {
+      "title": "Creating and editing GPTs",
+      "url": "https://help.openai.com/en/articles/8554397-creating-a-gpt",
+      "checked_at": "2026-08-14",
+      "supports": "권장 모델은 사용 불가 시 대체될 수 있고 사용자가 다른 모델을 선택할 수 있으며 개인 계정의 신규 GPT 생성·게시가 현재 제한된다고 설명한다."
+    }
+  ]
+}

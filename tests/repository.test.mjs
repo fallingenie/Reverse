@@ -4,7 +4,10 @@ import { dirname, join } from "node:path";
 import test from "node:test";
 import { fileURLToPath } from "node:url";
 import { validateRepository } from "../scripts/validate.mjs";
-import { compactSession } from "../skills/teach-grounded-scenarios/scripts/compact-session.mjs";
+import {
+  assertProtectedInvariants,
+  compactSession
+} from "../skills/teach-grounded-scenarios/scripts/compact-session.mjs";
 
 const root = dirname(dirname(fileURLToPath(import.meta.url)));
 const examplePath = join(
@@ -69,4 +72,34 @@ test("Story Track 재시작 권고와 사용자 결정 대기는 압축 후에�
   const compacted = compactSession(session, JSON.stringify(session));
   assert.deepEqual(compacted.memory.corrections, [correction]);
   assert.equal(compacted.memory.corrections[0].decision, "USER_DECISION_PENDING");
+});
+
+test("같은 ID를 유지한 절대 보존 내용 변조도 압축 무결성 실패다", async () => {
+  const sourceText = await readFile(examplePath, "utf8");
+  const original = JSON.parse(sourceText);
+  const mutated = structuredClone(original);
+  mutated.memory.canon[0].text = "ID만 유지한 조용한 Canon 변경";
+  assert.throws(
+    () => assertProtectedInvariants(original, mutated),
+    /ID 또는 내용이 변경/u
+  );
+});
+
+test("must_keep 표기가 없어도 현재 상태, 출처, 검증 근거와 학생 선택은 압축에서 보호된다", async () => {
+  const original = JSON.parse(await readFile(examplePath, "utf8"));
+  original.evidence[0].must_keep = false;
+  original.memory.episode_archive[0].must_keep = false;
+  original.memory.negative_facts[0].must_keep = false;
+
+  for (const mutate of [
+    (value) => { value.memory.current_state.place = "조용히 바꾼 장소"; },
+    (value) => { value.sources.shift(); },
+    (value) => { value.evidence[0].claim = "조용히 바꾼 검증 사실"; },
+    (value) => { value.memory.episode_archive[0].student_choice = "조용히 바꾼 선택"; },
+    (value) => { value.memory.negative_facts.shift(); }
+  ]) {
+    const mutated = structuredClone(original);
+    mutate(mutated);
+    assert.throws(() => assertProtectedInvariants(original, mutated), /ID 또는 내용이 변경/u);
+  }
 });

@@ -1,0 +1,80 @@
+{
+  "cases": [
+    {
+      "id": "subject-change-clears-old-context",
+      "initial": {
+        "subject": "과학",
+        "unit": "식물의 구조와 기능",
+        "interests": ["우주"],
+        "interest_source": "STUDENT_EXPLICIT"
+      },
+      "events": [
+        { "type": "SET_SUBJECT", "value": "수학" }
+      ],
+      "expected": {
+        "subject": "수학",
+        "unit": null,
+        "interests": null,
+        "interest_source": null,
+        "next": "ASK_UNIT"
+      }
+    },
+    {
+      "id": "unit-completes-interest",
+      "initial": {
+        "subject": "수학",
+        "unit": null,
+        "interests": null,
+        "interest_source": null
+      },
+      "events": [
+        { "type": "SET_UNIT", "value": "분수의 덧셈과 뺄셈" }
+      ],
+      "expected": {
+        "subject": "수학",
+        "unit": "분수의 덧셈과 뺄셈",
+        "interests": ["분수의 덧셈과 뺄셈"],
+        "interest_source": "UNIT_INFERRED",
+        "next": "PLAN_RESEARCH"
+      }
+    },
+    {
+      "id": "explicit-cross-domain-interest-overrides-default",
+      "initial": {
+        "subject": "수학",
+        "unit": "분수의 덧셈과 뺄셈",
+        "interests": ["분수의 덧셈과 뺄셈"],
+        "interest_source": "UNIT_INFERRED"
+      },
+      "events": [
+        { "type": "SET_INTEREST", "value": ["요리"] }
+      ],
+      "expected": {
+        "subject": "수학",
+        "unit": "분수의 덧셈과 뺄셈",
+        "interests": ["요리"],
+        "interest_source": "STUDENT_EXPLICIT",
+        "next": "PLAN_RESEARCH"
+      }
+    },
+    {
+      "id": "missing-unit-may-ask-interest",
+      "initial": {
+        "subject": "수학",
+        "unit": null,
+        "interests": null,
+        "interest_source": null
+      },
+      "events": [
+        { "type": "NO_UNIT" }
+      ],
+      "expected": {
+        "subject": "수학",
+        "unit": "",
+        "interests": null,
+        "interest_source": null,
+        "next": "ASK_OPTIONAL_INTEREST"
+      }
+    }
+  ]
+}

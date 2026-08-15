@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/source-record.schema.json",
+  "title": "검증된 출처 레코드",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "creator",
+    "institution",
+    "source_class",
+    "authority_tier",
+    "independence_key",
+    "subject_domains",
+    "url",
+    "published_at",
+    "accessed_at",
+    "opened",
+    "direct_support",
+    "limitations",
+    "freshness",
+    "quality_checks",
+    "citation_metric"
+  ],
+  "properties": {
+    "id": { "type": "string", "pattern": "^SRC-[0-9]{2,4}$" },
+    "title": { "type": "string", "minLength": 1 },
+    "creator": { "type": "string", "minLength": 1 },
+    "institution": { "type": "string", "minLength": 1 },
+    "source_class": {
+      "enum": ["PRIMARY_SOURCE", "OFFICIAL_RECORD", "PEER_REVIEWED", "SYSTEMATIC_REVIEW", "DATASET", "LEGAL_TEXT", "LITERARY_TEXT", "REFERENCE_WORK", "CURRICULUM_RESOURCE"]
+    },
+    "authority_tier": {
+      "enum": ["A_PRIMARY", "A_SYNTHESIS", "B_SCHOLARLY", "B_INSTITUTIONAL", "C_CONTEXT_ONLY", "D_EXCLUDED"]
+    },
+    "independence_key": { "type": "string", "minLength": 1 },
+    "subject_domains": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": ["HISTORY", "SCIENCE", "SOCIAL_STUDIES", "GEOGRAPHY", "MATHEMATICS", "LANGUAGE_LITERATURE", "INTERDISCIPLINARY"]
+      },
+      "uniqueItems": true
+    },
+    "url": { "type": "string", "format": "uri" },
+    "published_at": {
+      "anyOf": [
+        { "type": "string", "format": "date" },
+        { "type": "null" }
+      ]
+    },
+    "accessed_at": { "type": "string", "format": "date" },
+    "opened": { "const": true },
+    "direct_support": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "freshness": {
+      "enum": ["STABLE", "CHECKED_THIS_SESSION", "TIME_SENSITIVE", "UNKNOWN"]
+    },
+    "quality_checks": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "enum": ["ORIGINAL_OPENED", "RESPONSIBLE_ENTITY_CONFIRMED", "PUBLICATION_OR_RECORD_DATE_CHECKED", "STABLE_IDENTIFIER_CHECKED", "METHODS_AND_SCOPE_CHECKED", "CORRECTION_RETRACTION_CHECKED", "LIMITATIONS_RECORDED", "INDEPENDENCE_CHECKED"]
+      },
+      "uniqueItems": true
+    },
+    "citation_metric": {
+      "oneOf": [
+        { "type": "null" },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["count", "provider", "checked_at", "interpretation"],
+          "properties": {
+            "count": { "type": "integer", "minimum": 0 },
+            "provider": { "type": "string", "minLength": 1 },
+            "checked_at": { "type": "string", "format": "date" },
+            "interpretation": { "const": "SUPPORTING_SIGNAL_ONLY" }
+          }
+        }
+      ]
+    }
+  }
+}

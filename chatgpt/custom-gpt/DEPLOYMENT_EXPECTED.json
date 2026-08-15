@@ -1,0 +1,184 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_type": "EXPECTED_DEPLOYMENT",
+  "platform": "CUSTOM_GPT",
+  "configuration": {
+    "instructions": {
+      "source_path": "chatgpt/custom-gpt/INSTRUCTIONS.md",
+      "source_sha256": "e00ab13aa4683426699a4325022b81cda2d7601d9b102ef869d20e7e05a81f01",
+      "canonical_text_sha256": "21b7b9b8d436ccb1ff148a4cd785e51c273591284c39107d3acbf8cef20078fb",
+      "source_bytes": 18246,
+      "utf8_sig": true
+    },
+    "knowledge": {
+      "manifest_path": "chatgpt/custom-gpt/knowledge/KNOWLEDGE_MANIFEST.json",
+      "package_seal_sha256": "400ab9a378500b43b04c40ae535fa1e89414d5a4bef17bcac0e72670eb7d45d5",
+      "file_count": 9,
+      "packaged_file_count": 6,
+      "external_upload_count": 3,
+      "files": [
+        {
+          "upload_name": "PUBLIC_LESSON_PRINCIPLES.md",
+          "sha256": "2abefec8a71c91b8b9a5c5c96326d0cb79a9411c0cd4d8eea3975ba15b92d7c6",
+          "bytes": 2994,
+          "delivery": "PACKAGE_COPY"
+        },
+        {
+          "upload_name": "source-record.schema.json",
+          "sha256": "2caef797fba8d2a80ffc7f3e78cdbd87eed87e869b16e1c69795ef87f4a73b68",
+          "bytes": 3011,
+          "delivery": "PACKAGE_COPY"
+        },
+        {
+          "upload_name": "evidence.schema.json",
+          "sha256": "be88be97082aab9602d0a39704db943f053d0bf8cc74beea9f2febfe47dad3bc",
+          "bytes": 2059,
+          "delivery": "PACKAGE_COPY"
+        },
+        {
+          "upload_name": "research-plan.schema.json",
+          "sha256": "4bad591227747c23c12bc5edd8f63c98f25a2441c6e50b1ae7a201b741fd2f79",
+          "bytes": 2769,
+          "delivery": "PACKAGE_COPY"
+        },
+        {
+          "upload_name": "student-lesson-turn.schema.json",
+          "sha256": "d7256bbf9a0fe86cd36a26c0c87d8cfe51b1a991129552a6495cccc91458d005",
+          "bytes": 1540,
+          "delivery": "PACKAGE_COPY"
+        },
+        {
+          "upload_name": "cross-domain-catalog.json",
+          "sha256": "9632e680a341daa5298d4dee5427aa4892a477ab35419ccc808a8f46ef840d54",
+          "bytes": 3974,
+          "delivery": "PACKAGE_COPY"
+        },
+        {
+          "upload_name": "[별책2] 초등학교 교육과정.pdf",
+          "original_filename": "[별책2] 초등학교 교육과정.pdf",
+          "sha256": "fe053096df68d788d3e81b1098a526d21ad9d2825a0d715d448ba12f5b32ebcd",
+          "bytes": 6652397,
+          "page_count": 521,
+          "school_level": "ELEMENTARY",
+          "delivery": "EXTERNAL_UPLOAD",
+          "source_locator": "LOCAL_RECEIPT_ONLY",
+          "repository_copy": false,
+          "authority_role": "CURRICULUM_AUTHORITY",
+          "non_academic_fact_authority": false,
+          "authority_limit_ko": "교육과정의 범위·성취기준·용어를 정하는 자료이며 역사·과학·통계·법령의 개별 사실을 자동으로 확정하지 않는다."
+        },
+        {
+          "upload_name": "[별책3] 중학교 교육과정.pdf",
+          "original_filename": "[별책3] 중학교 교육과정.pdf",
+          "sha256": "03c6e28b18ee526b00a95a642fc24f3f80f23d268685ff2795572ac3420d5c3a",
+          "bytes": 8945675,
+          "page_count": 677,
+          "school_level": "MIDDLE",
+          "delivery": "EXTERNAL_UPLOAD",
+          "source_locator": "LOCAL_RECEIPT_ONLY",
+          "repository_copy": false,
+          "authority_role": "CURRICULUM_AUTHORITY",
+          "non_academic_fact_authority": false,
+          "authority_limit_ko": "교육과정의 범위·성취기준·용어를 정하는 자료이며 역사·과학·통계·법령의 개별 사실을 자동으로 확정하지 않는다."
+        },
+        {
+          "upload_name": "[별책4] 고등학교 교육과정_국가교육위원회고시제2024-3호(2024.08.16.)_수정.pdf",
+          "original_filename": "[별책4] 고등학교 교육과정_국가교육위원회고시제2024-3호(2024.08.16.)_수정.pdf",
+          "sha256": "456f3181d45a92b33d83b86f144f41ce1c832918671162ec4e82b4d91ddcd6d0",
+          "bytes": 22424153,
+          "page_count": 2215,
+          "school_level": "HIGH",
+          "delivery": "EXTERNAL_UPLOAD",
+          "source_locator": "LOCAL_RECEIPT_ONLY",
+          "repository_copy": false,
+          "authority_role": "CURRICULUM_AUTHORITY",
+          "non_academic_fact_authority": false,
+          "authority_limit_ko": "교육과정의 범위·성취기준·용어를 정하는 자료이며 역사·과학·통계·법령의 개별 사실을 자동으로 확정하지 않는다."
+        }
+      ],
+      "excluded": [
+        {
+          "source": "chatgpt/custom-gpt/KNOWLEDGE_REFERENCE.md",
+          "reason": "학생에게 숨겨야 하는 내부 상태 계층과 비공개 요구가 포함된 내부 운영 문서"
+        },
+        {
+          "source": "skills/teach-grounded-scenarios/schemas/session.schema.json",
+          "reason": "시작 상태기계·Canon·교정·기억 보존 인터페이스를 노출해 위조 세션 오염 표면이 됨"
+        },
+        {
+          "source": "skills/teach-grounded-scenarios/schemas/memory-delta.schema.json",
+          "reason": "학생이 사용할 필요가 없는 내부 기억 수정 제안 인터페이스"
+        },
+        {
+          "source": "skills/teach-grounded-scenarios/schemas/lesson-turn.schema.json",
+          "reason": "teacher_view와 기억 수정 인터페이스가 포함되어 학생 공개용으로 부적합함"
+        },
+        {
+          "source": "skills/teach-grounded-scenarios/agents/openai.yaml",
+          "reason": "Custom GPT가 실행하는 Skill 선언이 아니며 내부 호출 토큰만 노출할 수 있음"
+        },
+        {
+          "source": "chatgpt/RUNTIME_PROFILE.json",
+          "reason": "실행 설정이 아니라 플랫폼 한계 기록이며 모델·권한 메타데이터가 학생에게 노출될 수 있음"
+        },
+        {
+          "source": "chatgpt/EXPORT_MANIFEST.json",
+          "reason": "로컬 배포물 무결성 봉인으로 수업 지식이 아님"
+        },
+        {
+          "source": "skills/teach-grounded-scenarios/assets/session.template.json",
+          "reason": "특정 초6 사회 프로필이 하드코딩된 새 세션 개발 템플릿"
+        },
+        {
+          "source": "skills/teacher-grounded-testbed",
+          "reason": "로컬 저장·실행·접근 분리가 필요한 교사용 전용 기능"
+        },
+        {
+          "source": "skills/teach-grounded-scenarios/examples",
+          "reason": "교사용 평가 메모·완성 답·특정 학년과 주제의 앵커가 포함될 수 있는 개발·회귀 예시"
+        },
+        {
+          "source": "skills/teach-grounded-scenarios/examples/**/lesson-turn.json",
+          "reason": "teacher_view와 평가 관찰점이 포함될 수 있는 교사용 회귀 출력"
+        },
+        {
+          "source": "skills/teach-grounded-scenarios/examples/**/session.json",
+          "reason": "수업 상태기계·Canon·완성 연구 결론을 미리 노출하는 회귀 세션"
+        },
+        {
+          "source": "chatgpt/CLASSROOM_SETTINGS.example.md",
+          "reason": "교사가 별도 접근 통제 아래 검토할 선택 설정이며 학생 공용 Knowledge가 아님"
+        }
+      ]
+    },
+    "capability_toggles": {
+      "web_search": true,
+      "image_generation": false,
+      "code_interpreter_data_analysis": true,
+      "apps": false,
+      "actions": false
+    },
+    "privacy": {
+      "visibility": "OWNER_ONLY",
+      "sharing": "PRIVATE"
+    }
+  },
+  "live_contract": {
+    "receipt_location": ".reverse-local/deployment-receipts/chatgpt.json",
+    "identifier_policy": "LOCAL_FINGERPRINT_ONLY",
+    "required_checks": [
+      "knowledge_processing",
+      "configuration_saved",
+      "publication",
+      "privacy",
+      "live_canary"
+    ],
+    "completion_policy": "ALL_REQUIRED_CHECKS_PASS_WITH_BROWSER_EVIDENCE"
+  },
+  "public_repository": {
+    "contains_live_identifiers": false,
+    "contains_live_urls": false,
+    "contains_tokens_or_credentials": false
+  },
+  "seal_sha256": "6e1b8d092e37db8a04bca43026859a65bd68f42b6da0ab615f3d77e70d8d9ce2"
+}

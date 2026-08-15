@@ -1,0 +1,41 @@
+{
+  "base_revision": 8,
+  "next_revision": 9,
+  "add": [],
+  "correct": [
+    {
+      "correction_id": "COR-TEST-0002",
+      "target_id": "CAN-001",
+      "replacement": "사용자가 선택한 교정 Track을 적용한다.",
+      "reason": "검증된 근거와 사용자 결정이 모두 확보되었다.",
+      "severity": "TRACK_REBASE",
+      "evidence_ids": ["VER-001"],
+      "provenance": [
+        {
+          "kind": "EVIDENCE",
+          "ref": "VER-001"
+        },
+        {
+          "kind": "USER_DECISION",
+          "ref": "DEC-001"
+        }
+      ],
+      "affected_ids": ["CAN-001", "EP-001"],
+      "impact_scope": {
+        "summary": "연표와 현재 상태를 승인된 체크포인트부터 다시 계산한다.",
+        "timeline": true,
+        "causality": true,
+        "student_choices": false,
+        "current_state": true,
+        "learning_objective": false
+      },
+      "last_valid_checkpoint": "EP-000",
+      "decision": "APPLIED",
+      "user_options": [
+        "마지막 유효 체크포인트에서 다시 이어간다.",
+        "영향 구간을 재구성한 뒤 현재 지점에서 계속한다."
+      ]
+    }
+  ],
+  "resolve": []
+}

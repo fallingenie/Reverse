@@ -1,4 +1,4 @@
-# 초6 예시: 원자폭탄이 없었던 1945년 8월
+﻿# 초6 예시: 원자폭탄이 없었던 1945년 8월
 
 ## 수업 설정
 
@@ -19,7 +19,7 @@
 ## 파일
 
 - `source-pack.md`: 공식 출처와 근거 범위
-- `onboarding-transcript.md`: 세 질문, 다섯 카드, `[시작]` 게이트
+- `onboarding-transcript.md`: 학교급부터 진행하는 단계형 질문, 다섯 카드, `[시작]` 게이트
 - `opening-turn.md`: `[시작]` 뒤 첫 학생 화면
 - `session.json`: 압축과 스키마 검증에 쓰는 상태 예시
 - `lesson-turn.json`: 구조화된 첫 턴 예시

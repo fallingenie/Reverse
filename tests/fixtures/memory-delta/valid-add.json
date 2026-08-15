@@ -1,0 +1,20 @@
+{
+  "base_revision": 0,
+  "next_revision": 1,
+  "add": [
+    {
+      "path": "/memory/episode_archive/-",
+      "value": {
+        "id": "EP-001",
+        "turn": 1,
+        "student_choice": "학생이 첫 번째 자료 비교를 선택했다.",
+        "result": "자료의 작성 시점과 목적을 나누어 기록했다.",
+        "evidence_ids": ["VER-001"],
+        "must_keep": true
+      },
+      "reason": "학생 선택과 관찰 가능한 결과를 보존한다."
+    }
+  ],
+  "correct": [],
+  "resolve": []
+}

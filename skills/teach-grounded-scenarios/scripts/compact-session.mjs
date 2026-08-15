@@ -5,28 +5,91 @@ import { readFile, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-function protectedIds(session) {
-  const memory = session.memory ?? {};
-  const groups = [
-    session.evidence ?? [],
-    memory.canon ?? [],
-    memory.negative_facts ?? [],
-    memory.corrections ?? [],
-    memory.open_threads ?? [],
-    memory.episode_archive ?? []
-  ];
+function canonicalJson(value) {
+  if (Array.isArray(value)) {
+    return `[${value.map(canonicalJson).join(",")}]`;
+  }
+  if (value && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) => `${JSON.stringify(key)}:${canonicalJson(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
 
-  return groups
-    .flat()
-    .filter((item) => item?.must_keep === true)
-    .map((item) => item.id)
-    .filter(Boolean)
-    .sort();
+function protectedProjection(group, item) {
+  if (group === "episode_archive") {
+    return {
+      id: item.id,
+      turn: item.turn,
+      student_choice: item.student_choice,
+      result: item.result,
+      evidence_ids: item.evidence_ids,
+      must_keep: item.must_keep
+    };
+  }
+  return item;
+}
+
+function shouldProtect(group, item) {
+  if (["session_contract", "sources", "current_state", "canon", "negative_facts", "corrections", "open_threads", "conflicts"].includes(group)) {
+    return true;
+  }
+  if (group === "evidence") {
+    return item?.must_keep === true || ["VERIFIED", "UNKNOWN"].includes(item?.status);
+  }
+  if (group === "episode_archive") {
+    return item?.must_keep === true || (typeof item?.student_choice === "string" && item.student_choice !== "");
+  }
+  return item?.must_keep === true;
+}
+
+export function protectedFingerprints(session) {
+  const memory = session.memory ?? {};
+  const groups = {
+    session_contract: [{
+      id: "SESSION-CONTRACT",
+      schema_version: session.schema_version,
+      session_id: session.session_id,
+      revision: session.revision,
+      profile: session.profile,
+      gate: session.gate,
+      research: session.research,
+      lesson: session.lesson
+    }],
+    sources: session.sources ?? [],
+    evidence: session.evidence ?? [],
+    current_state: [{ id: "CURRENT-STATE", ...(memory.current_state ?? {}) }],
+    canon: memory.canon ?? [],
+    negative_facts: memory.negative_facts ?? [],
+    corrections: memory.corrections ?? [],
+    open_threads: memory.open_threads ?? [],
+    episode_archive: memory.episode_archive ?? [],
+    conflicts: (memory.conflicts ?? []).map((text, index) => ({ id: `CONFLICT-${index + 1}`, text }))
+  };
+
+  return Object.entries(groups)
+    .flatMap(([group, items]) => items
+      .filter((item) => shouldProtect(group, item))
+      .map((item) => {
+        const projection = protectedProjection(group, item);
+        return {
+          group,
+          id: item.id,
+          content_sha256: createHash("sha256").update(canonicalJson(projection), "utf8").digest("hex")
+        };
+      }))
+    .sort((left, right) => `${left.group}:${left.id}`.localeCompare(`${right.group}:${right.id}`));
+}
+
+export function assertProtectedInvariants(beforeSession, afterSession) {
+  const before = protectedFingerprints(beforeSession);
+  const after = protectedFingerprints(afterSession);
+  if (canonicalJson(before) !== canonicalJson(after)) {
+    throw new Error("압축 중 절대 보존 항목의 ID 또는 내용이 변경되었습니다.");
+  }
 }
 
 export function compactSession(session, sourceText = JSON.stringify(session)) {
   const compacted = structuredClone(session);
-  const before = protectedIds(session);
   let removedDetails = 0;
 
   compacted.memory.episode_archive = compacted.memory.episode_archive.map((episode) => {
@@ -58,10 +121,7 @@ export function compactSession(session, sourceText = JSON.stringify(session)) {
     source_sha256: createHash("sha256").update(sourceText, "utf8").digest("hex")
   };
 
-  const after = protectedIds(compacted);
-  if (JSON.stringify(before) !== JSON.stringify(after)) {
-    throw new Error("압축 중 절대 보존 항목이 변경되었습니다.");
-  }
+  assertProtectedInvariants(session, compacted);
 
   return compacted;
 }

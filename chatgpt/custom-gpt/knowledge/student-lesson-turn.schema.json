@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/reverse/student-lesson-turn.schema.json",
+  "title": "학생 공개용 수업 턴",
+  "description": "학생 런타임이 직접 생성하고 전달하는 공개 안전 구조다. 교사용 평가와 내부 기억 변경 인터페이스를 포함하지 않는다.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["turn", "student_view", "evidence_ids"],
+  "properties": {
+    "turn": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "student_view": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scene", "clues", "thinking_question", "choices", "custom_input_allowed"],
+      "properties": {
+        "scene": {
+          "type": "string",
+          "minLength": 1
+        },
+        "clues": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "thinking_question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "choices": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "custom_input_allowed": {
+          "const": true
+        }
+      }
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    }
+  }
+}

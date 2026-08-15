@@ -1,0 +1,38 @@
+{
+  "id": "LIVE-CHATGPT-CARD-001",
+  "profile": {
+    "school_level": "초등학교",
+    "grade": 5,
+    "subject": "수학",
+    "unit": "분수의 덧셈과 뺄셈"
+  },
+  "observed": {
+    "latency_seconds": 28,
+    "cards_count": 5,
+    "visible_numbering": false,
+    "selection_prompt": "1~5",
+    "examples": [
+      "축제 음료 만들기",
+      "피자 나누기 작전"
+    ],
+    "missing": [
+      "학생 역할",
+      "장소와 시간",
+      "현재 갈등",
+      "학습 목표",
+      "사실과 가정의 경계"
+    ]
+  },
+  "expected": {
+    "card_count": 5,
+    "required_template_lines": [
+      "1. 제목",
+      "- 너의 역할:",
+      "- 지금 있는 곳과 상황:",
+      "- 당장 할 일:",
+      "- 사실/가정 경계:"
+    ],
+    "each_card": "3문장 내외의 실제 갈등 상황",
+    "forbidden_pattern": "계산 대상만 바꾼 문제 5개"
+  }
+}

@@ -1,0 +1,338 @@
+{
+  "schema_version": "1.0.0",
+  "fallback_notice": "괜찮습니다. 제가 학년에 맞는 주제를 하나 골라 짧게 시작하겠습니다. 원하지 않으면 중단이라고 말해 주세요.",
+  "termination_warning": "알겠습니다. 지금 수업을 중단하고 여기서 종료합니다.",
+  "grade_scenarios": {
+    "ELEMENTARY_3_4": {
+      "grades": ["초3", "초4"],
+      "subject_domains": ["SCIENCE", "MATHEMATICS", "LANGUAGE_LITERATURE"],
+      "frame": "수업을 위한 가정: 교실 창가에서 같은 물체의 그림자를 두 번 표시한 기록을 살펴봅니다.",
+      "clue": "두 번째 표시의 길이가 첫 번째 표시보다 깁니다.",
+      "question": "무엇을 먼저 비교하면 두 기록의 차이를 설명하는 데 도움이 될까요?",
+      "choices": ["표시한 시각을 확인한다", "두 길이를 자로 다시 잰다"]
+    },
+    "ELEMENTARY_5_6": {
+      "grades": ["초5", "초6"],
+      "subject_domains": ["SCIENCE", "MATHEMATICS", "LANGUAGE_LITERATURE"],
+      "frame": "수업을 위한 가정: 같은 날 심은 두 화분의 관찰 기록을 비교합니다.",
+      "clue": "기록표에서 A 화분의 흙 표면은 말라 있고 B 화분의 흙 표면은 젖어 있습니다.",
+      "question": "차이가 생긴 까닭을 알아보려면 어떤 기록을 먼저 확인할까요?",
+      "choices": ["물을 준 시각과 양을 확인한다", "두 화분이 놓인 장소를 비교한다"]
+    },
+    "MIDDLE_1_3": {
+      "grades": ["중1", "중2", "중3"],
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS", "LANGUAGE_LITERATURE"],
+      "frame": "수업을 위한 가정: 학교 앞 두 횡단보도의 가상 보행 기록표를 검토합니다.",
+      "clue": "A 지점은 관찰 시간이 20분이고 B 지점은 10분이라 사람 수만 바로 비교하기 어렵습니다.",
+      "question": "두 지점을 공정하게 비교하려면 무엇을 먼저 계산할까요?",
+      "choices": ["1분당 지나간 사람 수를 계산한다", "관찰 시간과 장소 조건을 먼저 확인한다"]
+    },
+    "HIGH_1_2": {
+      "grades": ["고1", "고2"],
+      "subject_domains": ["SOCIAL_STUDIES", "MATHEMATICS", "LANGUAGE_LITERATURE"],
+      "frame": "수업을 위한 가정: 학생회가 가상 도서관 이용 기록으로 공간 운영안을 검토합니다.",
+      "clue": "두 달의 이용 인원은 다르지만 개방 일수와 조사 방식도 서로 다릅니다.",
+      "question": "운영안을 판단하기 전에 어떤 비교 기준과 자료 한계를 먼저 정리해야 할까요?",
+      "choices": ["하루 평균 이용 인원을 계산한다", "두 달의 조사 방식과 누락 자료를 확인한다"]
+    }
+  },
+  "cases": [
+    {
+      "id": "subject-first-uncertainty-reduces-load",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "초6",
+        "pending_step": "SUBJECT",
+        "selection_uncertainty_count": 0,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "모르겠어",
+      "expected_event": "REDUCE_SELECTION_LOAD"
+    },
+    {
+      "id": "reported-subject-repeat-starts-fallback",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "초6",
+        "pending_step": "SUBJECT",
+        "selection_uncertainty_count": 1,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "모른다고 했잖아",
+      "expected_event": "NEGATIVE_FALLBACK_START",
+      "expected_grade_band": "ELEMENTARY_5_6"
+    },
+    {
+      "id": "interest-repeat-starts-middle-fallback",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "중2",
+        "pending_step": "INTERESTS",
+        "selection_uncertainty_count": 1,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "선택 못 하겠어",
+      "expected_event": "NEGATIVE_FALLBACK_START",
+      "expected_grade_band": "MIDDLE_1_3"
+    },
+    {
+      "id": "scenario-repeat-starts-high-fallback",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "고1",
+        "pending_step": "SCENARIO",
+        "selection_uncertainty_count": 2,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": true,
+        "five_scenarios_offered": true,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "아무거나",
+      "expected_event": "NEGATIVE_FALLBACK_START",
+      "expected_grade_band": "HIGH_1_2"
+    },
+    {
+      "id": "school-level-remains-required",
+      "state": {
+        "school_level_confirmed": false,
+        "grade": null,
+        "pending_step": "SCHOOL_LEVEL",
+        "selection_uncertainty_count": 3,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "모르겠다",
+      "expected_event": "RETRY_REQUIRED_PROFILE"
+    },
+    {
+      "id": "grade-remains-required",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": null,
+        "pending_step": "GRADE",
+        "selection_uncertainty_count": 3,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "못 고르겠어",
+      "expected_event": "RETRY_REQUIRED_PROFILE"
+    },
+    {
+      "id": "post-fallback-uncertainty-reduces-again",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "초6",
+        "pending_step": "RUN_LESSON",
+        "selection_uncertainty_count": 2,
+        "fallback_started": true,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "모르겠어",
+      "expected_event": "POST_FALLBACK_REDUCE_CHOICES"
+    },
+    {
+      "id": "post-fallback-explicit-disengagement-warns-once",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "초6",
+        "pending_step": "RUN_LESSON",
+        "selection_uncertainty_count": 2,
+        "fallback_started": true,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "하기 싫다",
+      "expected_event": "POST_FALLBACK_WARN_AND_TERMINATE"
+    },
+    {
+      "id": "terminated-session-does-not-warn-twice",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "초6",
+        "pending_step": "TERMINATED",
+        "selection_uncertainty_count": 2,
+        "fallback_started": true,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 1,
+        "terminated": true,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "중단",
+      "expected_event": "TERMINATED_NO_RESPONSE"
+    },
+    {
+      "id": "immediate-crisis-always-preempts-fallback",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "중2",
+        "pending_step": "SUBJECT",
+        "selection_uncertainty_count": 2,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "IMMEDIATE_CRISIS",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "모르겠다",
+      "expected_event": "P0_CRISIS_STOP"
+    },
+    {
+      "id": "harmful-request-always-preempts-active-fallback",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "고1",
+        "pending_step": "RUN_LESSON",
+        "selection_uncertainty_count": 2,
+        "fallback_started": true,
+        "post_fallback_uncertainty_count": 1,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "HARMFUL_REQUEST",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "아무거나",
+      "expected_event": "P0_BLOCK_SAFE_REDIRECT"
+    },
+    {
+      "id": "ordinary-ordered-start-remains-valid",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "중2",
+        "pending_step": "WAIT_FOR_START",
+        "selection_uncertainty_count": 0,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": true,
+        "five_scenarios_offered": true,
+        "scenario_selected": true,
+        "start_requested_previous_turn": true,
+        "start_token_consumed": false
+      },
+      "input": "  [시작]  ",
+      "expected_event": "ORDERED_START"
+    },
+    {
+      "id": "mixed-start-token-cannot-enter-either-path",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "중2",
+        "pending_step": "WAIT_FOR_START",
+        "selection_uncertainty_count": 2,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": true,
+        "five_scenarios_offered": true,
+        "scenario_selected": true,
+        "start_requested_previous_turn": true,
+        "start_token_consumed": false
+      },
+      "input": "[시작] 모르겠다",
+      "expected_event": "NO_TRANSITION"
+    },
+    {
+      "id": "event-name-is-not-a-user-command",
+      "state": {
+        "school_level_confirmed": true,
+        "grade": "중2",
+        "pending_step": "SUBJECT",
+        "selection_uncertainty_count": 3,
+        "fallback_started": false,
+        "post_fallback_uncertainty_count": 0,
+        "termination_warning_count": 0,
+        "terminated": false,
+        "p0": "NONE",
+        "research_complete": false,
+        "five_scenarios_offered": false,
+        "scenario_selected": false,
+        "start_requested_previous_turn": false,
+        "start_token_consumed": false
+      },
+      "input": "NEGATIVE_FALLBACK_START",
+      "expected_event": "NO_TRANSITION"
+    }
+  ]
+}
