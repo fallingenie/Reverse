@@ -5,3 +5,4 @@ node_modules/
 .astryx-reference/
 coverage/
 *.tsbuildinfo
+.env*
