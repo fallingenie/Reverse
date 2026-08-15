@@ -10,6 +10,7 @@ const SKIP_DIRECTORIES = new Set([
   '.vercel',
   'coverage',
   'node_modules',
+  'out',
 ]);
 const MACHINE_EXTENSIONS = new Set([
   '.cjs',

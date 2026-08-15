@@ -4,6 +4,7 @@ import {useState} from 'react';
 import {AppShell} from '@astryxdesign/core/AppShell';
 import {Banner} from '@astryxdesign/core/Banner';
 import {Card} from '@astryxdesign/core/Card';
+import {CodeBlock} from '@astryxdesign/core/CodeBlock';
 import {HStack} from '@astryxdesign/core/HStack';
 import {
   Layout,
@@ -22,6 +23,80 @@ import {INITIAL_SESSION, type LessonSession} from '@/lib/session';
 type WorkspaceTab = 'student' | 'teacher';
 
 const publicBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? '';
+const localRunCommand = `git clone https://github.com/fallingenie/Reverse.git
+cd Reverse/apps/web
+corepack enable
+pnpm install --frozen-lockfile
+pnpm dev`;
+const vercelDeployUrl =
+  'https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Ffallingenie%2FReverse&project-name=reverse-education-beta&repository-name=Reverse&root-directory=apps%2Fweb';
+
+function QuickStart() {
+  return (
+    <Card variant="muted" padding={5}>
+      <VStack gap={4}>
+        <VStack gap={2}>
+          <Heading level={2}>바로 실행하기</Heading>
+          <Text color="secondary">
+            아래 명령을 터미널에 그대로 붙여 넣거나, 링크를 눌러 설치 안내와
+            배포 화면을 여세요.
+          </Text>
+        </VStack>
+        <CodeBlock
+          code={localRunCommand}
+          language="bash"
+          title="로컬 실행"
+          hasLineNumbers={false}
+          hasCopyButton
+          isWrapped
+          width="100%"
+        />
+        <HStack gap={4} wrap="wrap">
+          <Link
+            href={vercelDeployUrl}
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Vercel에 바로 배포
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse"
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            GitHub 저장소
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse/blob/agent/runtime-profiles/START-HERE.md"
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            초보자 빠른 시작
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse/blob/agent/runtime-profiles/copilot/IT-ADMIN-QUICK-START.md"
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Copilot 설치 안내
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse/actions/workflows/pages.yml"
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Pages 배포 상태
+          </Link>
+        </HStack>
+      </VStack>
+    </Card>
+  );
+}
 
 function LicenseNotice() {
   return (
@@ -123,6 +198,8 @@ export function ReverseWorkspace() {
                   검수합니다.
                 </Text>
               </VStack>
+
+              <QuickStart />
 
               <TabList
                 value={activeTab}
