@@ -131,8 +131,9 @@ function expectedManifest(platform) {
       ...common,
       configuration: {
       environment: {
-        display_name: "한국과학창의재단",
-        immutable: true,
+        scope: "ANY_MICROSOFT_365_WORK_OR_EDUCATION_TENANT",
+        display_name: "TARGET_TENANT_SELECTED_AT_INSTALL",
+        immutable: false,
         identifier_storage: "LOCAL_RECEIPT_FINGERPRINT_ONLY"
       },
       instructions: {
@@ -254,9 +255,22 @@ test("실제 구성값과 증거를 모두 가진 receipt만 완료된다", asyn
   for (const platform of ["CUSTOM_GPT", "COPILOT_STUDIO"]) {
     const manifest = expectedManifest(platform);
     const receipt = passingReceipt(manifest, evidenceArtifact);
+    if (platform === "COPILOT_STUDIO") {
+      receipt.observed_configuration.environment_display_name = "다른 학교 교육 테넌트";
+    }
     const result = await validateLiveReceipt(manifest, receipt, { evidenceRoot: evidenceArtifact.root });
     assert.deepEqual(result, { ok: true, issues: [] });
   }
+});
+
+test("Copilot 배포 계약은 특정 재단명 대신 설치 대상 테넌트 기록을 요구한다", async () => {
+  const evidenceArtifact = await createEvidenceArtifact();
+  const manifest = expectedManifest("COPILOT_STUDIO");
+  const receipt = passingReceipt(manifest, evidenceArtifact);
+  receipt.observed_configuration.environment_display_name = "";
+  const result = await validateLiveReceipt(manifest, receipt, { evidenceRoot: evidenceArtifact.root });
+  assert.equal(result.ok, false);
+  assert.ok(result.issues.some((issue) => issue.includes("설치 대상 환경")));
 });
 
 test("완료 표지만 위조하거나 라이브 구성이 다르면 fail-closed한다", async () => {
@@ -332,7 +346,7 @@ test("JSON 입력기는 UTF-8-SIG와 무BOM을 모두 읽고 기계 출력은 �
   const directory = await mkdtemp(join(tmpdir(), "reverse-deployment-json-"));
   const bomPath = join(directory, "bom.json");
   const plainPath = join(directory, "plain.json");
-  const payload = { display_name: "한국과학창의재단" };
+  const payload = { display_name: "학교 교육 테넌트" };
   await writeFile(bomPath, `\uFEFF${JSON.stringify(payload)}`, "utf8");
   await writeFile(plainPath, JSON.stringify(payload), "utf8");
   assert.deepEqual(await readJsonAllowBom(bomPath), payload);

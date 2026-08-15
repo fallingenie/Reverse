@@ -254,10 +254,11 @@
               "environment": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["display_name", "immutable", "identifier_storage"],
+                "required": ["scope", "display_name", "immutable", "identifier_storage"],
                 "properties": {
-                  "display_name": { "const": "한국과학창의재단" },
-                  "immutable": { "const": true },
+                  "scope": { "const": "ANY_MICROSOFT_365_WORK_OR_EDUCATION_TENANT" },
+                  "display_name": { "const": "TARGET_TENANT_SELECTED_AT_INSTALL" },
+                  "immutable": { "const": false },
                   "identifier_storage": { "const": "LOCAL_RECEIPT_FINGERPRINT_ONLY" }
                 }
               },

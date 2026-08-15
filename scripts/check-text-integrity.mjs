@@ -16,7 +16,8 @@ const ignoredDirectories = new Set([
   "build",
   "coverage",
   "dist",
-  "node_modules"
+  "node_modules",
+  "out"
 ]);
 const humanExtensions = new Set([".md", ".ps1", ".txt"]);
 const humanNames = new Set(["LICENSE", "NOTICE"]);

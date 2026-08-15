@@ -33,6 +33,7 @@ pnpm copilot:tenant-doctor
 ## 설치 전 조건
 
 - 대상은 Microsoft 365 Copilot Chat의 Work/Education 환경입니다. 소비자용 Copilot Pro를 동일한 배포 대상으로 보장하지 않습니다.
+- 패키지는 특정 재단이나 환경 ID에 고정되지 않습니다. 각 학교·기관의 Copilot Studio에서 새 에이전트로 가져오고, 해당 테넌트에서 정책과 라이브 응답을 다시 검증합니다.
 - 테넌트의 에이전트 업로드·게시 정책은 학교 IT 관리자가 확인해야 합니다.
 - 배포 전 `pnpm copilot:package`, `pnpm copilot:validate-package`, `pnpm copilot:tenant-doctor`를 순서대로 실행해야 합니다.
 - 메인 Copilot에서 에이전트를 호출하면 기본 응답 모드가 적용되지 않을 수 있습니다.

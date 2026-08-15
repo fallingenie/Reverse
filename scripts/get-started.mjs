@@ -180,10 +180,12 @@ function formatTenant(result) {
   const lines = ["Microsoft 365 Copilot 테넌트 경계 점검", ""];
   if (result.supported_environment) {
     lines.push(
-      `지원 대상 환경: ${result.supported_environment.display_name}`,
-      `환경 ID: ${result.supported_environment.environment_id}`,
-      ""
+      `지원 범위: ${result.supported_environment.display_name}`
     );
+    if (result.supported_environment.environment_id) {
+      lines.push(`환경 ID: ${result.supported_environment.environment_id}`);
+    }
+    lines.push("");
   }
   lines.push(...formatChecks(result.checks, "차단"), "");
   if (result.status === "TENANT_PREFLIGHT_READY") {
@@ -208,7 +210,7 @@ function formatTenant(result) {
     );
   } else if (result.status === "TENANT_ENVIRONMENT_CONFIRMATION_REQUIRED") {
     lines.push(
-      "결론: Copilot Studio 화면의 환경 ID를 위 값과 직접 대조해야 합니다.",
+      "결론: 관리자가 설치 대상 Copilot Studio 환경과 조직 정책을 직접 확인해야 합니다.",
       "확인 전에는 앱을 업로드하지 마세요."
     );
   } else {

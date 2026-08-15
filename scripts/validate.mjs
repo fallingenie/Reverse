@@ -56,7 +56,7 @@ async function walk(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
   const files = [];
   for (const entry of entries) {
-    if ([".git", ".reverse-local", ".venv", "__pycache__", "node_modules", "coverage", "build", "dist"].includes(entry.name)) {
+    if ([".git", ".next", ".reverse-local", ".vercel", ".venv", "__pycache__", "node_modules", "coverage", "build", "dist", "out"].includes(entry.name)) {
       continue;
     }
     const path = join(directory, entry.name);
