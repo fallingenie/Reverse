@@ -6,8 +6,8 @@ export const reverseTheme = defineTheme({
   extends: neutralTheme,
   color: {
     accent: '#08767D',
-    neutralStyle: 'cool',
-    contrast: 'high',
+    neutralStyle: 'neutral',
+    contrast: 'standard',
   },
   typography: {
     scale: {base: 16, ratio: 1.18},
