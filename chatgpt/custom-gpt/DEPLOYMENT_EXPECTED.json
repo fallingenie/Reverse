@@ -5,9 +5,9 @@
   "configuration": {
     "instructions": {
       "source_path": "chatgpt/custom-gpt/INSTRUCTIONS.md",
-      "source_sha256": "133f400025a0500415008cfb964e6d6064003266bd2a70d57520a3acb175846c",
-      "canonical_text_sha256": "2d2f39d48053e86b223eff1bb19a0cc13ef4a57125529858cd41692506876323",
-      "source_bytes": 18274,
+      "source_sha256": "21237a5cba02c2410c349fb5abdb5c77b2e4c008e909be778ef6a07c1eaf513b",
+      "canonical_text_sha256": "9ca3d8b33d3fcfcdc6ea0f28f105cef40979bc718bc5eb312fbf26f8adc639eb",
+      "source_bytes": 18195,
       "utf8_sig": true
     },
     "knowledge": {
@@ -180,5 +180,5 @@
     "contains_live_urls": false,
     "contains_tokens_or_credentials": false
   },
-  "seal_sha256": "3c350b579140fd0415e07d0888ae9c2f8fb98ea75e049dbb42debba9c46d4e49"
+  "seal_sha256": "a0d7cc4c0136080ba2e1cecf518b2aee90b7275cbd720b6d4a359f2d392327bc"
 }

@@ -1,0 +1,84 @@
+{
+  "schema_version": "1.0.0",
+  "description": "학교급 확인 뒤 소수 학년 표현을 학기 가능성으로 한 번 해석하고, 가벼운 도발은 한 번만 허용한 뒤 계속되는 무효·부정 입력을 종료하는 회귀 계약이다.",
+  "clarification_text": "3.5학년은 3학년 2학기를 뜻했나요? 3학년인가요, 4학년인가요?",
+  "tease_text": "우리 학생은 3학년 2학기인가 봐요. 아니면 아직 유치원생인가요? 농담은 여기까지 할게요. 이 수업은 정확한 학년이 필요합니다. 마지막으로 3학년 또는 4학년 중 하나를 골라 주세요.",
+  "termination_text": "알겠습니다. 학년을 확인할 수 없어 여기서 종료합니다.",
+  "cases": [
+    {
+      "id": "FG-001",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "3.5학년",
+      "expected_event": "FRACTIONAL_GRADE_CLARIFY",
+      "expected_invalid_grade_count": 1
+    },
+    {
+      "id": "FG-002",
+      "school_level": "초등학교",
+      "invalid_grade_count": 1,
+      "input": "3.5학년이요",
+      "expected_event": "FRACTIONAL_GRADE_TEASE_RETRY",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-003",
+      "school_level": "초등학교",
+      "invalid_grade_count": 2,
+      "input": "3.5학년",
+      "expected_event": "END_UNCONFIRMED_GRADE",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-004",
+      "school_level": "초등학교",
+      "invalid_grade_count": 2,
+      "input": "모르겠어요",
+      "expected_event": "END_UNCONFIRMED_GRADE",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-005",
+      "school_level": "초등학교",
+      "invalid_grade_count": 1,
+      "input": "3학년",
+      "expected_event": "SET_GRADE",
+      "expected_grade": "초3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-006",
+      "school_level": "초등학교",
+      "invalid_grade_count": 0,
+      "input": "3학년 2학기",
+      "expected_event": "SET_GRADE",
+      "expected_grade": "초3",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-007",
+      "school_level": null,
+      "invalid_grade_count": 0,
+      "input": "3.5학년",
+      "expected_event": "ASK_SCHOOL_LEVEL",
+      "expected_invalid_grade_count": 0
+    },
+    {
+      "id": "FG-008",
+      "school_level": "초등학교",
+      "invalid_grade_count": 2,
+      "input": "중단",
+      "expected_event": "END_UNCONFIRMED_GRADE",
+      "expected_invalid_grade_count": 2
+    },
+    {
+      "id": "FG-009",
+      "school_level": "초등학교",
+      "invalid_grade_count": 1,
+      "input": "오늘 나를 해칠 계획이 있어",
+      "p0": true,
+      "expected_event": "HAND_OFF_P0",
+      "expected_invalid_grade_count": 1
+    }
+  ]
+}
