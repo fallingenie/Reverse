@@ -3,17 +3,25 @@
 import {useState} from 'react';
 import {AppShell} from '@astryxdesign/core/AppShell';
 import {Card} from '@astryxdesign/core/Card';
+import {Divider} from '@astryxdesign/core/Divider';
+import {Heading} from '@astryxdesign/core/Heading';
 import {HStack} from '@astryxdesign/core/HStack';
 import {Icon} from '@astryxdesign/core/Icon';
-import {Layout, LayoutContent} from '@astryxdesign/core/Layout';
+import {
+  Layout,
+  LayoutContent,
+  LayoutPanel,
+} from '@astryxdesign/core/Layout';
 import {Link} from '@astryxdesign/core/Link';
 import {NavIcon} from '@astryxdesign/core/NavIcon';
 import {Overlay} from '@astryxdesign/core/Overlay';
 import {Spinner} from '@astryxdesign/core/Spinner';
+import {Text} from '@astryxdesign/core/Text';
 import {
   TopNav,
   TopNavHeading,
 } from '@astryxdesign/core/TopNav';
+import {VStack} from '@astryxdesign/core/VStack';
 import {VisuallyHidden} from '@astryxdesign/core/VisuallyHidden';
 import {useMediaQuery} from '@astryxdesign/core/hooks';
 import {COPILOT_WEBCHAT_URL} from '@/lib/copilot';
@@ -38,7 +46,7 @@ function CompactNavigationLink({
       newTabLabel="새 탭에서 열림"
       isStandalone
     >
-      <Card variant="muted" padding={3}>
+      <Card variant="transparent" padding={3}>
         <HStack gap={1.5} vAlign="center">
           {icon ? <Icon icon={icon} color="secondary" /> : null}
           {children}
@@ -48,9 +56,80 @@ function CompactNavigationLink({
   );
 }
 
+function DesktopExperienceRail() {
+  return (
+    <LayoutPanel
+      width={272}
+      padding={5}
+      hasDivider
+      isScrollable={false}
+      label="Reverse 안내"
+      style={{background: 'var(--color-background-teal)'}}
+    >
+      <VStack height="100%" vAlign="between">
+        <VStack gap={6}>
+          <VStack gap={3}>
+            <HStack gap={2} vAlign="center">
+              <NavIcon
+                icon={
+                  <Text type="label" weight="bold" color="inherit">
+                    R
+                  </Text>
+                }
+              />
+              <Heading level={1}>Reverse</Heading>
+            </HStack>
+            <Text type="label" color="accent">
+              장면형 · 근거 기반 수업
+            </Text>
+            <Text type="large" weight="semibold" textWrap="balance">
+              학생의 선택이 이야기를 움직이고, 근거가 수업을 지탱합니다.
+            </Text>
+            <Text type="supporting" textWrap="pretty">
+              Microsoft Copilot Studio의 수업 Agent를 이 화면 안에서 바로
+              사용하세요.
+            </Text>
+          </VStack>
+
+          <Divider />
+
+          <VStack gap={2}>
+            <Link href={`${publicBasePath}/guide/`} isStandalone>
+              <Card variant="default" padding={3} elevation="low">
+                <HStack gap={2} vAlign="center">
+                  <Icon icon="info" color="accent" />
+                  교사 안내 열기
+                </HStack>
+              </Card>
+            </Link>
+            <Link
+              href={COPILOT_WEBCHAT_URL}
+              isExternalLink
+              newTabLabel="새 탭에서 열림"
+              isStandalone
+            >
+              <Card variant="transparent" padding={3}>
+                대화만 크게 보기
+              </Card>
+            </Link>
+          </VStack>
+        </VStack>
+
+        <VStack gap={2}>
+          <Divider />
+          <Text type="supporting" textWrap="pretty">
+            이 대화창은 Microsoft가 제공하는 외부 서비스입니다. 실명,
+            연락처, 학번, 건강·가정 정보는 입력하지 마세요.
+          </Text>
+        </VStack>
+      </VStack>
+    </LayoutPanel>
+  );
+}
+
 export function CopilotExperience() {
   const [isFrameDocumentLoaded, setIsFrameDocumentLoaded] = useState(false);
-  const isPhone = useMediaQuery('(max-width: 767px)');
+  const isCompact = useMediaQuery('(max-width: 1023px)');
 
   return (
     <AppShell
@@ -58,22 +137,20 @@ export function CopilotExperience() {
       height="fill"
       variant="surface"
       mobileNav={false}
-      topNav={
+      topNav={isCompact ? (
         <TopNav
           label="Reverse 수업 도구"
           heading={
             <TopNavHeading
               heading="Reverse"
-              headingHref={`${publicBasePath}/`}
-              subheading={
-                isPhone
-                  ? undefined
-                  : '근거 기반 장면형 수업 · 개인정보 입력 금지'
-              }
               logo={
-                isPhone ? undefined : (
-                  <NavIcon icon={<Icon icon="wrench" color="primary" />} />
-                )
+                <NavIcon
+                  icon={
+                    <Text type="label" weight="bold" color="inherit">
+                      R
+                    </Text>
+                  }
+                />
               }
             />
           }
@@ -83,21 +160,22 @@ export function CopilotExperience() {
                 href={`${publicBasePath}/guide/`}
                 icon="info"
               >
-                {isPhone ? '안내' : '교사 안내'}
+                안내
               </CompactNavigationLink>
               <CompactNavigationLink
                 href={COPILOT_WEBCHAT_URL}
                 isExternalLink
               >
-                {isPhone ? '새 창' : '대화만 크게 보기'}
+                새 창
               </CompactNavigationLink>
             </HStack>
           }
         />
-      }
+      ) : undefined}
     >
       <Layout
         height="fill"
+        start={isCompact ? undefined : <DesktopExperienceRail />}
         content={
           <LayoutContent
             padding={0}

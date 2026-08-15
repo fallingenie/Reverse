@@ -26,15 +26,18 @@ describe('Universal Astryx 수업 셸', () => {
     expect(themeSource).toMatch(/family:\s*'Noto Sans KR Variable'/u);
   });
 
-  it('휴대전화에서는 짧은 작업명으로 대화 영역을 확보한다', () => {
-    expect(shellSource).toContain("useMediaQuery('(max-width: 767px)')");
-    expect(shellSource).toContain("isPhone ? '안내' : '교사 안내'");
-    expect(shellSource).toContain("isPhone ? '새 창' : '대화만 크게 보기'");
+  it('태블릿과 휴대전화에서는 짧은 내비게이션만 남긴다', () => {
+    expect(shellSource).toContain("useMediaQuery('(max-width: 1023px)')");
+    expect(shellSource).toContain('topNav={isCompact ? (');
+    expect(shellSource).toContain('안내');
+    expect(shellSource).toContain('새 창');
   });
 
-  it('한 줄 제품 탐색 다음에 대화 무대를 바로 채운다', () => {
+  it('데스크톱은 안내 레일 옆에 대화 무대를 전체 높이로 채운다', () => {
     expect(shellSource).toContain('<TopNav');
-    expect(shellSource).toContain('<Card variant="muted" padding={3}>');
+    expect(shellSource).toContain('<DesktopExperienceRail />');
+    expect(shellSource).toContain('width={272}');
+    expect(shellSource).toContain('<Card variant="transparent" padding={3}>');
     expect(shellSource).toContain('contentPadding={0}');
     expect(shellSource).toContain('padding={0}');
     expect(shellSource).toContain("style={{width: '100%', height: '100%'}}");
@@ -50,10 +53,10 @@ describe('Universal Astryx 수업 셸', () => {
     );
   });
 
-  it('장문 안내와 중복 제목을 제거하고 개인정보 경계만 짧게 남긴다', () => {
+  it('대화보다 앞서는 장문 배너 없이 개인정보 경계를 분리한다', () => {
     expect(shellSource).toContain('<AppShell');
     expect(shellSource).toContain('variant="surface"');
-    expect(shellSource).not.toMatch(/<Banner|<Heading|<Section/u);
-    expect(shellSource).toContain('개인정보 입력 금지');
+    expect(shellSource).not.toMatch(/<Banner|<Section/u);
+    expect(shellSource).toMatch(/개인정보[\s\S]*입력하지 마세요/u);
   });
 });
