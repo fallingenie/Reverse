@@ -17,8 +17,8 @@
     "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
     "declarativeAgent.json": "4fbf418afa9d5d5cdc510046120791f3ea8c2e47a2431f310b9fad555ef11010",
     "knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
-    "studio/DEPLOYMENT_EXPECTED.json": "b44a06d0c19f53bde2972bc86c1076ff990fdc478863daaddd8935d1aecd7281",
+    "studio/DEPLOYMENT_EXPECTED.json": "5687247b662daf82c90e5191967410b1af81c09af35607d576078beb8a4fa289",
     "studio/STUDIO_INSTRUCTIONS.md": "3a27f02741e8b7972240ee76c937f45bd2e957bd38258ffb83d1f759a9471fa7"
   },
-  "seal_sha256": "558976b3caf908cdd3c96f3ff9b51a68fa3ca24459c0a95005720d67bc1a45c5"
+  "seal_sha256": "0261acd37c3d864086563cebf6f7f8c87a4d7be962c4d64def9f174f121682d0"
 }
