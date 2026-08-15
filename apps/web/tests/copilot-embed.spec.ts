@@ -1,4 +1,5 @@
 import {describe, expect, it} from 'vitest';
+import {readFileSync} from 'node:fs';
 import {
   COPILOT_WEBCHAT_BASE_URL,
   COPILOT_WEBCHAT_URL,
@@ -20,5 +21,14 @@ describe('Copilot WebChat 임베드', () => {
       cliAgent: 'true',
     });
     expect(COPILOT_WEBCHAT_URL).not.toContain('**version**');
+  });
+
+  it('GitHub Pages에서는 Copilot 경로를 폴더 URL로 내보낸다', () => {
+    const configSource = readFileSync(
+      new URL('../next.config.ts', import.meta.url),
+      'utf8',
+    );
+
+    expect(configSource).toContain("trailingSlash: true");
   });
 });

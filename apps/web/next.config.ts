@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
   env: {
     NEXT_PUBLIC_STATIC_EXPORT: isGitHubPages ? 'true' : 'false',
   },
-  ...(isGitHubPages ? {basePath, output: 'export'} : {}),
+  ...(isGitHubPages ? {basePath, output: 'export', trailingSlash: true} : {}),
   poweredByHeader: false,
   reactStrictMode: true,
 };
