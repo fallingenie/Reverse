@@ -54,6 +54,7 @@ function QuickStart() {
         <HStack gap={4} wrap="wrap">
           <Link
             href={vercelDeployUrl}
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -62,6 +63,7 @@ function QuickStart() {
           </Link>
           <Link
             href="https://github.com/fallingenie/Reverse"
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -70,6 +72,7 @@ function QuickStart() {
           </Link>
           <Link
             href="https://github.com/fallingenie/Reverse/blob/agent/runtime-profiles/START-HERE.md"
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -78,6 +81,7 @@ function QuickStart() {
           </Link>
           <Link
             href="https://github.com/fallingenie/Reverse/blob/agent/runtime-profiles/copilot/IT-ADMIN-QUICK-START.md"
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -86,6 +90,7 @@ function QuickStart() {
           </Link>
           <Link
             href="https://github.com/fallingenie/Reverse/actions/workflows/pages.yml"
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -114,14 +119,15 @@ function LicenseNotice() {
           따릅니다.
         </Text>
         <HStack gap={4} wrap="wrap">
-          <Link href={`${publicBasePath}/LICENSE`} isStandalone>
+          <Link href={`${publicBasePath}/LICENSE`} hasUnderline isStandalone>
             라이선스
           </Link>
-          <Link href={`${publicBasePath}/NOTICE`} isStandalone>
+          <Link href={`${publicBasePath}/NOTICE`} hasUnderline isStandalone>
             고지
           </Link>
           <Link
             href="https://www.apache.org/licenses/LICENSE-2.0"
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -130,6 +136,7 @@ function LicenseNotice() {
           </Link>
           <Link
             href="https://github.com/lemos999/Singulari-Tea-Codex-Prompt-for-Gemini"
+            hasUnderline
             isExternalLink
             isStandalone
             newTabLabel="새 탭에서 열림"
@@ -158,6 +165,7 @@ export function ReverseWorkspace() {
       endContent={
         <Link
           href="https://github.com/fallingenie/Reverse"
+          hasUnderline
           isExternalLink
           isStandalone
           newTabLabel="새 탭에서 열림"
@@ -174,6 +182,28 @@ export function ReverseWorkspace() {
       status="info"
       title="로컬 데모"
       description="현재 웹 버전은 백엔드·LLM·웹 검색에 연결되지 않았습니다. 입력은 브라우저 메모리에만 머물며 새로고침하면 사라집니다."
+      endContent={
+        <HStack gap={4} wrap="wrap">
+          <Link
+            href={vercelDeployUrl}
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            Vercel 배포
+          </Link>
+          <Link
+            href="https://github.com/fallingenie/Reverse"
+            hasUnderline
+            isExternalLink
+            isStandalone
+            newTabLabel="새 탭에서 열림"
+          >
+            GitHub 저장소
+          </Link>
+        </HStack>
+      }
     />
   );
 

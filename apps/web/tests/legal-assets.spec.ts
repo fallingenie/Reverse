@@ -23,6 +23,8 @@ describe('배포 법적 문서', () => {
     expect(source).toContain('https://vercel.com/new/clone?');
     expect(source).toContain('초보자 빠른 시작');
     expect(source).toContain('Copilot 설치 안내');
+    expect(source.match(/hasUnderline/g)?.length).toBeGreaterThanOrEqual(10);
+    expect(source).toContain('Vercel 배포');
     expect(source).toContain('Pages 배포 상태');
   });
 });

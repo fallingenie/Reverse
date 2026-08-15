@@ -3,7 +3,7 @@ name: GitHub Pages
 on:
   workflow_dispatch:
   push:
-    branches: [agent/runtime-profiles]
+    branches: [main, agent/runtime-profiles]
     paths:
       - apps/web/**
       - .github/workflows/pages.yml

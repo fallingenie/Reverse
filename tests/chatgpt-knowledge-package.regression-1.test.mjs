@@ -9,6 +9,7 @@ import {
   externalPdfContractPath,
   externalPdfReceiptPath,
   knowledgeMappings,
+  loadExternalPdfContractEntries,
   loadExternalPdfEntries,
   validateExternalPdfBytes,
   validateKnowledgeSource,
@@ -71,6 +72,15 @@ test("외부 PDF 3개는 파일명·크기·SHA-256·학교급·교육과정 권
     && /^[0-9a-f]{64}$/u.test(entry.sha256)
     && entry.bytes > 0
   )));
+});
+
+test("공개 CI는 로컬 PDF 경로 없이 추적 계약과 manifest를 검증한다", async () => {
+  const publicContract = await loadExternalPdfContractEntries();
+  const manifest = await verifyKnowledgeBundle({verifyExternalFiles: false});
+  const external = manifest.files.filter((entry) => entry.delivery === "EXTERNAL_UPLOAD");
+  assert.equal(publicContract.contract_id.length >= 8, true);
+  assert.deepEqual(external, publicContract.entries);
+  assert.deepEqual(external.map((entry) => entry.school_level), ["ELEMENTARY", "MIDDLE", "HIGH"]);
 });
 
 test("외부 PDF validator는 이름·절대경로·크기·해시·PDF 서명 불일치를 차단한다", () => {
