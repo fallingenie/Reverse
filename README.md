@@ -57,7 +57,7 @@ pnpm install --frozen-lockfile
 pnpm validate
 pnpm test
 pnpm verify:copilot
-pnpm copilot:validate-package
+pnpm copilot:validate-package # Microsoft 계정에 로그인된 게시 전 로컬 환경에서만 실행
 pnpm verify:exports:active
 ```
 

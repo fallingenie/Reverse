@@ -34,7 +34,7 @@
     "validate": "node scripts/validate.mjs",
     "test": "node --test",
     "check:active": "pnpm run encoding:check:active && pnpm run chatgpt:knowledge:verify && pnpm run student:skill && pnpm run validate && pnpm test && pnpm run verify:exports:active && pnpm run verify:copilot && pnpm run copilot:package && pnpm run copilot:validate-package",
-    "check:ci": "pnpm run encoding:check:active && pnpm run chatgpt:knowledge:verify-public && pnpm run student:skill && pnpm run validate && pnpm test && pnpm run verify:exports:active && pnpm run verify:copilot && pnpm run copilot:package && pnpm run copilot:validate-package",
+    "check:ci": "pnpm run encoding:check:active && pnpm run chatgpt:knowledge:verify-public && pnpm run student:skill && pnpm run validate && pnpm test && pnpm run verify:exports:active && pnpm run verify:copilot && pnpm run copilot:package",
     "check": "pnpm run validate && pnpm test && pnpm run test:python && pnpm run verify:exports"
   },
   "engines": {

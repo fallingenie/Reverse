@@ -32,6 +32,7 @@ jobs:
       - name: Run active-platform checks
         # 원본 교육과정 PDF는 공개 저장소에 없으므로 CI는 추적 계약만 검증한다.
         # 로컬 릴리스의 check:active는 실제 PDF 바이트·SHA 검증을 계속 수행한다.
+        # Agents Toolkit 검증은 Microsoft 계정 로그인이 필요하므로 CI에서는 실행하지 않는다.
         run: pnpm run check:ci
       - name: Audit Node dependencies
         run: pnpm audit --audit-level low
