@@ -1,6 +1,6 @@
 ﻿# Reverse Web
 
-`apps/web`은 Microsoft Copilot Studio의 Reverse 에이전트를 보여 주는 Next.js 웹 화면입니다. 첫 화면은 Copilot 대화창을 삽입하고, `/guide/`는 컴퓨터 사용이 익숙하지 않은 교사를 위한 안내를 제공합니다. 화면은 Astryx 구성요소와 디자인 토큰으로 만들었습니다.
+`apps/web`은 Microsoft Copilot Studio의 Reverse 에이전트를 보여 주는 Next.js 웹 화면입니다. 첫 화면은 Copilot 대화창을 삽입하고, `/guide/`는 컴퓨터 사용이 익숙하지 않은 교사를 위한 안내를 제공합니다. Vercel의 `/teacher/`는 서버 인증이 설정된 경우에만 최소 수업 정보의 Markdown 내보내기를 제공합니다. 화면은 Astryx 구성요소와 디자인 토큰으로 만들었습니다.
 
 ## 교사로서 바로 사용하기
 
@@ -16,6 +16,7 @@ Vercel에 접속할 수 없으면 GitHub Pages를 사용할 수 있습니다. �
 
 - `/`: 게시된 Copilot Studio WebChat과 새 창으로 여는 대체 링크
 - `/guide/`: 설치 없는 시작 방법, 로그인 문제 해결, 개인정보와 교사 기록 안내
+- `/teacher/`: Vercel 전용 교사 키 인증, 최소 수업 정보 미리보기와 Markdown 내보내기
 - `/LICENSE`, `/NOTICE`: Apache License 2.0과 원 저작자 고지
 
 이전의 로컬 시나리오 생성 예제는 공개 제품 화면에서 제거했습니다. 수업 내용과 대화는 삽입된 Copilot 에이전트가 제공합니다.
@@ -24,7 +25,7 @@ Vercel에 접속할 수 없으면 GitHub Pages를 사용할 수 있습니다. �
 
 이 앱 자체에는 생성형 AI, 웹 검색, 교육과정 PDF 검색, 사용자 계정 체계, 서버 데이터베이스가 없습니다. Copilot 대화 내용의 처리와 보존은 Microsoft 서비스와 기관 정책을 따릅니다.
 
-현재 공개 화면에는 교사 프로필 편집이나 Markdown 내보내기 버튼이 없습니다. 관련 서버 모듈은 공개 기능으로 연결하고 회귀 검증하기 전까지 배포 기능으로 간주하지 않습니다. GitHub Pages는 정적 배포이므로 서버 기반 교사 키 확인과 내보내기를 지원할 수 없습니다.
+GitHub Pages의 현재 공개 화면에는 교사 프로필 편집이나 Markdown 내보내기 버튼이 없습니다. Vercel의 `/teacher/`는 `REVERSE_TEACHER_KEY_SHA256`과 `REVERSE_TEACHER_SESSION_SECRET`이 모두 설정된 경우에만 열립니다. Copilot 대화 전문은 별도 출처 iframe이라 읽지 않으며, 교사가 직접 입력한 최소 구조화 정보만 처리합니다.
 
 향후 교사 내보내기를 연결할 때의 키 관리, 개인정보와 운영 경계는 [교사용 내보내기 보안 안내](../../docs/TEACHER_EXPORT_SECURITY.md)를 따릅니다.
 
@@ -44,9 +45,14 @@ pnpm run dev
 
 GitHub 저장소를 Vercel 프로젝트에 연결하고 Root Directory를 `apps/web`으로 지정합니다.
 
+교사 기록을 사용할 때는 다음 서버 환경 변수도 설정합니다. 설정하지 않으면 `/teacher/`는 fail-closed 상태로 일반 수업 기능과 분리됩니다.
+
+- `REVERSE_TEACHER_KEY_SHA256`: 교사 키 원문의 SHA-256
+- `REVERSE_TEACHER_SESSION_SECRET`: 32자 이상의 무작위 세션 서명 비밀값
+
 - 설치 명령: `pnpm install --frozen-lockfile`
 - 빌드 명령: `pnpm run build`
-- 현재 공개 웹 셸에 필요한 환경 변수: 없음
+- 일반 수업 웹 셸에 필요한 환경 변수: 없음
 
 실제 배포 주소를 열어 Copilot 삽입 화면, 새 창 대체 링크, `/guide/`, `/LICENSE`, `/NOTICE`를 확인하기 전에는 배포 완료라고 표시하지 않습니다.
 

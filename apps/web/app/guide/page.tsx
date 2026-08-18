@@ -14,6 +14,7 @@ import {TopNav, TopNavHeading} from '@astryxdesign/core/TopNav';
 import {VStack} from '@astryxdesign/core/VStack';
 
 const VERCEL_URL = 'https://reverse-education-beta.vercel.app/';
+const TEACHER_URL = 'https://reverse-education-beta.vercel.app/teacher/';
 const PAGES_URL = 'https://fallingenie.github.io/Reverse/';
 const REPOSITORY_URL = 'https://github.com/fallingenie/Reverse';
 const GUIDE_URL = `${REPOSITORY_URL}/blob/main/docs/TEACHER_GUIDE.md`;
@@ -114,6 +115,9 @@ export default function TeacherGuidePage() {
                       <Link href={VERCEL_URL} hasUnderline isStandalone>
                         Vercel 화면 열기
                       </Link>
+                      <Link href={TEACHER_URL} hasUnderline isStandalone>
+                        교사 기록 화면 열기
+                      </Link>
                     </VStack>
                   </Card>
 
@@ -193,11 +197,15 @@ export default function TeacherGuidePage() {
                     오개념을 확정하지 않습니다.
                   </Text>
                   <Text color="secondary">
-                    현재 공개 화면에는 교사 프로필 편집이나 Markdown 내보내기
-                    버튼이 없습니다. 향후 이 기능을 연결하더라도 Vercel 서버 설정과
-                    회귀 검증을 먼저 마쳐야 합니다. 교사 키는 안전 규칙을 해제하거나
-                    교사 신원을 증명하는 권한이 아닙니다.
+                    GitHub Pages의 현재 공개 화면에는 교사 프로필 편집이나 Markdown 내보내기
+                    버튼이 없습니다. Vercel의 교사 기록 화면은 서버 설정이 완료된 경우에만
+                    교사 키로 열립니다. Copilot 대화 전문은 별도 출처의 iframe이라 자동으로
+                    가져오지 않으며, 교사가 입력한 최소 수업 정보만 구조화해 내보냅니다.
+                    교사 키는 안전 규칙을 해제하거나 교사 신원을 증명하는 권한이 아닙니다.
                   </Text>
+                  <Link href={TEACHER_URL} hasUnderline isStandalone>
+                    Vercel 교사 기록 화면
+                  </Link>
                 </VStack>
               </Card>
 
