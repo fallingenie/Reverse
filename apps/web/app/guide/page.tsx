@@ -2,11 +2,11 @@ import type {Metadata} from 'next';
 import {AppShell} from '@astryxdesign/core/AppShell';
 import {Banner} from '@astryxdesign/core/Banner';
 import {Card} from '@astryxdesign/core/Card';
+import {ClickableCard} from '@astryxdesign/core/ClickableCard';
 import {Grid} from '@astryxdesign/core/Grid';
 import {HStack} from '@astryxdesign/core/HStack';
 import {Heading} from '@astryxdesign/core/Heading';
 import {Layout, LayoutContent} from '@astryxdesign/core/Layout';
-import {Link} from '@astryxdesign/core/Link';
 import {List, ListItem} from '@astryxdesign/core/List';
 import {Text} from '@astryxdesign/core/Text';
 import {Token} from '@astryxdesign/core/Token';
@@ -32,18 +32,22 @@ export default function TeacherGuidePage() {
       heading={<TopNavHeading heading="Reverse" subheading="교사용 가이드" />}
       endContent={
         <HStack gap={4} wrap="wrap">
-          <Link href={VERCEL_URL} hasUnderline isStandalone>
-            수업 화면 열기
-          </Link>
-          <Link
-            href={REPOSITORY_URL}
-            hasUnderline
-            isExternalLink
-            isStandalone
-            newTabLabel="새 창에서 열림"
+          <ClickableCard
+            label="수업 화면 열기"
+            href={VERCEL_URL}
+            variant="transparent"
+            padding={3}
           >
-            GitHub 문서
-          </Link>
+            <Text weight="semibold">수업 화면 열기</Text>
+          </ClickableCard>
+          <ClickableCard
+            label="GitHub 문서 열기"
+            href={REPOSITORY_URL}
+            variant="transparent"
+            padding={3}
+          >
+            <Text weight="semibold">GitHub 문서</Text>
+          </ClickableCard>
         </HStack>
       }
     />
@@ -69,9 +73,14 @@ export default function TeacherGuidePage() {
                 title="가장 쉬운 방법은 Vercel 수업 화면입니다"
                 description="GitHub 저장소를 내려받거나 프로그램을 설치할 필요가 없습니다. Microsoft 로그인이나 조직 권한을 요구하면 학교·기관의 업무용 또는 교육용 계정을 사용하세요."
                 endContent={
-                  <Link href={VERCEL_URL} hasUnderline isStandalone>
-                    Vercel에서 시작하기
-                  </Link>
+                  <ClickableCard
+                    label="Vercel에서 시작하기"
+                    href={VERCEL_URL}
+                    variant="transparent"
+                    padding={3}
+                  >
+                    <Text weight="semibold">Vercel에서 시작하기</Text>
+                  </ClickableCard>
                 }
               />
 
@@ -102,7 +111,11 @@ export default function TeacherGuidePage() {
               <VStack gap={3}>
                 <Heading level={2}>화면별 차이</Heading>
                 <Grid columns={{minWidth: 280, max: 3, repeat: 'fit'}} gap={4}>
-                  <Card padding={5}>
+                  <ClickableCard
+                    label="Vercel 수업 화면 열기"
+                    href={VERCEL_URL}
+                    padding={5}
+                  >
                     <VStack gap={3}>
                       <HStack gap={2} wrap="wrap">
                         <Heading level={3}>Vercel</Heading>
@@ -112,46 +125,54 @@ export default function TeacherGuidePage() {
                         일반 수업 체험에 사용합니다. 교사 내보내기는 서버의 보안
                         설정이 완료된 배포에서만 열립니다.
                       </Text>
-                      <Link href={VERCEL_URL} hasUnderline isStandalone>
-                        Vercel 화면 열기
-                      </Link>
-                      <Link href={TEACHER_URL} hasUnderline isStandalone>
-                        교사 기록 화면 열기
-                      </Link>
+                      <Text weight="semibold" color="accent">Vercel 화면 열기 →</Text>
                     </VStack>
-                  </Card>
+                  </ClickableCard>
 
-                  <Card padding={5}>
+                  <ClickableCard
+                    label="GitHub Pages 화면 열기"
+                    href={PAGES_URL}
+                    padding={5}
+                  >
                     <VStack gap={3}>
                       <Heading level={3}>GitHub Pages</Heading>
                       <Text color="secondary">
                         서버 기능이 없는 대체 화면입니다. 교사 키 확인과 Markdown
                         내보내기는 사용할 수 없습니다.
                       </Text>
-                      <Link href={PAGES_URL} hasUnderline isStandalone>
-                        GitHub Pages 열기
-                      </Link>
+                      <Text weight="semibold" color="accent">GitHub Pages 열기 →</Text>
                     </VStack>
-                  </Card>
+                  </ClickableCard>
 
-                  <Card padding={5}>
+                  <ClickableCard
+                    label="GitHub의 자세한 교사용 가이드 열기"
+                    href={GUIDE_URL}
+                    padding={5}
+                  >
                     <VStack gap={3}>
                       <Heading level={3}>GitHub 문서</Heading>
                       <Text color="secondary">
                         문서, 라이선스, 변경 이력을 확인하는 곳입니다. 수업 체험을
                         위해 소스 코드를 내려받을 필요는 없습니다.
                       </Text>
-                      <Link
-                        href={GUIDE_URL}
-                        hasUnderline
-                        isExternalLink
-                        isStandalone
-                        newTabLabel="새 창에서 열림"
-                      >
-                        자세한 교사용 가이드
-                      </Link>
+                      <Text weight="semibold" color="accent">자세한 교사용 가이드 →</Text>
                     </VStack>
-                  </Card>
+                  </ClickableCard>
+
+                  <ClickableCard
+                    label="Vercel 교사 기록 화면 열기"
+                    href={TEACHER_URL}
+                    padding={5}
+                  >
+                    <VStack gap={3}>
+                      <Heading level={3}>교사 기록</Heading>
+                      <Text color="secondary">
+                        서버 설정이 완료된 Vercel 배포에서 교사 키로 최소 수업 정보를
+                        Markdown으로 내보냅니다.
+                      </Text>
+                      <Text weight="semibold" color="accent">교사 기록 화면 열기 →</Text>
+                    </VStack>
+                  </ClickableCard>
                 </Grid>
               </VStack>
 
@@ -176,19 +197,22 @@ export default function TeacherGuidePage() {
                 title="실제 학생 개인정보를 입력하지 마세요"
                 description="실명, 학교명, 학번, 연락처, 건강·장애, 상담, 가족·경제 정보를 대화·PDF·교사 기록에 넣지 않습니다. 학생을 구분해야 한다면 원래 신원을 짐작할 수 없는 가명 ID만 사용하세요."
                 endContent={
-                  <Link
+                  <ClickableCard
+                    label="개인정보 안내 열기"
                     href={PRIVACY_URL}
-                    hasUnderline
-                    isExternalLink
-                    isStandalone
-                    newTabLabel="새 창에서 열림"
+                    variant="transparent"
+                    padding={3}
                   >
-                    개인정보 안내
-                  </Link>
+                    <Text weight="semibold">개인정보 안내</Text>
+                  </ClickableCard>
                 }
               />
 
-              <Card padding={5}>
+              <ClickableCard
+                label="Vercel 교사 기록 화면 열기"
+                href={TEACHER_URL}
+                padding={5}
+              >
                 <VStack gap={3}>
                   <Heading level={2}>교사 기록과 내보내기</Heading>
                   <Text>
@@ -203,11 +227,9 @@ export default function TeacherGuidePage() {
                     가져오지 않으며, 교사가 입력한 최소 수업 정보만 구조화해 내보냅니다.
                     교사 키는 안전 규칙을 해제하거나 교사 신원을 증명하는 권한이 아닙니다.
                   </Text>
-                  <Link href={TEACHER_URL} hasUnderline isStandalone>
-                    Vercel 교사 기록 화면
-                  </Link>
+                  <Text weight="semibold" color="accent">Vercel 교사 기록 화면 →</Text>
                 </VStack>
-              </Card>
+              </ClickableCard>
 
               <Text color="secondary">
                 /cso는 AI 보조 1차 점검이며 전문 보안감사를 대체하지 않습니다.

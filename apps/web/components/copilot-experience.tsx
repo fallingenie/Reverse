@@ -83,10 +83,10 @@ function DesktopExperienceRail() {
               장면형 · 근거 기반 수업
             </Text>
             <Text type="large" weight="semibold" textWrap="balance">
-              학생의 선택이 이야기를 움직이고, 근거가 수업을 지탱합니다.
+              선택은 이야기를 움직이고, 근거는 수업을 지탱합니다.
             </Text>
             <Text type="supporting" textWrap="pretty">
-              Microsoft Copilot Studio의 수업 Agent를 이 화면 안에서 바로
+              Microsoft Copilot Studio의 수업 에이전트를 이 화면에서 바로
               사용하세요.
             </Text>
           </VStack>
