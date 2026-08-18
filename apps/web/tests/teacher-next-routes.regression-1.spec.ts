@@ -1,5 +1,7 @@
 import {createHash} from 'node:crypto';
+import {existsSync, readdirSync} from 'node:fs';
 import type {IncomingHttpHeaders} from 'node:http';
+import {join} from 'node:path';
 import {afterEach, describe, expect, it} from 'vitest';
 import statusHandler from '../pages/api/teacher/status';
 import unlockHandler from '../pages/api/teacher/unlock';
@@ -60,6 +62,14 @@ function invoke(
 afterEach(restoreEnvironment);
 
 describe('Next Pages API 교사 경로 회귀', () => {
+  it('Vercel 단독 api 경로와 Next API 경로를 중복 선언하지 않는다', () => {
+    const standaloneDirectory = join(process.cwd(), 'api', 'teacher');
+    const standaloneRoutes = existsSync(standaloneDirectory)
+      ? readdirSync(standaloneDirectory).filter((name) => name.endsWith('.ts'))
+      : [];
+    expect(standaloneRoutes).toEqual([]);
+  });
+
   it('상태 API는 설정 없음과 잠긴 상태를 JSON으로 구분한다', () => {
     delete process.env.REVERSE_TEACHER_KEY_SHA256;
     delete process.env.REVERSE_TEACHER_SESSION_SECRET;
