@@ -11,9 +11,9 @@
     },
     "instructions": {
       "source_path": "copilot/studio/STUDIO_INSTRUCTIONS.md",
-      "source_sha256": "b88042c6d06e36b423932ca2bc0c675626eb87aa842e91744a8dd3f72a3962dd",
-      "canonical_text_sha256": "45aa5a2b980b5aff5745e39809650e7a24c55bbf11766d11cde426679e61c491",
-      "source_bytes": 17916,
+      "source_sha256": "1d4ee7d5a750726d3bdd138704bf2231b34d8bfb5b053cf3eae63be9edf8e553",
+      "canonical_text_sha256": "be933b12cd86d9a2905607e1db08cf272315a6f6925066b28ffda29c1cdb3ef9",
+      "source_bytes": 17843,
       "utf8_sig": true
     },
     "model": {
@@ -160,5 +160,5 @@
     "contains_live_urls": false,
     "contains_tokens_or_credentials": false
   },
-  "seal_sha256": "f794a2910804bade3e60702d8f5e024a0dd4e57ebdc8c49a99355633d60e7875"
+  "seal_sha256": "8e5c94b91925b13b92c3acac58bde27ad9970219db14fefee7615433a5488431"
 }

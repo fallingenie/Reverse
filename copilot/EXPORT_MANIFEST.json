@@ -2,12 +2,12 @@
   "schema_version": "1.0.0",
   "package_id": "reverse-copilot",
   "license": "Apache-2.0",
-  "file_count": 15,
+  "file_count": 17,
   "file_digests": {
     "IT-ADMIN-QUICK-START.md": "55d1098640ba023ffe4909d6d9f4c7658e2831de62d89ff6306d92e178786b08",
     "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
     "NOTICE": "f522b196e59c55a85a475371a1b481708d6e5ecc3bdf48fe5dbe7965b34df82f",
-    "README.md": "a25144f7b4f08be096f0a18a0a8055ca5c0e34a76bc4e073be011689aaa46613",
+    "README.md": "83dc79522b281999680264e498d5ff025447106d9439462c2be0a0a9ebe2dd76",
     "RUNTIME_PROFILE.json": "a93d20cd71a7ab0da1bb9b46fa1470126511cd7e3bc5ec9dd3e2b1f4f4051db3",
     "TENANT_TEST_PROFILE.json": "d7c28d23308db6ed958f797a62fa4742f63a054fde81fcdad3c899120c43257c",
     "appPackage/assets/color.png": "5a4a4faef8c63794e1a720c6bafb8a38ed51f31df42e998b815e34ed68b67131",
@@ -17,8 +17,10 @@
     "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
     "declarativeAgent.json": "4fbf418afa9d5d5cdc510046120791f3ea8c2e47a2431f310b9fad555ef11010",
     "knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
-    "studio/DEPLOYMENT_EXPECTED.json": "98e9e3e6f14094021f38891c92a055f3fd405902479236095e7f993cb23f5d39",
-    "studio/STUDIO_INSTRUCTIONS.md": "b88042c6d06e36b423932ca2bc0c675626eb87aa842e91744a8dd3f72a3962dd"
+    "studio/DEPLOYMENT_EXPECTED.json": "53340eb7894fedf79994ea26aa73e3ef653d677732ab79fdd471f8494fce386c",
+    "studio/GRADE_BUTTON_TOPIC_SETUP.md": "f13a9ad4167e4b66b755d8cf6e1a5b562603403fe73620e5191e230048156f53",
+    "studio/STUDIO_INSTRUCTIONS.md": "1d4ee7d5a750726d3bdd138704bf2231b34d8bfb5b053cf3eae63be9edf8e553",
+    "studio/topics/reverse-grade-buttons.topic.yaml": "85dd432f900d2bba209700c58532bf4a738325061f50b1d15a384faa92dd5772"
   },
-  "seal_sha256": "d7fdf49c7d1bb89391adb8640695807437e11b0e80090cda2500e40a42389e49"
+  "seal_sha256": "9e093db4dd64a02c5a4f01dfe49fc8c42512297660d6fc30656efd726b346abe"
 }

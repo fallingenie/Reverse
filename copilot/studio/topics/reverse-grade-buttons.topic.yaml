@@ -1,0 +1,111 @@
+kind: AdaptiveDialog
+modelDescription: 학교급만 선택한 학생에게 해당 학교급의 지원 학년을 실제 선택 버튼으로 묻는다. 같은 메시지에 학년까지 명확히 말한 경우에는 이 Topic을 호출하지 않는다.
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent:
+    triggerQueries:
+      - 초등학교
+      - 초등학생
+      - 중학교
+      - 중학생
+      - 고등학교
+      - 고등학생
+
+  actions:
+    - kind: ConditionGroup
+      id: conditionGroup_schoolLevel
+      conditions:
+        - id: condition_elementary
+          condition: =Or(Trim(System.Activity.Text) = "초등학교", Trim(System.Activity.Text) = "초등학교요", Trim(System.Activity.Text) = "초등", Trim(System.Activity.Text) = "초등학생")
+          actions:
+            - kind: Question
+              id: question_elementaryGrade
+              interruptionPolicy:
+                allowInterruption: false
+
+              alwaysPrompt: true
+              variable: init:Topic.ElementaryGrade
+              prompt: 몇 학년인가요?
+              entity:
+                kind: EmbeddedEntity
+                definition:
+                  kind: ClosedListEntity
+                  items:
+                    - id: elementary_grade_3
+                      displayName: 3학년
+
+                    - id: elementary_grade_4
+                      displayName: 4학년
+
+                    - id: elementary_grade_5
+                      displayName: 5학년
+
+                    - id: elementary_grade_6
+                      displayName: 6학년
+
+            - kind: SendActivity
+              id: sendActivity_elementarySubject
+              activity: 학년 선택을 확인했습니다. 이제 과목을 골라 주세요.
+
+        - id: condition_middle
+          condition: =Or(Trim(System.Activity.Text) = "중학교", Trim(System.Activity.Text) = "중학교요", Trim(System.Activity.Text) = "중등", Trim(System.Activity.Text) = "중학생")
+          actions:
+            - kind: Question
+              id: question_middleGrade
+              interruptionPolicy:
+                allowInterruption: false
+
+              alwaysPrompt: true
+              variable: init:Topic.MiddleGrade
+              prompt: 몇 학년인가요?
+              entity:
+                kind: EmbeddedEntity
+                definition:
+                  kind: ClosedListEntity
+                  items:
+                    - id: middle_grade_1
+                      displayName: 1학년
+
+                    - id: middle_grade_2
+                      displayName: 2학년
+
+                    - id: middle_grade_3
+                      displayName: 3학년
+
+            - kind: SendActivity
+              id: sendActivity_middleSubject
+              activity: 학년 선택을 확인했습니다. 이제 과목을 골라 주세요.
+
+        - id: condition_high
+          condition: =Or(Trim(System.Activity.Text) = "고등학교", Trim(System.Activity.Text) = "고등학교요", Trim(System.Activity.Text) = "고등", Trim(System.Activity.Text) = "고등학생")
+          actions:
+            - kind: Question
+              id: question_highGrade
+              interruptionPolicy:
+                allowInterruption: false
+
+              alwaysPrompt: true
+              variable: init:Topic.HighGrade
+              prompt: 몇 학년인가요?
+              entity:
+                kind: EmbeddedEntity
+                definition:
+                  kind: ClosedListEntity
+                  items:
+                    - id: high_grade_1
+                      displayName: 1학년
+
+                    - id: high_grade_2
+                      displayName: 2학년
+
+            - kind: SendActivity
+              id: sendActivity_highSubject
+              activity: 학년 선택을 확인했습니다. 이제 과목을 골라 주세요.
+
+      elseActions:
+        - kind: CancelAllDialogs
+          id: cancel_unexpectedSchoolLevel
+
+inputType: {}
+outputType: {}

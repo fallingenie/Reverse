@@ -39,6 +39,10 @@ pnpm copilot:tenant-doctor
 - 메인 Copilot에서 에이전트를 호출하면 기본 응답 모드가 적용되지 않을 수 있습니다.
 - 화면에 보이는 모델 표기는 실행 권한이나 내부 모델 신원의 증거가 아닙니다.
 
+## Copilot Studio의 실제 학년 선택 버튼
+
+학생에게 보이는 번호 목록을 버튼처럼 표현하지 마세요. 학년 선택은 Skill ZIP과 별개인 Custom Topic이 필요합니다. `studio/GRADE_BUTTON_TOPIC_SETUP.md`의 순서와 `studio/topics/reverse-grade-buttons.topic.yaml`을 사용하고, Preview·게시·WebChat을 각각 확인하기 전에는 라이브 완료로 판정하지 않습니다.
+
 PDF 원본은 자동 포함하지 않습니다. 교사가 권리와 개인정보를 확인한 비식별 참조 자료만 조직 정책에 따라 추가합니다. 교과서 원본과 학생 정보는 Git에 넣지 않습니다. Windows 독립 실행본은 현 단계에서 보류 중이며 Copilot 준비 절차의 전제가 아닙니다.
 
 프로젝트는 Apache License 2.0에 따라 배포됩니다. 상위 폴더의 `LICENSE`와 `NOTICE`를 유지하세요.
