@@ -143,6 +143,13 @@ function expectedManifest(platform) {
         source_bytes: 100,
         utf8_sig: true
       },
+      greeting_message: {
+        source_path: "copilot/studio/GREETING_MESSAGE.md",
+        source_sha256: digest("8"),
+        canonical_text_sha256: digest("7"),
+        source_bytes: 100,
+        utf8_sig: true
+      },
       model: {
         display_name: "GPT-5.6 Reasoning",
         selection: "PLATFORM_OBSERVED",
@@ -196,6 +203,7 @@ function passingReceipt(manifest, evidenceArtifact) {
     receipt.observed_configuration = {
       environment_display_name: manifest.configuration.environment.display_name,
       instructions_canonical_sha256: manifest.configuration.instructions.canonical_text_sha256,
+      greeting_message_canonical_sha256: manifest.configuration.greeting_message.canonical_text_sha256,
       model_display_name: manifest.configuration.model.display_name,
       skill_zip_sha256: manifest.configuration.skill_zip.sha256,
       skill_file_count: manifest.configuration.skill_zip.file_count,

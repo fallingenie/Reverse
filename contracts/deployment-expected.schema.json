@@ -249,7 +249,7 @@
           "configuration": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["environment", "instructions", "model", "skill_zip", "resources"],
+            "required": ["environment", "instructions", "greeting_message", "model", "skill_zip", "resources"],
             "properties": {
               "environment": {
                 "type": "object",
@@ -263,6 +263,7 @@
                 }
               },
               "instructions": { "$ref": "#/$defs/textArtifact" },
+              "greeting_message": { "$ref": "#/$defs/textArtifact" },
               "model": {
                 "type": "object",
                 "additionalProperties": false,

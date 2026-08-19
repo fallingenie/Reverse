@@ -154,6 +154,12 @@ async function verifyExpectedAgainstWorkspace(manifest) {
   if (currentInstructionHash !== manifest.configuration.instructions.canonical_text_sha256) {
     issues.push("지침 canonical hash가 현재 파일과 다릅니다. expected manifest를 다시 생성해야 합니다.");
   }
+  if (manifest.platform === "COPILOT_STUDIO") {
+    const currentGreetingHash = await currentCanonicalInstructionHash(manifest.configuration.greeting_message.source_path);
+    if (currentGreetingHash !== manifest.configuration.greeting_message.canonical_text_sha256) {
+      issues.push("고정 인사말 canonical hash가 현재 파일과 다릅니다. expected manifest를 다시 생성해야 합니다.");
+    }
+  }
 
   if (manifest.platform === "CUSTOM_GPT") {
     const knowledge = await readJsonAllowBom(join(root, manifest.configuration.knowledge.manifest_path));
@@ -231,6 +237,7 @@ export function createNotRunReceipt(manifest) {
     : {
         environment_display_name: null,
         instructions_canonical_sha256: null,
+        greeting_message_canonical_sha256: null,
         model_display_name: null,
         skill_zip_sha256: null,
         skill_file_count: null,
@@ -347,6 +354,9 @@ function validateReceiptConfiguration(manifest, receipt, issues) {
     }
   } else {
     const environmentContract = manifest.configuration.environment;
+    if (observed.greeting_message_canonical_sha256 !== manifest.configuration.greeting_message.canonical_text_sha256) {
+      issues.push("Copilot 고정 인사말 hash가 expected manifest와 다릅니다.");
+    }
     if (environmentContract.scope === "ANY_MICROSOFT_365_WORK_OR_EDUCATION_TENANT") {
       if (typeof observed.environment_display_name !== "string" || observed.environment_display_name.trim() === "") {
         issues.push("Copilot 설치 대상 환경의 표시 이름을 라이브 receipt에 기록해야 합니다.");

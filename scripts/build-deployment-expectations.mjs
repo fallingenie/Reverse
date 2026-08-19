@@ -64,21 +64,21 @@ export async function readJsonAllowBom(path) {
   return JSON.parse(stripUtf8Bom(await readFile(path, "utf8")));
 }
 
-function assertCjkInstructionIntegrity(text, path) {
+function assertCjkInstructionIntegrity(text, path, markers = ["초등학교", "근거", "확인 필요"]) {
   if (text.includes("\uFFFD") || text.includes("\u0000")) {
     throw new Error(`${path}: 손상된 Unicode 문자가 있습니다.`);
   }
-  for (const marker of ["초등학교", "근거", "확인 필요"]) {
+  for (const marker of markers) {
     if (!text.includes(marker)) {
       throw new Error(`${path}: CJK 무결성 표식 '${marker}'가 없습니다.`);
     }
   }
 }
 
-async function textArtifact(path) {
+async function textArtifact(path, markers) {
   const bytes = await readFile(path);
   const text = bytes.toString("utf8");
-  assertCjkInstructionIntegrity(text, path);
+  assertCjkInstructionIntegrity(text, path, markers);
   const utf8Sig = bytes.length >= 3 && bytes[0] === 0xEF && bytes[1] === 0xBB && bytes[2] === 0xBF;
   if (!utf8Sig) {
     throw new Error(`${path}: 사람이 편집하는 CJK 지침은 UTF-8-SIG여야 합니다.`);
@@ -355,6 +355,10 @@ export async function buildExpectedManifests({ skillZipPath } = {}) {
     throw new Error("Copilot Skill ZIP에 SKILL.md와 지원 파일이 있어야 합니다.");
   }
   const copilotInstruction = await textArtifact(join(root, "copilot", "studio", "STUDIO_INSTRUCTIONS.md"));
+  const copilotGreetingMessage = await textArtifact(
+    join(root, "copilot", "studio", "GREETING_MESSAGE.md"),
+    ["Reverse", "학교급", "Apache-2.0"]
+  );
   const copilotKnowledge = await copilotCurriculumKnowledge(verifiedExternalKnowledgeFiles);
   const copilotUnsigned = {
     schema_version: "1.0.0",
@@ -368,6 +372,7 @@ export async function buildExpectedManifests({ skillZipPath } = {}) {
         identifier_storage: "LOCAL_RECEIPT_FINGERPRINT_ONLY"
       },
       instructions: copilotInstruction,
+      greeting_message: copilotGreetingMessage,
       model: {
         display_name: "GPT-5.6 Reasoning",
         selection: "PLATFORM_OBSERVED",

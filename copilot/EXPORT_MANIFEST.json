@@ -2,7 +2,7 @@
   "schema_version": "1.0.0",
   "package_id": "reverse-copilot",
   "license": "Apache-2.0",
-  "file_count": 17,
+  "file_count": 18,
   "file_digests": {
     "IT-ADMIN-QUICK-START.md": "55d1098640ba023ffe4909d6d9f4c7658e2831de62d89ff6306d92e178786b08",
     "LICENSE": "adcb860af54915edc16bd1ac0dbf067940e1642d23e53320232f2945b345fdf0",
@@ -17,10 +17,11 @@
     "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
     "declarativeAgent.json": "4fbf418afa9d5d5cdc510046120791f3ea8c2e47a2431f310b9fad555ef11010",
     "knowledge/reverse-policy.txt": "cdc35d461ac9fc913d0d6f9e21f07a5ed88e83a3a05aa99517a1c53d48fd2e36",
-    "studio/DEPLOYMENT_EXPECTED.json": "c35a155650335b491cffc4819e20d23971aa26e86a1bf38d9db75f46f04b8e4d",
+    "studio/DEPLOYMENT_EXPECTED.json": "70f0694ab35b5e3090b16ddc7e4636316ab68a2903209223625d0e1679a90b38",
     "studio/GRADE_BUTTON_TOPIC_SETUP.md": "f13a9ad4167e4b66b755d8cf6e1a5b562603403fe73620e5191e230048156f53",
+    "studio/GREETING_MESSAGE.md": "2baf42f6d1e8ea1369e1769d2600f329524ae9c67f07991dfb8e551caccf8998",
     "studio/STUDIO_INSTRUCTIONS.md": "63ae1dc36c1649079ced7593c64bc0b1d58b2d3297dfbcbfcaf1b94c4ec631c7",
     "studio/topics/reverse-grade-buttons.topic.yaml": "85dd432f900d2bba209700c58532bf4a738325061f50b1d15a384faa92dd5772"
   },
-  "seal_sha256": "424e93c60ee99289ae63365ae367a54e21263d66dabed48df329cc9e2375988e"
+  "seal_sha256": "f6673fb29ca9dcfab92340b18c062c622c8c2d4e77382d41a17f6f4ebc8449d1"
 }

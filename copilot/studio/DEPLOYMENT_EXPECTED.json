@@ -16,6 +16,13 @@
       "source_bytes": 17478,
       "utf8_sig": true
     },
+    "greeting_message": {
+      "source_path": "copilot/studio/GREETING_MESSAGE.md",
+      "source_sha256": "2baf42f6d1e8ea1369e1769d2600f329524ae9c67f07991dfb8e551caccf8998",
+      "canonical_text_sha256": "0e9e33bfc2d08e220c8371192c2dd817155cf5d1e46d9399995acbac81caeb6c",
+      "source_bytes": 544,
+      "utf8_sig": true
+    },
     "model": {
       "display_name": "GPT-5.6 Reasoning",
       "selection": "PLATFORM_OBSERVED",
@@ -160,5 +167,5 @@
     "contains_live_urls": false,
     "contains_tokens_or_credentials": false
   },
-  "seal_sha256": "c0ecf154741426f6ba1a6f3e34c6b36603d0d0e568453e5d795fffeb5d9263a0"
+  "seal_sha256": "7f488d0011cc27f5d4369abeca20eb5f201d23ab5d9dd6af999487a88360d69b"
 }

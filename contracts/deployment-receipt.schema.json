@@ -118,6 +118,7 @@
             "required": [
               "environment_display_name",
               "instructions_canonical_sha256",
+              "greeting_message_canonical_sha256",
               "model_display_name",
               "skill_zip_sha256",
               "skill_file_count",
@@ -126,6 +127,7 @@
             "properties": {
               "environment_display_name": { "type": ["string", "null"] },
               "instructions_canonical_sha256": { "$ref": "#/$defs/nullableSha256" },
+              "greeting_message_canonical_sha256": { "$ref": "#/$defs/nullableSha256" },
               "model_display_name": { "type": ["string", "null"] },
               "skill_zip_sha256": { "$ref": "#/$defs/nullableSha256" },
               "skill_file_count": { "type": ["integer", "null"], "minimum": 0 },
