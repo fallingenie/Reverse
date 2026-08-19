@@ -17,10 +17,10 @@
     "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
     "declarativeAgent.json": "4fbf418afa9d5d5cdc510046120791f3ea8c2e47a2431f310b9fad555ef11010",
     "knowledge/reverse-policy.txt": "cdc35d461ac9fc913d0d6f9e21f07a5ed88e83a3a05aa99517a1c53d48fd2e36",
-    "studio/DEPLOYMENT_EXPECTED.json": "2b82eb54c4b0c1bfc2cb6150cf05ec78382e82d3aec549bc6f10bb5d2fc6b0e7",
+    "studio/DEPLOYMENT_EXPECTED.json": "c35a155650335b491cffc4819e20d23971aa26e86a1bf38d9db75f46f04b8e4d",
     "studio/GRADE_BUTTON_TOPIC_SETUP.md": "f13a9ad4167e4b66b755d8cf6e1a5b562603403fe73620e5191e230048156f53",
     "studio/STUDIO_INSTRUCTIONS.md": "63ae1dc36c1649079ced7593c64bc0b1d58b2d3297dfbcbfcaf1b94c4ec631c7",
     "studio/topics/reverse-grade-buttons.topic.yaml": "85dd432f900d2bba209700c58532bf4a738325061f50b1d15a384faa92dd5772"
   },
-  "seal_sha256": "927604aabcd82d24d6ba0efcc5137d76526f00e6596922683b0786ca20b40cbe"
+  "seal_sha256": "424e93c60ee99289ae63365ae367a54e21263d66dabed48df329cc9e2375988e"
 }
