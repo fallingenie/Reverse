@@ -58,8 +58,8 @@ test("선택지는 정답이 아니라 서로 다른 다음 장면을 여는 행
   for (const relativePath of paths) {
     const contents = await text(relativePath);
     assert.match(contents, /행동 2~4개|행동 선택`? 2~4개/u, `${relativePath}: 행동 수 누락`);
-    assert.match(contents, /정답 후보, 개념 이름, 검사 항목/u, `${relativePath}: 객관식 금지 누락`);
-    assert.match(contents, /서로 다른 다음 단서|다른 단서·장소·인물 반응/u, `${relativePath}: 분기 누락`);
+    assert.match(contents, /정답(?: 후보)?[·,] ?개념(?: 이름)?[·,] ?검사 ?항목/u, `${relativePath}: 객관식 금지 누락`);
+    assert.match(contents, /서로 다른 다음 단서|다른 단서·장소·인물 반응|행동마다 (?:단서·)?장면을 연다/u, `${relativePath}: 분기 누락`);
     assert.match(contents, /직접 입력/u, `${relativePath}: 직접 행동 누락`);
   }
 });
@@ -75,8 +75,8 @@ test("교과 개념은 행동 뒤에 짧게 연결하고 문제풀이 발문을 
   for (const relativePath of paths) {
     const contents = await text(relativePath);
     assert.match(contents, /`설명해 봐`, `옳은 것을 골라`, `문제를 풀어`/u, `${relativePath}: 금지 발문 누락`);
-    assert.match(contents, /중심 과제로 삼지 않는다|중심으로 진행하지 않는다/u, `${relativePath}: 금지 효과 누락`);
-    assert.match(contents, /행동.*뒤.*개념|행동 뒤.*개념/u, `${relativePath}: 행동 후 개념 연결 누락`);
+    assert.match(contents, /중심 과제로 삼지 않는다|중심으로 진행하지 않는다|중심이 아니/u, `${relativePath}: 금지 효과 누락`);
+    assert.match(contents, /행동.*뒤.*개념|행동 뒤.*개념|개념.*행동 뒤/u, `${relativePath}: 행동 후 개념 연결 누락`);
   }
 });
 

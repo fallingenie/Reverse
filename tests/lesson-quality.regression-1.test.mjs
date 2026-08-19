@@ -47,8 +47,8 @@ test("학년별 계약은 개념 수·인과 깊이·자료 비판 수준을 단
     assert.match(quality, new RegExp(grade, "u"));
     assert.match(grades, new RegExp(grade, "u"));
   }
-  assert.match(custom, /초3~4: 180~300자/u);
-  assert.match(custom, /고1~2: 600~1,000자/u);
+  assert.match(custom, /초3~4: 360~600자/u);
+  assert.match(custom, /고1~2: 1,200~2,000자/u);
   assert.match(quality, /학생의 실제 반응이 학년 기본값보다 우선한다/u);
 });
 

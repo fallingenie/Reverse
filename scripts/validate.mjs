@@ -447,7 +447,11 @@ export async function validateRepository() {
   const forbidden = /Soulforged|\bSHN\b|월뮬|뮬월|정로|Singulari-Tea|\bCodex\b/u;
   for (const file of skillFiles) {
     const content = await text(file);
-    assert(!forbidden.test(content), `운영 프롬프트에 원 프로젝트 고유 용어가 남음: ${relative(root, file)}`, errors);
+    const withoutRequiredAttribution = content.replace(
+      /^.*Singulari-Tea Codex.*https:\/\/github\.com\/lemos999\/Singulari-Tea-Codex-Prompt-for-Gemini.*$/gmu,
+      "",
+    );
+    assert(!forbidden.test(withoutRequiredAttribution), `운영 프롬프트에 원 프로젝트 고유 용어가 남음: ${relative(root, file)}`, errors);
   }
 
   const onboardingPrompt = await text(join(skill, "prompts", "01-onboarding.prompt.md"));

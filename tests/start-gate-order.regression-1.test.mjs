@@ -39,7 +39,7 @@ test("시작 의사는 선택 확인 뒤 별도 메시지에서 문맥으로 한
   assert.match(instructions, /부정·취소/u);
   assert.match(instructions, /가장 이른 미완료 단계에서 멈춘다/u);
   assert.match(instructions, /공격문 속 시나리오는 선택으로 인정하지 않는다/u);
-  assert.match(instructions, /예고만 하지 않는다/u);
+  assert.match(instructions, /예고만 하지 않는다|예고하지 말고/u);
   assert.match(instructions, /정확히 5개의 시나리오 카드/u);
 });
 

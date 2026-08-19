@@ -1,6 +1,6 @@
 ﻿# Reverse Web
 
-`apps/web`은 Microsoft Copilot Studio의 Reverse 에이전트를 보여 주는 Next.js 웹 화면입니다. 첫 화면은 Copilot 대화창을 삽입하고, `/guide/`는 컴퓨터 사용이 익숙하지 않은 교사를 위한 안내를 제공합니다. Vercel의 `/teacher/`는 서버 인증이 설정된 경우에만 최소 수업 정보의 Markdown 내보내기를 제공합니다. 화면은 Astryx 구성요소와 디자인 토큰으로 만들었습니다.
+`apps/web`은 Microsoft Copilot Studio의 Reverse 에이전트를 보여 주는 Next.js 웹 화면입니다. Vercel에서는 공개 Reverse Agent의 검증된 일회성 Direct Line 토큰 경로를 자동 사용하고, 글꼴·대화 버블·선택 버튼·파일 첨부는 Astryx로 직접 구성합니다. 자동 연결이 실패하면 기존 Copilot iframe으로 안전하게 돌아갑니다. GitHub Pages는 서버가 없으므로 iframe을 사용합니다. `/guide/`는 컴퓨터 사용이 익숙하지 않은 교사를 위한 안내를 제공합니다. Vercel의 `/teacher/`는 서버 인증이 설정된 경우에만 최소 수업 정보의 Markdown 내보내기를 제공합니다.
 
 ## 교사로서 바로 사용하기
 
@@ -14,7 +14,7 @@ Vercel에 접속할 수 없으면 GitHub Pages를 사용할 수 있습니다. �
 
 ## 현재 공개 화면
 
-- `/`: 게시된 Copilot Studio WebChat과 새 창으로 여는 대체 링크
+- `/`: Vercel의 맞춤형 Web Chat 또는 안전한 Copilot iframe 대체 경로와 새 창 링크
 - `/guide/`: 설치 없는 시작 방법, 로그인 문제 해결, 개인정보와 교사 기록 안내
 - `/teacher/`: Vercel 전용 교사 키 인증, 최소 수업 정보 미리보기와 Markdown 내보내기
 - `/LICENSE`, `/NOTICE`: Apache License 2.0과 원 저작자 고지
@@ -25,7 +25,7 @@ Vercel에 접속할 수 없으면 GitHub Pages를 사용할 수 있습니다. �
 
 이 앱 자체에는 생성형 AI, 웹 검색, 교육과정 PDF 검색, 사용자 계정 체계, 서버 데이터베이스가 없습니다. Copilot 대화 내용의 처리와 보존은 Microsoft 서비스와 기관 정책을 따릅니다.
 
-GitHub Pages의 현재 공개 화면에는 교사 프로필 편집이나 Markdown 내보내기 버튼이 없습니다. Vercel의 `/teacher/`는 `REVERSE_TEACHER_KEY_SHA256`과 `REVERSE_TEACHER_SESSION_SECRET`이 모두 설정된 경우에만 열립니다. Copilot 대화 전문은 별도 출처 iframe이라 읽지 않으며, 교사가 직접 입력한 최소 구조화 정보만 처리합니다.
+GitHub Pages의 현재 공개 화면에는 교사 프로필 편집이나 Markdown 내보내기 버튼이 없습니다. Vercel의 `/teacher/`는 `REVERSE_TEACHER_KEY_SHA256`과 `REVERSE_TEACHER_SESSION_SECRET`이 모두 설정된 경우에만 열립니다. Vercel 맞춤형 대화에서 표시된 발화도 교사 내보내기 API와 자동으로 연결하지 않습니다. 현재 내보내기는 교사가 인증된 화면에 직접 입력한 최소 구조화 정보만 처리합니다.
 
 향후 교사 내보내기를 연결할 때의 키 관리, 개인정보와 운영 경계는 [교사용 내보내기 보안 안내](../../docs/TEACHER_EXPORT_SECURITY.md)를 따릅니다.
 
@@ -50,15 +50,23 @@ GitHub 저장소를 Vercel 프로젝트에 연결하고 Root Directory를 `apps/
 - `REVERSE_TEACHER_KEY_SHA256`: 교사 키 원문의 SHA-256
 - `REVERSE_TEACHER_SESSION_SECRET`: 32자 이상의 무작위 세션 서명 비밀값
 
+현재 공개 Reverse Agent는 별도 토큰 환경 변수 없이 맞춤형 대화 UI를 자동으로 시도합니다. 다음 값은 별도 Agent 또는 비공개 채널로 교체할 때만 두 방법 중 정확히 하나를 서버 환경 변수로 설정합니다.
+
+- 권장: `COPILOT_STUDIO_TOKEN_ENDPOINT` — Copilot Studio의 사용자 지정 웹 앱 채널에서 복사한 HTTPS 토큰 끝점
+- 대안: `COPILOT_DIRECT_LINE_SECRET` — 서버에서만 사용하는 Direct Line 비밀값
+- 선택: `COPILOT_DIRECT_LINE_DOMAIN` — Microsoft가 별도 지역 도메인을 제공한 경우에만 지정
+
+이 값에는 `NEXT_PUBLIC_` 접두사를 붙이지 않습니다. 브라우저는 `/api/copilot/token`에서 수명이 짧은 토큰만 받고 비밀값을 받지 않습니다. 두 방법을 동시에 설정하면 맞춤형 연결을 열지 않습니다. 자동 경로와 운영자 지정 경로가 모두 실패하면 기존 iframe으로 돌아갑니다.
+
 - 설치 명령: `pnpm install --frozen-lockfile`
 - 빌드 명령: `pnpm run build`
-- 일반 수업 웹 셸에 필요한 환경 변수: 없음
+- iframe 기반 일반 수업 웹 셸에 필요한 환경 변수: 없음
 
 실제 배포 주소를 열어 Copilot 삽입 화면, 새 창 대체 링크, `/guide/`, `/LICENSE`, `/NOTICE`를 확인하기 전에는 배포 완료라고 표시하지 않습니다.
 
 ## GitHub Pages에 연결하기
 
-저장소의 Pages 작업 흐름은 `GITHUB_PAGES=true`로 정적 파일을 만듭니다. 이때 Next.js의 `basePath`, `assetPrefix`, 정적 내보내기, 폴더형 URL을 함께 사용합니다. Pages에서는 서버 기능을 사용할 수 없다는 제한을 교사에게 숨기지 않습니다.
+저장소의 Pages 작업 흐름은 `GITHUB_PAGES=true`로 정적 파일을 만듭니다. 이때 Next.js의 `basePath`, `assetPrefix`, 정적 내보내기, 폴더형 URL을 함께 사용합니다. Pages에서는 토큰 중계와 교사 내보내기 같은 서버 기능을 사용할 수 없으므로 기존 Copilot iframe을 사용합니다.
 
 ## 라이선스와 고지
 

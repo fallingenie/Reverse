@@ -15,15 +15,19 @@ describe('범용 화면 내비게이션 회귀', () => {
     expect(guide).not.toContain("from '@astryxdesign/core/Link'");
   });
 
-  it('데스크톱 안내 레일은 한글 용어와 읽기 좋은 폭을 사용한다', () => {
-    expect(shell).toContain('width={272}');
-    expect(shell).toContain('선택은 이야기를 움직이고, 근거는 수업을 지탱합니다.');
-    expect(shell).toContain('수업 에이전트를 이 화면에서 바로');
-    expect(shell).not.toMatch(/수업 Agent/u);
+  it('데스크톱은 안내 레일을 제거하고 대화 영역을 우선한다', () => {
+    expect(shell).not.toContain('width={272}');
+    expect(shell).not.toContain('DesktopExperienceRail');
+    expect(shell).toContain('<LayoutHeader hasDivider');
+    expect(shell).toContain('장면형 · 근거 기반 수업');
+    expect(shell).toContain('Agent 연결됨');
   });
 
-  it('모바일 내비게이션은 이미 패딩이 있는 Astryx 액션 표면을 유지한다', () => {
-    expect(shell).toContain('<CompactNavigationLink');
+  it('모바일 헤더는 한 줄 고정 대신 감싸며 교사 안내와 새 창을 유지한다', () => {
+    expect(shell).toContain("useMediaQuery('(max-width: 767px)')");
+    expect(shell).toContain('wrap="wrap"');
     expect(shell).toContain('<Card variant="transparent" padding={3}>');
+    expect(shell).toContain('교사 안내');
+    expect(shell).toContain('새 창');
   });
 });

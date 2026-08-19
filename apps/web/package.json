@@ -30,6 +30,7 @@
     "@astryxdesign/theme-neutral": "^0.4.1",
     "@fontsource-variable/noto-sans-kr": "5.3.0",
     "@stylexjs/stylex": "0.19.0",
+    "botframework-directlinejs": "0.15.8",
     "next": "16.3.1",
     "react": "19.2.8",
     "react-dom": "19.2.8"

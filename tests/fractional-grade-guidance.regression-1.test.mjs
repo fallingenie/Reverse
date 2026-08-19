@@ -94,15 +94,28 @@ test("세 런타임은 같은 제한된 학년 재확인 계약을 가진다", a
   for (const relativePath of policyPaths) {
     const text = (await readFile(join(root, relativePath), "utf8")).replace(/^\uFEFF/u, "");
     assert.match(text, /3[.]3.*3[.]5학년|3[.]3학년.*3[.]5/su, relativePath);
-    assert.match(text, /목록 번호.*(?:소비|해석).*(?:다음 단계|과목)|목록 번호.*(?:다음 단계|과목)/su, relativePath);
-    assert.match(text, /메시지 전체.*(?:한 학교급·학년|한 학년).*명백|전체 뜻.*한 학교급·학년/su, relativePath);
-    assert.match(text, /예시는 닫힌 목록이 아/u, relativePath);
-    assert.match(text, /소수·분수·범위·상충·불명확/u, relativePath);
-    assert.match(text, /둘 이상의 (?:서로 다른 )?(?:정수 )?(?:학년 )?후보|학년 후보가 둘 이상/u, relativePath);
-    assert.match(text, /13학년.*(?:다른 학년 체계|난이도).*취급하지 않|다른 학년 체계.*13학년.*취급하지 않/u, relativePath);
-    for (const form of ["삼학년", "중학교 삼학년", "중학교 3학년", "중3", "중 3"]) {
+    assert.match(text, /(?:목록 )?번호(?:로|를)?.*(?:소비|해석|추정).*(?:다음 단계|과목)|(?:목록 )?번호(?:로|를)?.*(?:다음 단계|과목)/su, relativePath);
+    assert.match(
+      text,
+      /메시지 전체.*(?:한 학교급·학년|한 학년).*명백|전체 뜻.*한 학교급·학년|한 학교급·학년(?:이 명백하면|을 명백히 뜻하면)/su,
+      relativePath,
+    );
+    assert.match(text, /(?:예시는 )?닫힌 목록(?:이)? 아/u, relativePath);
+    assert.match(text, /소수·분수·범위·상충·(?:불명확|복수 후보)/u, relativePath);
+    assert.match(
+      text,
+      /둘 이상의 (?:서로 다른 )?(?:정수 )?(?:학년 )?후보|학년 후보가 둘 이상|복수 (?:정수 )?후보/u,
+      relativePath,
+    );
+    assert.match(
+      text,
+      /13학년.*(?:다른 학년 체계|다른 체계·난이도|난이도).*(?:취급하지 않|보지 않)|다른 학년 체계.*13학년.*취급하지 않|복수 후보[^\n]*13학년|13학년[^\n]*번호로 해석·추정하지 않/u,
+      relativePath,
+    );
+    for (const form of ["삼학년", "중학교 3학년", "중3", "중 3"]) {
       assert.match(text, new RegExp(form, "u"), `${relativePath}: ${form}`);
     }
+    assert.match(text, /중학교 삼학년|삼학년.*중학교 3학년/su, `${relativePath}: 중학교 삼학년 의미`);
     assert.match(text, /3학년 2학기/u, relativePath);
     assert.match(text, /아직 유치원생인가요/u, relativePath);
     assert.match(text, /농담은 여기까지/u, relativePath);

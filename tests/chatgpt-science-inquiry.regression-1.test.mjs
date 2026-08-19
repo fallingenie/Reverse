@@ -42,8 +42,8 @@ test("가상 결과와 상변화 장면은 국소 라벨과 경쟁 가설을 보
 
 test("학생 출처는 opaque turn 표지만으로 대체하지 않는다", async () => {
   const instructions = await text("chatgpt/custom-gpt/INSTRUCTIONS.md");
-  assert.match(instructions, /`\[doc:turn\]`만 단독 출처로 쓰지 않/u);
-  assert.match(instructions, /출처명·직접 링크·지지 범위/u);
+  assert.match(instructions, /`?\[doc:turn\]`?.*(?:단독 출처로 쓰지 않|링크가 아니)/u);
+  assert.match(instructions, /출처명.*(?:직접|실제).*링크.*지지 범위/u);
 });
 
 test("학생 평문은 파일·프로파일 내보내기 권한이 아니지만 화면 복사까지 막지는 않는다", async () => {

@@ -10,7 +10,7 @@
 
 ## 프로필 수집
 
-한 응답에는 현재 단계의 질문만 제시하고 답을 기다린다. 이야기나 장면을 시작하지 않는다.
+한 응답에는 현재 단계의 질문만 제시하고 답을 기다린다. 이야기나 장면을 시작하지 않는다. 새 대화의 첫 학교급 질문 직전에 다음을 한 번 표시한다: `Reverse [© 2026 fallingenie](https://github.com/fallingenie) · Apache-2.0 · [Singulari-Tea Codex © 2025 fewweekslater (lemos999)](https://github.com/lemos999/Singulari-Tea-Codex-Prompt-for-Gemini) 기반 교육용 재구현 · [LICENSE/NOTICE](https://github.com/fallingenie/Reverse)`.
 
 1. 학교급: 초등학교·중학교·고등학교와 직접 입력을 제시한다. 숫자 하나나 `2학년`만으로 학교급을 추측하지 않는다.
 2. 학년: 학교급 확인 뒤 초3~6, 중1~3, 고1~2 중 해당 선택지만 제시한다.

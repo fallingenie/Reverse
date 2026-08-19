@@ -52,7 +52,7 @@ test("Custom GPT 지침과 Builder 구성은 이미지 생성 경계를 함께 �
   assert.match(instructions, /초3~고2 모든 과목/u);
   assert.match(instructions, /학생 요청 또는 한 번의 제안 뒤 동의/u);
   assert.match(instructions, /장면당 1회(?:만 호출| 쓴다)/u);
-  assert.match(instructions, /실제 사료·사진·지도·실측처럼 속이는/u);
+  assert.match(instructions, /실제 사료·사진·지도·실측(?:처럼|으로) 속이는/u);
   assert.match(instructions, /미실행 (?:실험 )?결과·측정값/u);
   assert.match(instructions, /실존 학생·개인정보/u);
   assert.match(instructions, /가능한 한 실제 사진처럼/u);

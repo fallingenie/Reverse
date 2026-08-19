@@ -55,7 +55,7 @@ test("ChatGPT, Copilot, 공통 Skill은 단원 뒤 범용 관심사를 다시 �
     text("skills/teach-grounded-scenarios/instructions/system.md")
   ]);
   for (const [index, contents] of files.entries()) {
-    assert.match(contents, /단원이 확인되면.{0,80}기본 관심사/su, `파일 ${index}: 단원 기본 관심 누락`);
+    assert.match(contents, /(?:단원이 확인되면|구체 단원은).{0,100}기본 관심사/su, `파일 ${index}: 단원 기본 관심 누락`);
     assert.match(contents, /기본 관심사로 기록하고.{0,30}(?:별도 관심사 질문을 생략|다시 묻지 않는다)/su, `파일 ${index}: 재질문 금지 누락`);
   }
   assert.match(files[1], /과목을 바꾸면 이전 단원과 단원에서 추론한 관심을 폐기/u);
@@ -76,10 +76,10 @@ test("Custom GPT는 구체 단원을 UNIT_INFERRED로 처리하고 제한된 조
 
 test("Custom GPT Knowledge는 공개 참고 6개와 교육과정 PDF 3개의 권위 경계를 분리한다", async () => {
   const contents = await text("chatgpt/custom-gpt/INSTRUCTIONS.md");
-  assert.match(contents, /학생 공개 참고 6개와 교육과정 PDF 3개/u);
+  assert.match(contents, /(?:학생 )?공개 참고 6개와 교육과정 PDF 3개/u);
   assert.match(contents, /`CURRICULUM_AUTHORITY`/u);
   assert.match(contents, /논쟁적 역사·과학 주장의 학술적 확정 근거가 아니/u);
-  assert.match(contents, /해당 분야 최신 원문으로 별도 검증/u);
+  assert.match(contents, /(?:해당 분야 )?최신 원문으로 별도 검증/u);
 });
 
 test("Custom GPT는 문제집식 퀴즈 대신 장면과 실제 행동 분기를 만든다", async () => {

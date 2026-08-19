@@ -13,14 +13,14 @@
     "appPackage/assets/color.png": "5a4a4faef8c63794e1a720c6bafb8a38ed51f31df42e998b815e34ed68b67131",
     "appPackage/assets/outline.png": "0b164f11e209be6c0d65ca3733ac8ad30a3d18351bbc1eedf326e1e0e719b685",
     "appPackage/declarativeAgent.json": "4fbf418afa9d5d5cdc510046120791f3ea8c2e47a2431f310b9fad555ef11010",
-    "appPackage/knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
+    "appPackage/knowledge/reverse-policy.txt": "cdc35d461ac9fc913d0d6f9e21f07a5ed88e83a3a05aa99517a1c53d48fd2e36",
     "appPackage/manifest.json": "4e2f69e96e3d2fe9b7bc10061a45cf0840ea8f7f0b13b410a9530dbf352c6687",
     "declarativeAgent.json": "4fbf418afa9d5d5cdc510046120791f3ea8c2e47a2431f310b9fad555ef11010",
-    "knowledge/reverse-policy.txt": "a64de40ddec2423334671d35308509c7e22a169f0c808c2ec7152124e661c076",
-    "studio/DEPLOYMENT_EXPECTED.json": "53340eb7894fedf79994ea26aa73e3ef653d677732ab79fdd471f8494fce386c",
+    "knowledge/reverse-policy.txt": "cdc35d461ac9fc913d0d6f9e21f07a5ed88e83a3a05aa99517a1c53d48fd2e36",
+    "studio/DEPLOYMENT_EXPECTED.json": "2b82eb54c4b0c1bfc2cb6150cf05ec78382e82d3aec549bc6f10bb5d2fc6b0e7",
     "studio/GRADE_BUTTON_TOPIC_SETUP.md": "f13a9ad4167e4b66b755d8cf6e1a5b562603403fe73620e5191e230048156f53",
-    "studio/STUDIO_INSTRUCTIONS.md": "1d4ee7d5a750726d3bdd138704bf2231b34d8bfb5b053cf3eae63be9edf8e553",
+    "studio/STUDIO_INSTRUCTIONS.md": "63ae1dc36c1649079ced7593c64bc0b1d58b2d3297dfbcbfcaf1b94c4ec631c7",
     "studio/topics/reverse-grade-buttons.topic.yaml": "85dd432f900d2bba209700c58532bf4a738325061f50b1d15a384faa92dd5772"
   },
-  "seal_sha256": "9e093db4dd64a02c5a4f01dfe49fc8c42512297660d6fc30656efd726b346abe"
+  "seal_sha256": "927604aabcd82d24d6ba0efcc5137d76526f00e6596922683b0786ca20b40cbe"
 }

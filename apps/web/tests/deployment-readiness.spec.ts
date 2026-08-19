@@ -29,6 +29,10 @@ describe('GitHub Pages 배포 계약', () => {
     expect(nextConfigSource).toContain('trailingSlash: true');
   });
 
+  it('로컬 검수 주소에서도 최신 클라이언트가 끊기지 않고 갱신된다', () => {
+    expect(nextConfigSource).toContain("allowedDevOrigins: ['127.0.0.1']");
+  });
+
   it('Pages 작업은 웹 앱을 검사한 뒤 정적 산출물만 게시한다', () => {
     expect(pagesWorkflowSource).toContain('working-directory: apps/web');
     expect(pagesWorkflowSource).toContain("GITHUB_PAGES: 'true'");

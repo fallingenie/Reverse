@@ -16,7 +16,7 @@ Git, Node.js, pnpm을 설치하거나 `git clone` 명령을 실행할 필요는 
 
 | 화면 | 언제 사용하나요? | 알아둘 점 |
 |---|---|---|
-| [Vercel](https://reverse-education-beta.vercel.app/) | 일반 체험과 교사 검수 기능을 확인할 때 | 교사 내보내기는 서버 설정이 완료된 배포에서만 열립니다. |
+| [Vercel](https://reverse-education-beta.vercel.app/) | Astryx 맞춤 대화창으로 일반 체험과 교사 검수 기능을 확인할 때 | 공개 Agent는 별도 토큰 설정 없이 맞춤 화면을 먼저 시도하고, 실패하면 Microsoft iframe으로 전환합니다. 교사 내보내기는 서버 설정이 완료된 배포에서만 열립니다. |
 | [GitHub Pages](https://fallingenie.github.io/Reverse/) | Vercel에 접속할 수 없거나 정적 화면을 확인할 때 | 서버 기능이 없으므로 교사 키 확인과 Markdown 내보내기를 사용할 수 없습니다. |
 | [GitHub 저장소](https://github.com/fallingenie/Reverse) | 문서, 라이선스, 변경 이력, 소스 코드를 확인할 때 | 수업을 체험하기 위해 저장소를 내려받을 필요는 없습니다. |
 
@@ -85,7 +85,7 @@ ChatGPT나 Microsoft 365 Copilot에 입력한 대화와 파일의 보존 방식�
 
 Vercel의 [교사 기록 화면](https://reverse-education-beta.vercel.app/teacher/)은 서버 보안 설정이 완료된 배포에서만 교사 키로 열립니다. GitHub Pages의 현재 공개 화면에는 교사 프로필 편집이나 Markdown 내보내기 버튼이 없으며, 서버 인증을 사용할 수 없습니다.
 
-Copilot 대화창은 별도 출처의 iframe에서 실행됩니다. 따라서 Reverse 웹 화면은 대화 전문을 자동으로 읽거나 복사할 수 없습니다. 현재 내보내기는 교사가 직접 입력한 학교급·학년·과목·단원의 구조화 상태만 포함하며, 단원 원문과 학생 자유입력은 파일에 넣지 않습니다.
+GitHub Pages는 Copilot iframe을 사용하고, Vercel은 운영자가 토큰 중계를 설정한 경우에만 Astryx 맞춤형 대화 화면을 사용합니다. 어느 화면이든 현재 교사 내보내기와 대화 전문은 자동으로 연결되지 않습니다. 현재 내보내기는 교사가 인증된 화면에 직접 입력한 학교급·학년·과목·단원의 최소 구조화 정보만 포함하며, 단원 원문과 학생 자유입력은 파일에 넣지 않습니다.
 
 1. 내보내기가 필요한 시점에만 [Vercel 교사 기록 화면](https://reverse-education-beta.vercel.app/teacher/)을 엽니다.
 2. 교사 키를 입력합니다.

@@ -43,4 +43,13 @@ describe('Vercel 공개 응답 보안 경계', () => {
     expect(policy).not.toMatch(/frame-src\s+\*/u);
     expect(policy).not.toContain('http:');
   });
+
+  it('Custom Web Chat은 Direct Line HTTPS와 WebSocket만 연결한다', () => {
+    const policy = responseHeaders.get('Content-Security-Policy') ?? '';
+    expect(policy).toContain('connect-src');
+    expect(policy).toContain('https://directline.botframework.com');
+    expect(policy).toContain('https://*.directline.botframework.com');
+    expect(policy).toContain('wss://directline.botframework.com');
+    expect(policy).not.toMatch(/connect-src[^;]*\s\*/u);
+  });
 });

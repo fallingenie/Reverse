@@ -27,17 +27,16 @@ describe('Universal Astryx 수업 셸', () => {
   });
 
   it('태블릿과 휴대전화에서는 짧은 내비게이션만 남긴다', () => {
-    expect(shellSource).toContain("useMediaQuery('(max-width: 1023px)')");
-    expect(shellSource).toContain('topNav={isCompact ? (');
-    expect(shellSource).toContain('안내');
+    expect(shellSource).toContain("useMediaQuery('(max-width: 767px)')");
+    expect(shellSource).toContain('<ExperienceHeader');
+    expect(shellSource).toContain('교사 안내');
     expect(shellSource).toContain('새 창');
   });
 
-  it('데스크톱은 안내 레일 옆에 대화 무대를 전체 높이로 채운다', () => {
-    expect(shellSource).toContain('<TopNav');
-    expect(shellSource).toContain('<DesktopExperienceRail />');
-    expect(shellSource).toContain('width={272}');
-    expect(shellSource).toContain('<Card variant="transparent" padding={3}>');
+  it('모든 화면에서 상태 헤더 아래 대화 무대를 전체 높이로 채운다', () => {
+    expect(shellSource).toContain('<LayoutHeader hasDivider');
+    expect(shellSource).toContain('<StatusDot');
+    expect(shellSource).not.toContain('<DesktopExperienceRail');
     expect(shellSource).toContain('contentPadding={0}');
     expect(shellSource).toContain('padding={0}');
     expect(shellSource).toContain("style={{width: '100%', height: '100%'}}");
@@ -48,6 +47,7 @@ describe('Universal Astryx 수업 셸', () => {
 
   it('iframe 문서 로드를 로그인이나 대화 준비 성공으로 표시하지 않는다', () => {
     expect(shellSource).toContain('isFrameDocumentLoaded');
+    expect(shellSource).toContain('Microsoft WebChat 문서 열림');
     expect(shellSource).not.toMatch(
       /외부 화면 불러옴|대화창 연결됨|대화 준비됨|로드 이벤트 수신/u,
     );
@@ -56,7 +56,7 @@ describe('Universal Astryx 수업 셸', () => {
   it('대화보다 앞서는 장문 배너 없이 개인정보 경계를 분리한다', () => {
     expect(shellSource).toContain('<AppShell');
     expect(shellSource).toContain('variant="surface"');
-    expect(shellSource).not.toMatch(/<Banner|<Section/u);
+    expect(shellSource).not.toMatch(/<Banner/u);
     expect(shellSource).toMatch(/개인정보[\s\S]*입력하지 마세요/u);
   });
 });

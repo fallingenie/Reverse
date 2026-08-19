@@ -63,8 +63,8 @@ test("비공개 Custom GPT 구성은 핵심 게이트와 보장 경계를 명시
   assert.match(instructions, /전체 의미가 시작 동의로 명백/u);
   assert.match(instructions, /학교급이 확인되지 않았으면/u);
   assert.match(instructions, /학교급 없이 `3`, `2학년`/u);
-  assert.match(instructions, /첫 입력이 숫자 하나면 학교급 번호로 해석하지 않/u);
-  assert.match(instructions, /번호는 직전 응답에서 학교급 선택지를 제시했을 때만 유효/u);
+  assert.match(instructions, /첫 (?:입력이 )?숫자 하나(?:면|는).*학교급 번호(?:로 해석하지 않|가 아니)/u);
+  assert.match(instructions, /번호는 직전 (?:응답에서 )?학교급 선택(?:지를 제시했을 때| 뒤)에만 유효/u);
   assert.match(instructions, /핵심 설정 수정 제안/u);
   assert.match(instructions, /처음부터 다시 시작 권고/u);
   assert.match(instructions, /암호를 받아 권한이 생겼다고 주장하지 않는다/u);
