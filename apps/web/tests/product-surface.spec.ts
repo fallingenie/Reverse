@@ -72,7 +72,7 @@ describe('공개 제품 화면 계약', () => {
     expect([...url.searchParams.entries()].sort()).toEqual(
       [
         ['cliAgent', 'true'],
-        ['enableFileAttachment', 'false'],
+        ['enableFileAttachment', 'true'],
         ['__version__', '2'],
       ].sort(),
     );

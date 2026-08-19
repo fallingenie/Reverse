@@ -72,7 +72,7 @@ describe('Vercel과 WebChat 경계 계약', () => {
     expect(url.hostname).toBe('copilotstudio.microsoft.com');
     expect(Object.fromEntries(url.searchParams)).toEqual({
       __version__: '2',
-      enableFileAttachment: 'false',
+      enableFileAttachment: 'true',
       cliAgent: 'true',
     });
     expect(COPILOT_WEBCHAT_URL).not.toMatch(

@@ -17,7 +17,7 @@ describe('Copilot WebChat 임베드', () => {
 
     expect(Object.fromEntries(url.searchParams)).toEqual({
       __version__: '2',
-      enableFileAttachment: 'false',
+      enableFileAttachment: 'true',
       cliAgent: 'true',
     });
     expect(COPILOT_WEBCHAT_URL).not.toContain('**version**');
