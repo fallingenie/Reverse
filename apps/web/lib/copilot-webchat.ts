@@ -5,6 +5,8 @@ export const COPILOT_TOKEN_REQUEST_HEADER = 'X-Reverse-WebChat';
 export const COPILOT_TOKEN_REQUEST_HEADER_VALUE = 'custom-webchat-v1';
 export const WEBCHAT_TYPING_DELAY_MS = 900;
 export const WEBCHAT_TYPING_TIMEOUT_MS = 30000;
+export const REVERSE_AGENT_ATTRIBUTION =
+  'Reverse [© 2026 fallingenie](https://github.com/fallingenie) · Apache-2.0 · [Singulari-Tea Codex © 2025 fewweekslater (lemos999)](https://github.com/lemos999/Singulari-Tea-Codex-Prompt-for-Gemini) 기반 교육용 재구현 · [LICENSE/NOTICE](https://github.com/fallingenie/Reverse)';
 
 export interface VisualViewportBounds {
   height: number;
@@ -125,6 +127,14 @@ export function shouldStartQuickProfile(
     .filter((action): action is CopilotMessageAction => action.kind === 'message')
     .map(action => action.label);
   return SCHOOL_LEVEL_CHOICES.every(label => labels.includes(label));
+}
+
+export function ensureInitialAgentAttribution(prompt: string): string {
+  const normalized = prompt.trim();
+  if (normalized.includes(REVERSE_AGENT_ATTRIBUTION)) {
+    return normalized;
+  }
+  return `${REVERSE_AGENT_ATTRIBUTION}\n\n${normalized}`;
 }
 
 export function advanceQuickProfile(

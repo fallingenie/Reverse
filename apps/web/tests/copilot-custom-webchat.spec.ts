@@ -11,6 +11,7 @@ import {
   advanceQuickProfile,
   createChoiceActions,
   createStartConversationActivity,
+  ensureInitialAgentAttribution,
   gradeChoicesForSchool,
   inferNumberedChoiceList,
   isOwnActivity,
@@ -84,6 +85,26 @@ async function invokeTokenHandler(input: {
 afterEach(restoreEnvironment);
 
 describe('Astryx Custom Web Chat 표시 계약', () => {
+  it('첫 학교급 질문 앞에 저작자·원저작자 링크를 정확히 한 번 고정한다', () => {
+    const prompt = '수업을 시작합니다.\n먼저 학교급을 선택하세요.';
+    const attributed = ensureInitialAgentAttribution(prompt);
+
+    expect(attributed).toContain(
+      '[© 2026 fallingenie](https://github.com/fallingenie)',
+    );
+    expect(attributed).toContain(
+      '[Singulari-Tea Codex © 2025 fewweekslater (lemos999)](https://github.com/lemos999/Singulari-Tea-Codex-Prompt-for-Gemini)',
+    );
+    expect(attributed).toContain(
+      '[LICENSE/NOTICE](https://github.com/fallingenie/Reverse)',
+    );
+    expect(attributed.indexOf('Reverse [© 2026 fallingenie]')).toBeLessThan(
+      attributed.indexOf('먼저 학교급을 선택하세요.'),
+    );
+    expect(ensureInitialAgentAttribution(attributed)).toBe(attributed);
+    expect(attributed.match(/Reverse \[© 2026 fallingenie\]/gu)).toHaveLength(1);
+  });
+
   it('연결 직후 시작 토픽을 여는 표준 event를 한 번 보낼 수 있다', () => {
     expect(createStartConversationActivity('student-a')).toEqual({
       type: 'event',

@@ -41,6 +41,7 @@ import {
   advanceQuickProfile,
   createChoiceActions,
   createStartConversationActivity,
+  ensureInitialAgentAttribution,
   inferNumberedChoiceList,
   isOwnActivity,
   isStartConversationEcho,
@@ -241,6 +242,7 @@ export function CustomCopilotChat({
   const chatViewportRef = useRef<HTMLElement | null>(null);
   const hasConnected = useRef(false);
   const hasStartedConversation = useRef(false);
+  const hasPresentedAttribution = useRef(false);
   const relayedUserID = useRef<string | undefined>(undefined);
   const userID = useMemo(
     () => `reverse-web-${globalThis.crypto?.randomUUID?.() ?? Date.now()}`,
@@ -381,10 +383,20 @@ export function CustomCopilotChat({
             const inferredChoices = explicitActions.length
               ? null
               : inferNumberedChoiceList(activity.text, userID);
+            const visibleText = inferredChoices?.prompt ?? activity.text ?? '';
+            const isInitialSchoolPrompt =
+              /먼저\s*학교급을\s*선택/u.test(visibleText);
+            const attributedText =
+              isInitialSchoolPrompt && !hasPresentedAttribution.current
+                ? ensureInitialAgentAttribution(visibleText)
+                : visibleText;
+            if (isInitialSchoolPrompt) {
+              hasPresentedAttribution.current = true;
+            }
             setMessages(current =>
               upsertMessage(
                 current,
-                toVisibleMessage(activity, inferredChoices?.prompt),
+                toVisibleMessage(activity, attributedText),
               ),
             );
             if (shouldStartQuickProfile(activity.text, explicitActions)) {
